@@ -7,6 +7,7 @@
  * @copyright  (G) 2017 Vitex Software
  */
 define('EASE_APPNAME', 'Debts');
+define('EASE_LOGGER', 'syslog|console|mail');
 
 require_once '../vendor/autoload.php';
 $shared = new Ease\Shared();
@@ -21,22 +22,26 @@ $allDebths = $reminder->getDebths();
 $reminder->addStatusMessage(sprintf(_('%d clients to remind process'),
         count($allDebths)));
 $counter   = 0;
-$total = [];
+$total     = [];
 foreach ($allDebths as $cid => $debts) {
     $counter++;
-    $howmuchRaw = $howmuch = [];
+    $howmuchRaw = $howmuch    = [];
     foreach ($debts as $debt) {
         $curcode = FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
-        if (!isset($howmuchRaw[$curcode])) { $howmuchRaw[$curcode] = 0;}
+        if (!isset($howmuchRaw[$curcode])) {
+            $howmuchRaw[$curcode] = 0;
+        }
         $howmuchRaw[$curcode] += $debt['sumCelkem'];
-        if(!isset($total[$curcode])) $total[$curcode] = 0;
-        $total[$curcode] += $debt['sumCelkem'];
+        if (!isset($total[$curcode])) $total[$curcode]      = 0;
+        $total[$curcode]      += $debt['sumCelkem'];
     }
-    foreach ($howmuchRaw as $cur => $price) {$howmuch[] = $price.' '.$cur;}
+    foreach ($howmuchRaw as $cur => $price) {
+        $howmuch[] = $price.' '.$cur;
+    }
 
     $reminder->customer->adresar->loadFromFlexiBee($cid);
-    $reminder->addStatusMessage(sprintf('(%d / %d) %s  %s %s [ %s ]',
-            $counter, count($allDebths), implode(',', $howmuch),
+    $reminder->addStatusMessage(sprintf('(%d / %d) %s  %s %s [ %s ]', $counter,
+            count($allDebths), implode(',', $howmuch),
             $reminder->customer->adresar->getDataValue('kod'),
             $reminder->customer->adresar->getDataValue('nazev'),
             $reminder->customer->adresar->getDataValue('stitky')
