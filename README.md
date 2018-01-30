@@ -17,8 +17,8 @@ Pro Linux jsou k dispozici .deb balíčky. Prosím použijte repo:
 
     wget -O - http://v.s.cz/info@vitexsoftware.cz.gpg.key|sudo apt-key add -
     echo deb http://v.s.cz/ stable main > /etc/apt/sources.list.d/ease.list
-    aptitude update
-    aptitude install php-flexibee-reminder
+    apt update
+    apt install php-flexibee-reminder
 
 Po instalaci balíku jsou v systému k dispozici dva nové příkazy:
 

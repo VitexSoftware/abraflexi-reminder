@@ -15,7 +15,8 @@
     "require": {
         "php": ">= 5.5.9",
         "flexipeehp": "*",
-        "ease-framework": "*"
+        "ease-framework": "*",
+        "flexipeehp-bricks": "*"
     },
     "repositories": [
         {
@@ -28,6 +29,13 @@
         {
             "type": "path",
             "url": "/usr/share/php/FlexiPeeHP",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "/usr/share/php/FlexiPeeHPBricks",
             "options": {
                 "symlink": true
             }

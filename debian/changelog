@@ -1,6 +1,7 @@
-php-flexibee-reminder (0.1) UNRELEASED; urgency=medium
+php-flexibee-reminder (0.3) UNRELEASED; urgency=medium
 
   * Initial release
+  * Package Update
+  * Deps Update
 
-
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Tue, 30 Jan 2018 21:22:13 +0100
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Tue, 30 Jan 2018 22:42:54 +0100
