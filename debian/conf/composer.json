@@ -1,0 +1,37 @@
+{
+    "name": "flexibee-reminder",
+    "description": "Reminder sender for FlexiBee written in PHP",
+    "type": "project",
+    "version": "0.1",
+    "authors": [
+        {
+            "name": "Vítězslav Dvořák",
+            "email": "info@vitexsoftware.cz"
+        }
+    ],
+    "config": {
+	"vendor-dir": "/var/lib/php-flexibee-reminder"
+    },
+    "require": {
+        "php": ">= 5.5.9",
+        "flexipeehp": "*",
+        "ease-framework": "*"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/usr/share/php/Ease",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "/usr/share/php/FlexiPeeHP",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
+
+}

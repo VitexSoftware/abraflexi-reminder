@@ -1,0 +1,4 @@
+{
+    "EASE_MAILTO": "info@yourdomain.net",
+    "EASE_LOGGER": "syslog|console|mail"
+}

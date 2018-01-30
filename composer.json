@@ -1,0 +1,20 @@
+{
+    "name": "vendor/php-flexibee-reminders",
+    "description": "Reminder sender for FlexiBee written in PHP",
+    "authors": [
+        {
+            "name": "Vítězslav Dvořák",
+            "email": "info@vitexsoftware.cz"
+        }
+    ],
+    "require": {
+        "vitexsoftware/ease-framework": "dev-master",
+        "spoje.net/flexipeehp": "dev-master",
+        "vitexsoftware/flexipeehp-bricks": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "FlexiPeeHP\\Reminder\\": "src/Reminder/"
+        }
+    }
+}

@@ -1,0 +1,4 @@
+debian/conf/composer.json       usr/lib/php-flexibee-reminder/
+src/*			        usr/lib/php-flexibee-reminder/
+bin/*                           usr/bin/
+reminder.json                   etc/flexibee/

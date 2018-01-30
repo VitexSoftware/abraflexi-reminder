@@ -1,0 +1,17 @@
+#!/bin/sh
+# preinst script for php-flexibee-reminder
+
+set -e
+
+  if [ "$1" = "configure" ]; then
+
+    . /usr/share/debconf/confmodule
+
+    php-flexibee-checker
+
+  fi
+
+
+#DEBHELPER#
+
+exit 0

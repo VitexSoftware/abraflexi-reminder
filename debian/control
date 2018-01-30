@@ -1,0 +1,16 @@
+Source: php-flexibee-reminder
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.8.4
+Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
+Uploaders: Vitex <vitex@hippy.cz>
+Priority: optional
+Homepage: https://github.com/VitexSoftware/
+
+Package: php-flexibee-reminder
+Depends: ${misc:Depends}, php-flexibee-config , composer, php-cli
+Suggests: flexibee-server
+Architecture: all
+Section: web
+Priority: optional
+Description: Reminder sender for FlexiBee
+ Find All unpayed invoices for configured company and sent notification to payer

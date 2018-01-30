@@ -1,0 +1,6 @@
+/vendor/
+/composer.lock
+/debian/debhelper-build-stamp
+/debian/php-flexibee-reminder.debhelper.log
+/debian/php-flexibee-reminder.postrm.debhelper
+/debian/php-flexibee-reminder/
