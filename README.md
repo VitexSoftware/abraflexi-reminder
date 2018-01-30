@@ -8,6 +8,8 @@ A je poznamenán datum jejího odeslání a současně je zákazníkovi přiřaz
 
 Texty upomínek se mění ve flexibee evidenci **sablona-upominky**
 
+Odeslaná upomínka obsahuje přehled všech položek po splatnosti a k nim patřičné přílohy ve formátech pdf a isdocx
+
 Debian/Ubuntu
 -------------
 
