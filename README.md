@@ -3,8 +3,11 @@
 Odesílač upomínek pro FlexiBee
 ==============================
 
-Po spuštění zkontroluje v přednastavené firmě pohledávky. Pokud nemá zákazník nastaven štítek NEUPOMINKOVAT, je mu odeslána upomínka.
-A je poznamenán datum jejího odeslání a současně je zákazníkovi přiřazen štítek UPOMINKAX
+Příkaz **php-flexibee-reminder** Po spuštění (vytvoří potřebné štítky a) 
+zkontroluje v přednastavené firmě pohledávky. Pokud nemá zákazník nastaven 
+štítek NEUPOMINKOVAT, je mu odeslána upomínka.
+A je poznamenán datum jejího odeslání a současně je zákazníkovi přiřazen štítek 
+UPOMINKA1-3
 
 Texty upomínek se mění ve flexibee evidenci **sablona-upominky**
 
@@ -24,3 +27,14 @@ Po instalaci balíku jsou v systému k dispozici dva nové příkazy:
 
   * **php-flexibee-debts**    - vypíše nalezené pohledávky
   * **php-flexibee-reminder** - obešle dlužníky
+
+
+Závislosti
+----------
+
+Tento nástroj ke svojí funkci využívá následující knihovny
+
+ * [**EasePHP Framework**](https://github.com/VitexSoftware/EaseFramework) - pomocné funkce např. logování
+ * [**FlexiPeeHP**](https://github.com/Spoje-NET/FlexiPeeHP)        - komunikace s FlexiBee
+ * [**FlexiPeeHP Bricks**](https://github.com/VitexSoftware/FlexiPeeHP-Bricks) - používají se třídy Zákazníka, Upomínky a Upomínače
+
