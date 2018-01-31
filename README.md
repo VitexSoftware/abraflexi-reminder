@@ -32,9 +32,9 @@ Po instalaci balíku jsou v systému k dispozici dva nové příkazy:
 Závislosti
 ----------
 
-Tento nástroj ke svojí funkci využívá následující knihovny
+Tento nástroj ke svojí funkci využívá následující knihovny:
 
  * [**EasePHP Framework**](https://github.com/VitexSoftware/EaseFramework) - pomocné funkce např. logování
- * [**FlexiPeeHP**](https://github.com/Spoje-NET/FlexiPeeHP)        - komunikace s FlexiBee
+ * [**FlexiPeeHP**](https://github.com/Spoje-NET/FlexiPeeHP)        - komunikace s [FlexiBee](https://flexibee.eu/)
  * [**FlexiPeeHP Bricks**](https://github.com/VitexSoftware/FlexiPeeHP-Bricks) - používají se třídy Zákazníka, Upomínky a Upomínače
 
