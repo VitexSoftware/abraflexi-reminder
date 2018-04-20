@@ -38,3 +38,7 @@ Tento nástroj ke svojí funkci využívá následující knihovny:
  * [**FlexiPeeHP**](https://github.com/Spoje-NET/FlexiPeeHP)        - komunikace s [FlexiBee](https://flexibee.eu/)
  * [**FlexiPeeHP Bricks**](https://github.com/VitexSoftware/FlexiPeeHP-Bricks) - používají se třídy Zákazníka, Upomínky a Upomínače
 
+Mohlo by vás zajímat
+--------------------
+
+https://github.com/VitexSoftware/php-flexibee-matcher

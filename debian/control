@@ -4,7 +4,7 @@ Standards-Version: 3.8.4
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
 Uploaders: Vitex <vitex@hippy.cz>
 Priority: optional
-Homepage: https://github.com/VitexSoftware/
+Homepage: https://github.com/VitexSoftware/php-flexibee-reminder
 
 Package: php-flexibee-reminder
 Depends: ${misc:Depends}, php-flexibee-config, flexipeehp-bricks , composer, php-cli
