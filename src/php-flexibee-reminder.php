@@ -10,8 +10,8 @@ define('EASE_APPNAME', 'Reminder');
 
 require_once '../vendor/autoload.php';
 $shared = new Ease\Shared();
-$shared->loadConfig('../client.json');
-$shared->loadConfig('../reminder.json');
+$shared->loadConfig('../client.json',true);
+$shared->loadConfig('../reminder.json',true);
 
 $reminder = new \FlexiPeeHP\Bricks\Upominac();
 $reminder->logBanner();
