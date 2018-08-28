@@ -31,9 +31,9 @@ try {
             if (!isset($howmuchRaw[$curcode])) {
                 $howmuchRaw[$curcode] = 0;
             }
-            $howmuchRaw[$curcode] += $debt['sumCelkem'];
+            $howmuchRaw[$curcode] += $debt['zbyvaUhradit'];
             if (!isset($total[$curcode])) $total[$curcode]      = 0;
-            $total[$curcode]      += $debt['sumCelkem'];
+            $total[$curcode]      += $debt['zbyvaUhradit'];
         }
         foreach ($howmuchRaw as $cur => $price) {
             $howmuch[] = $price.' '.$cur;
