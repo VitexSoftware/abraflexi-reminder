@@ -1,0 +1,50 @@
+<?php
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of ByEmail
+ *
+ * @author vitex
+ */
+class ByEmail extends \Ease\Sand
+{
+
+    /**
+     * 
+     * @param FlexiPeeHP\Reminder\Upominac $reminder
+     * @param int                          $score     weeks of due
+     * @param array                        $debts     array of debts by current customer
+     */
+    public function __construct($reminder, $score, $debts)
+    {
+        parent::__construct();
+        $upominka = new \FlexiPeeHP\Reminder\Upominka();
+        switch ($score) {
+            case 1:
+                $upominka->loadTemplate('prvniUpominka');
+                break;
+            case 2:
+                $upominka->loadTemplate('druhaUpominka');
+                break;
+            case 3:
+                $upominka->loadTemplate('pokusOSmir');
+                break;
+        }
+        if ($upominka->compile($reminder->customer, $debts)) {
+            $result = $upominka->send();
+            if ($result) {
+                $reminder->customer->adresar->setData(['id' => $reminder->customer->adresar->getRecordID(),
+                    'stitky' => 'UPOMINKA'.$score], true);
+                $reminder->addStatusMessage(sprintf(_('Set Label %s '),
+                        'UPOMINKA'.$score),
+                    $reminder->customer->adresar->sync() ? 'success' : 'error' );
+            }
+        } else {
+            $this->addStatusMessage(_('Remind was not sent'), 'warning');
+        }
+    }
+}

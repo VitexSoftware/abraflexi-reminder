@@ -12,13 +12,13 @@ define('EASE_LOGGER', 'syslog|console|mail');
 require_once '../vendor/autoload.php';
 $shared = new Ease\Shared();
 try {
-    $shared->loadConfig('../client.json',true);
-    $shared->loadConfig('../reminder.json',true);
+    $shared->loadConfig('../client.json', true);
+    $shared->loadConfig('../reminder.json', true);
 
-    $reminder = new \FlexiPeeHP\Bricks\Upominac();
+    $reminder = new \FlexiPeeHP\Reminder\Upominac();
     $reminder->logBanner();
 
-    $allDebths = $reminder->getDebths(['NEUPOMINKOVAT']);
+    $allDebths = $reminder->getDebts(['NEUPOMINKOVAT']);
     $reminder->addStatusMessage(sprintf(_('%d clients to remind process'),
             count($allDebths)));
     $counter   = 0;

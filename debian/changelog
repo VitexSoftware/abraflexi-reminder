@@ -1,9 +1,15 @@
-php-flexibee-reminder (0.5) UNRELEASED; urgency=medium
+php-flexibee-reminder (0.7) UNRELEASED; urgency=medium
+
+  * use Notify Sending modules
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Mon, 26 Nov 2018 18:53:16 +0100
+
+php-flexibee-reminder (0.6.1) UNRELEASED; urgency=medium
 
   * Initial release
   * Package Update
   * Deps Update
   * Packager deps update
   * Deb Fix
-
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Tue, 30 Jan 2018 22:51:47 +0100
+  
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Tue, 22 Jan 2018 22:51:47 +0100

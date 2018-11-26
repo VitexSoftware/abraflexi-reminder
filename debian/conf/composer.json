@@ -18,6 +18,11 @@
         "ease-framework": "*",
         "flexipeehp-bricks": "*"
     },
+    "autoload": {
+        "psr-4": {
+            "FlexiPeeHP\\Reminder\\": "./Reminder/"
+        }
+    },
     "repositories": [
         {
             "type": "path",
