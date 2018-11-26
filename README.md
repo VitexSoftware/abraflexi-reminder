@@ -10,6 +10,8 @@ Příkaz **flexibee-reminder** Po spuštění (vytvoří potřebné štítky a)
 zkontroluje v přednastavené firmě pohledávky. Pokud nemá zákazník nastaven 
 štítek NEUPOMINKOVAT, je mu odeslána upomínka.
 
+Prohledávají se evidence "vydané faktury" a "pohledávky"
+
 Upomínka Mailem
 ---------------
 

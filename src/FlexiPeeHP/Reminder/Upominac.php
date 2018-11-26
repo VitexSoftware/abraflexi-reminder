@@ -64,8 +64,12 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
             }
 
             $debts = $this->customer->getCustomerDebts((int) $clientIDs['id']);
-            if (!empty($debts) && count($debts)) {
-                foreach ($debts as $did => $debtInfo) {
+            $this->customer->invoicer->setEvidence('pohledavka');
+            $debts2 = $this->customer->getCustomerDebts((int) $clientIDs['id']);
+            $this->customer->invoicer->setEvidence('faktura-vydana');
+            $debts3 = array_merge(is_null($debts) ? [] : $debts , is_null($debts2) ? [] : $debts2);
+            if (!empty($debts3) && count($debts3)) {
+                foreach ($debts3 as $did => $debtInfo) {
                     $allDebts[$cid][$did] = $debtInfo;
                     $debtCount++;
                 }
