@@ -82,7 +82,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
                     $this->everythingPaidOff($cid, $stitky);
                 }
             }
-            $this->addStatusMessage($pos.'/'.count($clients).' '.$cid, 'debug');
+            //$this->addStatusMessage($pos.'/'.count($clients).' '.$cid, 'debug');
         }
         $this->addStatusMessage(sprintf(_('%s Debts Found'), $debtCount));
         return $allDebts;
@@ -426,6 +426,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
             'stavUhrK',
             'firma',
             'buc',
+            'popis',
             'varSym',
             'specSym',
             'sumCelkem',
@@ -463,5 +464,18 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
         $debts2 = $this->getEvidenceDebts('pohledavka');
         return array_merge(is_null($debts) ? [] : $debts,
             is_null($debts2) ? [] : $debts2);
+    }
+
+    /**
+     * 
+     * @return array clients indexed by code
+     */
+    public function getCustomerList()
+    {
+        $allClients = $this->customer->adresar->getColumnsFromFlexiBee(['id','nazev', 'stitky'], [/*'typVztahuK'=>'typVztahu.odberDodav'*/],'kod');
+        foreach ($allClients as $clientCode => $clientInfo){
+            $allClients[$clientCode]['stitky'] = \FlexiPeeHP\Stitek::listToArray($clientInfo['stitky']);
+        }
+        return $allClients;    
     }
 }

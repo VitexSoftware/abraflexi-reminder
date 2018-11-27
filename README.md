@@ -7,12 +7,24 @@ Odesílač upomínek pro FlexiBee
 Příkaz **flexibee-debts** pouze vypíše pohledávky dle jednotlivých dlužníků.
 
 Příkaz **flexibee-reminder** Po spuštění (vytvoří potřebné štítky a) 
-zkontroluje v přednastavené firmě pohledávky. Pokud nemá zákazník nastaven 
-štítek NEUPOMINKOVAT, je mu odeslána upomínka.
+zkontroluje v přednastavené firmě pohledávky. Při odeslání upomínky 
+Pokud nemá zákazník nastaven štítek NEUPOMINKOVAT, je mu odeslána upomínka.
+příkaz je určen k automatickému spouštění každý den.
 
-Příkaz **flexibee-notify-customer** zašle klientovi přehled jeho závazků.
+Příkaz **flexibee-notify-customer** zašle klientovi přehled jeho závazků. 
+Předpokládá se jeho automatické spouštění jednou za měsíc.
 
 Prohledávají se evidence "vydané faktury" a "pohledávky"
+
+Funkce štítků
+-------------
+
+Štítky mají jak informativní tak řídící funkci. Po spuštění upomínkovače se nejprve se projdou všichni klienti a těm kteří nemají žádní neuhrazené pohledávky jsou odstraněny štítky  UPOMINKA1,UPOMINKA2,UPOMINKA3 a NEPLATIC.
+Datum odeslání upomínky je zapisováno do jednotlivé faktury do sloupců datUp1,datUp2 a datSmir - více sloupců ve faktuře flexibee na  to není. viz: https://demo.flexibee.eu/c/demo/faktura-vydana/properties .
+Avšak upomínaný je klient ne faktura a tuto skutečnost je třeba nějakým způsobem poznamenat. To se děje právě prostřednictvím štítku.
+Tzn. pokud má klient nastavený štítek UPOMINKA1 a UPOMINKA2 znamená to, že klientovi byly již odeslány dvě upomínky. Pro program to znamená že další odeslaná upomínka již bude pokus o smír.
+Současně je také informace o tom že upomínka byla opravdu odeslána. tzn. nenastaví se v případě že na zákazníka není znám email, nebo že poštovní server zrovna někdo rebootoval.
+Další týden po odeslání třetí upomínky se klientovi nastaví informativní štítek NEPLATIC
 
 Upomínka Mailem
 ---------------
@@ -55,11 +67,13 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
     "EASE_MAILTO": "info@yourdomain.net",
     "EASE_LOGGER": "syslog|mail",
     "MAX_MAIL_SIZE": 1250000
+    "SKIPLIST": "DOBROPIS,ZDD",
 ```
 
   * **EASE_MAILTO** kam zasílat protokol v případě že je povoleno logování do mailu
   * **EASE_LOGGER** Jak logovat ? (dostupné metody jsou: memory,console,file,syslog,email,std,eventlog)
   * **MAX_MAIL_SIZE** - maximální velikost vysledného mailu v Bytech. (1250000 = 10Mb) Pokud je tato velikost překročena, nejsou již přikládány žádné další přílohy.
+  * **SKIPLIST** nebrat doklady těchto typů v potaz
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
 

@@ -6,7 +6,7 @@
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017 Vitex Software
  */
-define('EASE_APPNAME', 'Debts');
+define('EASE_APPNAME', 'ShowDebts');
 define('EASE_LOGGER', 'syslog|console|mail');
 
 require_once '../vendor/autoload.php';
@@ -16,38 +16,75 @@ try {
     $shared->loadConfig('../reminder.json', true);
 
     $reminder = new \FlexiPeeHP\Reminder\Upominac();
-    $reminder->logBanner();
+    $reminder->logBanner(constant('EASE_APPNAME'));
 
-    $allDebths = $reminder->getDebts(['NEUPOMINKOVAT']);
-    $reminder->addStatusMessage(sprintf(_('%d clients to remind process'),
-            count($allDebths)));
-    $counter   = 0;
-    $total     = [];
-    foreach ($allDebths as $cid => $debts) {
-        $counter++;
-        $howmuchRaw = $howmuch    = [];
-        foreach ($debts as $debt) {
-            $curcode = FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
-            if (!isset($howmuchRaw[$curcode])) {
-                $howmuchRaw[$curcode] = 0;
-            }
-            $howmuchRaw[$curcode] += $debt['zbyvaUhradit'];
-            if (!isset($total[$curcode])) $total[$curcode]      = 0;
-            $total[$curcode]      += $debt['zbyvaUhradit'];
+    $allDebts      = $reminder->getAllDebts();
+    $allClients    = $reminder->getCustomerList();
+    $clientsToSkip = [];
+    foreach ($allClients as $clientCode => $clientInfo) {
+        if (array_key_exists('NEUPOMINKOVAT', $clientInfo['stitky'])) {
+            $clientsToSkip[$clientCode] = $clientInfo;
         }
+    }
+
+    $allDebtsByClient = [];
+    $counter          = 0;
+    $total            = [];
+    foreach ($allDebts as $code => $debt) {
+        $howmuchRaw = $howmuch    = [];
+
+        if (array_key_exists($debt['firma'], $clientsToSkip)) {
+            continue;
+        }
+
+        $counter++;
+
+        $curcode = FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
+        if (!isset($howmuchRaw[$curcode])) {
+            $howmuchRaw[$curcode] = 0;
+        }
+
+        if ($curcode == 'CZK') {
+            $amount = floatval($debt['zbyvaUhradit']);
+        } else {
+            $amount = floatval($debt['zbyvaUhraditMen']);
+        }
+
+        $howmuchRaw[$curcode] += $amount;
+        if (!isset($total[$curcode])) $total[$curcode]      = 0;
+        $total[$curcode]      += $amount;
+
         foreach ($howmuchRaw as $cur => $price) {
             $howmuch[] = $price.' '.$cur;
         }
-
-        $reminder->customer->adresar->loadFromFlexiBee($cid);
-        $reminder->addStatusMessage(sprintf('(%d / %d) %s  %s %s [ %s ]',
-                $counter, count($allDebths), implode(',', $howmuch),
-                $reminder->customer->adresar->getDataValue('kod'),
-                $reminder->customer->adresar->getDataValue('nazev'),
-                $reminder->customer->adresar->getDataValue('stitky')
-            ), 'debug');
+        $allDebtsByClient[$debt['firma']][$code] = $debt;
     }
-    $reminder->addStatusMessage(json_encode($total));
+
+    $pointer = 0;
+    foreach ($allDebtsByClient as $clientCode => $clientDebts) {
+        if($clientCode){
+            $reminder->addStatusMessage(\FlexiPeeHP\FlexiBeeRO::uncode($allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['kod']).' '.$allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['nazev'].' ['.implode(',',
+                $allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['stitky']).']');
+        }
+        foreach ($clientDebts as $debtCode => $debtInfo) {
+
+            $curcode = FlexiPeeHP\FlexiBeeRO::uncode($debtInfo['mena']);
+            if ($curcode == 'CZK') {
+                $amount = floatval($debtInfo['zbyvaUhradit']);
+            } else {
+                $amount = floatval($debtInfo['zbyvaUhraditMen']);
+            }
+
+            $reminder->addStatusMessage(sprintf('%d/%d (%s) [%s] %s %s: %s',
+                    $pointer++, $counter,
+                    \FlexiPeeHP\FlexiBeeRO::uncode($debtInfo['typDokl']),
+                    \FlexiPeeHP\FlexiBeeRO::uncode($debtCode),
+                    $amount, $curcode, $debtInfo['popis']
+                ), 'debug');
+        }
+    }
+
+    $reminder->addStatusMessage(json_encode($total),'success');
 } catch (Exception $exc) {
     echo $exc->getMessage()."\n";
     echo $exc->getTraceAsString();
