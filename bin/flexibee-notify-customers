@@ -1,0 +1,2 @@
+#!/bin/bash
+php -f /usr/lib/php-flexibee-reminder/notify-customers.php

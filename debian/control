@@ -7,7 +7,7 @@ Priority: optional
 Homepage: https://github.com/VitexSoftware/php-flexibee-reminder
 
 Package: php-flexibee-reminder
-Depends: ${misc:Depends}, php-flexibee-config, flexipeehp-bricks (>= 0.12) , composer, php-cli
+Depends: ${misc:Depends}, php-flexibee-config, flexipeehp-bricks (>= 0.13) , composer, php-cli
 Suggests: flexibee-server
 Architecture: all
 Section: web

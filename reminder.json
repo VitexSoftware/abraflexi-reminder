@@ -1,5 +1,6 @@
 {
     "EASE_MAILTO": "info@yourdomain.net",
-    "EASE_LOGGER": "syslog|mail",
-    "PATIENCE_DAYS": 0
+    "EASE_LOGGER": "syslog|console",
+    "PATIENCE_DAYS": 0,
+    "MAX_MAIL_SIZE": 1250000
 }

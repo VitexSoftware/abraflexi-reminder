@@ -10,6 +10,8 @@ Příkaz **flexibee-reminder** Po spuštění (vytvoří potřebné štítky a)
 zkontroluje v přednastavené firmě pohledávky. Pokud nemá zákazník nastaven 
 štítek NEUPOMINKOVAT, je mu odeslána upomínka.
 
+Příkaz **flexibee-notify-customer** zašle klientovi přehled jeho závazků.
+
 Prohledávají se evidence "vydané faktury" a "pohledávky"
 
 Upomínka Mailem
@@ -38,10 +40,11 @@ Pro Linux jsou k dispozici .deb balíčky. Prosím použijte repo:
     apt update
     apt install php-flexibee-reminder
 
-Po instalaci balíku jsou v systému k dispozici dva nové příkazy:
+Po instalaci balíku jsou v systému k dispozici tyto nové příkazy:
 
-  * **flexibee-debts**    - vypíše nalezené pohledávky
-  * **flexibee-reminder** - obešle dlužníky
+  * **flexibee-debts**            - vypíše nalezené pohledávky
+  * **flexibee-reminder**         - obešle dlužníky
+  * **flexibee-nontify-customers** - odešle klientovi seznam jeho závazků 
 
 Konfigurace
 -----------
@@ -51,13 +54,12 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
 ```json
     "EASE_MAILTO": "info@yourdomain.net",
     "EASE_LOGGER": "syslog|mail",
-    "PATIENCE_DAYS": 0
+    "MAX_MAIL_SIZE": 1250000
 ```
 
   * **EASE_MAILTO** kam zasílat protokol v případě že je povoleno logování do mailu
   * **EASE_LOGGER** Jak logovat ? (dostupné metody jsou: memory,console,file,syslog,email,std,eventlog)
-  * **PATIENCE_DAYS** - pokud je 0 budou do upomínky přikládány i faktury které jsou již vystavené ale ještě nejsou po splatnosti
-
+  * **MAX_MAIL_SIZE** - maximální velikost vysledného mailu v Bytech. (1250000 = 10Mb) Pokud je tato velikost překročena, nejsou již přikládány žádné další přílohy.
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
 

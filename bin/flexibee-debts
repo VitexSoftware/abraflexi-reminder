@@ -1,2 +1,2 @@
 #!/bin/bash
-php -f /usr/lib/php-flexibee-reminder/php-flexibee-debts.php
+php -f /usr/lib/php-flexibee-reminder/flexibee-debts.php

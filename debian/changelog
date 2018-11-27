@@ -1,6 +1,9 @@
-php-flexibee-reminder (0.7) UNRELEASED; urgency=medium
+php-flexibee-reminder (0.9) UNRELEASED; urgency=medium
 
   * use Notify Sending modules
+  * get debts also from "pohledavky" evidence
+  * flexibee-notify-clients tool
+  * MAX_MAIL_SIZE setting
 
  -- Vítězslav Dvořák <info@vitexsoftware.cz>  Mon, 26 Nov 2018 18:53:16 +0100
 

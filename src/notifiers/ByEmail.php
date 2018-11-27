@@ -33,10 +33,21 @@ class ByEmail extends \Ease\Sand
             case 3:
                 $upominka->loadTemplate('pokusOSmir');
                 break;
+            default :
+// ⚠ No permission
+//                $configurator = new \FlexiPeeHP\Nastaveni();
+//                $ourCompanyInfo = $configurator->getFlexiData(1);
+                $upominka->setData([
+                    'hlavicka' => _('Vážený zákazníku'),
+                    'uvod' => 'zasíláme vám přehled vašich závazků vůči nám:',
+                    'textNad' => '',
+                    'textPod' => '',
+                    'zapati' => 'S přátelským pozdravem'
+                ]);
         }
         if ($upominka->compile($reminder->customer, $debts)) {
             $result = $upominka->send();
-            if ($result) {
+            if ($score && $result) {
                 $reminder->customer->adresar->setData(['id' => $reminder->customer->adresar->getRecordID(),
                     'stitky' => 'UPOMINKA'.$score], true);
                 $reminder->addStatusMessage(sprintf(_('Set Label %s '),

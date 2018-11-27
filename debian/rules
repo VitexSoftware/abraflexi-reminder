@@ -5,10 +5,12 @@
 
 override_dh_install:
 	dh_install
-	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/php-flexibee-debts.php
-	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/php-flexibee-reminder.php
+	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-debts.php
+	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-reminder.php
+	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-notify-customers.php
 	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/Init.php
-	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/php-flexibee-debts.php
-	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/php-flexibee-reminder.php
+	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-debts.php
+	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-reminder.php
+	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-notify-customers.php
 	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/Init.php
-	sed -i -e 's/.\/notifiers/\/usr\/lib\/php-flexibee-reminder\/notifiers/g'     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/php-flexibee-reminder.php
+	sed -i -e 's/.\/notifiers/\/usr\/lib\/php-flexibee-reminder\/notifiers/g'     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-reminder.php

@@ -7,7 +7,7 @@
  * @copyright  (G) 2017 Vitex Software
  */
 define('EASE_APPNAME', 'Reminder');
-define('MODULE_DIR', './notifiers');
+define('MODULES', './notifiers');
 
 require_once '../vendor/autoload.php';
 $shared = new Ease\Shared();
