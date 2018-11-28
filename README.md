@@ -109,8 +109,8 @@ Poděkování
 
 Tento projekt by nevznikl bez podpory společnosti [Spoje.Net s.r.o.](http://spoje.net/)
 
-![Spoje.Net](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/spojenet-logo.png "Spoje.Net s.r.o.")
+![Spoje.Net](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/logo-spojenet.png "Spoje.Net s.r.o.")
 
 Za HTML verzi upomínek a zahrnutí ostatních pohledávek bylo hrazeno společností [Medinet .s.r.o.](http://medinetsro.cz/)
 
-![Medinet](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/mediner-logo.png "Medinet s.r.o.")
+![Medinet](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/mendinet-logo.png "Medinet s.r.o.")
