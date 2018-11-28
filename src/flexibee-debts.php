@@ -62,9 +62,14 @@ try {
 
     $pointer = 0;
     foreach ($allDebtsByClient as $clientCode => $clientDebts) {
-        if($clientCode){
+
+        if (array_key_exists($clientCode, $clientsToSkip)) {
+            continue;
+        }
+
+        if ($clientCode) {
             $reminder->addStatusMessage(\FlexiPeeHP\FlexiBeeRO::uncode($allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['kod']).' '.$allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['nazev'].' ['.implode(',',
-                $allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['stitky']).']');
+                    $allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['stitky']).']');
         }
         foreach ($clientDebts as $debtCode => $debtInfo) {
 
@@ -78,13 +83,13 @@ try {
             $reminder->addStatusMessage(sprintf('%d/%d (%s) [%s] %s %s: %s',
                     $pointer++, $counter,
                     \FlexiPeeHP\FlexiBeeRO::uncode($debtInfo['typDokl']),
-                    \FlexiPeeHP\FlexiBeeRO::uncode($debtCode),
-                    $amount, $curcode, $debtInfo['popis']
+                    \FlexiPeeHP\FlexiBeeRO::uncode($debtCode), $amount,
+                    $curcode, $debtInfo['popis']
                 ), 'debug');
         }
     }
 
-    $reminder->addStatusMessage(json_encode($total),'success');
+    $reminder->addStatusMessage(FlexiPeeHP\Reminder\Upominac::formatTotals($total), 'success');
 } catch (Exception $exc) {
     echo $exc->getMessage()."\n";
     echo $exc->getTraceAsString();

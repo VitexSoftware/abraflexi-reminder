@@ -68,12 +68,14 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
     "EASE_LOGGER": "syslog|mail",
     "MAX_MAIL_SIZE": 1250000
     "SKIPLIST": "DOBROPIS,ZDD",
+    "MUTE": false
 ```
 
   * **EASE_MAILTO** kam zasílat protokol v případě že je povoleno logování do mailu
   * **EASE_LOGGER** Jak logovat ? (dostupné metody jsou: memory,console,file,syslog,email,std,eventlog)
   * **MAX_MAIL_SIZE** - maximální velikost vysledného mailu v Bytech. (1250000 = 10Mb) Pokud je tato velikost překročena, nejsou již přikládány žádné další přílohy.
   * **SKIPLIST** nebrat doklady těchto typů v potaz
+  * **MUTE**     neodesílá klientům notifikace. Maily se pro kontrolu odesílají na **EASE_MAILTO**
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
 

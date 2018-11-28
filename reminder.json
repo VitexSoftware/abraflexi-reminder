@@ -1,7 +1,8 @@
 {
-    "EASE_MAILTO": "info@yourdomain.net",
+    "EASE_MAILTO": "info@vitexsoftware.cz",
     "EASE_LOGGER": "syslog|console",
     "SKIPLIST": "DOBROPIS,ZDD",
     "PATIENCE_DAYS": 0,
-    "MAX_MAIL_SIZE": 1250000
+    "MAX_MAIL_SIZE": 1250000,
+    "MUTE": true
 }

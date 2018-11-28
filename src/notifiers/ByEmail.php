@@ -12,7 +12,11 @@
  */
 class ByEmail extends \Ease\Sand
 {
-
+    /**
+     *
+     * @var boolean status 
+     */
+    public $result = null;
     /**
      * 
      * @param FlexiPeeHP\Reminder\Upominac $reminder
@@ -21,6 +25,7 @@ class ByEmail extends \Ease\Sand
      */
     public function __construct($reminder, $score, $debts)
     {
+        $result = false;
         parent::__construct();
         $upominka = new \FlexiPeeHP\Reminder\Upominka();
         switch ($score) {
@@ -47,6 +52,7 @@ class ByEmail extends \Ease\Sand
         }
         if ($upominka->compile($reminder->customer, $debts)) {
             $result = $upominka->send();
+//            file_put_contents('/var/tmp/upominka.html', $upominka->mailer->htmlBody);
             if ($score && $result) {
                 $reminder->customer->adresar->setData(['id' => $reminder->customer->adresar->getRecordID(),
                     'stitky' => 'UPOMINKA'.$score], true);
@@ -57,5 +63,6 @@ class ByEmail extends \Ease\Sand
         } else {
             $this->addStatusMessage(_('Remind was not sent'), 'warning');
         }
+        $this->result = $result;
     }
 }

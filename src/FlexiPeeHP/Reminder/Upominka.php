@@ -66,40 +66,58 @@ class Upominka extends \FlexiPeeHP\FlexiBeeRW
             $sumsCelkem = [];
             $invoices   = [];
             foreach ($clientDebts as $debt) {
-
-                if ($debt['mena'] == 'code:CZK') {
+                $currency = \FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
+                if ($currency == 'CZK') {
                     $amount = $debt['zbyvaUhradit'];
                 } else {
                     $amount = $debt['zbyvaUhraditMen'];
                 }
-
-                if (!array_key_exists($debt['mena'], $sumsCelkem)) {
-                    $sumsCelkem[$debt['mena']] = 0;
+                if (!array_key_exists($currency, $sumsCelkem)) {
+                    $sumsCelkem[$currency] = $amount;
+                } else {
+                    $sumsCelkem[$currency] += $amount;
                 }
-
-                $sumsCelkem[$debt['mena']] += $amount;
-
-                $ddiff      = \FlexiPeeHP\FakturaVydana::overdueDays($debt['datSplat']);
-                $invoices[] = $debt['kod'].' v.s.: '.$debt['varSym'].' '.$amount.' '.str_replace('code:',
-                        '',
-                        $debt['mena'].'  '.\FlexiPeeHP\FlexiBeeRO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y').' ('.$ddiff.' dní po splatnosti)');
             }
 
             $to = $email;
 
             $dnes    = new \DateTime();
             $subject = $this->getDataValue('hlavicka').' ke dni '.$dnes->format('d.m.Y');
-            $body    = $this->getDataValue('uvod').
-                "\n\n".$this->getDataValue('textNad')."\n\n".
-                sprintf(_("%s \n\n-----------------------\n celkem za %s,-"),
-                    implode("\n", $invoices), self::sums($sumsCelkem)).
-                "\n\n".$this->getDataValue('textPod')."\n".
-                "\n\n".$this->getDataValue('zapati')."\n";
 
-            $this->mailer = new \Ease\Mailer($to, $subject, $body);
+
+            if (defined('MUTE') && constant('MUTE')) {
+                $to = constant('EASE_MAILTO');
+            }
+
+            $this->mailer = new \Ease\Mailer($to, $subject);
             $this->mailer->addItem(new \FlexiPeeHP\ui\CompanyLogo(['align' => 'right',
                     'id' => 'companylogo',
                     'height' => '50', 'title' => _('Company logo')]));
+
+            $this->mailer->addItem(new \Ease\Html\DivTag($this->getDataValue('uvod')));
+            $this->mailer->addItem(new \Ease\Html\DivTag($this->getDataValue('textNad')));
+            $debtsTable = new \Ease\Html\TableTag();
+            $debtsTable->addRowHeaderColumns([_('Code'), _('var. sym.'), _('Amount'),
+                _('Currency'), _('Due Date'), _('overdue days')]);
+
+            foreach ($clientDebts as $debt) {
+                $debtsTable->addRowColumns([
+                    $debt['kod'],
+                    $debt['varSym'],
+                    $amount,
+                    str_replace('code:', '', $debt['mena']),
+                    \FlexiPeeHP\FlexiBeeRO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y'),
+                    \FlexiPeeHP\FakturaVydana::overdueDays($debt['datSplat'])
+                ]);
+            }
+
+            $debtsTable->addRowFooterColumns(['', '', Upominac::formatTotals($sumsCelkem)]);
+
+            $this->mailer->addItem($debtsTable);
+
+            $this->mailer->addItem(new \Ease\Html\DivTag($this->getDataValue('textPod')));
+
+            $this->mailer->addItem(new \Ease\Html\DivTag($this->getDataValue('zapati')));
 
             $this->addAttachments($clientDebts);
             $result = true;
@@ -108,20 +126,6 @@ class Upominka extends \FlexiPeeHP\FlexiBeeRW
                     $nazev, $this->firmer->getApiURL()), 'error');
         }
         return $result;
-    }
-
-    /**
-     * Format sums array
-     * 
-     * @param array $sumsRaw
-     */
-    public static function sums($sumsRaw)
-    {
-        $sums = [];
-        foreach ($sumsRaw as $currency => $amount) {
-            $sums[] = $amount.' '.\FlexiPeeHP\FlexiBeeRO::uncode($currency);
-        }
-        return implode(' ', $sums);
     }
 
     /**
@@ -141,7 +145,7 @@ class Upominka extends \FlexiPeeHP\FlexiBeeRW
     }
 
     /**
-     *
+     * Attach PDF and ISDOC invoices
      * @param array $clientDebts
      */
     public function addAttachments($clientDebts)
@@ -149,9 +153,12 @@ class Upominka extends \FlexiPeeHP\FlexiBeeRW
         foreach ($clientDebts as $debtCode => $debt) {
             if (defined('MAX_MAIL_SIZE') && ($this->getCurrentMailSize($this->mailer)
                 > constant('MAX_MAIL_SIZE'))) {
-                $this->mailer->addItem(new \Ease\Html\DivTag(sprintf(_('Not enoug space in this mail for attaching %s '),
+                $this->mailer->addItem(new \Ease\Html\DivTag(sprintf(_('Not enough space in this mail for attaching %s '),
                             $debtCode)));
                 continue;
+            }
+            if(array_key_exists('evidence', $debt)){
+                $this->invoicer->setEvidence($debt['evidence']);
             }
             $this->invoicer->setMyKey($debt['id']);
             $this->mailer->addFile($this->invoicer->downloadInFormat('pdf',
