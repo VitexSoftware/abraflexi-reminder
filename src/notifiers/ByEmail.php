@@ -1,14 +1,10 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- * Description of ByEmail
+ * FlexiPeeHP - Remind by eMail class 
  *
- * @author vitex
+ * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
+ * @copyright  2018 Spoje.Net
  */
 class ByEmail extends \Ease\Sand
 {
@@ -17,7 +13,9 @@ class ByEmail extends \Ease\Sand
      * @var boolean status 
      */
     public $result = null;
+
     /**
+     * eMail notification
      * 
      * @param FlexiPeeHP\Reminder\Upominac $reminder
      * @param int                          $score     weeks of due
@@ -25,7 +23,7 @@ class ByEmail extends \Ease\Sand
      */
     public function __construct($reminder, $score, $debts)
     {
-        $result = false;
+        $result   = false;
         parent::__construct();
         $upominka = new \FlexiPeeHP\Reminder\Upominka();
         switch ($score) {
@@ -43,16 +41,16 @@ class ByEmail extends \Ease\Sand
 //                $configurator = new \FlexiPeeHP\Nastaveni();
 //                $ourCompanyInfo = $configurator->getFlexiData(1);
                 $upominka->setData([
-                    'hlavicka' => _('Vážený zákazníku'),
-                    'uvod' => 'zasíláme vám přehled vašich závazků vůči nám:',
+                    'hlavicka' => _('Dear customer').',',
+                    'uvod' => _('we are sending you an overview of your commitments to us').':',
                     'textNad' => '',
                     'textPod' => '',
-                    'zapati' => 'S přátelským pozdravem'
+                    'zapati' => _('Sincerely')
                 ]);
         }
         if ($upominka->compile($reminder->customer, $debts)) {
             $result = $upominka->send();
-//            file_put_contents('/var/tmp/upominka.html', $upominka->mailer->htmlBody);
+//            file_put_contents('/var/tmp/upominka.html',                $upominka->mailer->htmlDocument);
             if ($score && $result) {
                 $reminder->customer->adresar->setData(['id' => $reminder->customer->adresar->getRecordID(),
                     'stitky' => 'UPOMINKA'.$score], true);

@@ -1,5 +1,6 @@
 {
     "EASE_MAILTO": "info@vitexsoftware.cz",
+    "REMIND_FROM": "info@vitexsoftware.cz",
     "EASE_LOGGER": "syslog|console",
     "SKIPLIST": "DOBROPIS,ZDD",
     "PATIENCE_DAYS": 0,

@@ -10,9 +10,10 @@ define('EASE_APPNAME', 'ClientsNotifier');
 define('MODULES', './notifiers');
 
 require_once '../vendor/autoload.php';
-$shared = new Ease\Shared();
+$shared  = new Ease\Shared();
 $shared->loadConfig('../client.json', true);
 $shared->loadConfig('../reminder.json', true);
+$localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
 $reminder = new \FlexiPeeHP\Reminder\Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
@@ -32,5 +33,6 @@ foreach ($clientsToNotify as $firma => $debts) {
             isset(current($debts)['firma@showAs']) ? current($debts)['firma@showAs']
                     : current($debts)['firma'] ), 'debug');
     $reminder->customer->adresar->loadFromFlexiBee($firma);
-    $reminder->processNotifyModules(0, $debts, constant('MODULES').'/ByEmail.php');
+    $reminder->processNotifyModules(0, $debts,
+        constant('MODULES').'/ByEmail.php');
 }

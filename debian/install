@@ -4,3 +4,5 @@ src/FlexiPeeHP/Reminder/*	usr/lib/php-flexibee-reminder/Reminder/
 src/notifiers/*                 usr/lib/php-flexibee-reminder/notifiers/
 bin/*                           usr/bin/
 debian/conf/reminder.json       etc/flexibee/
+i18n/cs_CZ/LC_MESSAGES/*.mo     usr/share/locale/cs_CZ/LC_MESSAGES
+i18n/en_US/LC_MESSAGES/*.mo     usr/share/locale/en_US/LC_MESSAGES

@@ -1,6 +1,6 @@
 <?php
 /**
- * FlexiPeeHP - Reminder class Brick
+ * FlexiPeeHP - Reminder class 
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018 Spoje.Net
@@ -47,7 +47,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * @param array    $skipLables labels of Customer (Addressbook) to skip
      * @param boolean  $cleanLables clean debtor labels when all is paid
      *
-     * @return Customer
+     * @return array of all customer's documents after due date
      */
     public function getCustomersDebts($skipLabels = [], $cleanLabels = false)
     {
@@ -461,14 +461,15 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
 
         if ($this->invoicer->lastResponseCode == 200) {
             $skiplist = [];
-            if(defined('SKIPLIST')){
+            if (defined('SKIPLIST')) {
                 $skiplist = \FlexiPeeHP\Stitek::listToArray(constant('SKIPLIST'));
             }
-            
+
             $evidenceUsed = $this->invoicer->getEvidence();
             foreach ($invoices as $invoiceId => $invoiceData) {
                 $invoiceData['evidence'] = $evidenceUsed;
-                if(array_key_exists( \FlexiPeeHP\FlexiBeeRO::uncode($invoiceData['typDokl']) , $skiplist)){
+                if (array_key_exists(\FlexiPeeHP\FlexiBeeRO::uncode($invoiceData['typDokl']),
+                        $skiplist)) {
                     continue;
                 }
                 $result[$invoiceId] = $invoiceData;
@@ -520,7 +521,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
     {
         $tmp = [];
         foreach ($totals as $currency => $value) {
-            $tmp[] = $value.' '.$currency;
+            $tmp[] = Upominka::formatCurrency($value).' '.$currency;
         }
         return implode(',', $tmp);
     }

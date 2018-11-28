@@ -1,3 +1,10 @@
+php-flexibee-reminder (0.11) experimental; urgency=medium
+
+  * SKIPLIST
+  * Html Mails
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Wed, 28 Nov 2018 15:53:03 +0100
+
 php-flexibee-reminder (0.10) UNRELEASED; urgency=medium
 
   * use Notify Sending modules
@@ -5,6 +12,7 @@ php-flexibee-reminder (0.10) UNRELEASED; urgency=medium
   * flexibee-notify-clients tool
   * MAX_MAIL_SIZE setting
   * speedup
+  * 
 
  -- Vítězslav Dvořák <info@vitexsoftware.cz>  Mon, 26 Nov 2018 18:53:16 +0100
 

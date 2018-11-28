@@ -14,6 +14,7 @@ $shared = new Ease\Shared();
 try {
     $shared->loadConfig('../client.json', true);
     $shared->loadConfig('../reminder.json', true);
+    $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
     $reminder = new \FlexiPeeHP\Reminder\Upominac();
     $reminder->logBanner(constant('EASE_APPNAME'));

@@ -10,9 +10,10 @@ define('EASE_APPNAME', 'Reminder');
 define('MODULES', './notifiers');
 
 require_once '../vendor/autoload.php';
-$shared = new Ease\Shared();
+$shared  = new Ease\Shared();
 $shared->loadConfig('../client.json', true);
 $shared->loadConfig('../reminder.json', true);
+$localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
 $reminder = new \FlexiPeeHP\Reminder\Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
@@ -102,22 +103,6 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 
     $reminder->processUserDebts($clientData, $clientDebts);
 
-//        foreach ($clientDebts as $debtCode => $debtInfo) {
-//
-//            $curcode = FlexiPeeHP\FlexiBeeRO::uncode($debtInfo['mena']);
-//            if ($curcode == 'CZK') {
-//                $amount = floatval($debtInfo['zbyvaUhradit']);
-//            } else {
-//                $amount = floatval($debtInfo['zbyvaUhraditMen']);
-//            }
-//
-//            $reminder->addStatusMessage(sprintf('%d/%d (%s) [%s] %s %s: %s',
-//                    $pointer++, $counter,
-//                    \FlexiPeeHP\FlexiBeeRO::uncode($debtInfo['typDokl']),
-//                    \FlexiPeeHP\FlexiBeeRO::uncode($debtCode), $amount,
-//                    $curcode, $debtInfo['popis']
-//                ), 'debug');
-//        }
 }
 
 $reminder->addStatusMessage(FlexiPeeHP\Reminder\Upominac::formatTotals($total),

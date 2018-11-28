@@ -1,0 +1,1388 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-11-28 21:42+0100\n"
+"PO-Revision-Date: 2018-11-28 21:42+0100\n"
+"Last-Translator: Vítězslav Dvořák <info@vitexsoftware.cz>\n"
+"Language-Team: \n"
+"Language: cs_CZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Poedit-SearchPath-0: ../src\n"
+"X-Poedit-SearchPathExcluded-0: ../vendor\n"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:55
+msgid "Getting clients"
+msgstr "Získávám zákazníky"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:59
+#, php-format
+msgid "%s Clients Found"
+msgstr "%s Klientů nalezeno"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:60
+msgid "Getting debts"
+msgstr "Získávám pohledávky"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:87
+#, php-format
+msgid "%s Debts Found"
+msgstr "%s Pohledávek nalezeno"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:125
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:128
+#, php-format
+msgid "No debts. Clear %s Remind labels"
+msgstr "Bez pohledávek. Čistím %s štítky upomínek"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:146
+#, php-format
+msgid "%d clients to remind process"
+msgstr "%d klientů k upomenutí zpracováno"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:152
+#, php-format
+msgid "(%d / %d) #%s code: %s %s "
+msgstr "(%d / %d) #%s code: %s %s "
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:187
+msgid "Invoice locked: skipping process"
+msgstr "Faktura zamknutá přeskakuji zpracování"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:242
+#, php-format
+msgid "%s %s remind %s date saved"
+msgstr "%s %s  Datum upomínky %s uloženo"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:246
+#, php-format
+msgid "%s %s remind %s date save failed"
+msgstr "%s %s chyba ukládání data upomínky %s"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:253
+msgid "Remind send disbled"
+msgstr "Odesílání pohledávek zakázáno"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:256
+#, php-format
+msgid "Remind %d already sent"
+msgstr "Upomínka  %d  byla již odeslána"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:260
+msgid "No debts to remind"
+msgstr "Žádne pohledávky k upomenutí"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:269
+#, php-format
+msgid "Invoice %s locked again"
+msgstr "Faktura %s byla znovu uzamknuta"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:272
+#, php-format
+msgid "Invoice %s locking failed"
+msgstr "Faktura %s chyba znovuzamykání"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:410
+#, php-format
+msgid "Module %s is wrong"
+msgstr "Složka modulů %s je špatná"
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:151
+msgid "Company logo"
+msgstr "Logo společnosti"
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:158
+msgid "Code"
+msgstr "Kód"
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:158
+msgid "var. sym."
+msgstr "Var. sym."
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:158
+msgid "Amount"
+msgstr "Částka"
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:159
+msgid "Currency"
+msgstr "Měna"
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:159
+msgid "Due Date"
+msgstr "Splatnost"
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:159
+msgid "overdue days"
+msgstr "Dní po splatnosti"
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:178
+msgid "Total"
+msgstr "Celkem"
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:190
+#, php-format
+msgid "Client %s without email %s !!!"
+msgstr "Klient %s bez emailu %s !!!"
+
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:221
+#, php-format
+msgid "Not enough space in this mail for attaching %s "
+msgstr "V tomto mailu není dost místa pro přiložení %s"
+
+#: ../src/Init.php:28
+#, php-format
+msgid "Requied label %s create"
+msgstr "Vytvoření požadovaného štítku %s"
+
+#: ../src/flexibee-notify-customers.php:31
+#, php-format
+msgid "(%d / %d) %s "
+msgstr "(%d / %d) %s "
+
+#: ../src/flexibee-reminder.php:23
+msgid "(Company not assigned)"
+msgstr "(Zákazník není přiřazen)"
+
+#: ../src/notifiers/ByEmail.php:44
+msgid "Dear customer"
+msgstr "Vážený zákazníku,"
+
+#: ../src/notifiers/ByEmail.php:45
+msgid "we are sending you an overview of your commitments to us"
+msgstr "zasíláme vám přehled vašich závazků vůči nám"
+
+#: ../src/notifiers/ByEmail.php:48
+msgid "Sincerely"
+msgstr "S přátelským pozdravem"
+
+#: ../src/notifiers/ByEmail.php:57
+#, php-format
+msgid "Set Label %s "
+msgstr "Štítek %s  nastaven"
+
+#: ../src/notifiers/ByEmail.php:62
+msgid "Remind was not sent"
+msgstr "Upomínka  nebyla odeslána"
+
+#~ msgid "Please contact Vitex Software to make this module working."
+#~ msgstr "Prosím kontaktujete Vitex Software pokud chcete tento modul používat"
+
+#~ msgid "No heading set"
+#~ msgstr "Nadpis nenastaven"
+
+#~ msgid "Connection Problem"
+#~ msgstr "Problém připojení"
+
+#~ msgid "Index"
+#~ msgstr "Obsah"
+
+#~ msgid "Saved to %s"
+#~ msgstr "Uloženo do %s"
+
+#~ msgid "Generated by"
+#~ msgstr "Vygenerováno pomocí"
+
+#~ msgid "FlexiBee Digest"
+#~ msgstr "Souhrn FlexiBee"
+
+#~ msgid "version"
+#~ msgstr "Verze"
+
+#~ msgid "(G) 2018"
+#~ msgstr "(G) 2018"
+
+#~ msgid "FlexiBee Alltime"
+#~ msgstr "souhrn FlexiBee za celou dobu"
+
+#~ msgid "FlexiBee Daily digest for %s"
+#~ msgstr "denní souhrn FlexiBee pro %s"
+
+#~ msgid "FlexiBee Monthly digest from %s to %s"
+#~ msgstr "měsíční souhrn FlexiBee od %s do %s"
+
+#~ msgid "FlexiBee Weekly digest from %s to %s"
+#~ msgstr "týdenní FlexiBee souhrn od %s do %s"
+
+#~ msgid "FlexiBee Year digest from %s to %s"
+#~ msgstr "Roční souhrn FlexiBee  od %s do %s"
+
+#~ msgid "none"
+#~ msgstr "žádné"
+
+#~ msgid "100%% - average income is %s %s"
+#~ msgstr "100%% - průměrný příjem je %s %s"
+
+#~ msgid "Incoming payments chart"
+#~ msgstr "Graf příchozích plateb"
+
+#~ msgid "Company"
+#~ msgstr "Společnost"
+
+#~ msgid "Invoices"
+#~ msgstr "Faktury"
+
+#~ msgid "days"
+#~ msgstr "dní"
+
+#~ msgid "Debtors"
+#~ msgstr "Dlužníci"
+
+#~ msgid "Invoiced amount %s"
+#~ msgstr "Fakturovaná částka %s"
+
+#~ msgid "Exposed %s invoices"
+#~ msgstr "Vystaveno %s faktur"
+
+#~ msgid "Incoming invoices"
+#~ msgstr "Přijaté faktury"
+
+#~ msgid "Incoming payments"
+#~ msgstr "Příchozí platby"
+
+#~ msgid "Position"
+#~ msgstr "Pozice"
+
+#~ msgid "Name"
+#~ msgstr "Jméno"
+
+#~ msgid "Email"
+#~ msgstr "Email"
+
+#~ msgid "Phone"
+#~ msgstr "Pevná linka"
+
+#~ msgid "%d new Customers"
+#~ msgstr "%d nových klientů"
+
+#~ msgid "New or updated customers"
+#~ msgstr "Noví nebo aktualizovaní zákazníci"
+
+#~ msgid "Count"
+#~ msgstr "Počet"
+
+#~ msgid "Document type"
+#~ msgstr "Typ dokumentu"
+
+#~ msgid "Outcoming invoices"
+#~ msgstr "Vydané faktury"
+
+#~ msgid "Outcoming payments"
+#~ msgstr "Odchozí platby"
+
+#~ msgid "Remind #1"
+#~ msgstr "Upomínka #1"
+
+#~ msgid "Remind #2"
+#~ msgstr "Upomínka #2"
+
+#~ msgid "Remind #3"
+#~ msgstr "Upomínka #3"
+
+#~ msgid "Reminds"
+#~ msgstr "Upomínky"
+
+#~ msgid "Partner"
+#~ msgstr "Partner"
+
+#~ msgid "Waiting Income"
+#~ msgstr "očekávané příjmy"
+
+#~ msgid "We have to pay"
+#~ msgstr "Máme uhradit"
+
+#~ msgid "Street"
+#~ msgstr "Ulice"
+
+#~ msgid "City"
+#~ msgstr "Město"
+
+#~ msgid "Customers without notification email address"
+#~ msgstr "Zákazníci bez notifikační emailové adresy"
+
+#~ msgid "Customers without notification phone number"
+#~ msgstr "Zákazníci bez notifikačního telefoního čísla"
+
+#~ msgid "No outcoming invoices"
+#~ msgstr "žádné vydané faktury"
+
+#~ msgid "missing login"
+#~ msgstr "chybějící login"
+
+#~ msgid "missing password"
+#~ msgstr "chybějící heslo"
+
+#~ msgid "Multiplete ContactID"
+#~ msgstr "Vícenásobné ID kontaktu"
+
+#~ msgid "Using the first one"
+#~ msgstr "Používám první"
+
+#~ msgid "Sign in %s all ok"
+#~ msgstr "Přihlšení %s vše ok"
+
+#~ msgid "Přidat"
+#~ msgstr "Přidat"
+
+#~ msgid "Modify"
+#~ msgstr "Upravit"
+
+#~ msgid "Smazat"
+#~ msgstr "Smazat"
+
+#~ msgid "Je třeba označit nějaké řádky"
+#~ msgstr "Je třeba označit nějaké řádky"
+
+#~ msgid "Smazáno"
+#~ msgstr "Smazáno"
+
+#~ msgid "Záznam byl přidán"
+#~ msgstr "Záznam byl přidán"
+
+#~ msgid "Záznam nebyl přidám"
+#~ msgstr "Záznam nebyl přidám"
+
+#~ msgid "Záznam byl upraven"
+#~ msgstr "Záznam byl upraven"
+
+#~ msgid "Záznam nebyl upravn"
+#~ msgstr "Záznam nebyl upravn"
+
+#~ msgid "Záznam byl uložen"
+#~ msgstr "Záznam byl uložen"
+
+#~ msgid "Záznam nebyl uložen"
+#~ msgstr "Záznam nebyl uložen"
+
+#~ msgid "Chybná hodnota"
+#~ msgstr "Chybná hodnota"
+
+#~ msgid " %s %s byl smazán "
+#~ msgstr " %s %s byl smazán "
+
+#~ msgid " %s %s nebyl smazán "
+#~ msgstr " %s %s nebyl smazán "
+
+#~ msgid "Chyba komunikace"
+#~ msgstr "Chyba komunikace"
+
+#~ msgid "Change version %s already processed"
+#~ msgstr "Verze změny %s byla již zpracována"
+
+#~ msgid "Handler Class %s does not exist"
+#~ msgstr "Třída pro zpracování %s neexistuje"
+
+#~ msgid "Empty WebHook request"
+#~ msgstr "Webhook vrátil prázdnou odezvu"
+
+#~ msgid "Last Processed Change ID Saving Failed"
+#~ msgstr "Ukládání posledního zpracovaného ID změny selhalo"
+
+#~ msgid "Please wait while our salesman contact you."
+#~ msgstr "Prosíme vyčkejte než vás zkontaktuje náš obchodník"
+
+#~ msgid "purchase order"
+#~ msgstr "Objednávka služeb"
+
+#~ msgid "Proforma"
+#~ msgstr "Zálohová faktura"
+
+#~ msgid "Invoice"
+#~ msgstr "Faktura"
+
+#~ msgid "Unhandled type of item"
+#~ msgstr "Neznámý druh položky"
+
+#~ msgid "Please choose service"
+#~ msgstr "Prosím zvolte službu"
+
+#~ msgid "Product with code %s does not exist"
+#~ msgstr "Produkt s kódem %s neexistuje"
+
+#~ msgid "Missing product code"
+#~ msgstr "Chybějící kód produktu"
+
+#~ msgid "%s added to cart"
+#~ msgstr "%s přidáno do košíku"
+
+#~ msgid "Product not specified"
+#~ msgstr "Produkt nebyl zvolen"
+
+#~ msgid "Item %s was settled without action handled in OrderPlugin code"
+#~ msgstr "Položka %s byla zaplacena bez akce v kódu objednávkového pluginu"
+
+#~ msgid "User %s not present in LMS; cannot set dashboard "
+#~ msgstr "Uživatel %s nemá LMS id; nemohu nastavit dešbord"
+
+#~ msgid "Dashboard for: %d "
+#~ msgstr "Dašbord pro: %d "
+
+#~ msgid "Disconnect for: %d "
+#~ msgstr "Odpojení pro %d "
+
+#~ msgid "Set dashboards for %d customers"
+#~ msgstr "Nastavuji dešbord pro %d zákazníků"
+
+#~ msgid "Disconnect %d customers"
+#~ msgstr "Odpojuji %d zákazníků"
+
+#~ msgid "Connect %d customers"
+#~ msgstr "Připojeno %d klientů"
+
+#~ msgid "Delete"
+#~ msgstr "Smazat"
+
+#~ msgid "Are you sure %s ?"
+#~ msgstr "Jste si jistý  %s ?"
+
+#~ msgid "Edit"
+#~ msgstr "Upravit"
+
+#~ msgid "No Update Action Defined"
+#~ msgstr "Akce při aktualizaci nebyla definována"
+
+#~ msgid "No Delete Action Defined"
+#~ msgstr "Akce při smazání nebyla definována"
+
+#~ msgid "Common item"
+#~ msgstr "Běžná pložka"
+
+#~ msgid "Product Code"
+#~ msgstr "Kód produktu"
+
+#~ msgid "ANTENA_2ODB_OUTDOOR"
+#~ msgstr "ANTENA_2ODB_OUTDOOR"
+
+#~ msgid "Product code from our pricelist"
+#~ msgstr "Kód produktu z naší nabídky"
+
+#~ msgid "Items count"
+#~ msgstr "počet položek"
+
+#~ msgid "Amount requested"
+#~ msgstr "Požadované množství"
+
+#~ msgid "Note for stuff"
+#~ msgstr "Poznámka pro personál"
+
+#~ msgid "ASAP Please"
+#~ msgstr "Rychle prosím"
+
+#~ msgid "Your kind words about ordered item"
+#~ msgstr "Vaše poznámka ka objednávané položce"
+
+#~ msgid "Producet with code %s does not exist"
+#~ msgstr "Produkt s kódem %s neexistuje"
+
+#~ msgid "New Contact"
+#~ msgstr "Nový kontakt"
+
+#~ msgid "Email address is empty"
+#~ msgstr "Emailová adresa je prázdná"
+
+#, fuzzy
+#~ msgid "Uložit"
+#~ msgstr "Uložit"
+
+#~ msgid "Pricelist"
+#~ msgstr "Ceník"
+
+#~ msgid "%s items found"
+#~ msgstr "%s položek nalezeno"
+
+#~ msgid "Settings"
+#~ msgstr "Nastavení"
+
+#~ msgid "Password change"
+#~ msgstr "Změna hesla"
+
+#~ msgid "About"
+#~ msgstr "O aplikaci"
+
+#~ msgid "Sign Out"
+#~ msgstr "Odhlášení"
+
+#~ msgid "Cart"
+#~ msgstr "Košík"
+
+#~ msgid "Sign In"
+#~ msgstr "Přihlášení"
+
+#~ msgid "Login"
+#~ msgstr "Přihlašovací jméno"
+
+#~ msgid "Password"
+#~ msgstr "Heslo"
+
+#~ msgid "Remeber me"
+#~ msgstr "Pamatuj si mne"
+
+#~ msgid "Click to hide messages"
+#~ msgstr "Klikněte pro skrytí zpráv"
+
+#~ msgid "Cart contents"
+#~ msgstr "Obsah košíku"
+
+#~ msgid "Image"
+#~ msgstr "Obrázek"
+
+#~ msgid "Price"
+#~ msgstr "Cena"
+
+#~ msgid "Remove"
+#~ msgstr "Odstranit"
+
+#~ msgid "Cash desk"
+#~ msgstr "Pokladna"
+
+#~ msgid "Order now"
+#~ msgstr "Objednej nyní"
+
+#~ msgid "Cart is empty"
+#~ msgstr "Košík je prázdný"
+
+#~ msgid "Download Your %s"
+#~ msgstr "Stáhněte svou %s"
+
+#~ msgid "your email address in most of cases"
+#~ msgstr "větsinou vaše emailová adresa"
+
+#~ msgid "Password you recivied by email"
+#~ msgstr "Heslo které jste obdžel mailem"
+
+#~ msgid "Please enter your Login and Password"
+#~ msgstr "Prosím zadej jméno a heslo"
+
+#~ msgid "Customer Invoices"
+#~ msgstr "Faktury Zákazníka"
+
+#~ msgid "Cell"
+#~ msgstr "Mobilní číslo"
+
+#~ msgid "Open in FlexiBee"
+#~ msgstr "Otevřít ve FlexiBee"
+
+#~ msgid "Orders"
+#~ msgstr "Objednávky"
+
+#~ msgid "New order"
+#~ msgstr "Nová objednávka"
+
+#~ msgid "My orders"
+#~ msgstr "Mé objednávky"
+
+#~ msgid "Close"
+#~ msgstr "Zavřít"
+
+#~ msgid "Search"
+#~ msgstr "Hledání"
+
+#~ msgid "Service Requested"
+#~ msgstr "Požadovaná služba"
+
+#~ msgid "Enter details"
+#~ msgstr "Vlož detaily"
+
+#~ msgid "Order Now"
+#~ msgstr "Objednej nyní"
+
+#~ msgid "Please choose your service"
+#~ msgstr "Prosím zvolte svou službu"
+
+#~ msgid "Settled"
+#~ msgstr "Uhrazeno"
+
+#~ msgid "Done"
+#~ msgstr "Hotovo"
+
+#~ msgid "Open"
+#~ msgstr "Otevřít"
+
+#~ msgid "Show"
+#~ msgstr "Zobraz"
+
+#~ msgid "Download"
+#~ msgstr "Stažení"
+
+#~ msgid "Send"
+#~ msgstr "Odešli"
+
+#~ msgid "ISDOC"
+#~ msgstr "ISDOC"
+
+#~ msgid "FlexiBee"
+#~ msgstr "FlexiBee"
+
+#~ msgid " %s days to due"
+#~ msgstr " %s dní do splatnosti"
+
+#~ msgid " %s days after due"
+#~ msgstr " %s dní po splatnosti"
+
+#~ msgid "Hosted by"
+#~ msgstr "Hostuje"
+
+#~ msgid "More"
+#~ msgstr "Více"
+
+#~ msgid "Source code"
+#~ msgstr "Zdrojové kódy"
+
+#~ msgid "Issues"
+#~ msgstr "Podpora"
+
+#~ msgid "Actions"
+#~ msgstr "Akce"
+
+#~ msgid "Thumbnail"
+#~ msgstr "Náhled"
+
+#~ msgid "Small 150x150px"
+#~ msgstr "Malý 150x150px"
+
+#~ msgid "Large image"
+#~ msgstr "Velký obrázek"
+
+#~ msgid "Save"
+#~ msgstr "Ulož"
+
+#~ msgid "%s File %s was attached"
+#~ msgstr "%s soubor %s byl přiložen"
+
+#~ msgid "%s records with label %s"
+#~ msgstr "%s záznamů se štítkem %s nalezeno"
+
+#, fuzzy
+#~ msgid "Popis"
+#~ msgstr "popis"
+
+#~ msgid "Please sign in as admin first"
+#~ msgstr "Nejprve se prosím přihlaš jako admin"
+
+#~ msgid "Please sign in as user first"
+#~ msgstr "Přihlaš se nejprve jako uživatel"
+
+#~ msgid "Zewl score"
+#~ msgstr "Známka bonity"
+
+#~ msgid "Vitex Software"
+#~ msgstr "Vitex Software"
+
+#~ msgid "Address"
+#~ msgstr "Adresa"
+
+#~ msgid "Delete ?"
+#~ msgstr "Smazat ?"
+
+#~ msgid "No"
+#~ msgstr "Ne"
+
+#~ msgid "Yes"
+#~ msgstr "Ano"
+
+#~ msgid "History table %s is not empty"
+#~ msgstr "Tabulka historie %s není prázdná"
+
+#~ msgid "%d records found in evidence %s"
+#~ msgstr "%d položek bylo nalezeno v evidenci %s"
+
+#~ msgid "No changes to process"
+#~ msgstr "žádné změny ke zpracování"
+
+#~ msgid "Cart Item %s was removed"
+#~ msgstr "Položka košíku %s byla odstraněna"
+
+#~ msgid "Spoje.Net Order Form"
+#~ msgstr "Objednávkový formulář Spoje.Net"
+
+#~ msgid "Faktura %s byla uhrazena"
+#~ msgstr "Faktura %s byla uhrazena"
+
+#~ msgid "Vrať přeplatek %s"
+#~ msgstr "Vrať přeplatek %s"
+
+#~ msgid "Pokladna"
+#~ msgstr "Pokladna"
+
+#~ msgid "Úhrada faktury"
+#~ msgstr "Úhrada faktury"
+
+#~ msgid "Příjem"
+#~ msgstr "Příjem"
+
+#~ msgid "Výdej"
+#~ msgstr "Výdej"
+
+#~ msgid "Operace Pokladny"
+#~ msgstr "Operace Pokladny"
+
+#~ msgid "Vklad"
+#~ msgstr "Vklad"
+
+#~ msgid "Přehled"
+#~ msgstr "Přehled"
+
+#~ msgid "Transakce"
+#~ msgstr "Transakce"
+
+#~ msgid "Missing product ID"
+#~ msgstr "Chybí ID produktu"
+
+#~ msgid "User password change"
+#~ msgstr "Změna hesla uživatele"
+
+#~ msgid "Password was changed"
+#~ msgstr "Heslo bylo změněno"
+
+#~ msgid "Changed password"
+#~ msgstr "Změněné heslo"
+
+#~ msgid "Dear user %s, your password was changed to"
+#~ msgstr "Vážený %s, vaše  heslo bylo změněno na"
+
+#~ msgid "Current password"
+#~ msgstr "Stávající heslo"
+
+#~ msgid "New Password"
+#~ msgstr "Nové heslo"
+
+#~ msgid "Password confirm"
+#~ msgstr "Potvrzení hesla"
+
+#~ msgid "Change password"
+#~ msgstr "Změna hesla"
+
+#~ msgid "Sign On"
+#~ msgstr "Registrace"
+
+#~ msgid "clientzone"
+#~ msgstr "clientzone"
+
+#~ msgid "New password for %s"
+#~ msgstr "Nové heslo pro %s"
+
+#~ msgid "Sign On informations was changed:\n"
+#~ msgstr "Přihlašovací údaje byly změněny\n"
+
+#~ msgid "Username"
+#~ msgstr "Uživatelské jméno"
+
+#~ msgid "unknown email address %s"
+#~ msgstr "Neznámá mailová adresa %s"
+
+#~ msgid "Please enter your email."
+#~ msgstr "Prosím zadejte svůj email"
+
+#~ msgid "Lost password recovery"
+#~ msgstr "Obnova ztraceného hesla"
+
+#~ msgid "Forgot your password? Enter your e-mail address you entered during the registration and we will send you a new one."
+#~ msgstr "Zapoměli jste heslo ? Vložte svojí e-mailovou adresu kterou jste zadali během registrace a my vám pošleme nové."
+
+#~ msgid "Send New Password"
+#~ msgstr "Pošli nové heslo"
+
+#~ msgid "Please check your mailbox for new password"
+#~ msgstr "Prosíme zkontrolujte svou poštu pro nové heslo"
+
+#~ msgid "and"
+#~ msgstr "a"
+
+#~ msgid "Please enable cookies in your browser"
+#~ msgstr "Prosím zapněte cookies ve svém prohlížeči"
+
+#~ msgid "Sign in first please"
+#~ msgstr "Nejprve se prosím přihlašte"
+
+#~ msgid "Welcome to ClientZone"
+#~ msgstr "Vítejte do Klientské Zony pro FlexiBee"
+
+#~ msgid "Sign in"
+#~ msgstr "Přihlášení"
+
+#~ msgid "usually your email address"
+#~ msgstr "Obvykle vaše emailová adresa"
+
+#~ msgid "My Orders"
+#~ msgstr "Mé Objednávky"
+
+#~ msgid "FlexiBee Init"
+#~ msgstr "Inicializace FlexiBee"
+
+#, fuzzy
+#~ msgid "label %s already exists"
+#~ msgstr "Doména adresa %s je již registrována"
+
+#~ msgid "I already have an customer number"
+#~ msgstr "Již mám zákaznické číslo"
+
+#~ msgid "Wrong call"
+#~ msgstr "Špatné volání"
+
+#~ msgid "Order Form"
+#~ msgstr "Objednací formulář"
+
+#~ msgid "Sign up"
+#~ msgstr "Registrace"
+
+#~ msgid "Contact"
+#~ msgstr "Kontakt"
+
+#~ msgid "Label"
+#~ msgstr "Štítek"
+
+#~ msgid "Sign Off"
+#~ msgstr "Odhlášení"
+
+#~ msgid "Thank you for your favor and we look forward to another visit"
+#~ msgstr "Děkujeme za váš zájem a těšíme se na další návštěvu"
+
+#~ msgid "Invoice was sent"
+#~ msgstr "Faktura byla odeslána"
+
+#~ msgid "Mailer does not work"
+#~ msgstr "Pošťák nepracuje"
+
+#~ msgid "Human control field is empty"
+#~ msgstr "Lidské kontrolní políčko je prázdné"
+
+#~ msgid "six"
+#~ msgstr "šest"
+
+#~ msgid "Mail address is too short"
+#~ msgstr "Mailová adresa je příliš krátká"
+
+#~ msgid "invalid email address"
+#~ msgstr "Chybná emailová adresa"
+
+#~ msgid "Mail address %s is allready registered"
+#~ msgstr "Mailová adresa %s je již registrována"
+
+#~ msgid "Are you smart human ?"
+#~ msgstr "Jste chytrý člověk ?"
+
+#~ msgid "Company registered"
+#~ msgstr "Společnost klienta byla zaregistrována"
+
+#~ msgid "User account created"
+#~ msgstr "Úživatelský účet byl vytvořen"
+
+#~ msgid "Sign On info"
+#~ msgstr "Přihlašovací údaje"
+
+#~ msgid "clientzone Account"
+#~ msgstr "Účet clientzone"
+
+#~ msgid "New clientzone account: %s"
+#~ msgstr "Nový účet clientzone: %s"
+
+#~ msgid "Error saving Contact"
+#~ msgstr "Chyba ukládání kontaktu"
+
+#~ msgid "Error saving Company"
+#~ msgstr "Chyba ukládání Firmy"
+
+#~ msgid "Welcome"
+#~ msgstr "Vítejte"
+
+#~ msgid "After registering, you will be prompted to order service."
+#~ msgstr "Po registraci vám bude nabídnuta objednávka služeb"
+
+#~ msgid "All notifications target to your email"
+#~ msgstr "Všechny notifikace směřují na váš mail"
+
+#~ msgid "Requied"
+#~ msgstr "Požadováno"
+
+#~ msgid "Email Address"
+#~ msgstr "Emailová adresa"
+
+#~ msgid "Telephone number"
+#~ msgstr "Telefoní číslo"
+
+#~ msgid "Company ID number"
+#~ msgstr "IČO"
+
+#~ msgid "Only for company"
+#~ msgstr "Pouze pro firmy"
+
+#~ msgid "Company VAT number"
+#~ msgstr "DIČ"
+
+#~ msgid "The Cube"
+#~ msgstr "Krychle"
+
+#~ msgid "How many walls does the cube have?"
+#~ msgstr "Kolik stěn má krychle ?"
+
+#~ msgid "Only for humans"
+#~ msgstr "Pouze pro lidi"
+
+#~ msgid "Singn On"
+#~ msgstr "Registrace"
+
+#~ msgid "Finish"
+#~ msgstr "Dokončit"
+
+#~ msgid "Order"
+#~ msgstr "Objednávka"
+
+#~ msgid "Download Your Proforma #%s Here"
+#~ msgstr "Stáhněte svou zálohovou fakturu zde  %s"
+
+#~ msgid "Please sign in to finish your order"
+#~ msgstr "Prosím přihlašte se pro dokončení obejdnávky"
+
+#~ msgid "Order Accepted"
+#~ msgstr "Přijatá objednávka"
+
+#~ msgid "Order %s was accepted"
+#~ msgstr "Objednávka %s byla přijata"
+
+#~ msgid "%s for your order"
+#~ msgstr "%s pro vaší objednávku"
+
+#~ msgid "Proforma was sent to %s"
+#~ msgstr "Zálohová faktura byla odeslána na %s"
+
+#~ msgid "Get Your %s Here %s"
+#~ msgstr "Vaše %s ke stažení zde  %s"
+
+#~ msgid "The order is empty"
+#~ msgstr "Objednávka je prázdná"
+
+#~ msgid "Search results"
+#~ msgstr "Výsledky vyhledávání"
+
+#~ msgid "%d occurencies of %s found"
+#~ msgstr "%d výskytů %s nalezeno"
+
+#~ msgid "Search for %s results in %s"
+#~ msgstr "Hledám %s v %s"
+
+#, fuzzy
+#~ msgid "Nastavení"
+#~ msgstr "Nastavení"
+
+#~ msgid "Change Password"
+#~ msgstr "Změna hesla"
+
+#~ msgid "Spoje.Net"
+#~ msgstr "Spoje.Net"
+
+#~ msgid "Unknown invoice type: %s %s"
+#~ msgstr "Neznámý druh domény:  %s %s"
+
+#~ msgid "Invoice found: - overdue?"
+#~ msgstr "Nalezená faktura - přeplatek ?"
+
+#, fuzzy
+#~ msgid "Faktura za Eura"
+#~ msgstr "Faktura za Eura %s"
+
+#~ msgid "Unknown invoice type: %s"
+#~ msgstr "Neznámý druh faktury  %s "
+
+#~ msgid "Castecna uhrada - DOBROPIS: prijato: %s ma byt zaplaceno %s"
+#~ msgstr "Castecna uhrada - DOBROPIS: prijato: %s ma byt zaplaceno %s"
+
+#~ msgid "Přeplatek - DOBROPIS: prijato: %s ma byt zaplaceno %s"
+#~ msgstr "Přeplatek - DOBROPIS: prijato: %s ma byt zaplaceno %s"
+
+#~ msgid "Platba %s  %s byla sparovana s dobropisem %s"
+#~ msgstr "Platba %s  %s byla sparovana s dobropisem %s"
+
+#~ msgid "Platba %s  %s byla sparovana s zalohou %s"
+#~ msgstr "Platba %s  %s byla sparovana s zalohou %s"
+
+#~ msgid "Částečná úhrada %s"
+#~ msgstr "Částečná úhrada %s"
+
+#~ msgid "Vytvoř ZDD: %s"
+#~ msgstr "Vytvoř ZDD: %s"
+
+#~ msgid "Přeplatek %s"
+#~ msgstr "Přeplatek %s"
+
+#~ msgid "Faktura #%s byla sparovana"
+#~ msgstr "Faktura #%s byla sparovana"
+
+#~ msgid "Faktura #%s nebyla sparovana"
+#~ msgstr "Faktura #%s nebyla sparovana"
+
+#~ msgid "Castecna uhrada - FAKTURA: prijato: %s ma byt zaplaceno %s"
+#~ msgstr "Castecna uhrada - FAKTURA: prijato: %s ma byt zaplaceno %s"
+
+#~ msgid "Přeplatek - FAKTURA: prijato: %s ma byt zaplaceno %s"
+#~ msgstr "Přeplatek - FAKTURA: prijato: %s ma byt zaplaceno %s"
+
+#~ msgid "Platba %s  %s byla sparovana s fakturou %s"
+#~ msgstr "Platba %s  %s byla sparovana s fakturou %s"
+
+#~ msgid "Faktura %s byla vytvořena z dokladu %s"
+#~ msgstr "Faktura %s byla vytvořena z dokladu %s"
+
+#~ msgid "Neidentifikovaná platba"
+#~ msgstr "Neidentifikovaná platba"
+
+#~ msgid "Platba bez faktury"
+#~ msgstr "Platba bez faktury"
+
+#~ msgid "Platba pro fakturu %s nebyla dohledána"
+#~ msgstr "Platba pro fakturu %s nebyla dohledána"
+
+#~ msgid "Proposal"
+#~ msgstr "Nabídka"
+
+#~ msgid "Users"
+#~ msgstr "Uživatelé"
+
+#~ msgid "New user"
+#~ msgstr "Nový uživatel"
+
+#~ msgid "User overview"
+#~ msgstr "Přehled uživatelů"
+
+#~ msgid "more ..."
+#~ msgstr "více ..."
+
+#~ msgid "add item"
+#~ msgstr "přidat položku"
+
+#~ msgid "Toggle dropdown"
+#~ msgstr "Zobrazit nabídku"
+
+#~ msgid "Signed as"
+#~ msgstr "Příhlášen jako"
+
+#~ msgid "Please enter your login creditials"
+#~ msgstr "Prosím zadejte své přihlašovací údaje"
+
+#~ msgid "Welcome to ClientZone administration"
+#~ msgstr "Vítejte do informačního systému ClientZone"
+
+#~ msgid "Pricelist Admin"
+#~ msgstr "Administrace Ceníku"
+
+#~ msgid "Your new password was sent to %s"
+#~ msgstr "Vaše nové heslo bylo odesláno na %s"
+
+#~ msgid "FlexiBee Address ID"
+#~ msgstr "ID Adresy z FlexiBee"
+
+#~ msgid "Get Score"
+#~ msgstr "Získej score"
+
+#~ msgid "Stahuji Výpisy online"
+#~ msgstr "Stahuji Výpisy online"
+
+#~ msgid "Zahajuji programové párování"
+#~ msgstr "Zahajuji programové párování"
+
+#~ msgid "Párování hotovo"
+#~ msgstr "Párování hotovo"
+
+#, fuzzy
+#~ msgid "heslo"
+#~ msgstr "Heslo bylo změněno"
+
+#~ msgid "potvrzení hesla"
+#~ msgstr "potvrzení hesla"
+
+#~ msgid "%s %s"
+#~ msgstr "%s %s"
+
+#~ msgid "Dear Customer, your document is in attachment"
+#~ msgstr "Vážený zálazníku, váše dokument je v příloze"
+
+#~ msgid "Init FlexiBee"
+#~ msgstr "Iniciace FlexiBee"
+
+#~ msgid "About us"
+#~ msgstr "O aplikaci"
+
+#~ msgid "&copy; 2017 Vitex Software"
+#~ msgstr "&copy; 2017 Vitex Software"
+
+#~ msgid "Upravit"
+#~ msgstr "Upravit"
+
+#~ msgid "Domain name"
+#~ msgstr "Jméno domény"
+
+#~ msgid "Domain Name you requested to pay"
+#~ msgstr "Jméno domény kterou chcete zaplatit"
+
+#~ msgid "Domain registraton price: %s %s"
+#~ msgstr "Cena registrace domény: %s %s"
+
+#~ msgid "Domain name %s is not valid"
+#~ msgstr "Jméno domény %s není validní"
+
+#~ msgid "Please enter Domain name"
+#~ msgstr "Prosím zadejte jméno domény"
+
+#~ msgid "Domain %s Registration"
+#~ msgstr "Registrace domény: %s"
+
+#~ msgid "Faktura za Eura %s"
+#~ msgstr "Faktura za Eura %s"
+
+#~ msgid "Resetnul %s v %s na %s"
+#~ msgstr "Resetnul %s v %s na %s"
+
+#~ msgid "Datum posledniho generovani faktur (%s #%d) nastaven na (%s)"
+#~ msgstr "Datum posledniho generovani faktur (%s #%d) nastaven na (%s)"
+
+#~ msgid "Nepovedlo se nastavení Data posledniho generovani faktur (%s #%d) na včerejšek"
+#~ msgstr "Nepovedlo se nastavení Data posledniho generovani faktur (%s #%d) na včerejšek"
+
+#~ msgid "id"
+#~ msgstr "id"
+
+#~ msgid "kód"
+#~ msgstr "kód"
+
+#~ msgid "název"
+#~ msgstr "název"
+
+#~ msgid "popis"
+#~ msgstr "popis"
+
+#~ msgid "Reset"
+#~ msgstr "Reset"
+
+#, fuzzy
+#~ msgid "Jméno"
+#~ msgstr "Jméno"
+
+#~ msgid "Přehled výsledků"
+#~ msgstr "Přehled výsledků"
+
+#~ msgid "O Programu"
+#~ msgstr "O Programu"
+
+#, fuzzy
+#~ msgid "Orders TODO"
+#~ msgstr "Objednávky"
+
+#~ msgid "Pohledávky"
+#~ msgstr "Pohledávky"
+
+#~ msgid "Vygenerované ostatní pohledávky"
+#~ msgstr "Vygenerované ostatní pohledávky"
+
+#~ msgid "Oprávnění"
+#~ msgstr "Oprávnění"
+
+#~ msgid "API AKCE: %s"
+#~ msgstr "API AKCE: %s"
+
+#~ msgid "%s importer"
+#~ msgstr "%s importer"
+
+#~ msgid "%s records loaded"
+#~ msgstr "%s záznamů načteno"
+
+#~ msgid "Convert progress: %s/%s = %s%% "
+#~ msgstr "Průběh konverze: %s/%s = %s%% "
+
+#~ msgid "Saving progress: %s/%s = %s%% %s "
+#~ msgstr "Průběh ukládání: %s/%s = %s%% %s "
+
+#~ msgid "updated"
+#~ msgstr "aktualizováno"
+
+#~ msgid "deleted"
+#~ msgstr "smazáno"
+
+#~ msgid "skipped"
+#~ msgstr "přeskočeno"
+
+#~ msgid "failed"
+#~ msgstr "nezdařilo se"
+
+#~ msgid "%s invoice items loaded"
+#~ msgstr "%s položek faktur načteno"
+
+#~ msgid "Domain .COM"
+#~ msgstr "Doména .COM"
+
+#~ msgid "Domain Credit"
+#~ msgstr "Kredit domény"
+
+#~ msgid "Requied Credit Value"
+#~ msgstr "Požadovaná hodnota kreditu"
+
+#~ msgid "Amount of Credit you requested"
+#~ msgstr "Kolik kreditu požadujete"
+
+#~ msgid "Please enter Requested Credit"
+#~ msgstr "Prosím zadejte požadovaný kredit"
+
+#~ msgid "Domain .NET"
+#~ msgstr "Doména .NET"
+
+#~ msgid "Domain .NL"
+#~ msgstr "Doména .NL"
+
+#~ msgid "Domain .ORG"
+#~ msgstr "Doména .ORG"
+
+#~ msgid "VoIP Credit"
+#~ msgstr "VoIP Kredit"
+
+#~ msgid "For Number"
+#~ msgstr "Pro číslo"
+
+#~ msgid "Telephone number you requested to pay"
+#~ msgstr "Telefoní číslo které hodláte zaplatit"
+
+#~ msgid "VoIP Number not set"
+#~ msgstr "VoIP číslo nebylo zadáno"
+
+#~ msgid "Admin Item"
+#~ msgstr "Adminská položka"
+
+#~ msgid "LMS ID"
+#~ msgstr "LMS ID"
+
+#~ msgid "Spoje.Net Customer ID"
+#~ msgstr "zákaznické číslo Spoje.Net"
+
+#~ msgid "Please enter your Customer ID (lmsID)"
+#~ msgstr "Prosím zadejte vaše zákaznické číslo (lmsID)"
+
+#~ msgid "Money"
+#~ msgstr "Peníze"
+
+#~ msgid "Invoice matching (Take so long)"
+#~ msgstr "Párování faktur (Trvá dlouho)"
+
+#~ msgid "Intranet"
+#~ msgstr "Intranet"
+
+#, fuzzy
+#~ msgid "Služby"
+#~ msgstr "Služby"
+
+#~ msgid "Server housing"
+#~ msgstr "Server housing"
+
+#~ msgid "Murka.cz"
+#~ msgstr "Murka.cz"
+
+#~ msgid "CZFree.Net"
+#~ msgstr "CZFree.Net"
+
+#, fuzzy
+#~ msgid "Kontakty"
+#~ msgstr "Kontakty"
+
+#~ msgid "&copy; 2015-2017 Spoje.Net s.r.o."
+#~ msgstr "&copy; 2015-2017 Spoje.Net s.r.o."
+
+#~ msgid "Faktura bez polozek"
+#~ msgstr "Faktura bez polozek"
+
+#~ msgid "Doklady faktur odeslány"
+#~ msgstr "Doklady faktur odeslány"
+
+#~ msgid "Redmine"
+#~ msgstr "Redmine"
+
+#~ msgid "ISPConfig"
+#~ msgstr "ISPConfig"
+
+#~ msgid "WebMail"
+#~ msgstr "WebMail"
+
+#~ msgid "Wiki"
+#~ msgstr "Wiki"
+
+#~ msgid "Icinga"
+#~ msgstr "Icinga"
+
+#~ msgid "LibreNMS"
+#~ msgstr "LibreNMS"
+
+#, fuzzy
+#~ msgid "Změna hesla"
+#~ msgstr "Změna hesla"
+
+#~ msgid "Labels"
+#~ msgstr "Štítky"
+
+#~ msgid "Proforma %s"
+#~ msgstr "Zálohová faktura %s"
+
+#, fuzzy
+#~ msgid "Nejprve se prosím přihlašte jako admin"
+#~ msgstr "Nejprve se prosím přihlašte jako admin"
+
+#, fuzzy
+#~ msgid "Log in"
+#~ msgstr "Přihlášení"
+
+#, fuzzy
+#~ msgid "Odhlášení"
+#~ msgstr "Odhlášení"
+
+#, fuzzy
+#~ msgid "Děkujeme za vaši přízeň a těšíme se na další návštěvu"
+#~ msgstr "Děkujeme za vaši přízeň a těšíme se na další návštěvu"
+
+#~ msgid "password is too short"
+#~ msgstr "Heslo je příliš krátké"
+
+#~ msgid "Password control does not match"
+#~ msgstr "Kontrola hesla nesouhlasí"
+
+#~ msgid "Username %s is used. Please choose another one"
+#~ msgstr "Uživatelské jméno %s je již použito. Prosím zvolte jiné"
+
+#~ msgid "Admin prvileges assigned"
+#~ msgstr "Adminská oprávnění přidělena"
+
+#~ msgid "Error writing to database"
+#~ msgstr "Chyba zápisu do databáze"
+
+#~ msgid "Please enter LMS ID"
+#~ msgstr "Prosím zadejte LMS ID"
+
+#~ msgid "Customer not found"
+#~ msgstr "Zákazník nebyl nalezen"
+
+#, fuzzy
+#~ msgid "login"
+#~ msgstr "Přihlašovací jméno"
+
+#, fuzzy
+#~ msgid "Heslo"
+#~ msgstr "Heslo bylo změněno"
+
+#~ msgid "Změna hesla uživatele"
+#~ msgstr "Změna hesla uživatele"
+
+#~ msgid "Heslo bylo změněno"
+#~ msgstr "Heslo bylo změněno"
+
+#~ msgid "Stávající heslo"
+#~ msgstr "Stávající heslo"
+
+#~ msgid "Nové heslo"
+#~ msgstr "Nové heslo"
+
+#~ msgid "změna hesla"
+#~ msgstr "změna hesla"
+
+#, fuzzy
+#~ msgid "Flexibee"
+#~ msgstr "FlexiBee"
+
+#~ msgid "Order specific"
+#~ msgstr "Order specific"

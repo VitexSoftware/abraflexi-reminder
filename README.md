@@ -65,6 +65,7 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
 
 ```json
     "EASE_MAILTO": "info@yourdomain.net",
+    "REMIND_FROM": "noreply@yourdomain.net",
     "EASE_LOGGER": "syslog|mail",
     "MAX_MAIL_SIZE": 1250000
     "SKIPLIST": "DOBROPIS,ZDD",
@@ -84,6 +85,7 @@ V případě že nepoužíváte debianí balíček ale pouze klonujete repozitá
 
 | Soubor                                                        | Popis                                 |
 | ------------------------------------------------------------- | --------------------------------------|
+| [Mailer.php](src/FlexiPeeHP/Reminder/Mailer.php)              | Třída pro HTML email
 | [Upominac.php](src/FlexiPeeHP/Reminder/Upominac.php)          | Třída upomínající neplatiče
 | [Upominka.php](src/FlexiPeeHP/Reminder/Upominka.php)          | Třída upomínky pro neplatiče
 
@@ -101,3 +103,14 @@ Mohlo by vás zajímat
 
  * https://github.com/VitexSoftware/php-flexibee-matcher - Párovač faktur
  * https://github.com/VitexSoftware/FlexiBee-Digest      - Pravidelný souhrn
+
+Poděkování
+----------
+
+Tento projekt by nevznikl bez podpory společnosti [Spoje.Net s.r.o.](http://spoje.net/)
+
+![Spoje.Net](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/spojenet-logo.png "Spoje.Net s.r.o.")
+
+Za HTML verzi upomínek a zahrnutí ostatních pohledávek bylo hrazeno společností [Medinet .s.r.o.](http://medinetsro.cz/)
+
+![Medinet](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/mediner-logo.png "Medinet s.r.o.")
