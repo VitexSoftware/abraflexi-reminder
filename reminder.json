@@ -5,6 +5,7 @@
     "SKIPLIST": "DOBROPIS,ZDD",
     "PATIENCE_DAYS": 0,
     "QR_PAYMENTS": true,
+    "ADD_LOGO": true,
     "MAX_MAIL_SIZE": 1250000,
     "MUTE": true
 }

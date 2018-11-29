@@ -1,8 +1,12 @@
-php-flexibee-reminder (0.13) UNRELEASED; urgency=medium
+php-flexibee-reminder (0.14) UNRELEASED; urgency=medium
 
+  [ Vitex ]
   * QR Payments
 
- -- Vitex <vitex@hebeditko>  Thu, 29 Nov 2018 01:53:38 +0100
+  [ Vítězslav Dvořák ]
+  * Enable/Disable Company logo
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Thu, 29 Nov 2018 14:33:27 +0100
 
 php-flexibee-reminder (0.11) experimental; urgency=medium
 
