@@ -89,7 +89,8 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
   * **EASE_MAILTO** kam zasílat protokol v případě že je povoleno logování do mailu
   * **EASE_LOGGER** Jak logovat ? (dostupné metody jsou: memory,console,file,syslog,email,std,eventlog)
   * **MAX_MAIL_SIZE** - maximální velikost vysledného mailu v Bytech. (1250000 = 10Mb) Pokud je tato velikost překročena, nejsou již přikládány žádné další přílohy.
-  * **QR_PAYMENTS**   - vložit do upomínky QR kódy pro [QR Paltby](http://qr-platba.cz/)
+  * **QR_PAYMENTS**   - zda vložit do upomínky QR kódy pro [QR Paltby](http://qr-platba.cz/)
+  * **ADD_LOGO**      - zda vložit do upomínky logo upomínající firmy
   * **SKIPLIST** nebrat doklady těchto typů v potaz
   * **MUTE**     neodesílá klientům notifikace. Maily se pro kontrolu odesílají na **EASE_MAILTO**
 
