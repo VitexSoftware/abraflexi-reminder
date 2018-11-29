@@ -3,6 +3,16 @@
 Odesílač upomínek pro FlexiBee
 ==============================
 
+  * PDF a ISDOC přílohy
+  * QR Platby (volitelně)
+  * Adresář pro vaše moduly např. odeslání SMS nebo odpojení neplatiče
+  * Definovatelná maximální velikost emailu
+  * Blacklist pro možnost ignorování některých druhů dokladů
+  * Řízeno štítky (např. štítek NEUPOMINKOVAT)
+  * Podpora cizích měn
+  * Logo vaší firmy
+  * Česká a anglická lokalizace. (gettext překladový systém)
+  * balíčky pro debian/ubuntu ale může běžet i na windows
 
 Příkaz **flexibee-debts** pouze vypíše pohledávky dle jednotlivých dlužníků.
 
