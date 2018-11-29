@@ -11,10 +11,13 @@ zkontroluje v přednastavené firmě pohledávky. Při odeslání upomínky
 Pokud nemá zákazník nastaven štítek NEUPOMINKOVAT, je mu odeslána upomínka.
 příkaz je určen k automatickému spouštění každý den.
 
+![Upomínka](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/reminder-screenshot.png "ukázka upomínky")
+
 Příkaz **flexibee-notify-customer** zašle klientovi přehled jeho závazků. 
 Předpokládá se jeho automatické spouštění jednou za měsíc.
 
 Prohledávají se evidence "vydané faktury" a "pohledávky"
+
 
 Funkce štítků
 -------------
@@ -67,6 +70,7 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
     "EASE_MAILTO": "info@yourdomain.net",
     "REMIND_FROM": "noreply@yourdomain.net",
     "EASE_LOGGER": "syslog|mail",
+    "QR_PAYMENTS": true,
     "MAX_MAIL_SIZE": 1250000
     "SKIPLIST": "DOBROPIS,ZDD",
     "MUTE": false
@@ -75,6 +79,7 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
   * **EASE_MAILTO** kam zasílat protokol v případě že je povoleno logování do mailu
   * **EASE_LOGGER** Jak logovat ? (dostupné metody jsou: memory,console,file,syslog,email,std,eventlog)
   * **MAX_MAIL_SIZE** - maximální velikost vysledného mailu v Bytech. (1250000 = 10Mb) Pokud je tato velikost překročena, nejsou již přikládány žádné další přílohy.
+  * **QR_PAYMENTS**   - vložit do upomínky QR kódy pro [QR Paltby](http://qr-platba.cz/)
   * **SKIPLIST** nebrat doklady těchto typů v potaz
   * **MUTE**     neodesílá klientům notifikace. Maily se pro kontrolu odesílají na **EASE_MAILTO**
 
