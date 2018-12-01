@@ -83,16 +83,21 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
     "QR_PAYMENTS": true,
     "MAX_MAIL_SIZE": 1250000
     "SKIPLIST": "DOBROPIS,ZDD",
-    "MUTE": false
+    "MUTE": false,
+    "SMS_SENDER": "+420739778202",
+    "SMS_ENGINE": "sshgnokii"
 ```
 
   * **EASE_MAILTO** kam zasílat protokol v případě že je povoleno logování do mailu
   * **EASE_LOGGER** Jak logovat ? (dostupné metody jsou: memory,console,file,syslog,email,std,eventlog)
   * **MAX_MAIL_SIZE** - maximální velikost vysledného mailu v Bytech. (1250000 = 10Mb) Pokud je tato velikost překročena, nejsou již přikládány žádné další přílohy.
-  * **QR_PAYMENTS**   - zda vložit do upomínky QR kódy pro [QR Paltby](http://qr-platba.cz/)
+  * **QR_PAYMENTS**   - zda vložit do upomínky QR kódy pro [QR Platby](http://qr-platba.cz/)
   * **ADD_LOGO**      - zda vložit do upomínky logo upomínající firmy
-  * **SKIPLIST** nebrat doklady těchto typů v potaz
-  * **MUTE**     neodesílá klientům notifikace. Maily se pro kontrolu odesílají na **EASE_MAILTO**
+  * **SKIPLIST**      - nebrat doklady těchto typů v potaz
+  * **MUTE**          - neodesílá klientům notifikace. Maily se pro kontrolu odesílají na **EASE_MAILTO**
+  * **SMS_SENDER**    - Telefoní číslo odesilatele sms +420739778202
+  * **SMS_ENGINE**    - Metoda odeslání SMS. Možné hodnoty: **none**: neodesílat SMS, **sshgnokii**: [Gnokii](https://www.gnokii.org/) na vzdáleném serveru , **localgnokii**: místní Gnokii, **axone** [Axfone](https://www.axfone.eu/) API
+
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
 
