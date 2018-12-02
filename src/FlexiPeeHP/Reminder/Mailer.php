@@ -20,6 +20,10 @@ class Mailer extends \Ease\Mailer
     {
         $shared                 = \Ease\Shared::instanced();
         $this->fromEmailAddress = $shared->getConfigValue('REMIND_FROM');
+
+        if (defined('MUTE') && (constant('MUTE') == 'true')) {
+            $sendTo = constant('EASE_MAILTO');
+        }
         parent::__construct($sendTo, $subject);
 
         $this->htmlDocument = new \Ease\Html\HtmlTag(new \Ease\Html\SimpleHeadTag([
@@ -60,5 +64,22 @@ class Mailer extends \Ease\Mailer
     public function getCss()
     {
         
+    }
+
+    /**
+     * Count current mail size
+     *
+     * @return int Size in bytes
+     */
+    public function getCurrentMailSize()
+    {
+        $this->finalize();
+        $this->finalized = false;
+        if (function_exists('mb_internal_encoding') &&
+            (((int) ini_get('mbstring.func_overload')) & 2)) {
+            return mb_strlen($this->mailBody, '8bit');
+        } else {
+            return strlen($this->mailBody);
+        }
     }
 }

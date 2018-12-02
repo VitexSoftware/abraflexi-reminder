@@ -15,13 +15,11 @@ namespace FlexiPeeHP\Reminder;
  */
 class Upominka extends \FlexiPeeHP\FlexiBeeRW
 {
-    public $evidence = 'sablona-upominky';
-
     /**
-     *
-     * @var \Ease\Mailer 
+     * Remind templates evidence name
+     * @var string 
      */
-    public $mailer = null;
+    public $evidence = 'sablona-upominky';
 
     /**
      *
@@ -105,107 +103,29 @@ table.greyGridTable tfoot td {
     }
 
     /**
-     * Compile Reminder message with its contents
+     * Obtain all debts sums indexed by currency
      * 
-     * @param \FlexiPeeHP\Bricks\Customer $customer
-     * @param array                       $clientDebts
+     * @param array $debts
      * 
-     * @return boolean
+     * @return array
      */
-    public function compile($customer, $clientDebts)
+    public static function getSums($debts)
     {
-        $result       = false;
-        $email        = $customer->adresar->getNotificationEmailAddress();
-        $nazev        = $customer->adresar->getDataValue('nazev');
-        $this->firmer = &$customer->adresar;
-        if ($email) {
-            $sumsCelkem = [];
-            $invoices   = [];
-            foreach ($clientDebts as $debt) {
-                $currency = \FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
-                if ($currency == 'CZK') {
-                    $amount = $debt['zbyvaUhradit'];
-                } else {
-                    $amount = $debt['zbyvaUhraditMen'];
-                }
-                if (!array_key_exists($currency, $sumsCelkem)) {
-                    $sumsCelkem[$currency] = $amount;
-                } else {
-                    $sumsCelkem[$currency] += $amount;
-                }
-            }
-
-            $to = $email;
-
-            $dnes    = new \DateTime();
-            $subject = $this->getDataValue('hlavicka').' ke dni '.$dnes->format('d.m.Y');
-
-
-            if (defined('MUTE') && constant('MUTE')) {
-                $to = constant('EASE_MAILTO');
-            }
-
-            $this->mailer = new Mailer($to, $subject);
-
-            $heading = new \Ease\Html\DivTag($this->getDataValue('uvod').' '.$nazev);
-            if (defined('ADD_LOGO') && constant('ADD_LOGO')) {
-                $headingTableRow = new \Ease\Html\TrTag();
-                $headingTableRow->addItem(new \Ease\Html\TdTag($heading));
-                $logo            = new \FlexiPeeHP\ui\CompanyLogo(['align' => 'right',
-                    'id' => 'companylogo',
-                    'height' => '50', 'title' => _('Company logo')]);
-                $headingTableRow->addItem(new \Ease\Html\TdTag($logo,
-                        ['width' => '200px']));
-                $headingTable    = new \Ease\Html\TableTag($headingTableRow,
-                    ['width' => '100%']);
-                $this->mailer->addItem($headingTable);
+        $sumsCelkem = [];
+        foreach ($debts as $debt) {
+            $currency = \FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
+            if ($currency == 'CZK') {
+                $amount = $debt['zbyvaUhradit'];
             } else {
-                $this->mailer->addItem($heading);
+                $amount = $debt['zbyvaUhraditMen'];
             }
-
-            $this->mailer->addItem(new \Ease\Html\PTag());
-            $this->mailer->addItem(new \Ease\Html\DivTag(nl2br($this->getDataValue('textNad'))));
-            $debtsTable = new \Ease\Html\TableTag(null,
-                ['class' => 'greyGridTable']);
-            $debtsTable->addRowHeaderColumns([_('Code'), _('var. sym.'), _('Amount'),
-                _('Currency'), _('Due Date'), _('overdue days')]);
-
-            foreach ($clientDebts as $debt) {
-                $currency = \FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
-                if ($currency == 'CZK') {
-                    $amount = $debt['zbyvaUhradit'];
-                } else {
-                    $amount = $debt['zbyvaUhraditMen'];
-                }
-                $debtsTable->addRowColumns([
-                    $debt['kod'],
-                    $debt['varSym'],
-                    self::formatCurrency($amount),
-                    $currency,
-                    \FlexiPeeHP\FlexiBeeRO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y'),
-                    \FlexiPeeHP\FakturaVydana::overdueDays($debt['datSplat'])
-                ]);
+            if (!array_key_exists($currency, $sumsCelkem)) {
+                $sumsCelkem[$currency] = $amount;
+            } else {
+                $sumsCelkem[$currency] += $amount;
             }
-
-            $debtsTable->addRowFooterColumns(['', _('Total'), Upominac::formatTotals($sumsCelkem)]);
-            $this->mailer->addItem(new \Ease\Html\PTag('<br clear="all"/>'));
-            $this->mailer->addItem($debtsTable);
-            $this->mailer->addItem(new \Ease\Html\PTag('<br clear="all"/>'));
-            $this->mailer->addItem(new \Ease\Html\DivTag(nl2br($this->getDataValue('textPod'))));
-            $this->mailer->addItem(new \Ease\Html\PTag('<br clear="all"/>'));
-            $this->mailer->addItem(new \Ease\Html\HrTag());
-            $this->mailer->addItem(new \Ease\Html\DivTag(nl2br($this->getDataValue('zapati'))));
-
-            if (defined('QR_PAYMENTS') && constant('QR_PAYMENTS')) {
-                $this->mailer->addItem($this->qrPayments($clientDebts));
-            }
-            $this->addAttachments($clientDebts);
-            $result = true;
-        } else {
-            $this->addStatusMessage(sprintf(_('Client %s without email %s !!!'),
-                    $nazev, $this->firmer->getApiURL()), 'error');
         }
-        return $result;
+        return $sumsCelkem;
     }
 
     /**
@@ -215,9 +135,10 @@ table.greyGridTable tfoot td {
      * 
      * @return \Ease\Html\DivTag
      */
-    public function qrPayments($debts)
+    public static function qrPayments($debts)
     {
-        $qrDiv = new \Ease\Html\DivTag();
+        $invoicer = new \FlexiPeeHP\FakturaVydana();
+        $qrDiv    = new \Ease\Html\DivTag();
         $qrDiv->addItem(new \Ease\Html\H3Tag(_('QR Invoices')));
         foreach ($debts as $invoiceId => $invoiceInfo) {
             $currency = \FlexiPeeHP\FlexiBeeRO::uncode($invoiceInfo['mena']);
@@ -226,56 +147,14 @@ table.greyGridTable tfoot td {
             } else {
                 $amount = $invoiceInfo['zbyvaUhraditMen'];
             }
-            $this->invoicer->setMyKey(intval($invoiceInfo['id']));
-            $this->invoicer->setEvidence($invoiceInfo['evidence']);
+            $invoicer->setMyKey(intval($invoiceInfo['id']));
+            $invoicer->setEvidence($invoiceInfo['evidence']);
             $qrDiv->addItem(new \Ease\Html\DivTag($invoiceId.' <strong>'.$amount.'</strong> '.$currency));
-            $qrDiv->addItem(new \Ease\Html\ImgTag($this->invoicer->getQrCodeBase64(200),
+            $qrDiv->addItem(new \Ease\Html\ImgTag($invoicer->getQrCodeBase64(200),
                     _('QR Payment'),
                     ['width' => 200, 'height' => 200, 'title' => $invoiceId]));
         }
         return $qrDiv;
-    }
-
-    /**
-     * 
-     * @param \Ease\Mailer $mailer
-     */
-    public function getCurrentMailSize($mailer)
-    {
-        $mailer->finalize();
-        $mailer->finalized = false;
-        if (function_exists('mb_internal_encoding') &&
-            (((int) ini_get('mbstring.func_overload')) & 2)) {
-            return mb_strlen($mailer->mailBody, '8bit');
-        } else {
-            return strlen($mailer->mailBody);
-        }
-    }
-
-    /**
-     * Attach PDF and ISDOC invoices
-     * @param array $clientDebts
-     */
-    public function addAttachments($clientDebts)
-    {
-        foreach ($clientDebts as $debtCode => $debt) {
-            if (defined('MAX_MAIL_SIZE') && ($this->getCurrentMailSize($this->mailer)
-                > constant('MAX_MAIL_SIZE'))) {
-                $this->mailer->addItem(new \Ease\Html\DivTag(sprintf(_('Not enough space in this mail for attaching %s '),
-                            $debtCode)));
-                continue;
-            }
-            if (array_key_exists('evidence', $debt)) {
-                $this->invoicer->setEvidence($debt['evidence']);
-            }
-            $this->invoicer->setMyKey($debt['id']);
-            $this->mailer->addFile($this->invoicer->downloadInFormat('pdf',
-                    '/tmp/'),
-                \FlexiPeeHP\Formats::$formats['PDF']['content-type']);
-            $this->mailer->addFile($this->invoicer->downloadInFormat('isdocx',
-                    '/tmp/'),
-                \FlexiPeeHP\Formats::$formats['ISDOCx']['content-type']);
-        }
     }
 
     /**
@@ -288,15 +167,5 @@ table.greyGridTable tfoot td {
     public static function formatCurrency($price)
     {
         return number_format($price, 2, ',', ' ');
-    }
-
-    /**
-     * Send Remind
-     * 
-     * @return boolean
-     */
-    public function send()
-    {
-        return $this->mailer->send();
     }
 }

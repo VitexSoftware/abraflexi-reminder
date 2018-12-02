@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-28 21:42+0100\n"
-"PO-Revision-Date: 2018-11-28 21:42+0100\n"
+"POT-Creation-Date: 2018-12-02 23:08+0100\n"
+"PO-Revision-Date: 2018-12-02 23:11+0100\n"
 "Last-Translator: Vítězslav Dvořák <info@vitexsoftware.cz>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -16,123 +16,102 @@ msgstr ""
 "X-Poedit-SearchPath-0: ../src\n"
 "X-Poedit-SearchPathExcluded-0: ../vendor\n"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:55
+#: ../src/FlexiPeeHP/Reminder/Sms.php:76
+#, php-format
+msgid "Message %s chars long: %s"
+msgstr "Zpráva %s je dlouhá: %s znaků"
+
+#: ../src/FlexiPeeHP/Reminder/Sms.php:94
+msgid "No SMS sending method specified"
+msgstr "Nebyla specifikována metoda odesílání SMS"
+
+#: ../src/FlexiPeeHP/Reminder/SmsToAddress.php:32
+msgid "Address or primary contact without any phone number"
+msgstr "Adresa nebo primární kontakt bez telefoního čísla"
+
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:54
 msgid "Getting clients"
 msgstr "Získávám zákazníky"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:59
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:58
 #, php-format
 msgid "%s Clients Found"
 msgstr "%s Klientů nalezeno"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:60
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:59
 msgid "Getting debts"
 msgstr "Získávám pohledávky"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:87
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:86
 #, php-format
 msgid "%s Debts Found"
 msgstr "%s Pohledávek nalezeno"
 
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:122
 #: ../src/FlexiPeeHP/Reminder/Upominac.php:125
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:128
 #, php-format
 msgid "No debts. Clear %s Remind labels"
 msgstr "Bez pohledávek. Čistím %s štítky upomínek"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:146
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:142
 #, php-format
 msgid "%d clients to remind process"
 msgstr "%d klientů k upomenutí zpracováno"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:152
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:148
 #, php-format
 msgid "(%d / %d) #%s code: %s %s "
 msgstr "(%d / %d) #%s code: %s %s "
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:187
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:182
 msgid "Invoice locked: skipping process"
 msgstr "Faktura zamknutá přeskakuji zpracování"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:242
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:237
 #, php-format
 msgid "%s %s remind %s date saved"
 msgstr "%s %s  Datum upomínky %s uloženo"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:246
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:241
 #, php-format
 msgid "%s %s remind %s date save failed"
 msgstr "%s %s chyba ukládání data upomínky %s"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:253
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:248
 msgid "Remind send disbled"
 msgstr "Odesílání pohledávek zakázáno"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:256
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:251
 #, php-format
 msgid "Remind %d already sent"
 msgstr "Upomínka  %d  byla již odeslána"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:260
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:255
 msgid "No debts to remind"
 msgstr "Žádne pohledávky k upomenutí"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:269
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:264
 #, php-format
 msgid "Invoice %s locked again"
 msgstr "Faktura %s byla znovu uzamknuta"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:272
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:267
 #, php-format
 msgid "Invoice %s locking failed"
 msgstr "Faktura %s chyba znovuzamykání"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:410
+#: ../src/FlexiPeeHP/Reminder/Upominac.php:400
 #, php-format
 msgid "Module %s is wrong"
 msgstr "Složka modulů %s je špatná"
 
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:151
-msgid "Company logo"
-msgstr "Logo společnosti"
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:140
+msgid "QR Invoices"
+msgstr "QR Faktury"
 
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:158
-msgid "Code"
-msgstr "Kód"
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:158
-msgid "var. sym."
-msgstr "Var. sym."
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:158
-msgid "Amount"
-msgstr "Částka"
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:159
-msgid "Currency"
-msgstr "Měna"
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:159
-msgid "Due Date"
-msgstr "Splatnost"
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:159
-msgid "overdue days"
-msgstr "Dní po splatnosti"
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:178
-msgid "Total"
-msgstr "Celkem"
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:190
-#, php-format
-msgid "Client %s without email %s !!!"
-msgstr "Klient %s bez emailu %s !!!"
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:221
-#, php-format
-msgid "Not enough space in this mail for attaching %s "
-msgstr "V tomto mailu není dost místa pro přiložení %s"
+#: ../src/FlexiPeeHP/Reminder/Upominka.php:152
+msgid "QR Payment"
+msgstr "QR Platby"
 
 #: ../src/Init.php:28
 #, php-format
@@ -144,30 +123,86 @@ msgstr "Vytvoření požadovaného štítku %s"
 msgid "(%d / %d) %s "
 msgstr "(%d / %d) %s "
 
+#: ../src/flexibee-remind-clean-labels.php:29
+msgid "None to clear"
+msgstr "Není co čistit"
+
+#: ../src/flexibee-remind-clean-labels.php:36
+msgid "Labels Cleanup"
+msgstr "Čištění štítků"
+
 #: ../src/flexibee-reminder.php:23
 msgid "(Company not assigned)"
 msgstr "(Zákazník není přiřazen)"
 
-#: ../src/notifiers/ByEmail.php:44
-msgid "Dear customer"
-msgstr "Vážený zákazníku,"
-
-#: ../src/notifiers/ByEmail.php:45
-msgid "we are sending you an overview of your commitments to us"
-msgstr "zasíláme vám přehled vašich závazků vůči nám"
-
-#: ../src/notifiers/ByEmail.php:48
-msgid "Sincerely"
-msgstr "S přátelským pozdravem"
-
-#: ../src/notifiers/ByEmail.php:57
+#: ../src/notifiers/ByEmail.php:54 ../src/notifiers/BySms.php:56
 #, php-format
 msgid "Set Label %s "
 msgstr "Štítek %s  nastaven"
 
-#: ../src/notifiers/ByEmail.php:62
+#: ../src/notifiers/ByEmail.php:59 ../src/notifiers/BySms.php:61
 msgid "Remind was not sent"
 msgstr "Upomínka  nebyla odeslána"
+
+#: ../src/notifiers/ByEmail.php:99
+msgid "Company logo"
+msgstr "Logo společnosti"
+
+#: ../src/notifiers/ByEmail.php:113
+msgid "Code"
+msgstr "Kód"
+
+#: ../src/notifiers/ByEmail.php:113
+msgid "var. sym."
+msgstr "Var. sym."
+
+#: ../src/notifiers/ByEmail.php:113
+msgid "Amount"
+msgstr "Částka"
+
+#: ../src/notifiers/ByEmail.php:114
+msgid "Currency"
+msgstr "Měna"
+
+#: ../src/notifiers/ByEmail.php:114
+msgid "Due Date"
+msgstr "Splatnost"
+
+#: ../src/notifiers/ByEmail.php:114
+msgid "overdue days"
+msgstr "Dní po splatnosti"
+
+#: ../src/notifiers/ByEmail.php:133
+msgid "Total"
+msgstr "Celkem"
+
+#: ../src/notifiers/ByEmail.php:148
+#, php-format
+msgid "Client %s without email %s !!!"
+msgstr "Klient %s bez emailu %s !!!"
+
+#: ../src/notifiers/ByEmail.php:164
+#, php-format
+msgid "Not enough space in this mail for attaching %s "
+msgstr "V tomto mailu není dost místa pro přiložení %s"
+
+#: ../src/notifiers/BySms.php:90
+msgid "Please pay"
+msgstr "Prosíme uhraďte"
+
+#: ../src/notifiers/BySms.php:93
+#, php-format
+msgid "Client %s without phone neumber %s !!!"
+msgstr "Klient %s bez telefoního čísla %s !!!"
+
+#~ msgid "Dear customer"
+#~ msgstr "Vážený zákazníku,"
+
+#~ msgid "we are sending you an overview of your commitments to us"
+#~ msgstr "zasíláme vám přehled vašich závazků vůči nám"
+
+#~ msgid "Sincerely"
+#~ msgstr "S přátelským pozdravem"
 
 #~ msgid "Please contact Vitex Software to make this module working."
 #~ msgstr "Prosím kontaktujete Vitex Software pokud chcete tento modul používat"

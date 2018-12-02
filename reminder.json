@@ -7,5 +7,10 @@
     "QR_PAYMENTS": true,
     "ADD_LOGO": true,
     "MAX_MAIL_SIZE": 1250000,
-    "MUTE": true
+    "MUTE": true,
+    "SMS_SENDER": "+420739778202",
+    "SMS_ENGINE": "sshgnokii",
+    "GNOKII_HOST": "213.151.89.99",
+    "AXFONE_USERNAME": "910440185",
+    "AXFONE_PASSWORD": "xZmcGDzkVX"
 }

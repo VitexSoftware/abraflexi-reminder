@@ -497,15 +497,19 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
     }
 
     /**
+     * Get Customer listing
      * 
      * @return array clients indexed by code
      */
-    public function getCustomerList()
+    public function getCustomerList($conditions = [])
     {
+        //[/* 'typVztahuK'=>'typVztahu.odberDodav' */]
         $allClients = $this->customer->adresar->getColumnsFromFlexiBee(['id', 'nazev',
-            'stitky'], [/* 'typVztahuK'=>'typVztahu.odberDodav' */], 'kod');
-        foreach ($allClients as $clientCode => $clientInfo) {
-            $allClients[$clientCode]['stitky'] = \FlexiPeeHP\Stitek::listToArray($clientInfo['stitky']);
+            'stitky'], $conditions, 'kod');
+        if (!empty($allClients)) {
+            foreach ($allClients as $clientCode => $clientInfo) {
+                $allClients[$clientCode]['stitky'] = \FlexiPeeHP\Stitek::listToArray($clientInfo['stitky']);
+            }
         }
         return $allClients;
     }

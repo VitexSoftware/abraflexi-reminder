@@ -95,8 +95,8 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
   * **ADD_LOGO**      - zda vložit do upomínky logo upomínající firmy
   * **SKIPLIST**      - nebrat doklady těchto typů v potaz
   * **MUTE**          - neodesílá klientům notifikace. Maily se pro kontrolu odesílají na **EASE_MAILTO**
-  * **SMS_SENDER**    - Telefoní číslo odesilatele sms +420739778202
-  * **SMS_ENGINE**    - Metoda odeslání SMS. Možné hodnoty: **none**: neodesílat SMS, **sshgnokii**: [Gnokii](https://www.gnokii.org/) na vzdáleném serveru , **localgnokii**: místní Gnokii, **axone** [Axfone](https://www.axfone.eu/) API
+  * **SMS_SENDER**    - Telefoní číslo odesilatele sms. Např.: +420739778202
+  * **SMS_ENGINE**    - Metoda odeslání SMS. Možné hodnoty: **none**: neodesílat SMS, **gnokii**: místní Gnokii, **sshgnokii**: [Gnokii](https://www.gnokii.org/) na vzdáleném serveru , **axfone** [Axfone](https://www.axfone.eu/) API
 
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
