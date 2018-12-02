@@ -50,22 +50,15 @@ class BySms extends \Ease\Sand
 
                 if ($smsEngine) {
 
-
-
-                    if ($smsEngine->sendMessage()) {
 //            file_put_contents('/var/tmp/upominka.txt',$message);
-                        if ($score && $result) {
-                            setData(['id' => $reminder->customer->adresar->getRecordID(),
-                                'stitky' => 'UPOMINKA'.$score], true);
-                            $reminder->addStatusMessage(sprintf(_('Set Label %s '),
-                                    'UPOMINKA'.$score),
-                                $reminder->customer->adresar->sync() ? 'success'
-                                        : 'error' );
-                        }
-                    } else {
-                        $this->addStatusMessage(_('Remind was not sent'),
-                            'warning');
+                    if (($score > 0) && ($score < 4) && $result) {
+                        setData(['id' => $reminder->customer->adresar->getRecordID(),
+                            'stitky' => 'UPOMINKA'.$score], true);
+                        $reminder->addStatusMessage(sprintf(_('Set Label %s '),
+                                'UPOMINKA'.$score),
+                            $reminder->customer->adresar->sync() ? 'success' : 'error' );
                     }
+
                     $this->result = $result;
                 }
             } else {
