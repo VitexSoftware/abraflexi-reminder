@@ -47,8 +47,20 @@ A je poznamenán datum jejího odeslání a současně je zákazníkovi přiřaz
 Odeslaná upomínka obsahuje přehled všech položek po splatnosti a k nim patřičné přílohy ve formátech pdf a isdocx
 
 
-Upomínka SMS nebo jiná akce při upomínání
------------------------------------------
+Upomínka SMS 
+------------
+
+Upomínky je v současné době možné zasílat jako SMS prostřednictvím těchto metod:
+
+ * **místní gnokii** - na stejném stroji kde běží upomínkovač je nainstalována aplikace gnokii.
+ * **vzdálené gnokii** - gnokii je nainstalována na jiném stroji. Příkaz na něm je spouštěn prostřednictvím SSH s klíčem
+ * **Axfone SMS brána** -  Vaše přihlašovací údaje zadejte do konfiguráku pod klíči **AXFONE_USERNAME** a **AXFONE_PASSWORD**
+
+![SMS Upomínka](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/reminder-sms-screenshot.png "ukázka SMS upomínky")
+
+
+jiná akce při upomínání
+-----------------------
 
 Do složky  **notifiers** ( /usr/lib/php-flexibee-reminder/notifiers/ v případě instalace z debianího balíčku )
 je možné přidat další moduly vykonávající akci. Například odpojení neplatiče od služby atd.
