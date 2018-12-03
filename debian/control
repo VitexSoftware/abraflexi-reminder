@@ -8,9 +8,25 @@ Homepage: https://github.com/VitexSoftware/php-flexibee-reminder
 
 Package: php-flexibee-reminder
 Depends: ${misc:Depends}, php-flexibee-config, flexipeehp-bricks (>= 0.13) , composer, php-cli
-Suggests: flexibee-server
+Suggests: flexibee-server, flexibee-digest, php-flexibee-matcher
 Architecture: all
 Section: web
 Priority: optional
 Description: Reminder sender for FlexiBee
  Find All unpayed invoices for configured company and sent notification to payer
+
+Package: php-flexibee-reminder-sms
+Depends: ${misc:Depends}, php-flexibee-reminder
+Architecture: all
+Section: web
+Priority: optional
+Description: SMS Suppot for Reminder sender for FlexiBee 
+ Can send SMS using Gnokii (local or remote via ssh)  and Axfone API
+
+Package: php-flexibee-reminder-papermail
+Depends: ${misc:Depends}, php-flexibee-reminder
+Architecture: all
+Section: web
+Priority: optional
+Description: Paper mail support for Reminder sender for FlexiBee
+ Sends reminds as Paper Mail using www.listonoska.cz

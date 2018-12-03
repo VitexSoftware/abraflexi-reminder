@@ -23,7 +23,7 @@ příkaz je určen k automatickému spouštění každý den.
 
 ![Upomínka](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/reminder-screenshot.png "ukázka upomínky")
 
-Příkaz **flexibee-notify-customer** zašle klientovi přehled jeho závazků. 
+Příkaz **flexibee-inventarize** zašle klientům přehled jejich závazků. 
 Předpokládá se jeho automatické spouštění jednou za měsíc.
 
 Prohledávají se evidence "vydané faktury" a "pohledávky"
@@ -46,7 +46,6 @@ Texty upomínek se mění ve flexibee evidenci **sablona-upominky**
 A je poznamenán datum jejího odeslání a současně je zákazníkovi přiřazen štítek UPOMINKA1-3
 Odeslaná upomínka obsahuje přehled všech položek po splatnosti a k nim patřičné přílohy ve formátech pdf a isdocx
 
-
 Upomínka SMS 
 ------------
 
@@ -57,6 +56,16 @@ Upomínky je v současné době možné zasílat jako SMS prostřednictvím těc
  * **Axfone SMS brána** -  Vaše přihlašovací údaje zadejte do konfiguráku pod klíči **AXFONE_USERNAME** a **AXFONE_PASSWORD**
 
 ![SMS Upomínka](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/reminder-sms-screenshot.png "ukázka SMS upomínky")
+
+Papírová Upomínka
+-----------------
+
+Je odesílána pomocí služby: [Listonoška](https://www.listonoska.cz/) Pro použití služby potřebujete přístupové údaje které jsou k tarifu [PROFI](https://www.listonoska.cz/posta-pro-firmy)
+Do konfiguračního dialogu je třeba doplnit 
+
+    "LISTONOSKA_ID": "vas@registracni.mail",
+    "LISTONOSKA_KEY": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
 
 
 jiná akce při upomínání

@@ -10,7 +10,9 @@
     "require": {
         "vitexsoftware/ease-framework": "dev-master",
         "spoje.net/flexipeehp": "dev-master",
-        "vitexsoftware/flexipeehp-bricks": "dev-master"
+        "vitexsoftware/flexipeehp-bricks": "dev-master",
+        "listonoska/api": "^1.1",
+        "spipu/html2pdf": "dev-master"
     },
     "autoload": {
         "psr-4": {

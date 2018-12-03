@@ -1,0 +1,17 @@
+#!/bin/sh
+# postinst script for php-flexibee-reminder-papermail
+WEBUSER="root" 
+set -e
+
+    if [ "$1" = "configure" ]; then
+
+    . /usr/share/debconf/confmodule
+
+    fi
+
+su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer --no-dev -o require listonoska/api -d /usr/lib/php-flexibee-reminder/'
+su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer --no-dev -o require spipu/html2pdf -d /usr/lib/php-flexibee-reminder/'
+
+#DEBHELPER#
+
+exit 0

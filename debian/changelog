@@ -1,3 +1,10 @@
+php-flexibee-reminder (0.16) UNRELEASED; urgency=medium
+
+  * initial Paper Mail support
+  * split to packages php-flexibee-reminder-sms and php-flexibee-reminder-papermail 
+
+ -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Mon, 03 Dec 2018 22:36:46 +0100
+
 php-flexibee-reminder (0.15) UNRELEASED; urgency=medium
 
   * SMS Support added

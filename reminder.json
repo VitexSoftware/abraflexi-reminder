@@ -12,5 +12,7 @@
     "SMS_ENGINE": "sshgnokii",
     "GNOKII_HOST": "213.151.89.99",
     "AXFONE_USERNAME": "XXXXXXXXX",
-    "AXFONE_PASSWORD": "XXXXXXXXX"
+    "AXFONE_PASSWORD": "XXXXXXXXX",
+    "LISTONOSKA_ID": "info@vitexsoftware.cz",
+    "LISTONOSKA_KEY": "d6Sa5raxfvVbDdA7fvnt7qn34857xyec"
 }

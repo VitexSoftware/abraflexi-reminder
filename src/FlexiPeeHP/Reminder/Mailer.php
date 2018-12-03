@@ -27,8 +27,8 @@ class Mailer extends \Ease\Mailer
         parent::__construct($sendTo, $subject);
 
         $this->htmlDocument = new \Ease\Html\HtmlTag(new \Ease\Html\SimpleHeadTag([
-                new \Ease\Html\TitleTag($this->emailSubject),
-                '<style>'.Upominka::$styles.'</style>']));
+            new \Ease\Html\TitleTag($this->emailSubject),
+            '<style>'.Upominka::$styles.'</style>']));
         $this->htmlDocument->setOutputFormat($this->getOutputFormat());
         $this->htmlBody     = $this->htmlDocument->addItem(new \Ease\Html\BodyTag());
     }
