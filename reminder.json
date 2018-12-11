@@ -1,18 +1,1 @@
-{
-    "EASE_MAILTO": "info@vitexsoftware.cz",
-    "REMIND_FROM": "info@vitexsoftware.cz",
-    "EASE_LOGGER": "syslog|console",
-    "SKIPLIST": "DOBROPIS,ZDD",
-    "PATIENCE_DAYS": 0,
-    "QR_PAYMENTS": true,
-    "ADD_LOGO": true,
-    "MAX_MAIL_SIZE": 1250000,
-    "MUTE": true,
-    "SMS_SENDER": "+420739778202",
-    "SMS_ENGINE": "sshgnokii",
-    "GNOKII_HOST": "213.151.89.99",
-    "AXFONE_USERNAME": "XXXXXXXXX",
-    "AXFONE_PASSWORD": "XXXXXXXXX",
-    "LISTONOSKA_ID": "info@vitexsoftware.cz",
-    "LISTONOSKA_KEY": "d6Sa5raxfvVbDdA7fvnt7qn34857xyec"
-}
+/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/reminder.json
