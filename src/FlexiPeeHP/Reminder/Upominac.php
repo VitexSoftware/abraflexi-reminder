@@ -287,37 +287,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      */
     public function getCustomerScore($addressID)
     {
-        $score     = 0;
-        $debts     = $this->customer->getCustomerDebts($addressID);
-        $stitkyRaw = $this->customer->adresar->getColumnsFromFlexiBee(['stitky'],
-            ['id' => $addressID]);
-        $stitky    = $stitkyRaw[0]['stitky'];
-        if (!empty($debts)) {
-            foreach ($debts as $did => $debt) {
-                $ddiff = self::poSplatnosti($debt['datSplat']);
-
-                if (($ddiff <= 7) && ($ddiff >= 1)) {
-                    $score = self::maxScore($score, 1);
-                } else {
-                    if (($ddiff > 7 ) && ($ddiff <= 14)) {
-                        $score = self::maxScore($score, 2);
-                    } else {
-                        if ($ddiff > 14) {
-                            $score = self::maxScore($score, 3);
-                        }
-                    }
-                }
-            }
-        }
-        if ($score == 3 && !strstr($stitky, 'UPOMINKA2')) {
-            $score = 2;
-        }
-
-        if (!strstr($stitky, 'UPOMINKA1') && !empty($debts)) {
-            $score = 1;
-        }
-
-        return $score;
+        return $this->customer->getCustomerScore($addressID);
     }
 
     /**
@@ -338,22 +308,6 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
             }
         }
         return $result;
-    }
-
-    /**
-     * Overdue group
-     *
-     * @param int $score current score value
-     * @param int $level current level
-     *
-     * @return int max of all levels processed
-     */
-    static private function maxScore($score, $level)
-    {
-        if ($level > $score) {
-            $score = $level;
-        }
-        return $score;
     }
 
     /**
