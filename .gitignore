@@ -5,3 +5,11 @@
 /debian/php-flexibee-reminder.postrm.debhelper
 /debian/php-flexibee-reminder/
 /nbproject/private/
+/debian/php-flexibee-reminder-papermail/
+/debian/php-flexibee-reminder-sms/
+/debian/files
+/debian/php-flexibee-reminder-papermail.debhelper.log
+/debian/php-flexibee-reminder-papermail.substvars
+/debian/php-flexibee-reminder-sms.debhelper.log
+/debian/php-flexibee-reminder-sms.substvars
+/debian/php-flexibee-reminder.substvars

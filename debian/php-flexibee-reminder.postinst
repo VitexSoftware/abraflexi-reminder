@@ -12,7 +12,9 @@ set -e
 
 mkdir -p /var/lib/composer
 chown $WEBUSER:$WEBUSER /var/lib/composer
-su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer --no-dev -o install -d /usr/lib/php-flexibee-reminder/'
+su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer  --no-scripts --optimize-autoloader --no-dev -o install -d /usr/lib/php-flexibee-reminder/'
+
+#  --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader
 
 php -f /usr/lib/php-flexibee-reminder/Init.php
 

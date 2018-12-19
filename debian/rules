@@ -6,6 +6,7 @@
 override_dh_install:
 	dh_install
 	cp src/notifiers/ByEmail.php                                         debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/notifiers/
+	cp src/*.php                                                         debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/
 	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/*.php
 	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-debts.php
 	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-reminder.php
