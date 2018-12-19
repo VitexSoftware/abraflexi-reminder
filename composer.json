@@ -18,5 +18,10 @@
         "psr-4": {
             "FlexiPeeHP\\Reminder\\": "src/FlexiPeeHP/Reminder/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\FlexiPeeHP\\Reminder\\": "tests/FlexiPeeHP/Reminder/"
+        }
     }
 }
