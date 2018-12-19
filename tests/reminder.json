@@ -6,5 +6,6 @@
     "PATIENCE_DAYS": 0,
     "SKIPLIST": "DOBROPIS,ZDD",
     "MAX_MAIL_SIZE": 1250000,
+    "SMS_ENGINE": "gnokii",
     "MUTE": false
 }

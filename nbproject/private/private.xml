@@ -5,19 +5,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="Group 20171205-02:25:52"/>
         <group>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/debian/php-flexibee-reminder.install</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/debian/php-flexibee-reminder.dirs</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/src/FlexiPeeHP/Reminder/Upominka.php</file>
             <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/src/FlexiPeeHP/Reminder/Upominac.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/src/FlexiPeeHP/Reminder/PDFPage.php</file>
             <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/src/flexibee-reminder.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/README.md</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/src/notifiers/ByListonoska.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/debian/php-flexibee-reminder.prerm</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/debian/rules</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/debian/php-flexibee-reminder-papermail.postinst</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/debian/control</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/bin/flexibee-inventarize</file>
+            <file>file:/home/vitex/Projects/VitexSoftware/FlexiBee/php-flexibee-reminder/src/notifiers/BySms.php</file>
         </group>
     </open-files>
 </project-private>

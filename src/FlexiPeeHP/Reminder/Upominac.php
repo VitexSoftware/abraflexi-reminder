@@ -311,6 +311,22 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
     }
 
     /**
+     * Overdue group
+     *
+     * @param int $score current score value
+     * @param int $level current level
+     *
+     * @return int max of all levels processed
+     */
+    static private function maxScore($score, $level)
+    {
+        if ($level > $score) {
+            $score = $level;
+        }
+        return $score;
+    }
+
+    /**
      * Include all classes in modules directory
      * 
      * @param int          $score     weeks of due
