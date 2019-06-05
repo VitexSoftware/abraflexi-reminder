@@ -8,7 +8,7 @@ namespace FlexiPeeHP\Reminder;
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017 Vitex Software
  */
-class Mailer extends \Ease\Mailer
+class Mailer extends \Ease\HtmlMailer
 {
 
     /**
@@ -29,7 +29,7 @@ class Mailer extends \Ease\Mailer
         $this->htmlDocument = new \Ease\Html\HtmlTag(new \Ease\Html\SimpleHeadTag([
             new \Ease\Html\TitleTag($this->emailSubject),
             '<style>'.Upominka::$styles.'</style>']));
-        $this->htmlDocument->setOutputFormat($this->getOutputFormat());
+
         $this->htmlBody     = $this->htmlDocument->addItem(new \Ease\Html\BodyTag());
     }
 

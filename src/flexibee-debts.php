@@ -1,10 +1,10 @@
 #!/usr/bin/php -f
 <?php
 /**
- * System.spoje.net - Odeslání Upomínek
+ * FlexiBee Reminder - Show Debts overview
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017 Vitex Software
+ * @copyright  (G) 2017-2019 Vitex Software
  */
 define('EASE_APPNAME', 'ShowDebts');
 define('EASE_LOGGER', 'syslog|console|mail');
@@ -90,7 +90,8 @@ try {
         }
     }
 
-    $reminder->addStatusMessage(FlexiPeeHP\Reminder\Upominac::formatTotals($total), 'success');
+    $reminder->addStatusMessage(FlexiPeeHP\Reminder\Upominac::formatTotals($total),
+        'success');
 } catch (Exception $exc) {
     echo $exc->getMessage()."\n";
     echo $exc->getTraceAsString();

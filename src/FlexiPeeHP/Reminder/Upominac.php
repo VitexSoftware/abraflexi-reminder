@@ -407,6 +407,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
 
         $result                                    = [];
         $this->invoicer->defaultUrlParams['order'] = 'datVyst@A';
+        $this->invoicer->defaultUrlParams['limit'] = 0;
         $invoices                                  = $this->invoicer->getColumnsFromFlexibee([
             'id',
             'kod',
@@ -471,7 +472,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return array clients indexed by code
      */
-    public function getCustomerList($conditions = [])
+    public function getCustomerList($conditions = ['limit'=>0])
     {
         //[/* 'typVztahuK'=>'typVztahu.odberDodav' */]
         $allClients = $this->customer->adresar->getColumnsFromFlexiBee(['id', 'nazev',

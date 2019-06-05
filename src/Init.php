@@ -1,10 +1,10 @@
 #!/usr/bin/php -f
 <?php
 /**
- * System.spoje.net - Odeslání Upomínek
+ * FlexiBee Reminder - First Run init
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017 Vitex Software
+ * @copyright  (G) 2017-2019 Vitex Software
  */
 define('EASE_APPNAME', 'Debts');
 define('EASE_LOGGER', 'syslog|console|mail');
@@ -14,7 +14,6 @@ $shared = new Ease\Shared();
 try {
     $shared->loadConfig('../client.json', true);
     $shared->loadConfig('../reminder.json', true);
-
 
     $labelsRequied = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'];
     $labeler       = new \FlexiPeeHP\Stitek();
