@@ -1,17 +1,17 @@
-php-flexibee-reminder (0.16) UNRELEASED; urgency=medium
+flexibee-reminder (0.16) UNRELEASED; urgency=medium
 
   * initial Paper Mail support
-  * split to packages php-flexibee-reminder-sms and php-flexibee-reminder-papermail 
+  * split to packages flexibee-reminder-sms and flexibee-reminder-papermail 
 
  -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Mon, 03 Dec 2018 22:36:46 +0100
 
-php-flexibee-reminder (0.15) UNRELEASED; urgency=medium
+flexibee-reminder (0.15) UNRELEASED; urgency=medium
 
   * SMS Support added
 
  -- Vitex <vitex@hebeditko>  Mon, 03 Dec 2018 00:13:17 +0100
 
-php-flexibee-reminder (0.14) UNRELEASED; urgency=medium
+flexibee-reminder (0.14) UNRELEASED; urgency=medium
 
   [ Vitex ]
   * QR Payments
@@ -21,14 +21,14 @@ php-flexibee-reminder (0.14) UNRELEASED; urgency=medium
 
  -- Vítězslav Dvořák <info@vitexsoftware.cz>  Thu, 29 Nov 2018 14:33:27 +0100
 
-php-flexibee-reminder (0.11) experimental; urgency=medium
+flexibee-reminder (0.11) experimental; urgency=medium
 
   * SKIPLIST
   * Html Mails
 
  -- Vítězslav Dvořák <info@vitexsoftware.cz>  Wed, 28 Nov 2018 15:53:03 +0100
 
-php-flexibee-reminder (0.10) UNRELEASED; urgency=medium
+flexibee-reminder (0.10) UNRELEASED; urgency=medium
 
   * use Notify Sending modules
   * get debts also from "pohledavky" evidence
@@ -39,7 +39,7 @@ php-flexibee-reminder (0.10) UNRELEASED; urgency=medium
 
  -- Vítězslav Dvořák <info@vitexsoftware.cz>  Mon, 26 Nov 2018 18:53:16 +0100
 
-php-flexibee-reminder (0.6.1) UNRELEASED; urgency=medium
+flexibee-reminder (0.6.1) UNRELEASED; urgency=medium
 
   * Initial release
   * Package Update

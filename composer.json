@@ -7,10 +7,9 @@
             "email": "info@vitexsoftware.cz"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
-        "vitexsoftware/ease-framework": "dev-master",
-        "spoje.net/flexipeehp": "dev-master",
-        "vitexsoftware/flexipeehp-bricks": "dev-master",
+        "vitexsoftware/flexibee-bricks": "dev-master",
         "listonoska/api": "^1.1",
         "spipu/html2pdf": "dev-master"
     },

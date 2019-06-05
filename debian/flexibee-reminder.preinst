@@ -1,5 +1,5 @@
 #!/bin/sh
-# preinst script for php-flexibee-reminder
+# preinst script for flexibee-reminder
 
 set -e
 
