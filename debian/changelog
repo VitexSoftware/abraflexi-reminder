@@ -1,3 +1,15 @@
+flexibee-reminder (0.18) UNRELEASED; urgency=medium
+
+  * ease-core based
+
+ -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Wed, 05 Jun 2019 23:31:28 +0200
+
+flexibee-reminder (0.17) UNRELEASED; urgency=medium
+
+  * package fix
+
+ -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Wed, 05 Jun 2019 22:06:22 +0200
+
 flexibee-reminder (0.16) UNRELEASED; urgency=medium
 
   * initial Paper Mail support
