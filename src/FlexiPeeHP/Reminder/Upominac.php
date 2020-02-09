@@ -492,7 +492,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
     {
         $debts  = $this->getEvidenceDebts('faktura-vydana');
         $debts2 = $this->getEvidenceDebts('pohledavka');
-        return self::reindexArrayBy(array_merge(is_null($debts) ? [] : $debts,
+        return \Ease\Functions::reindexArrayBy(array_merge(is_null($debts) ? [] : $debts,
                     is_null($debts2) ? [] : $debts2), 'kod');
     }
 

@@ -18,6 +18,9 @@ clean:
 	rm -rf debian/php-flexibee-reminder-papermail
 	rm -rf debian/*.substvars debian/*.log debian/*.debhelper debian/files debian/debhelper-build-stamp
 
+debts:
+	cd src ; php -f flexibee-debts.php ; cd ..
+
 deb:
 	dpkg-buildpackage -A -us -uc
 

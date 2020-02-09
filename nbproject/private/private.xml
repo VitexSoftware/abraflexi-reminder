@@ -5,20 +5,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="Group 20171205-02:25:52"/>
         <group>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/FlexiPeeHP/Reminder/UpominacTest.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/FlexiPeeHP/Reminder/SmsToAddressTest.php</file>
             <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/src/FlexiPeeHP/Reminder/Upominka.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/FlexiPeeHP/Reminder/SmsByGnokiiTest.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/FlexiPeeHP/Reminder/MailerTest.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/FlexiPeeHP/Reminder/SmsByAxfoneTest.php</file>
+            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/debian/conf/composer.json</file>
             <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/debian/conf/reminder.json</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/FlexiPeeHP/Reminder/UpominkaTest.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/FlexiPeeHP/Reminder/SmsBySshGnokiiTest.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/FlexiPeeHP/Reminder/PDFPageTest.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/tests/FlexiPeeHP/Reminder/SmsTest.php</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/phpunit.xml</file>
-            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/composer.json</file>
             <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/src/FlexiPeeHP/Reminder/Upominac.php</file>
+            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/src/flexibee-debts.php</file>
+            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/reminder.json</file>
+            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/src/FlexiPeeHP/Reminder/Mailer.php</file>
+            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/src/notifiers/ByEmail.php</file>
+            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/src/flexibee-reminder.php</file>
+            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/README.md</file>
+            <file>file:/home/vitex/Projects/VitexSoftware/php-flexibee-reminder/client.json</file>
         </group>
     </open-files>
 </project-private>

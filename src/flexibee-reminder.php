@@ -18,8 +18,8 @@ $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 $reminder = new \FlexiPeeHP\Reminder\Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
 
-$allDebts       = $reminder->getAllDebts();
-$allClients     = $reminder->getCustomerList();
+$allDebts       = $reminder->getAllDebts(['limit'=>0]);
+$allClients     = $reminder->getCustomerList(['limit'=>0]);
 $allClients[''] = ['kod' => '', 'nazev' => _('(Company not assigned)'), 'stitky' => [
         'NEUPOMINKOVAT' => 'NEUPOMINKOVAT']];
 $clientsToSkip  = [];

@@ -4,7 +4,7 @@
  * System.spoje.net - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017 Vitex Software
+ * @copyright  (G) 2017-2020 Vitex Software
  */
 define('EASE_APPNAME', 'ShowDebts');
 define('EASE_LOGGER', 'syslog|console|mail');
@@ -19,20 +19,24 @@ try {
     $reminder = new \FlexiPeeHP\Reminder\Upominac();
     $reminder->logBanner(constant('EASE_APPNAME'));
 
-    $allDebts      = $reminder->getAllDebts();
-    $allClients    = $reminder->getCustomerList();
+    $allDebts = $reminder->getAllDebts(['limit'=>0]);
+    $allClients = $reminder->getCustomerList(['limit'=>0]);
     $clientsToSkip = [];
-    foreach ($allClients as $clientCode => $clientInfo) {
-        if (array_key_exists('NEUPOMINKOVAT', $clientInfo['stitky'])) {
-            $clientsToSkip[$clientCode] = $clientInfo;
+    if (empty($allClients)) {
+        $reminder->addStatusMessage(_('No customers found'), 'warning');
+    } else {
+        foreach ($allClients as $clientCodeRaw => $clientInfo) {
+            if (array_key_exists('NEUPOMINKOVAT', $clientInfo['stitky'])) {
+                $clientsToSkip[$clientCodeRaw] = $clientInfo;
+            }
         }
     }
 
     $allDebtsByClient = [];
-    $counter          = 0;
-    $total            = [];
+    $counter = 0;
+    $total = [];
     foreach ($allDebts as $code => $debt) {
-        $howmuchRaw = $howmuch    = [];
+        $howmuchRaw = $howmuch = [];
 
         if (array_key_exists($debt['firma'], $clientsToSkip)) {
             continue;
@@ -52,25 +56,27 @@ try {
         }
 
         $howmuchRaw[$curcode] += $amount;
-        if (!isset($total[$curcode])) $total[$curcode]      = 0;
-        $total[$curcode]      += $amount;
+        if (!isset($total[$curcode]))
+            $total[$curcode] = 0;
+        $total[$curcode] += $amount;
 
         foreach ($howmuchRaw as $cur => $price) {
-            $howmuch[] = $price.' '.$cur;
+            $howmuch[] = $price . ' ' . $cur;
         }
         $allDebtsByClient[$debt['firma']][$code] = $debt;
     }
 
     $pointer = 0;
-    foreach ($allDebtsByClient as $clientCode => $clientDebts) {
+    foreach ($allDebtsByClient as $clientCodeRaw => $clientDebts) {
+        $clientCode = \FlexiPeeHP\FlexiBeeRO::uncode($clientCodeRaw);
 
-        if (array_key_exists($clientCode, $clientsToSkip)) {
+        if (array_key_exists($clientCodeRaw, $clientsToSkip)) {
             continue;
         }
 
         if ($clientCode) {
-            $reminder->addStatusMessage(\FlexiPeeHP\FlexiBeeRO::uncode($allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['kod']).' '.$allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['nazev'].' ['.implode(',',
-                    $allClients[\FlexiPeeHP\FlexiBeeRO::uncode($clientCode)]['stitky']).']');
+            $reminder->addStatusMessage($clientCode . ' ' . $allClients[$clientCode]['nazev'] . ' [' . implode(',',
+                            $allClients[$clientCode]['stitky']) . ']');
         }
         foreach ($clientDebts as $debtCode => $debtInfo) {
 
@@ -82,17 +88,17 @@ try {
             }
 
             $reminder->addStatusMessage(sprintf('%d/%d (%s) [%s] %s %s: %s',
-                    $pointer++, $counter,
-                    \FlexiPeeHP\FlexiBeeRO::uncode($debtInfo['typDokl']),
-                    \FlexiPeeHP\FlexiBeeRO::uncode($debtCode), $amount,
-                    $curcode, $debtInfo['popis']
-                ), 'debug');
+                            $pointer++, $counter,
+                            \FlexiPeeHP\FlexiBeeRO::uncode($debtInfo['typDokl']),
+                            \FlexiPeeHP\FlexiBeeRO::uncode($debtCode), $amount,
+                            $curcode, $debtInfo['popis']
+                    ), 'debug');
         }
     }
 
     $reminder->addStatusMessage(FlexiPeeHP\Reminder\Upominac::formatTotals($total), 'success');
 } catch (Exception $exc) {
-    echo $exc->getMessage()."\n";
+    echo $exc->getMessage() . "\n";
     echo $exc->getTraceAsString();
 }
 
