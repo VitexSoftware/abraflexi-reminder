@@ -1,12 +1,17 @@
 #!/usr/bin/php -f
+
 <?php
 /**
- * System.spoje.net - Clear Reminder Labels
+ * FlexiBee reminder - Clear Reminder Labels
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017 Vitex Software
+ * @copyright  (G) 2017-2020 Vitex Software
  */
+use FlexiPeeHP\Reminder\Upominac;
+
 define('EASE_APPNAME', 'Clean Remind Labels');
+
+
 
 require_once '../vendor/autoload.php';
 $shared = new Ease\Shared();
@@ -14,7 +19,7 @@ $shared->loadConfig('../client.json', true);
 $shared->loadConfig('../reminder.json', true);
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
-$reminder = new \FlexiPeeHP\Reminder\Upominac();
+$reminder = new Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
 
 

@@ -3,7 +3,7 @@
  * FlexiPeeHP - Reminder class 
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
- * @copyright  2018 Spoje.Net
+ * @copyright  2018 Spoje.Net 2019-2020 VitexSoftware
  */
 
 namespace FlexiPeeHP\Reminder;

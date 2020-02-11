@@ -1,4 +1,5 @@
 #!/usr/bin/php -f
+
 <?php
 /**
  * System.spoje.net - Odeslání Upomínek
@@ -6,16 +7,19 @@
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017 Vitex Software
  */
+
+use FlexiPeeHP\Reminder\Upominac;
+
 define('EASE_APPNAME', 'Reminder');
 define('MODULES', './notifiers');
 
 require_once '../vendor/autoload.php';
-$shared  = new Ease\Shared();
+$shared  = new \Ease\Shared();
 $shared->loadConfig('../client.json', true);
 $shared->loadConfig('../reminder.json', true);
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
-$reminder = new \FlexiPeeHP\Reminder\Upominac();
+$reminder = new Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
 
 $allDebts       = $reminder->getAllDebts(['limit'=>0]);
@@ -97,7 +101,7 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
             $clientCodeShort.' '.
             $clientData['nazev'].
             ' ['.implode(',', $clientData['stitky']).'] '.
-            FlexiPeeHP\Reminder\Upominac::formatTotals($clientData['totals']),
+            Upominac::formatTotals($clientData['totals']),
             'success');
     }
 
@@ -105,7 +109,7 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 
 }
 
-$reminder->addStatusMessage(FlexiPeeHP\Reminder\Upominac::formatTotals($total),
+$reminder->addStatusMessage(Upominac::formatTotals($total),
     'success');
 
 

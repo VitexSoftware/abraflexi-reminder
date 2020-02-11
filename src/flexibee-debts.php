@@ -1,5 +1,8 @@
 #!/usr/bin/php -f
 <?php
+
+use FlexiPeeHP\Reminder\Upominac;
+
 /**
  * System.spoje.net - Odeslání Upomínek
  *
@@ -10,13 +13,14 @@ define('EASE_APPNAME', 'ShowDebts');
 define('EASE_LOGGER', 'syslog|console|mail');
 
 require_once '../vendor/autoload.php';
-$shared = new Ease\Shared();
+$shared = new \Ease\Shared();
+
 try {
     $shared->loadConfig('../client.json', true);
     $shared->loadConfig('../reminder.json', true);
     $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
-    $reminder = new \FlexiPeeHP\Reminder\Upominac();
+    $reminder = new Upominac();
     $reminder->logBanner(constant('EASE_APPNAME'));
 
     $allDebts = $reminder->getAllDebts(['limit'=>0]);
@@ -96,7 +100,7 @@ try {
         }
     }
 
-    $reminder->addStatusMessage(FlexiPeeHP\Reminder\Upominac::formatTotals($total), 'success');
+    $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
 } catch (Exception $exc) {
     echo $exc->getMessage() . "\n";
     echo $exc->getTraceAsString();
