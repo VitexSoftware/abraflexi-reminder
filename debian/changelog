@@ -1,5 +1,6 @@
-php-flexibee-reminder (0.16) UNRELEASED; urgency=medium
+php-flexibee-reminder (0.17) UNRELEASED; urgency=medium
 
+  * Updated for debian buster
   * initial Paper Mail support
   * split to packages php-flexibee-reminder-sms and php-flexibee-reminder-papermail 
 

@@ -1,5 +1,5 @@
 {
-    "name": "flexibee-reminder",
+    "name": "deb/flexibee-reminder",
     "description": "Reminder sender for FlexiBee written in PHP",
     "type": "project",
     "version": "0.1",
@@ -13,10 +13,9 @@
 	"vendor-dir": "/var/lib/php-flexibee-reminder"
     },
     "require": {
-        "php": ">= 5.5.9",
-        "flexipeehp": "*",
-        "ease-framework": "*",
-        "flexipeehp-bricks": "*"
+        "deb/flexibee": "*",
+        "deb/ease-core": "*",
+        "deb/flexibee-bricks": "*"
     },
     "autoload": {
         "psr-4": {
