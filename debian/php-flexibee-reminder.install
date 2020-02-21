@@ -1,5 +1,6 @@
 debian/conf/composer.json       usr/lib/php-flexibee-reminder/
 src/*.php           	        usr/lib/php-flexibee-reminder/
+src/FlexiPeeHP/Reminder/*.php   usr/lib/php-flexibee-reminder/Reminder/
 bin/*                           usr/bin/
 debian/conf/reminder.json       etc/flexibee/
 i18n/cs_CZ/LC_MESSAGES/*.mo     usr/share/locale/cs_CZ/LC_MESSAGES
