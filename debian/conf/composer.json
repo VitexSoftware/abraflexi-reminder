@@ -1,16 +1,16 @@
-{
+{   
     "name": "deb/flexibee-reminder",
     "description": "Reminder sender for FlexiBee written in PHP",
     "type": "project",
-    "version": "0.1",
+    "version": "0.2",
     "authors": [
-        {
+        {   
             "name": "Vítězslav Dvořák",
             "email": "info@vitexsoftware.cz"
         }
     ],
     "config": {
-	"vendor-dir": "/var/lib/php-flexibee-reminder"
+        "vendor-dir": "/var/lib/php-flexibee-reminder"
     },
     "require": {
         "deb/flexibee": "*",
@@ -23,21 +23,42 @@
         }
     },
     "repositories": [
-        {
+        {   
             "type": "path",
             "url": "/usr/share/php/Ease",
             "options": {
                 "symlink": true
             }
         },
-        {
+        {   
+            "type": "path",
+            "url": "/usr/share/php/EaseHtml/",
+            "options": {
+                "symlink": true
+            }
+        },
+        {   
             "type": "path",
             "url": "/usr/share/php/FlexiPeeHP",
             "options": {
                 "symlink": true
             }
         },
-        {
+        {   
+            "type": "path",
+            "url": "/usr/share/php/EaseBricks/",
+            "options": {
+                "symlink": true
+            }
+        },
+        {   
+            "type": "path",
+            "url": "/usr/share/php/EaseTWB/",
+            "options": {
+                "symlink": true
+            }
+        },
+        {   
             "type": "path",
             "url": "/usr/share/php/FlexiPeeHPBricks",
             "options": {
