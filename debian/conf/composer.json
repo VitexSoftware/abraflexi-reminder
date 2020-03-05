@@ -10,7 +10,7 @@
         }
     ],
     "config": {
-        "vendor-dir": "/var/lib/php-flexibee-reminder"
+        "vendor-dir": "/var/lib/flexibee-reminder"
     },
     "require": {
         "deb/flexibee": "*",

@@ -5,26 +5,26 @@
 
 override_dh_install:
 	dh_install
-	cp src/notifiers/ByEmail.php                                         debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/notifiers/
-	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/*.php
-	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-debts.php
-	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-reminder.php
-	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-inventarize-customers.php
-	sed -i -e 's/..\/vendor/\/var\/lib\/php-flexibee-reminder/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/Init.php
-	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-debts.php
-	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-reminder.php
-	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-inventarize-customers.php
-	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/Init.php
-	sed -i -e 's/.\/notifiers/\/usr\/lib\/php-flexibee-reminder\/notifiers/g'     debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/flexibee-reminder.php
-	cp src/notifiers/ByEmail.php                                        debian/php-flexibee-reminder/usr/lib/php-flexibee-reminder/notifiers/
+	cp src/notifiers/ByEmail.php                                         debian/flexibee-reminder/usr/lib/flexibee-reminder/notifiers/
+	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	     debian/flexibee-reminder/usr/lib/flexibee-reminder/*.php
+	sed -i -e 's/..\/vendor/\/var\/lib\/flexibee-reminder/g' 	     debian/flexibee-reminder/usr/lib/flexibee-reminder/flexibee-debts.php
+	sed -i -e 's/..\/vendor/\/var\/lib\/flexibee-reminder/g' 	     debian/flexibee-reminder/usr/lib/flexibee-reminder/flexibee-reminder.php
+	sed -i -e 's/..\/vendor/\/var\/lib\/flexibee-reminder/g' 	     debian/flexibee-reminder/usr/lib/flexibee-reminder/flexibee-inventarize-customers.php
+	sed -i -e 's/..\/vendor/\/var\/lib\/flexibee-reminder/g' 	     debian/flexibee-reminder/usr/lib/flexibee-reminder/Init.php
+	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/flexibee-reminder/usr/lib/flexibee-reminder/flexibee-debts.php
+	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/flexibee-reminder/usr/lib/flexibee-reminder/flexibee-reminder.php
+	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/flexibee-reminder/usr/lib/flexibee-reminder/flexibee-inventarize-customers.php
+	sed -i -e 's/\.\./\/etc\/flexibee/g' 	     debian/flexibee-reminder/usr/lib/flexibee-reminder/Init.php
+	sed -i -e 's/.\/notifiers/\/usr\/lib\/flexibee-reminder\/notifiers/g'     debian/flexibee-reminder/usr/lib/flexibee-reminder/flexibee-reminder.php
+	cp src/notifiers/ByEmail.php                                        debian/flexibee-reminder/usr/lib/flexibee-reminder/notifiers/
 	echo SMS
-	mkdir -p                                                            debian/php-flexibee-reminder-sms/usr/lib/php-flexibee-reminder/Reminder/
-	mkdir -p                                                            debian/php-flexibee-reminder-sms/usr/lib/php-flexibee-reminder/notifiers/
-	cp src/FlexiPeeHP/Reminder/Sms*.php                                 debian/php-flexibee-reminder-sms/usr/lib/php-flexibee-reminder/Reminder/
-	cp src/notifiers/BySms.php                                          debian/php-flexibee-reminder-sms/usr/lib/php-flexibee-reminder/notifiers/
-	sed -i -e 's/..\/bin/\/usr\/bin/g'                                  debian/php-flexibee-reminder-sms/usr/lib/php-flexibee-reminder/Reminder/*Gnokii.php
+	mkdir -p                                                            debian/flexibee-reminder-sms/usr/lib/flexibee-reminder/Reminder/
+	mkdir -p                                                            debian/flexibee-reminder-sms/usr/lib/flexibee-reminder/notifiers/
+	cp src/FlexiPeeHP/Reminder/Sms*.php                                 debian/flexibee-reminder-sms/usr/lib/flexibee-reminder/Reminder/
+	cp src/notifiers/BySms.php                                          debian/flexibee-reminder-sms/usr/lib/flexibee-reminder/notifiers/
+	sed -i -e 's/..\/bin/\/usr\/bin/g'                                  debian/flexibee-reminder-sms/usr/lib/flexibee-reminder/Reminder/*Gnokii.php
 	echo PAPER MAIL
-	mkdir -p                                                            debian/php-flexibee-reminder-papermail/usr/lib/php-flexibee-reminder/Reminder/
-	mkdir -p                                                            debian/php-flexibee-reminder-papermail/usr/lib/php-flexibee-reminder/notifiers/
-	cp src/FlexiPeeHP/Reminder/PDFPage.php                              debian/php-flexibee-reminder-papermail/usr/lib/php-flexibee-reminder/Reminder/
-	cp src/notifiers/ByListonoska.php                                   debian/php-flexibee-reminder-papermail/usr/lib/php-flexibee-reminder/notifiers/
+	mkdir -p                                                            debian/flexibee-reminder-papermail/usr/lib/flexibee-reminder/Reminder/
+	mkdir -p                                                            debian/flexibee-reminder-papermail/usr/lib/flexibee-reminder/notifiers/
+	cp src/FlexiPeeHP/Reminder/PDFPage.php                              debian/flexibee-reminder-papermail/usr/lib/flexibee-reminder/Reminder/
+	cp src/notifiers/ByListonoska.php                                   debian/flexibee-reminder-papermail/usr/lib/flexibee-reminder/notifiers/

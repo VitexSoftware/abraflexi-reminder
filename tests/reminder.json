@@ -1,0 +1,9 @@
+{
+    "EASE_MAILTO": "info@yourdomain.net",
+    "EASE_LOGGER": "syslog|mail",
+    "QR_PAYMENTS": true,
+    "ADD_LOGO": true,
+    "PATIENCE_DAYS": 0,
+    "MAX_MAIL_SIZE": 1250000,
+    "MUTE": false
+}

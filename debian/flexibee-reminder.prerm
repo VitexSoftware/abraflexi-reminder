@@ -1,0 +1,9 @@
+#!/bin/bash
+# rm script for flexibee-reminder-papermail
+
+su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer -o remove listonoska/api -d /usr/lib/flexibee-reminder/'
+su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer -o remove spipu/html2pdf -d /usr/lib/flexibee-reminder/'
+
+#DEBHELPER#
+
+exit 0
