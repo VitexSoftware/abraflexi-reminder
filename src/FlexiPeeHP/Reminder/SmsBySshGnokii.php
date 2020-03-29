@@ -1,9 +1,13 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+use FlexiPeeHP\Reminder\SmsToAddress;
+/**
+ * FlexiBee Reminder remote SMS sender
+ *
+ * @author     Vítězslav Dvořák <info@vitexsofware.cz>
+ * @copyright  (G) 2017-2020 Vitex Software
  */
+
 
 namespace FlexiPeeHP\Reminder;
 
@@ -22,8 +26,12 @@ class SmsBySshGnokii extends SmsToAddress
      */
     public function sendMessage()
     {
-        $command = '../bin/sshgnokiisms '.$this->getNumber().' "'.self::rip($this->getMessage()).'" '.constant('GNOKII_HOST');
+        if(defined('GNOKII_HOST')){
+        $command = '../bin/sshgnokiisms '.$this->getNumber().' "'.\Ease\Functions::rip($this->getMessage()).'" '.constant('GNOKII_HOST');
         $this->addStatusMessage('SMS '.$this->getNumber().': '.$command, 'debug');
         return system($command);
+        } else {
+            $this->addStatusMessage(_('Please set GNOKII_HOST in gnoki file'));
+        }
     }
 }

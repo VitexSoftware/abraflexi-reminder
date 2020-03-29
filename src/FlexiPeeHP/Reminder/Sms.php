@@ -1,9 +1,11 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * FlexiBee Reminder SMS
+ *
+ * @author     Vítězslav Dvořák <info@vitexsofware.cz>
+ * @copyright  (G) 2017-2020 Vitex Software
  */
+
 
 namespace FlexiPeeHP\Reminder;
 
@@ -27,13 +29,13 @@ class Sms extends \Ease\Sand
     private $message;
 
     /**
+     * Send SMS Remind
      * 
      * @param long $number
      * @param string $message
      */
     public function __construct($number = null, $message = null)
     {
-        parent::__construct();
         if (!empty($number)) {
             $this->setNumber($number);
         }
@@ -45,11 +47,21 @@ class Sms extends \Ease\Sand
         }
     }
 
+    /**
+     * Current message text
+     * 
+     * @return string
+     */
     public function getMessage()
     {
         return $this->message;
     }
 
+    /**
+     * Current phone number
+     * 
+     * @return long
+     */
     public function getNumber()
     {
         return $this->number;
@@ -68,12 +80,12 @@ class Sms extends \Ease\Sand
 
     /**
      * 
-     * @param type $message
+     * @param string $message
      */
     public function setMessage($message)
     {
         if (strlen($message) > 130) {
-            $this->addStatusMessage(sprintf(_('Message %s chars long: %s'),
+            $this->addStatusMessage(sprintf(_('Message is %s chars long: %s'),
                     strlen($message), $message), 'warning');
         }
         $this->message = $message;

@@ -1,0 +1,14 @@
+#!/bin/bash
+TELNO=$1
+MESSAGE=$2
+
+if [ $# -eq 2 ]
+then
+    re='^[0-9]+$'
+if ! [[ $TELNO =~ $re ]] ; then
+    echo "error: $TELNO Not a number" >&2; exit 1
+fi
+    echo "$MESSAGE" | /usr/bin/gnokii --config=/etc/gnokiirc --sendsms $TELNO
+else 
+    echo $0 NUMBER MESSAGE
+fi

@@ -38,6 +38,6 @@ if (empty($labeledClients)) {
         $reminder->customer->adresar->setMyKey(\FlexiPeeHP\FlexiBeeRO::code($clientCode));
         $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
         $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
-        $reminder->addStatusMessage(++$pos . '/' . count($labeledClients) . $clientCode . ' ' . _('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning' );
+        $reminder->addStatusMessage(++$pos . '/' . count($labeledClients) . ' '. $clientCode . ' ' . _('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning' );
     }
 }

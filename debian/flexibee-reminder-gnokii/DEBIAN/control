@@ -1,0 +1,12 @@
+Package: flexibee-reminder-gnokii
+Source: flexibee-reminder
+Version: 1.0+buster
+Architecture: all
+Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
+Installed-Size: 10
+Depends: gnokii-cli
+Section: web
+Priority: optional
+Homepage: https://github.com/VitexSoftware/flexibee-reminder
+Description: Gnokii helper for Reminder sender for FlexiBee
+ Allow send FlexiBee SMS Reminds using Gnokii

@@ -24,7 +24,7 @@ $reminder->logBanner(constant('EASE_APPNAME'));
 
 $allDebts       = $reminder->getAllDebts(['limit'=>0]);
 $allClients     = $reminder->getCustomerList(['limit'=>0]);
-$allClients[''] = ['kod' => '', 'nazev' => _('(Company not assigned)'), 'stitky' => [
+$allClients[''] = ['kod' => '', 'nazev' => '('._('Company not assigned').')', 'stitky' => [
         'NEUPOMINKOVAT' => 'NEUPOMINKOVAT']];
 $clientsToSkip  = [];
 foreach ($allClients as $clientCode => $clientInfo) {

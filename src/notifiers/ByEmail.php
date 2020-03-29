@@ -36,7 +36,6 @@ class ByEmail extends \Ease\Sand
     public function __construct($reminder, $score, $debts)
     {
         $result = false;
-        parent::__construct();
         if ($this->compile($score, $reminder->customer, $debts)) {
             $result = $this->send();
 //            file_put_contents('/var/tmp/upominka.html',$this->mailer->htmlDocument);

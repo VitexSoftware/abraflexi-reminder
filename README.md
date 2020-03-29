@@ -90,7 +90,8 @@ Po instalaci balíku jsou v systému k dispozici tyto nové příkazy:
 
   * **flexibee-debts**            - vypíše nalezené pohledávky
   * **flexibee-reminder**         - obešle dlužníky
-  * **flexibee-nontify-customers** - odešle klientovi seznam jeho závazků 
+  * **flexibee-nontify-customers** - odešle klientovi seznam jeho závazků
+  * **flexibee-reminder-init**    - připraví předvolenou firmu na použití s upomínačem 
 
 Konfigurace
 -----------
@@ -106,7 +107,7 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
     "SKIPLIST": "DOBROPIS,ZDD",
     "MUTE": false,
     "SMS_SENDER": "+420739778202",
-    "SMS_ENGINE": "sshgnokii"
+    "SMS_ENGINE": "gnokii"
 ```
 
   * **EASE_MAILTO** kam zasílat protokol v případě že je povoleno logování do mailu
@@ -117,7 +118,8 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
   * **SKIPLIST**      - nebrat doklady těchto typů v potaz
   * **MUTE**          - neodesílá klientům notifikace. Maily se pro kontrolu odesílají na **EASE_MAILTO**
   * **SMS_SENDER**    - Telefoní číslo odesilatele sms. Např.: +420739778202
-  * **SMS_ENGINE**    - Metoda odeslání SMS. Možné hodnoty: **none**: neodesílat SMS, **gnokii**: místní Gnokii, **sshgnokii**: [Gnokii](https://www.gnokii.org/) na vzdáleném serveru , **axfone** [Axfone](https://www.axfone.eu/) API
+  * **SMS_ENGINE**    - Metoda odeslání SMS. Možné hodnoty: **none**: neodesílat SMS, **gnokii**: místní Gnokii, **sshgnokii**: [Gnokii](https://www.gnokii.org/) na vzdáleném serveru (GNOKII_HOST) , **axfone** [Axfone](https://www.axfone.eu/) API
+  * **GNOKII_HOST**   - specifikace serveru kde je modem. Může být i ve formátu login@host 
 
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
@@ -136,9 +138,9 @@ Závislosti
 
 Tento nástroj ke svojí funkci využívá následující knihovny:
 
- * [**EasePHP Framework**](https://github.com/VitexSoftware/EaseFramework) - pomocné funkce např. logování
- * [**FlexiPeeHP**](https://github.com/Spoje-NET/FlexiPeeHP)        - komunikace s [FlexiBee](https://flexibee.eu/)
- * [**FlexiPeeHP Bricks**](https://github.com/VitexSoftware/FlexiPeeHP-Bricks) - používá se třída Zákazníka
+ * [**EasePHP Framework core**](https://github.com/VitexSoftware/php-ease-core) - pomocné funkce např. logování
+ * [**PHP FlexiBee**](https://github.com/Spoje-NET/php-flexibee)                - komunikace s [FlexiBee](https://flexibee.eu/)
+ * [**PHP FlexiBee Bricks**](https://github.com/VitexSoftware/php-flexibee-bricks) - používá se třída Zákazníka
 
 Mohlo by vás zajímat
 --------------------

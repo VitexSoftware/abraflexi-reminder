@@ -15,6 +15,7 @@ build:
 clean:
 	rm -rf debian/flexibee-reminder 
 	rm -rf debian/flexibee-reminder-sms 
+	rm -rf debian/flexibee-reminder-gnokii 
 	rm -rf debian/flexibee-reminder-papermail
 	rm -rf debian/*.substvars debian/*.log debian/*.debhelper debian/files debian/debhelper-build-stamp
 	rm -rf dist

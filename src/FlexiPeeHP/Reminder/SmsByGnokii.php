@@ -1,10 +1,14 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+use FlexiPeeHP\Reminder\SmsToAddress;
+
+/**
+ * FlexiBee Reminder local SMS sender
+ *
+ * @author     Vítězslav Dvořák <info@vitexsofware.cz>
+ * @copyright  (G) 2017-2020 Vitex Software
  */
+
 
 namespace FlexiPeeHP\Reminder;
 
@@ -14,14 +18,16 @@ namespace FlexiPeeHP\Reminder;
  * @author vitex
  */
 class SmsByGnokii extends SmsToAddress {
+
     /**
      * Send SMS using remote Gnokii via sms
      *
      * @return string Last row of command result stdout
      */
     public function sendMessage() {
-        $command = '../bin/gnokiisms '.$this->getNumber().' "'.self::rip($this->getMessage()).'" ';
-        $this->addStatusMessage('SMS '.$this->getNumber().': '.$command, 'debug');
+        $command = '../bin/gnokiisms ' . $this->getNumber() . ' "' . \Ease\Functions::rip($this->getMessage()) . '" ';
+        $this->addStatusMessage('SMS ' . $this->getNumber() . ': ' . $command, 'debug');
         return system($command);
     }
+
 }

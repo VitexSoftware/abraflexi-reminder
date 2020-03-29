@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FlexiPeeHP - Remind class Brick
  *
@@ -13,8 +14,8 @@ namespace FlexiPeeHP\Reminder;
  *
  * @author vitex
  */
-class Upominka extends \FlexiPeeHP\FlexiBeeRW
-{
+class Upominka extends \FlexiPeeHP\FlexiBeeRW {
+
     /**
      * Remind templates evidence name
      * @var string 
@@ -84,22 +85,20 @@ table.greyGridTable tfoot td {
      * @param type $init
      * @param type $options
      */
-    public function __construct($init = null, $options = array())
-    {
+    public function __construct($init = null, $options = array()) {
         parent::__construct($init, $options);
 
         $this->invoicer = new \FlexiPeeHP\FakturaVydana();
-        $this->firmer   = new \FlexiPeeHP\Adresar();
+        $this->firmer = new \FlexiPeeHP\Adresar();
     }
 
     /**
      * Load
      * @param string $template prvniUpominka|druhaUpominka|pokusOSmir|inventarizace
      */
-    public function loadTemplate($template)
-    {
+    public function loadTemplate($template) {
         $this->takeData(current($this->getColumnsFromFlexibee('*',
-                    ['typSablonyK' => 'typSablony.'.$template])));
+                                ['typSablonyK' => 'typSablony.' . $template])));
     }
 
     /**
@@ -109,8 +108,7 @@ table.greyGridTable tfoot td {
      * 
      * @return array
      */
-    public static function getSums($debts)
-    {
+    public static function getSums($debts) {
         $sumsCelkem = [];
         foreach ($debts as $debt) {
             $currency = \FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
@@ -135,10 +133,9 @@ table.greyGridTable tfoot td {
      * 
      * @return \Ease\Html\DivTag
      */
-    public static function qrPayments($debts)
-    {
+    public static function qrPayments($debts) {
         $invoicer = new \FlexiPeeHP\FakturaVydana();
-        $qrDiv    = new \Ease\Html\DivTag();
+        $qrDiv = new \Ease\Html\DivTag();
         $qrDiv->addItem(new \Ease\Html\H3Tag(_('QR Invoices')));
         foreach ($debts as $invoiceId => $invoiceInfo) {
             $currency = \FlexiPeeHP\FlexiBeeRO::uncode($invoiceInfo['mena']);
@@ -149,10 +146,10 @@ table.greyGridTable tfoot td {
             }
             $invoicer->setMyKey(intval($invoiceInfo['id']));
             $invoicer->setEvidence($invoiceInfo['evidence']);
-            $qrDiv->addItem(new \Ease\Html\DivTag($invoiceId.' <strong>'.$amount.'</strong> '.$currency));
+            $qrDiv->addItem(new \Ease\Html\DivTag($invoiceId . ' <strong>' . $amount . '</strong> ' . $currency));
             $qrDiv->addItem(new \Ease\Html\ImgTag($invoicer->getQrCodeBase64(200),
-                    _('QR Payment'),
-                    ['width' => 200, 'height' => 200, 'title' => $invoiceId]));
+                            _('QR Payment'),
+                            ['width' => 200, 'height' => 200, 'title' => $invoiceId]));
         }
         return $qrDiv;
     }
@@ -164,8 +161,8 @@ table.greyGridTable tfoot td {
      * 
      * @return string
      */
-    public static function formatCurrency($price)
-    {
+    public static function formatCurrency($price) {
         return number_format($price, 2, ',', ' ');
     }
+
 }

@@ -1,12 +1,15 @@
 <?php
 
-namespace FlexiPeeHP\Reminder;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+use FlexiPeeHP\Reminder\SmsToAddress;
+/**
+ * FlexiBee Reminder Axfone API client
+ *
+ * @author     Vítězslav Dvořák <info@vitexsofware.cz>
+ * @copyright  (G) 2017-2020 Vitex Software
  */
+
+
+namespace FlexiPeeHP\Reminder;
 
 /**
  * Description of Axone

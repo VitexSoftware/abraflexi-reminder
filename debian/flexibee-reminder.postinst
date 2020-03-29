@@ -3,18 +3,18 @@
 WEBUSER="root" 
 set -e
 
-    if [ "$1" = "configure" ]; then
+if [ "$1" = "configure" ]; then
 
     . /usr/share/debconf/confmodule
 
-    fi
+fi
 
 
 mkdir -p /var/lib/composer
 chown $WEBUSER:$WEBUSER /var/lib/composer
 su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer -o install -d /usr/lib/flexibee-reminder/'
 
-php -f /usr/lib/flexibee-reminder/Init.php
+php -f /usr/lib/flexibee-reminder/init.php
 
 #DEBHELPER#
 

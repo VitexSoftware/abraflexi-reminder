@@ -9,7 +9,7 @@ then
 if ! [[ $TELNO =~ $re ]] ; then
     echo "error: $TELNO Not a number" >&2; exit 1
 fi
-    ssh sms@$SMSHOST "echo \"$MESSAGE\" | /usr/bin/gnokii --config=/etc/gnokiirc --sendsms $TELNO"
+    ssh $SMSHOST "echo \"$MESSAGE\" | /usr/bin/gnokii --config=/etc/gnokiirc --sendsms $TELNO"
 else 
     echo $0 NUMBER MESSAGE SMSHOST
 fi

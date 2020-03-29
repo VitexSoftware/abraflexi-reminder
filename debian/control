@@ -16,12 +16,21 @@ Description: Reminder sender for FlexiBee
  Find All unpayed invoices for configured company and sent notification to payer
 
 Package: flexibee-reminder-sms
-Depends: ${misc:Depends}, flexibee-reminder
+Depends: ${misc:Depends}, flexibee-reminder 
+Suggests: flexibee-reminder-gnokii
 Architecture: all
 Section: web
 Priority: optional
 Description: SMS Suppot for Reminder sender for FlexiBee 
  Can send SMS using Gnokii (local or remote via ssh)  and Axfone API
+
+Package: flexibee-reminder-gnokii
+Depends: ${misc:Depends}, gnokii-cli
+Architecture: all
+Section: web
+Priority: optional
+Description: Gnokii helper for Reminder sender for FlexiBee
+ Allow send FlexiBee SMS Reminds using Gnokii 
 
 Package: flexibee-reminder-papermail
 Depends: ${misc:Depends}, flexibee-reminder

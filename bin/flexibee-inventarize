@@ -1,2 +1,2 @@
 #!/bin/bash
-php -f /usr/lib/php-flexibee-reminder/flexibee-inventarize-customers.php
+php -f /usr/lib/flexibee-reminder/flexibee-inventarize-customers.php

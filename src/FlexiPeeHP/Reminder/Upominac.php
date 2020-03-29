@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FlexiPeeHP - Reminder class 
  *
@@ -8,13 +9,15 @@
 
 namespace FlexiPeeHP\Reminder;
 
+use DateTime;
+
 /**
  * Description of Upominka
  *
  * @author vitex
  */
-class Upominac extends \FlexiPeeHP\FlexiBeeRW
-{
+class Upominac extends \FlexiPeeHP\FlexiBeeRW {
+
     /**
      *
      * @var \FlexiPeeHP\Bricks\Customer
@@ -34,8 +37,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * @param array $init
      * @param array $options
      */
-    public function __construct($init = null, $options = array())
-    {
+    public function __construct($init = null, $options = array()) {
         parent::__construct($init, $options);
         $this->customer = new \FlexiPeeHP\Bricks\Customer();
         $this->invoicer = new \FlexiPeeHP\FakturaVydana();
@@ -49,11 +51,10 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      *
      * @return array of all customer's documents after due date
      */
-    public function getCustomersDebts($skipLabels = [], $cleanLabels = false)
-    {
-        $allDebts  = [];
+    public function getCustomersDebts($skipLabels = [], $cleanLabels = false) {
+        $allDebts = [];
         $this->addStatusMessage(_('Getting clients'), 'debug');
-        $clients   = $this->customer->getCustomerList();
+        $clients = $this->customer->getCustomerList();
         $debtCount = 0;
 
         $this->addStatusMessage(sprintf(_('%s Clients Found'), count($clients)));
@@ -66,12 +67,12 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
                 continue;
             }
 
-            $debts  = $this->customer->getCustomerDebts((int) $clientIDs['id']);
+            $debts = $this->customer->getCustomerDebts((int) $clientIDs['id']);
             $this->customer->invoicer->setEvidence('pohledavka');
             $debts2 = $this->customer->getCustomerDebts((int) $clientIDs['id']);
             $this->customer->invoicer->setEvidence('faktura-vydana');
             $debts3 = array_merge(is_null($debts) ? [] : $debts,
-                is_null($debts2) ? [] : $debts2);
+                    is_null($debts2) ? [] : $debts2);
             if (!empty($debts3) && count($debts3)) {
                 foreach ($debts3 as $did => $debtInfo) {
                     $allDebts[$cid][$did] = $debtInfo;
@@ -96,8 +97,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return boolean customer well processed
      */
-    public function everythingPaidOff($clientID, $stitky)
-    {
+    public function everythingPaidOff($clientID, $stitky) {
         return $this->enableCustomer(implode(',', $stitky), $clientID);
     }
 
@@ -109,24 +109,23 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      *
      * @return boolean Customer connect status
      */
-    function enableCustomer($stitky, $cid)
-    {
+    function enableCustomer($stitky, $cid) {
         $result = true;
         if (strstr($stitky, 'UPOMINKA') || strstr($stitky, 'NEPLATIC')) {
             $newStitky = array_combine(explode(',',
-                    str_replace(' ', '', $stitky)), explode(',', $stitky));
+                            str_replace(' ', '', $stitky)), explode(',', $stitky));
             unset($newStitky['UPOMINKA1']);
             unset($newStitky['UPOMINKA2']);
             unset($newStitky['UPOMINKA3']);
             unset($newStitky['NEPLATIC']);
 
             if ($this->customer->adresar->insertToFlexiBee(['id' => $cid, 'stitky@removeAll' => 'true',
-                    'stitky' => $newStitky])) {
+                        'stitky' => $newStitky])) {
                 $this->addStatusMessage(sprintf(_('No debts. Clear %s Remind labels'),
-                        $cid), 'success');
+                                $cid), 'success');
             } else {
                 $this->addStatusMessage(sprintf(_('No debts. Clear %s Remind labels'),
-                        $cid), 'error');
+                                $cid), 'error');
                 $result = false;
             }
         }
@@ -140,20 +139,19 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return int All Debts count
      */
-    public function processAllDebts($skipLabels = [])
-    {
+    public function processAllDebts($skipLabels = []) {
         $allDebths = $this->getCustomersDebts($skipLabels, true);
         $this->addStatusMessage(sprintf(_('%d clients to remind process'),
-                count($allDebths)));
-        $counter   = 0;
+                        count($allDebths)));
+        $counter = 0;
         foreach ($allDebths as $cid => $debts) {
             $counter++;
             $this->customer->adresar->loadFromFlexiBee($cid);
             $this->addStatusMessage(sprintf(_('(%d / %d) #%s code: %s %s '),
-                    $counter, count($allDebths),
-                    $this->customer->adresar->getDataValue('id'),
-                    $this->customer->adresar->getDataValue('kod'),
-                    $this->customer->adresar->getDataValue('nazev')), 'debug');
+                            $counter, count($allDebths),
+                            $this->customer->adresar->getDataValue('id'),
+                            $this->customer->adresar->getDataValue('kod'),
+                            $this->customer->adresar->getDataValue('nazev')), 'debug');
 
             $this->processUserDebts($cid, $debts);
         }
@@ -168,13 +166,12 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      *
      * @return int max debt score 1: 0-7 days 1: 8-14 days 3: 15 days and more
      */
-    public function processUserDebts($clientInfo, $clientDebts)
-    {
+    public function processUserDebts($clientInfo, $clientDebts) {
         $this->customer->adresar->setData($clientInfo, true);
         $this->customer->adresar->updateApiURL();
-        $zewlScore      = 0;
-        $stitky         = $clientInfo['stitky'];
-        $ddifs          = [];
+        $zewlScore = 0;
+        $stitky = $clientInfo['stitky'];
+        $ddifs = [];
         $invoicesToSave = [];
         $invoicesToLock = [];
         foreach ($clientDebts as $did => $debt) {
@@ -185,7 +182,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
                     $unlock = $this->invoicer->performAction('unlock', 'int');
                     if ($unlock['success'] == 'false') {
                         $this->addStatusMessage(_('Invoice locked: skipping process'),
-                            'warning');
+                                'warning');
                         break;
                     }
                     $invoicesToLock[$debt['id']] = ['id' => $did];
@@ -194,8 +191,8 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
 
                     $invoicesToSave[$debt['id']] = ['id' => \FlexiPeeHP\FlexiBeeRO::code($did),
                         'evidence' => $debt['evidence']];
-                    $ddiff                       = \FlexiPeeHP\FakturaVydana::overdueDays($debt['datSplat']);
-                    $ddifs[$debt['id']]          = $ddiff;
+                    $ddiff = \FlexiPeeHP\FakturaVydana::overdueDays($debt['datSplat']);
+                    $ddifs[$debt['id']] = $ddiff;
 
                     if (($ddiff <= 7) && ($ddiff >= 1)) {
                         $zewlScore = self::maxScore($zewlScore, 1);
@@ -221,7 +218,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
             $zewlScore = 1;
         }
         if ($zewlScore > 0 && (array_sum($ddifs) > 0) && count($invoicesToSave)) {
-            if (!array_key_exists('UPOMINKA'.$zewlScore, $stitky)) {
+            if (!array_key_exists('UPOMINKA' . $zewlScore, $stitky)) {
                 if (!array_key_exists('NEUPOMINKOVAT', $stitky)) {
                     if ($this->posliUpominku($zewlScore, $clientDebts)) {
                         foreach ($invoicesToSave as $invoiceCode => $invoiceData) {
@@ -240,12 +237,12 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
                             $this->invoicer->setEvidence($invoiceData['evidence']);
                             if ($this->invoicer->insertToFlexiBee($invoiceData)) {
                                 $this->addStatusMessage(sprintf(_('%s %s remind %s date saved'),
-                                        $invoiceData['evidence'], $invoiceCode,
-                                        $colname), 'info');
+                                                $invoiceData['evidence'], $invoiceCode,
+                                                $colname), 'info');
                             } else {
                                 $this->addStatusMessage(sprintf(_('%s %s remind %s date save failed'),
-                                        $invoiceData['evidence'], $invoiceCode,
-                                        $colname), 'error');
+                                                $invoiceData['evidence'], $invoiceCode,
+                                                $colname), 'error');
                             }
                         }
                     }
@@ -254,7 +251,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
                 }
             } else {
                 $this->addStatusMessage(sprintf(_('Remind %d already sent'),
-                        $zewlScore));
+                                $zewlScore));
             }
         } else {
             $this->addStatusMessage(_('No debts to remind'), 'debug');
@@ -267,10 +264,10 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
                 $lock = $this->invoicer->performAction('lock', 'int');
                 if ($lock['success'] == 'true') {
                     $this->addStatusMessage(sprintf(_('Invoice %s locked again'),
-                            $invoiceCode), 'info');
+                                    $invoiceCode), 'info');
                 } else {
                     $this->addStatusMessage(sprintf(_('Invoice %s locking failed'),
-                            $invoiceCode), 'error');
+                                    $invoiceCode), 'error');
                 }
             }
         }
@@ -285,13 +282,12 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return int ZewlScore
      */
-    public function getCustomerScore($addressID)
-    {
-        $score     = 0;
-        $debts     = $this->customer->getCustomerDebts($addressID);
+    public function getCustomerScore($addressID) {
+        $score = 0;
+        $debts = $this->customer->getCustomerDebts($addressID);
         $stitkyRaw = $this->customer->adresar->getColumnsFromFlexiBee(['stitky'],
-            ['id' => $addressID]);
-        $stitky    = $stitkyRaw[0]['stitky'];
+                ['id' => $addressID]);
+        $stitky = $stitkyRaw[0]['stitky'];
         if (!empty($debts)) {
             foreach ($debts as $did => $debt) {
                 $ddiff = self::poSplatnosti($debt['datSplat']);
@@ -328,11 +324,10 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return boolean
      */
-    public function posliUpominku($score, $clientDebts)
-    {
+    public function posliUpominku($score, $clientDebts) {
         $result = false;
         foreach ($this->processNotifyModules($score, $clientDebts,
-            constant('MODULES')) as $modResult) {
+                constant('MODULES')) as $modResult) {
             if ($modResult) {
                 $result = true;
             }
@@ -348,8 +343,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      *
      * @return int max of all levels processed
      */
-    static private function maxScore($score, $level)
-    {
+    static private function maxScore($score, $level) {
         if ($level > $score) {
             $score = $level;
         }
@@ -365,12 +359,11 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return array Sent results
      */
-    public function processNotifyModules($score, $debts, $moduleDir)
-    {
+    public function processNotifyModules($score, $debts, $moduleDir) {
         if (is_array($moduleDir)) {
             foreach ($moduleDir as $mDir) {
                 $result = array_merge($result,
-                    $this->processModules($mDir, $score, $debts));
+                        $this->processModules($mDir, $score, $debts));
             }
         } else {
             $result = $this->processModules($moduleDir, $score, $debts);
@@ -387,16 +380,15 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return array modules results
      */
-    public function processModules($modulePath, $score, $debts)
-    {
-        $resultRaw     = [];
+    public function processModules($modulePath, $score, $debts) {
+        $resultRaw = [];
         $foreachResult = [];
         if (is_dir($modulePath)) {
-            $d     = dir($modulePath);
+            $d = dir($modulePath);
             while (false !== ($entry = $d->read())) {
-                if (is_file($modulePath.'/'.$entry)) {
-                    include_once $modulePath.'/'.$entry;
-                    $class             = pathinfo($entry, PATHINFO_FILENAME);
+                if (is_file($modulePath . '/' . $entry)) {
+                    include_once $modulePath . '/' . $entry;
+                    $class = pathinfo($entry, PATHINFO_FILENAME);
                     $resultRaw[$class] = new $class($this, $score, $debts);
                 }
             }
@@ -404,11 +396,11 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
         } else {
             if (is_file($modulePath)) {
                 include_once $modulePath;
-                $class             = pathinfo($modulePath, PATHINFO_FILENAME);
+                $class = pathinfo($modulePath, PATHINFO_FILENAME);
                 $resultRaw[$class] = new $class($this, $score, $debts);
             } else {
                 $this->addStatusMessage(sprintf(_('Module %s is wrong'),
-                        $modulePath), 'error');
+                                $modulePath), 'error');
             }
         }
 
@@ -426,8 +418,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return array 
      */
-    public function getEvidenceDebts($evidence = null)
-    {
+    public function getEvidenceDebts($evidence = null) {
         if ($evidence) {
             $evBackup = $this->invoicer->getEvidence();
             $this->invoicer->setEvidence($evidence);
@@ -435,9 +426,9 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
             $evBackup = false;
         }
 
-        $result                                    = [];
+        $result = [];
         $this->invoicer->defaultUrlParams['order'] = 'datVyst@A';
-        $invoices                                  = $this->invoicer->getColumnsFromFlexibee([
+        $invoices = $this->invoicer->getColumnsFromFlexibee([
             'id',
             'kod',
             'stavUhrK',
@@ -456,8 +447,8 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
             'mena',
             'zamekK',
             'datVyst'],
-            ["datSplat lte '".\FlexiPeeHP\FlexiBeeRW::dateToFlexiDate(new \DateTime())."' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false"],
-            'kod');
+                ["datSplat lte '" . \FlexiPeeHP\FlexiBeeRW::dateToFlexiDate(new DateTime()) . "' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false"],
+                'kod');
 
         if ($this->invoicer->lastResponseCode == 200) {
             $skiplist = [];
@@ -469,7 +460,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
             foreach ($invoices as $invoiceId => $invoiceData) {
                 $invoiceData['evidence'] = $evidenceUsed;
                 if (array_key_exists(\FlexiPeeHP\FlexiBeeRO::uncode($invoiceData['typDokl']),
-                        $skiplist)) {
+                                $skiplist)) {
                     continue;
                 }
                 $result[$invoiceId] = $invoiceData;
@@ -488,12 +479,11 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return array
      */
-    public function getAllDebts()
-    {
-        $debts  = $this->getEvidenceDebts('faktura-vydana');
+    public function getAllDebts() {
+        $debts = $this->getEvidenceDebts('faktura-vydana');
         $debts2 = $this->getEvidenceDebts('pohledavka');
         return \Ease\Functions::reindexArrayBy(array_merge(is_null($debts) ? [] : $debts,
-                    is_null($debts2) ? [] : $debts2), 'kod');
+                                is_null($debts2) ? [] : $debts2), 'kod');
     }
 
     /**
@@ -501,8 +491,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return array clients indexed by code
      */
-    public function getCustomerList($conditions = [])
-    {
+    public function getCustomerList($conditions = []) {
         //[/* 'typVztahuK'=>'typVztahu.odberDodav' */]
         $allClients = $this->customer->adresar->getColumnsFromFlexiBee(['id', 'nazev',
             'stitky'], $conditions, 'kod');
@@ -521,12 +510,12 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW
      * 
      * @return string
      */
-    public static function formatTotals($totals)
-    {
+    public static function formatTotals($totals) {
         $tmp = [];
         foreach ($totals as $currency => $value) {
-            $tmp[] = Upominka::formatCurrency($value).' '.$currency;
+            $tmp[] = Upominka::formatCurrency($value) . ' ' . $currency;
         }
         return implode(',', $tmp);
     }
+
 }

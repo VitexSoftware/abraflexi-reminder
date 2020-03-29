@@ -12,8 +12,9 @@
         "vitexsoftware/ease-core": "dev-master",
         "spoje.net/flexibee": "dev-master",
         "vitexsoftware/flexibee-bricks": "dev-master",
-        "listonoska/api": "^1.1",
-        "spipu/html2pdf": "dev-master"
+        "listonoska/api": "*",
+        "spipu/html2pdf":"*", 
+        "tecnickcom/tcpdf": "6.2.21" 
     },
     "autoload": {
         "psr-4": {
@@ -22,6 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Test\\FlexiPeeHP\\": "vendor/spoje.net/flexibee/testing/src/FlexiPeeHP/",
             "Test\\FlexiPeeHP\\Reminder\\": "tests/FlexiPeeHP/Reminder/"
         }
     },
