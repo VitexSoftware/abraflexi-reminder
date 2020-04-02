@@ -1,4 +1,4 @@
-flexibee-reminder (1.0+buster) UNRELEASED; urgency=medium
+flexibee-reminder (1.2) EXPERIMENTAL; urgency=medium
 
   [ Vítězslav Dvořák ]
   * Updated for debian buster

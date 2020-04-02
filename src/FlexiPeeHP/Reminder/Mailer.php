@@ -27,6 +27,10 @@ class Mailer extends \Ease\HtmlMailer
         }
         parent::__construct($sendTo, $subject);
 
+        if (defined('MAIL_CC')) {
+            $this->mailHeaders['Cc'] = constant('MAIL_CC');
+        }
+        
         $this->htmlDocument = new \Ease\Html\HtmlTag(new \Ease\Html\SimpleHeadTag([
             new \Ease\Html\TitleTag($this->emailSubject),
             '<style>'.Upominka::$styles.'</style>']));

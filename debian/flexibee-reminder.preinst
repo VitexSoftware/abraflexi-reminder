@@ -7,7 +7,7 @@ set -e
 
     . /usr/share/debconf/confmodule
 
-    flexibee-checker
+    flexibee-client-config-checker
 
   fi
 

@@ -1,11 +1,18 @@
 #!/bin/sh
 # postinst script for flexibee-reminder-papermail
-WEBUSER="root" 
+
+
+. /usr/share/debconf/confmodule
+
+
+db_get composer/WEB_USER
+WEBUSER=$RET
+
 set -e
 
     if [ "$1" = "configure" ]; then
-
-    . /usr/share/debconf/confmodule
+        
+          echo 
 
     fi
 

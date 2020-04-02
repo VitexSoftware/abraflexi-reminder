@@ -1,6 +1,5 @@
 #!/bin/sh
 # postinst script for flexibee-reminder
-WEBUSER="root" 
 set -e
 
 if [ "$1" = "configure" ]; then
@@ -9,9 +8,11 @@ if [ "$1" = "configure" ]; then
 
 fi
 
-
-mkdir -p /var/lib/composer
-chown $WEBUSER:$WEBUSER /var/lib/composer
+db_get composer/WEB_USER
+WEBUSER=$RET
+chown $WEBUSER /var/lib/flexibee-reminder /var/lib/composer -R
+echo '{}' > /usr/lib/flexibee-reminder/composer.lock
+chown $WEBUSER /usr/lib/flexibee-reminder/composer.lock
 su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer -o install -d /usr/lib/flexibee-reminder/'
 
 php -f /usr/lib/flexibee-reminder/init.php

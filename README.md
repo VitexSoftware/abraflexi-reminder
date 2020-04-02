@@ -81,10 +81,11 @@ Debian/Ubuntu
 
 Pro Linux jsou k dispozici .deb balíčky. Prosím použijte repo:
 
-    wget -O - http://v.s.cz/info@vitexsoftware.cz.gpg.key|sudo apt-key add -
-    echo deb http://v.s.cz/ stable main > /etc/apt/sources.list.d/ease.list
+    sudo apt install lsb-release wget
+    echo "deb http://repo.vitexsoftware.cz $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/vitexsoftware.list
+    sudo wget -O /etc/apt/trusted.gpg.d/vitexsoftware.gpg http://repo.vitexsoftware.cz/keyring.gpg
     apt update
-    apt install php-flexibee-reminder
+    apt install flexibee-reminder
 
 Po instalaci balíku jsou v systému k dispozici tyto nové příkazy:
 
@@ -110,8 +111,10 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
     "SMS_ENGINE": "gnokii"
 ```
 
-  * **EASE_MAILTO** kam zasílat protokol v případě že je povoleno logování do mailu
-  * **EASE_LOGGER** Jak logovat ? (dostupné metody jsou: memory,console,file,syslog,email,std,eventlog)
+  * **EASE_MAILTO**   - kam zasílat protokol v případě že je povoleno logování do mailu
+  * **MAIL_CC**       - zasílat kopii kazdé odeslané zprávy také na tento email
+  * **REMIND_FROM**   - adresa odesilatele v upomínkách
+  * **EASE_LOGGER**   - Jak logovat ? (dostupné metody jsou: memory,console,file,syslog,email,std,eventlog)
   * **MAX_MAIL_SIZE** - maximální velikost vysledného mailu v Bytech. (1250000 = 10Mb) Pokud je tato velikost překročena, nejsou již přikládány žádné další přílohy.
   * **QR_PAYMENTS**   - zda vložit do upomínky QR kódy pro [QR Platby](http://qr-platba.cz/)
   * **ADD_LOGO**      - zda vložit do upomínky logo upomínající firmy
