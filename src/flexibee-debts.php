@@ -16,15 +16,18 @@ require_once '../vendor/autoload.php';
 $shared = new \Ease\Shared();
 
 try {
-    $shared->loadConfig('../client.json', true);
+    if (file_exists('../client.json')) {
+        $shared->loadConfig('../client.json', true);
+    }
+
     $shared->loadConfig('../reminder.json', true);
     $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
     $reminder = new Upominac();
     $reminder->logBanner(constant('EASE_APPNAME'));
 
-    $allDebts = $reminder->getAllDebts(['limit'=>0]);
-    $allClients = $reminder->getCustomerList(['limit'=>0]);
+    $allDebts = $reminder->getAllDebts(['limit' => 0]);
+    $allClients = $reminder->getCustomerList(['limit' => 0]);
     $clientsToSkip = [];
     if (empty($allClients)) {
         $reminder->addStatusMessage(_('No customers found'), 'warning');

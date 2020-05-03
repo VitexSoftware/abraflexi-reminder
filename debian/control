@@ -7,8 +7,8 @@ Priority: optional
 Homepage: https://github.com/VitexSoftware/flexibee-reminder
 
 Package: flexibee-reminder
-Depends: ${misc:Depends}, php-flexibee-config, php-flexibee-bricks, php-cli, locales-all
-Suggests: flexibee-server, flexibee-digest, flexibee-matcher
+Depends: ${misc:Depends}, php-flexibee-bricks, php-cli, locales-all
+Suggests: flexibee-server, flexibee-digest, flexibee-matcher, php-flexibee-config
 Architecture: all
 Section: web
 Priority: optional

@@ -15,7 +15,9 @@ define('EASE_APPNAME', 'Clean Remind Labels');
 
 require_once '../vendor/autoload.php';
 $shared = new Ease\Shared();
-$shared->loadConfig('../client.json', true);
+if (file_exists('../client.json')) {
+    $shared->loadConfig('../client.json', true);
+}
 $shared->loadConfig('../reminder.json', true);
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 

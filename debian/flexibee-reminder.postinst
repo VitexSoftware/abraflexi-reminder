@@ -10,12 +10,12 @@ fi
 
 db_get composer/WEB_USER
 WEBUSER=$RET
-chown $WEBUSER /var/lib/flexibee-reminder /var/lib/composer -R
+mkdir -p /var/lib/flexibee-reminder
+chown $WEBUSER /var/lib/flexibee-reminder /var/lib/composer /var/lib/flexibee-reminder -R
 echo '{}' > /usr/lib/flexibee-reminder/composer.lock
-chown $WEBUSER /usr/lib/flexibee-reminder/composer.lock
+chown $WEBUSER /usr/lib/flexibee-reminder/composer.lock 
 su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer -o install -d /usr/lib/flexibee-reminder/'
-
-php -f /usr/lib/flexibee-reminder/init.php
+flexibee-reminder-init
 
 #DEBHELPER#
 

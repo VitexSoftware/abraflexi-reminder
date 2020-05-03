@@ -1,9 +1,12 @@
 {
     "EASE_MAILTO": "info@yourdomain.net",
-    "EASE_LOGGER": "syslog|mail",
+    "EASE_LOGGER": "syslog|mail|console",
     "QR_PAYMENTS": true,
     "ADD_LOGO": true,
     "PATIENCE_DAYS": 0,
     "MAX_MAIL_SIZE": 1250000,
-    "MUTE": false
+    "MUTE": false,
+    "SMS_SENDER": "+420739778202",
+    "SMS_ENGINE":  "sshgnokii",
+    "GNOKII_HOST": "sms@lilek.vitexsoftware.cz"
 }
