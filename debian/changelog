@@ -1,8 +1,9 @@
-flexibee-reminder (1.3) UNRELEASED; urgency=medium
+flexibee-reminder (1.4) UNRELEASED; urgency=medium
 
   * support for environment based configuration
+  * twbootstrap renamed to bootstrap
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 03 May 2020 15:20:08 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Sat, 20 Jun 2020 22:13:25 +0200
 
 flexibee-reminder (1.2) EXPERIMENTAL; urgency=medium
 
