@@ -30,7 +30,7 @@
         },
         {   
             "type": "path",
-            "url": "/usr/share/php/EaseHtml/"
+            "url": "/usr/share/php/EaseHtml"
         },
         {   
             "type": "path",
@@ -38,11 +38,11 @@
         },
         {   
             "type": "path",
-            "url": "/usr/share/php/EaseBricks/"
+            "url": "/usr/share/php/EaseBricks"
         },
         {   
             "type": "path",
-            "url": "/usr/share/php/EaseTWB/"
+            "url": "/usr/share/php/EaseTWB"
         },
         {   
             "type": "path",

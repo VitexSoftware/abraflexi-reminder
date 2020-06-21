@@ -1,8 +1,10 @@
-bin/sshgnokiisms usr/bin
+bin/sshgnokiisms                           usr/bin
 
-#src/FlexiPeeHP/Reminder/SmsByAxfone.php  usr/lib/flexibee-reminder/Reminder/
-#src/FlexiPeeHP/Reminder/SmsByGnokii.php  usr/lib/flexibee-reminder/Reminder/
-#src/FlexiPeeHP/Reminder/SmsBySshGnokii.php  usr/lib/flexibee-reminder/Reminder/
-#src/FlexiPeeHP/Reminder/Sms.php  usr/lib/flexibee-reminder/Reminder/
-#src/FlexiPeeHP/Reminder/SmsToAddress.php  usr/lib/flexibee-reminder/Reminder/
+src/notifiers/BySms.php                    usr/lib/flexibee-reminder/notifiers
+
+src/FlexiPeeHP/Reminder/SmsByAxfone.php    usr/lib/flexibee-reminder/Reminder/
+src/FlexiPeeHP/Reminder/SmsByGnokii.php    usr/lib/flexibee-reminder/Reminder/
+src/FlexiPeeHP/Reminder/SmsBySshGnokii.php usr/lib/flexibee-reminder/Reminder/
+src/FlexiPeeHP/Reminder/Sms.php            usr/lib/flexibee-reminder/Reminder/
+src/FlexiPeeHP/Reminder/SmsToAddress.php   usr/lib/flexibee-reminder/Reminder/
 

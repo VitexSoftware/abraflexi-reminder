@@ -2,8 +2,9 @@ flexibee-reminder (1.4) UNRELEASED; urgency=medium
 
   * support for environment based configuration
   * twbootstrap renamed to bootstrap
+  * Release v1.4
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sat, 20 Jun 2020 22:13:25 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 21 Jun 2020 13:25:21 +0200
 
 flexibee-reminder (1.2) EXPERIMENTAL; urgency=medium
 

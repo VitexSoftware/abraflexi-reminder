@@ -6,10 +6,10 @@
         <group name="Group 20171205-02:25:52"/>
         <group/>
         <group name="EASE">
-            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/init.php</file>
-            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/bin/flexibee-reminder-init</file>
-            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/debian/conf/composer.json</file>
-            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/flexibee-debts.php</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/debian/rules</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/flexibee-reminder-clean-labels.php</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/flexibee-reminder.php</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/common.php</file>
         </group>
     </open-files>
 </project-private>

@@ -1,34 +1,38 @@
-#!/usr/bin/php -f
-
 <?php
+
 /**
  * System.spoje.net - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017 Vitex Software
  */
-
 use FlexiPeeHP\Reminder\Upominac;
 
 define('EASE_APPNAME', 'Reminder');
 define('MODULES', './notifiers');
 
 require_once '../vendor/autoload.php';
-$shared  = new \Ease\Shared();
+$shared = new \Ease\Shared();
 if (file_exists('../client.json')) {
     $shared->loadConfig('../client.json', true);
 }
-$shared->loadConfig('../reminder.json', true);
+if (file_exists('../reminder.json')) {
+    $shared->loadConfig('../reminder.json', true);
+} else {
+    foreach ($_ENV as $key => $value) {
+        define($key, $value);
+    }
+}
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
 $reminder = new Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
 
-$allDebts       = $reminder->getAllDebts(['limit'=>0]);
-$allClients     = $reminder->getCustomerList(['limit'=>0]);
-$allClients[''] = ['kod' => '', 'nazev' => '('._('Company not assigned').')', 'stitky' => [
+$allDebts = $reminder->getAllDebts(['limit' => 0]);
+$allClients = $reminder->getCustomerList(['limit' => 0]);
+$allClients[''] = ['kod' => '', 'nazev' => '(' . _('Company not assigned') . ')', 'stitky' => [
         'NEUPOMINKOVAT' => 'NEUPOMINKOVAT']];
-$clientsToSkip  = [];
+$clientsToSkip = [];
 foreach ($allClients as $clientCode => $clientInfo) {
     if (array_key_exists('NEUPOMINKOVAT', $clientInfo['stitky'])) {
         $clientsToSkip[$clientCode] = $clientInfo;
@@ -36,17 +40,17 @@ foreach ($allClients as $clientCode => $clientInfo) {
 }
 
 $allDebtsByClient = [];
-$counter          = 0;
-$total            = [];
-$totalsByClient   = [];
+$counter = 0;
+$total = [];
+$totalsByClient = [];
 foreach ($allDebts as $code => $debt) {
-    $howmuchRaw = $howmuch    = [];
+    $howmuchRaw = $howmuch = [];
 
     if (empty($debt['firma'])) {
-        $clientCode      = 'code:';
+        $clientCode = 'code:';
         $clientCodeShort = '';
     } else {
-        $clientCode      = $debt['firma'];
+        $clientCode = $debt['firma'];
         $clientCodeShort = \FlexiPeeHP\FlexiBeeRO::uncode($clientCode);
     }
 
@@ -68,7 +72,8 @@ foreach ($allDebts as $code => $debt) {
     }
 
     $howmuchRaw[$curcode] += $amount;
-    if (!isset($total[$curcode])) $total[$curcode]      = 0;
+    if (!isset($total[$curcode]))
+        $total[$curcode] = 0;
 
     if (!array_key_exists('totals', $allClients[$clientCodeShort])) {
         $allClients[$clientCodeShort]['totals'] = [];
@@ -82,7 +87,7 @@ foreach ($allDebts as $code => $debt) {
     $total[$curcode] += $amount;
 
     foreach ($howmuchRaw as $cur => $price) {
-        $howmuch[] = $price.' '.$cur;
+        $howmuch[] = $price . ' ' . $cur;
     }
     $allDebtsByClient[$clientCode][$code] = $debt;
 }
@@ -100,18 +105,16 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 
     if ($clientCode) {
         $reminder->addStatusMessage(
-            $clientCodeShort.' '.
-            $clientData['nazev'].
-            ' ['.implode(',', $clientData['stitky']).'] '.
-            Upominac::formatTotals($clientData['totals']),
-            'success');
+                $clientCodeShort . ' ' .
+                $clientData['nazev'] .
+                ' [' . implode(',', $clientData['stitky']) . '] ' .
+                Upominac::formatTotals($clientData['totals']),
+                'success');
     }
 
     $reminder->processUserDebts($clientData, $clientDebts);
-
 }
 
-$reminder->addStatusMessage(Upominac::formatTotals($total),
-    'success');
+$reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
 
 

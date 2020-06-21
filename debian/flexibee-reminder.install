@@ -6,6 +6,8 @@ src/FlexiPeeHP/Reminder/PDFPage.php     usr/lib/flexibee-reminder/Reminder/
 src/FlexiPeeHP/Reminder/Upominac.php    usr/lib/flexibee-reminder/Reminder/
 src/FlexiPeeHP/Reminder/Upominka.php    usr/lib/flexibee-reminder/Reminder/
 
+src/notifiers/ByEmail.php               usr/lib/flexibee-reminder/notifiers
+
 bin/flexibee-debts  		usr/bin/
 bin/flexibee-inventarize  	usr/bin/
 bin/flexibee-reminder		usr/bin/
