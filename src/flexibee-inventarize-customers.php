@@ -10,7 +10,7 @@ define('EASE_APPNAME', 'ClientsNotifier');
 define('MODULES', './notifiers');
 
 require_once '../vendor/autoload.php';
-$shared  = new Ease\Shared();
+$shared = new Ease\Shared();
 if (file_exists('../client.json')) {
     $shared->loadConfig('../client.json', true);
 }
@@ -31,9 +31,8 @@ foreach ($allDebts as $kod => $debtData) {
 $counter = 0;
 foreach ($clientsToNotify as $firma => $debts) {
     $reminder->addStatusMessage(sprintf(_('(%d / %d) %s '), $counter++,
-            count($clientsToNotify),
-            isset(current($debts)['firma@showAs']) ? current($debts)['firma@showAs']
-                    : current($debts)['firma'] ), 'debug');
+                    count($clientsToNotify),
+                    isset(current($debts)['firma@showAs']) ? current($debts)['firma@showAs'] : current($debts)['firma'] ), 'debug');
     $reminder->customer->adresar->loadFromFlexiBee($firma);
-    $reminder->processNotifyModules(0, $debts, constant('MODULES').'/ByEmail.php');
+    $reminder->processNotifyModules(0, $debts, constant('MODULES') . '/ByEmail.php');
 }

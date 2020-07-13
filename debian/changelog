@@ -1,4 +1,4 @@
-flexibee-reminder (1.4) UNRELEASED; urgency=medium
+flexibee-reminder (1.4.1) UNRELEASED; urgency=medium
 
   * support for environment based configuration
   * twbootstrap renamed to bootstrap

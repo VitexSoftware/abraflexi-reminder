@@ -7,6 +7,7 @@
  * @copyright  (G) 2017 Vitex Software
  */
 define('EASE_APPNAME', 'Debts');
+define('MODULES', './n');
 if(!defined('EASE_LOGGER')){
     define('EASE_LOGGER', 'syslog|console|mail');
 }
