@@ -8,5 +8,5 @@ override_dh_install:
 	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	      debian/flexibee-reminder/usr/lib/flexibee-reminder/*.php
 	sed -i -e 's/..\/vendor/\/var\/lib\/flexibee-reminder/g' 	      debian/flexibee-reminder/usr/lib/flexibee-reminder/*.php
 	sed -i -e 's/\.\./\/etc\/flexibee/g'                                  debian/flexibee-reminder/usr/lib/flexibee-reminder/*.php
-	sed -i -e 's/.\/notifiers/\/usr\/lib\/flexibee-reminder\/notifiers/g' debian/flexibee-reminder/usr/lib/flexibee-reminder/*.php
+	sed -i -e 's/.\/FlexiPeeHP\/Reminder\/Notifier/\/usr\/lib\/flexibee-reminder\/Reminder\/Notifier/g'    debian/flexibee-reminder/usr/lib/flexibee-reminder/*.php
 	sed -i -e 's/..\/bin/\/usr\/bin/g'                                    debian/flexibee-reminder-sms/usr/lib/flexibee-reminder/Reminder/*Gnokii.php

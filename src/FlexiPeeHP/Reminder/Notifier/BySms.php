@@ -1,5 +1,9 @@
 <?php
 
+namespace FlexiPeeHP\Reminder\Notifier;
+
+use DateTime;
+use Ease\Sand;
 use FlexiPeeHP\Reminder\SmsByAxfone;
 use FlexiPeeHP\Reminder\SmsByGnokii;
 use FlexiPeeHP\Reminder\SmsBySshGnokii;
@@ -12,7 +16,7 @@ use FlexiPeeHP\Reminder\Upominka;
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2020 Spoje.Net, Vitex Software
  */
-class BySms extends \Ease\Sand {
+class BySms extends Sand {
 
     /**
      *
@@ -72,7 +76,6 @@ class BySms extends \Ease\Sand {
         }
     }
 
-    
     /**
      * Compile SMS reminder
      * 

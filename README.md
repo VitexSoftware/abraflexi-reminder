@@ -71,9 +71,9 @@ Do konfiguračního dialogu je třeba doplnit
 jiná akce při upomínání
 -----------------------
 
-Do složky  **notifiers** ( /usr/lib/php-flexibee-reminder/notifiers/ v případě instalace z debianího balíčku )
+Do složky  **src/FlexiPeeHP/Reminder/Notifier** ( /usr/lib/php-flexibee-reminder/Reminder/Notifier/ v případě instalace z debianího balíčku )
 je možné přidat další moduly vykonávající akci. Například odpojení neplatiče od služby atd.
-Jak takové doplňky psát by mělo být zřejmé z [ByEmail.php](src/notifiers/ByEmail.php)
+Jak takové doplňky psát by mělo být zřejmé z [ByEmail.php](src/FlexiPeeHP/Reminder/Notifier/ByEmail.php)
 
 
 Debian/Ubuntu
@@ -81,11 +81,13 @@ Debian/Ubuntu
 
 Pro Linux jsou k dispozici .deb balíčky. Prosím použijte repo:
 
+```shell
     sudo apt install lsb-release wget
     echo "deb http://repo.vitexsoftware.cz $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/vitexsoftware.list
     sudo wget -O /etc/apt/trusted.gpg.d/vitexsoftware.gpg http://repo.vitexsoftware.cz/keyring.gpg
     apt update
     apt install flexibee-reminder
+```
 
 Po instalaci balíku jsou v systému k dispozici tyto nové příkazy:
 
@@ -97,7 +99,7 @@ Po instalaci balíku jsou v systému k dispozici tyto nové příkazy:
 Konfigurace
 -----------
 
-se nastavuje v souboru  /etc/flexibee/**reminder.json**
+se nastavuje v souboru  /etc/flexibee/**reminder.json** 
 
 ```json
     "EASE_MAILTO": "info@yourdomain.net",
@@ -123,6 +125,8 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
   * **SMS_SENDER**    - Telefoní číslo odesilatele sms. Např.: +420739778202
   * **SMS_ENGINE**    - Metoda odeslání SMS. Možné hodnoty: **none**: neodesílat SMS, **gnokii**: místní Gnokii, **sshgnokii**: [Gnokii](https://www.gnokii.org/) na vzdáleném serveru (GNOKII_HOST) , **axfone** [Axfone](https://www.axfone.eu/) API
   * **GNOKII_HOST**   - specifikace serveru kde je modem. Může být i ve formátu login@host 
+  * **AXFONE_USERNAME** - Login pro AXFONE api
+  * **AXFONE_PASSWORD** - Heslo pro AXFONE api
 
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'

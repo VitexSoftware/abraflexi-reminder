@@ -9,7 +9,7 @@
 use FlexiPeeHP\Reminder\Upominac;
 
 define('EASE_APPNAME', 'Reminder');
-define('MODULES', './notifiers');
+define('MODULES', './FlexiPeeHP/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
 $shared = new \Ease\Shared();
@@ -110,6 +110,8 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
                 ' [' . implode(',', $clientData['stitky']) . '] ' .
                 Upominac::formatTotals($clientData['totals']),
                 'success');
+    } else {
+        $reminder->addStatusMessage(_('Missing Client CODE'),'warning');
     }
 
     $reminder->processUserDebts($clientData, $clientDebts);

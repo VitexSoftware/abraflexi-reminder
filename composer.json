@@ -7,18 +7,19 @@
             "email": "info@vitexsoftware.cz"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
-        "vitexsoftware/ease-core": "dev-master",
-        "spoje.net/flexibee": "dev-master",
-        "vitexsoftware/flexibee-bricks": "dev-master",
-        "listonoska/api": "*",
-        "spipu/html2pdf":"*", 
+        "vitexsoftware/ease-core": "^0",
+        "spoje.net/flexibee": "^1",
+        "vitexsoftware/flexibee-bricks": "^1.0",
+        "listonoska/api": "^1.1",
+        "spipu/html2pdf": "*", 
         "tecnickcom/tcpdf": "6.2.21" 
     },
     "autoload": {
         "psr-4": {
-            "FlexiPeeHP\\Reminder\\": "src/FlexiPeeHP/Reminder/"
+            "FlexiPeeHP\\Reminder\\": "src/FlexiPeeHP/Reminder/",
+            "FlexiPeeHP\\Reminder\\Notifier\\": "src/FlexiPeeHP/Reminder/"
         }
     },
     "autoload-dev": {

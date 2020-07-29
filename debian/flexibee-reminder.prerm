@@ -1,6 +1,7 @@
 #!/bin/bash
-# rm script for flexibee-reminder-papermail
+# rm script for flexibee-reminder
 
+. /usr/share/debconf/confmodule
 db_get composer/WEB_USER
 WEBUSER=$RET
 

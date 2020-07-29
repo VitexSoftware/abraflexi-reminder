@@ -7,14 +7,16 @@
  * @copyright  (G) 2018 Vitex Software
  */
 define('EASE_APPNAME', 'ClientsNotifier');
-define('MODULES', './notifiers');
+define('MODULES', './FlexiPeeHP/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
 $shared = new Ease\Shared();
 if (file_exists('../client.json')) {
     $shared->loadConfig('../client.json', true);
 }
-$shared->loadConfig('../reminder.json', true);
+if (file_exists('../reminder.json')) {
+    $shared->loadConfig('../reminder.json', true);
+}
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
 $reminder = new \FlexiPeeHP\Reminder\Upominac();

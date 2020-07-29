@@ -1,4 +1,24 @@
 <?php
+namespace FlexiPeeHP\Reminder\Notifier;
+
+use DateTime;
+use Ease\Html\DivTag;
+use Ease\Html\HrTag;
+use Ease\Html\PTag;
+use Ease\Html\TableTag;
+use Ease\Html\TdTag;
+use Ease\Html\TrTag;
+use Ease\Sand;
+use FlexiPeeHP\Adresar;
+use FlexiPeeHP\Bricks\Customer;
+use FlexiPeeHP\FakturaVydana;
+use FlexiPeeHP\FlexiBeeRO;
+use FlexiPeeHP\Nastaveni;
+use FlexiPeeHP\Reminder\PDFPage;
+use FlexiPeeHP\Reminder\Upominac;
+use FlexiPeeHP\Reminder\Upominka;
+use FlexiPeeHP\ui\CompanyLogo;
+use function __;
 
 /**
  * FlexiPeeHP - Remind by paper Mail class 
@@ -6,7 +26,7 @@
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018 Spoje.Net
  */
-class ByListonoska extends \Ease\Sand {
+class ByListonoska extends Sand {
 
     /**
      *
@@ -16,26 +36,26 @@ class ByListonoska extends \Ease\Sand {
 
     /**
      *
-     * @var \FlexiPeeHP\Reminder\PDFPage 
+     * @var PDFPage 
      */
     public $pdfer = null;
 
     /**
      *
-     * @var \FlexiPeeHP\FakturaVydana
+     * @var FakturaVydana
      */
     public $invoicer;
 
     /**
      * Current customer
-     * @var \FlexiPeeHP\Adresar 
+     * @var Adresar 
      */
     public $address = null;
 
     /**
      * eMail notification
      * 
-     * @param FlexiPeeHP\Reminder\Upominac $reminder
+     * @param Upominac $reminder
      * @param int                          $score     weeks of due
      * @param array                        $debts     array of debts by current customer
      */
@@ -68,7 +88,7 @@ class ByListonoska extends \Ease\Sand {
      * Compile Reminder message with its contents
      *
      * @param int                         $score        Weeks after due date
-     * @param \FlexiPeeHP\Bricks\Customer $customer
+     * @param Customer $customer
      * @param array                       $clientDebts
      * 
      * @return boolean
@@ -77,12 +97,12 @@ class ByListonoska extends \Ease\Sand {
         $result = false;
         $email = $customer->adresar->getNotificationEmailAddress();
         $nazev = $customer->adresar->getDataValue('nazev');
-        $this->invoicer = new \FlexiPeeHP\FakturaVydana();
+        $this->invoicer = new FakturaVydana();
 
         $this->firmer = &$customer->adresar;
         if ($email) {
 
-            $upominka = new \FlexiPeeHP\Reminder\Upominka();
+            $upominka = new Upominka();
             switch ($score) {
                 case 1:
                     $upominka->loadTemplate('prvniUpominka');
@@ -102,7 +122,7 @@ class ByListonoska extends \Ease\Sand {
 
             $to = $email;
 
-            $dnes = new \DateTime();
+            $dnes = new DateTime();
             $subject = $upominka->getDataValue('hlavicka') . ' ke dni ' . $dnes->format('d.m.Y');
 
 
@@ -110,18 +130,18 @@ class ByListonoska extends \Ease\Sand {
                 $to = constant('EASE_MAILTO');
             }
 
-            $this->pdfer = new \FlexiPeeHP\Reminder\PDFPage($subject);
+            $this->pdfer = new PDFPage($subject);
 
-            $heading = new \Ease\Html\DivTag($upominka->getDataValue('uvod') . ' ' . $nazev);
+            $heading = new DivTag($upominka->getDataValue('uvod') . ' ' . $nazev);
             if (defined('ADD_LOGO') && constant('ADD_LOGO')) {
-                $headingTableRow = new \Ease\Html\TrTag();
-                $headingTableRow->addItem(new \Ease\Html\TdTag($heading));
-                $logo = new \FlexiPeeHP\ui\CompanyLogo(['align' => 'right',
+                $headingTableRow = new TrTag();
+                $headingTableRow->addItem(new TdTag($heading));
+                $logo = new CompanyLogo(['align' => 'right',
                     'id' => 'companylogo',
                     'height' => '50', 'title' => _('Company logo')]);
-                $headingTableRow->addItem(new \Ease\Html\TdTag($logo,
+                $headingTableRow->addItem(new TdTag($logo,
                                 ['width' => '200px']));
-                $headingTable = new \Ease\Html\TableTag($headingTableRow,
+                $headingTable = new TableTag($headingTableRow,
                         ['width' => '100%']);
 
                 $this->pdfer->addItem($headingTable);
@@ -129,15 +149,15 @@ class ByListonoska extends \Ease\Sand {
                 $this->pdfer->addItem($heading);
             }
 
-            $this->pdfer->addItem(new \Ease\Html\PTag());
-            $this->pdfer->addItem(new \Ease\Html\DivTag(nl2br($upominka->getDataValue('textNad'))));
-            $debtsTable = new \Ease\Html\TableTag(null,
+            $this->pdfer->addItem(new PTag());
+            $this->pdfer->addItem(new DivTag(nl2br($upominka->getDataValue('textNad'))));
+            $debtsTable = new TableTag(null,
                     ['class' => 'greyGridTable']);
             $debtsTable->addRowHeaderColumns([_('Code'), _('var. sym.'), _('Amount'),
                 _('Currency'), _('Due Date'), _('overdue days')]);
 
             foreach ($clientDebts as $debt) {
-                $currency = \FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
+                $currency = FlexiBeeRO::uncode($debt['mena']);
                 if ($currency == 'CZK') {
                     $amount = $debt['zbyvaUhradit'];
                 } else {
@@ -146,24 +166,24 @@ class ByListonoska extends \Ease\Sand {
                 $debtsTable->addRowColumns([
                     $debt['kod'],
                     $debt['varSym'],
-                    \FlexiPeeHP\Reminder\Upominka::formatCurrency($amount),
+                    Upominka::formatCurrency($amount),
                     $currency,
-                    \FlexiPeeHP\FlexiBeeRO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y'),
-                    \FlexiPeeHP\FakturaVydana::overdueDays($debt['datSplat'])
+                    FlexiBeeRO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y'),
+                    FakturaVydana::overdueDays($debt['datSplat'])
                 ]);
             }
 
-            $debtsTable->addRowFooterColumns(['', _('Total'), \FlexiPeeHP\Reminder\Upominac::formatTotals(\FlexiPeeHP\Reminder\Upominka::getSums($clientDebts))]);
-            $this->pdfer->addItem(new \Ease\Html\PTag('<br clear="all"/>'));
+            $debtsTable->addRowFooterColumns(['', _('Total'), Upominac::formatTotals(Upominka::getSums($clientDebts))]);
+            $this->pdfer->addItem(new PTag('<br clear="all"/>'));
             $this->pdfer->addItem($debtsTable);
-            $this->pdfer->addItem(new \Ease\Html\PTag('<br clear="all"/>'));
-            $this->pdfer->addItem(new \Ease\Html\DivTag(nl2br($upominka->getDataValue('textPod'))));
-            $this->pdfer->addItem(new \Ease\Html\PTag('<br clear="all"/>'));
-            $this->pdfer->addItem(new \Ease\Html\HrTag());
-            $this->pdfer->addItem(new \Ease\Html\DivTag(nl2br($upominka->getDataValue('zapati'))));
+            $this->pdfer->addItem(new PTag('<br clear="all"/>'));
+            $this->pdfer->addItem(new DivTag(nl2br($upominka->getDataValue('textPod'))));
+            $this->pdfer->addItem(new PTag('<br clear="all"/>'));
+            $this->pdfer->addItem(new HrTag());
+            $this->pdfer->addItem(new DivTag(nl2br($upominka->getDataValue('zapati'))));
 
             if (defined('QR_PAYMENTS') && constant('QR_PAYMENTS')) {
-                $this->pdfer->addItem(FlexiPeeHP\Reminder\Upominka::qrPayments($clientDebts));
+                $this->pdfer->addItem(Upominka::qrPayments($clientDebts));
             }
 
             $result = true;
@@ -197,7 +217,7 @@ class ByListonoska extends \Ease\Sand {
             $listOfValues->getPrintTypes(); // číselník typů tisku
             $listOfValues->getIsoCodes(); // číselník iso kódů
 
-            $myCompanySettings = new \FlexiPeeHP\Nastaveni(1);
+            $myCompanySettings = new Nastaveni(1);
 
             $data = array(
                 'letterName' => $this->pdfer->pageTitle,

@@ -40,7 +40,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
     public function __construct($init = null, $options = array()) {
         parent::__construct($init, $options);
         $this->customer = new \FlexiPeeHP\Bricks\Customer();
-        $this->invoicer = new \FlexiPeeHP\FakturaVydana();
+        $this->invoicer = new \FlexiPeeHP\FakturaVydana(null, ['defaultUrlParams' => ['limit' => 0]]);
     }
 
     /**
@@ -234,6 +234,9 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
                                     break;
                             }
                             $invoiceData[$colname] = self::timestampToFlexiDate(time());
+                            if ($colname == 'poznam') {
+                                $invoiceData[$colname] = 'Inventarizace:' . $invoiceData[$colname];
+                            }
                             $this->invoicer->setEvidence($invoiceData['evidence']);
                             if ($this->invoicer->insertToFlexiBee($invoiceData)) {
                                 $this->addStatusMessage(sprintf(_('%s %s remind %s date saved'),
@@ -317,6 +320,33 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
     }
 
     /**
+     * Get Last Sent Inventarization days Day
+     * 
+     * @param array $clientDebts
+     * 
+     * @return int
+     */
+    public static function getDaysToLastInventarization($clientDebts) {
+        $days = 0;
+        $daysToLastInvent = [];
+
+        foreach ($clientDebts as $did => $debt) {
+            if (strstr($debt['poznam'], 'Inventarizace:')) {
+                foreach (explode("\n", $debt['poznam']) as $invRow) {
+                    if (strstr($invRow, 'Inventarizace:')) {
+                        $daysToLastInvent[] = \FlexiPeeHP\FakturaVydana::overdueDays(new \DateTime(str_replace('Inventarizace:',
+                                                        '', $invRow)));
+                    }
+                }
+            } else {
+                $daysToLastInvent[] = \FlexiPeeHP\FakturaVydana::overdueDays(empty($debt['datSmir']) ? ( empty($debt['datUp2']) ? ( empty($debt['datUp1']) ? $debt['datVyst'] : $debt['datUp1'] ) : $debt['datUp2'] ) : $debt['datSmir']);
+            }
+        }
+        $days = min($daysToLastInvent);
+        return $days;
+    }
+
+    /**
      * Send remind
      *
      * @param int   $score       ZewlScore
@@ -387,8 +417,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
             $d = dir($modulePath);
             while (false !== ($entry = $d->read())) {
                 if (is_file($modulePath . '/' . $entry)) {
-                    include_once $modulePath . '/' . $entry;
-                    $class = pathinfo($entry, PATHINFO_FILENAME);
+                    $class = '\\FlexiPeeHP\\Reminder\\Notifier\\' . pathinfo($entry, PATHINFO_FILENAME);
                     $resultRaw[$class] = new $class($this, $score, $debts);
                 }
             }

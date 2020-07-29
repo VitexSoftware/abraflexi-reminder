@@ -39,14 +39,6 @@
         {   
             "type": "path",
             "url": "/usr/share/php/EaseBricks"
-        },
-        {   
-            "type": "path",
-            "url": "/usr/share/php/EaseTWB"
-        },
-        {   
-            "type": "path",
-            "url": "/usr/share/php/FlexiPeeHPBricks"
         }
     ]
 

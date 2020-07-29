@@ -1,13 +1,13 @@
 <?php
 
 use FlexiPeeHP\Reminder\SmsToAddress;
+
 /**
  * FlexiBee Reminder Axfone API client
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
  */
-
 
 namespace FlexiPeeHP\Reminder;
 
@@ -31,20 +31,26 @@ class SmsByAxfone extends SmsToAddress {
     public $numberSent = null;
     public $lastResponseCode;
 
-    
-    public function __construct($smsNo = null, $message = null) {
+    /**
+     * Send SMS to Address usinx AXFONE API
+     * 
+     * @param string $smsNo
+     * @param string $message
+     * @param array $options Description
+     */
+    public function __construct($smsNo = null, $message = null, $options = []) {
         parent::__construct($smsNo, $message);
-        $this->setup();
+        $this->setup($options);
         $this->curlInit();
     }
 
-    public function setup() {
+    public function setup($options) {
+        $this->setupProperty($options, 'api_user_name', 'AXFONE_USERNAME');
+        $this->setupProperty($options, 'api_password', 'AXFONE_PASSWORD');
         $this->api_url_protocol = "https://";
-        $this->api_user_name = constant('AXFONE_USERNAME');
-        $this->api_password = constant('AXFONE_PASSWORD');
         $this->api_url_host = "sms.axfone.eu";
         $this->api_user_id = $this->api_user_name;
-        $this->api_parameters = ["MT_Source" => urlencode(constant('SMS_SENDER'))];
+        $this->api_parameters = ["MT_Source" => urlencode(\Ease\Shared::cfg('SMS_SENDER'))];
         $this->api_full_url = $this->api_url_protocol . $this->api_url_host . "/" . $this->api_user_id . "/";
     }
 
@@ -151,6 +157,10 @@ class SmsByAxfone extends SmsToAddress {
         return $sms_action_result;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function sendMessage() {
         return $this->sendSmsMessage($this->message);
     }
