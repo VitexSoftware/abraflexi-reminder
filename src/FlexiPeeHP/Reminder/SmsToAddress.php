@@ -1,6 +1,5 @@
 <?php
 
-use FlexiPeeHP\Reminder\Sms;
 /**
  * FlexiBee Reminder obtauin SMS number for FlexiBee Address
  *
@@ -8,34 +7,35 @@ use FlexiPeeHP\Reminder\Sms;
  * @copyright  (G) 2017-2020 Vitex Software
  */
 
-
 namespace FlexiPeeHP\Reminder;
+
+use Ease\Functions;
+use FlexiPeeHP\Adresar;
 
 /**
  * Description of SmsToCustomer
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class SmsToAddress extends Sms
-{
+class SmsToAddress extends Sms {
 
     /**
      * Send SMS to default Phone number
      * 
-     * @param \FlexiPeeHP\Adresar $address
+     * @param Adresar $address
      * @param string              $message
      */
-    public function __construct($address, $message = '')
-    {
-        if (defined('MUTE') && (constant('MUTE') == 'true')) {
-            $smsNo = constant('SMS_SENDER');
+    public function __construct($address, $message = '') {
+        if (Functions::cfg('MUTE') && (Functions::cfg('MUTE') == 'true')) {
+            $smsNo = Functions::cfg('SMS_SENDER');
         } else {
             $smsNo = $address->getAnyPhoneNumber();
         }
         parent::__construct($smsNo, $message);
         if (empty($smsNo)) {
-            $address->addStatusMessage($address->getRecordIdent().' '.$address->getApiURL().' '._('Address or primary contact without any phone number'),
-                'warning');
+            $address->addStatusMessage($address->getRecordIdent() . ' ' . $address->getApiURL() . ' ' . _('Address or primary contact without any phone number'),
+                    'warning');
         }
     }
+
 }

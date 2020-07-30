@@ -27,7 +27,7 @@ class Mailer extends HtmlMailer {
      */
     public function __construct($sendTo, $subject) {
         $shared = Shared::instanced();
-        $this->fromEmailAddress = $shared->getConfigValue('REMIND_FROM');
+        $this->fromEmailAddress = Functions::cfg('REMIND_FROM');
 
         if (Functions::cfg('MUTE') === true) {
             $sendTo = Functions::cfg('EASE_MAILTO');

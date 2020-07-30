@@ -3,6 +3,7 @@
 namespace FlexiPeeHP\Reminder\Notifier;
 
 use DateTime;
+use Ease\Functions;
 use Ease\Html\DivTag;
 use Ease\Html\HrTag;
 use Ease\Html\PTag;
@@ -19,6 +20,7 @@ use FlexiPeeHP\Reminder\Mailer;
 use FlexiPeeHP\Reminder\Upominac;
 use FlexiPeeHP\Reminder\Upominka;
 use FlexiPeeHP\ui\CompanyLogo;
+use function __;
 
 
 /**
@@ -105,7 +107,7 @@ class ByEmail extends Sand {
                     $lastInvDays = Upominac::getDaysToLastInventarization($clientDebts);
                     if ($lastInvDays < 14) {
                         $this->addStatusMessage(sprintf(_('Last  remind / inventarization for %s send before %d days; skipping'),
-                                        \FlexiPeeHP\FlexiBeeRO::uncode($customer), $lastInvDays),
+                                        FlexiBeeRO::uncode($customer), $lastInvDays),
                                 'debug');
                         return false;
                     }

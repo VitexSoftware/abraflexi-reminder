@@ -9,9 +9,9 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "vitexsoftware/ease-core": "^0",
+        "vitexsoftware/ease-core": "^1",
         "spoje.net/flexibee": "^1",
-        "vitexsoftware/flexibee-bricks": "^1.0",
+        "vitexsoftware/flexibee-bricks": "^1",
         "listonoska/api": "^1.1",
         "spipu/html2pdf": "*", 
         "tecnickcom/tcpdf": "6.2.21" 

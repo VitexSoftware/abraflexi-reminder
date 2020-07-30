@@ -33,14 +33,14 @@ class BySms extends Sand {
      */
     public function __construct($reminder, $score, $debts) {
         $result = false;
-        if (defined('SMS_ENGINE')) {
+        if (\Ease\Functions::cfg('SMS_ENGINE')) {
+
             if ($reminder->customer->adresar->getAnyPhoneNumber()) {
                 $message = $this->compile($score, $reminder->customer, $debts);
 
-                switch (constant('SMS_ENGINE')) {
+                switch (\Ease\Functions::cfg('SMS_ENGINE')) {
                     case 'axfone':
-                        $smsEngine = new SmsByAxfone($reminder->customer->adresar,
-                                $message);
+                        $smsEngine = new SmsByAxfone($reminder->customer->adresar, $message);
                         break;
                     case 'gnokii':
                         $smsEngine = new SmsByGnokii($reminder->customer->adresar,
@@ -55,7 +55,7 @@ class BySms extends Sand {
                         break;
                 }
 
-                if ($smsEngine) {
+                if (!is_null($smsEngine)) {
 
 //            file_put_contents('/var/tmp/upominka.txt',$message);
                     if (($score > 0) && ($score < 4) && $result) {

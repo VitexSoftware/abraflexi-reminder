@@ -18,6 +18,8 @@ namespace FlexiPeeHP\Reminder;
  */
 class SmsByAxfone extends SmsToAddress {
 
+    use \Ease\RecordKey;
+
     public $api_url_protocol = "https://";
     public $api_user_name = "";
     public $api_password = "";
@@ -34,14 +36,14 @@ class SmsByAxfone extends SmsToAddress {
     /**
      * Send SMS to Address usinx AXFONE API
      * 
-     * @param string $smsNo
-     * @param string $message
-     * @param array $options Description
+     * @param \FlexiPeeHP\Adresar $address To
+     * @param string              $message Plaintext
+     * @param array               $options Description
      */
-    public function __construct($smsNo = null, $message = null, $options = []) {
-        parent::__construct($smsNo, $message);
+    public function __construct($address = null, $message = null, $options = []) {
         $this->setup($options);
         $this->curlInit();
+        parent::__construct($address, $message);
     }
 
     public function setup($options) {
@@ -50,7 +52,7 @@ class SmsByAxfone extends SmsToAddress {
         $this->api_url_protocol = "https://";
         $this->api_url_host = "sms.axfone.eu";
         $this->api_user_id = $this->api_user_name;
-        $this->api_parameters = ["MT_Source" => urlencode(\Ease\Shared::cfg('SMS_SENDER'))];
+        $this->api_parameters = ["MT_Source" => urlencode(\Ease\Functions::cfg('SMS_SENDER'))];
         $this->api_full_url = $this->api_url_protocol . $this->api_url_host . "/" . $this->api_user_id . "/";
     }
 
