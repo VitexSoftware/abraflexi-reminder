@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="service">
+  <id>io.github.vitexsoftware.flexibee_reminder</id>
+  
+  <name>FlexiBee Reminder</name>
+  <summary>Send Remiders using FlexiBee data</summary>
+  
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  
+  <description>
+    <p>
+      Compile &amp; send info about unsettled invoices
+    </p>
+  </description>
+  
+  <icon type="stock">flexibee-reminder</icon>
+  
+  <categories>
+    <category>Office</category>
+    <category>Email</category>
+  </categories>
+</component>
+

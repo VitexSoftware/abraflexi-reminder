@@ -15,3 +15,7 @@ bin/flexibee-reminder-init      usr/bin/
 debian/conf/reminder.json       etc/flexibee/
 i18n/cs_CZ/LC_MESSAGES/*.mo     usr/share/locale/cs_CZ/LC_MESSAGES
 i18n/en_US/LC_MESSAGES/*.mo     usr/share/locale/en_US/LC_MESSAGES
+flexibee-reminder.svg		usr/share/icons/hicolor/scalable/apps
+
+debian/io.github.vitexsoftware.flexibee_reminder.metainfo.xml   usr/share/metainfo/
+

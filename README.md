@@ -1,4 +1,4 @@
-![Package Logo](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/package_logo.png "Project Logo")
+![Package Logo](flexibee-reminder.svg?raw=true "Project Logo")
 
 Odesílač upomínek pro FlexiBee
 ==============================
@@ -21,7 +21,7 @@ zkontroluje v přednastavené firmě pohledávky. Při odeslání upomínky
 Pokud nemá zákazník nastaven štítek NEUPOMINKOVAT, je mu odeslána upomínka.
 příkaz je určen k automatickému spouštění každý den.
 
-![Upomínka](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/reminder-screenshot.png "ukázka upomínky")
+![Upomínka](reminder-screenshot.png?raw=true "ukázka upomínky")
 
 Příkaz **flexibee-inventarize** zašle klientům přehled jejich závazků. 
 Předpokládá se jeho automatické spouštění jednou za měsíc.
@@ -55,7 +55,7 @@ Upomínky je v současné době možné zasílat jako SMS prostřednictvím těc
  * **vzdálené gnokii** - gnokii je nainstalována na jiném stroji. Příkaz na něm je spouštěn prostřednictvím SSH s klíčem
  * **Axfone SMS brána** -  Vaše přihlašovací údaje zadejte do konfiguráku pod klíči **AXFONE_USERNAME** a **AXFONE_PASSWORD**
 
-![SMS Upomínka](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/reminder-sms-screenshot.png "ukázka SMS upomínky")
+![SMS Upomínka](reminder-sms-screenshot.png?raw=true "ukázka SMS upomínky")
 
 Papírová Upomínka
 -----------------
