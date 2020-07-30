@@ -19,13 +19,13 @@ use FlexiPeeHP\Reminder\Mailer;
 use FlexiPeeHP\Reminder\Upominac;
 use FlexiPeeHP\Reminder\Upominka;
 use FlexiPeeHP\ui\CompanyLogo;
-use function __;
+
 
 /**
  * FlexiPeeHP - Remind by eMail class 
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
- * @copyright  2018 Spoje.Net
+ * @copyright  2018-2020 Spoje.Net
  */
 class ByEmail extends Sand {
 
@@ -51,8 +51,8 @@ class ByEmail extends Sand {
      * eMail notification
      * 
      * @param Upominac $reminder
-     * @param int                          $score     weeks of due
-     * @param array                        $debts     array of debts by current customer
+     * @param int      $score     weeks of due
+     * @param array    $debts     array of debts by current customer
      */
     public function __construct($reminder, $score, $debts) {
         $result = false;
@@ -121,15 +121,10 @@ class ByEmail extends Sand {
             $dnes = new DateTime();
             $subject = $upominka->getDataValue('hlavicka') . ' ke dni ' . $dnes->format('d.m.Y');
 
-
-            if (defined('MUTE') && constant('MUTE')) {
-                $to = constant('EASE_MAILTO');
-            }
-
             $this->mailer = new Mailer($to, $subject);
 
             $heading = new DivTag($upominka->getDataValue('uvod') . ' ' . $nazev);
-            if (defined('ADD_LOGO') && constant('ADD_LOGO')) {
+            if (Functions::cfg('ADD_LOGO')) {
                 $headingTableRow = new TrTag();
                 $headingTableRow->addItem(new TdTag($heading));
                 $logo = new CompanyLogo(['align' => 'right',
@@ -177,7 +172,7 @@ class ByEmail extends Sand {
             $this->mailer->addItem(new HrTag());
             $this->mailer->addItem(new DivTag(nl2br($upominka->getDataValue('zapati'))));
 
-            if (defined('QR_PAYMENTS') && constant('QR_PAYMENTS')) {
+            if (Functions::cfg('QR_PAYMENTS')) {
                 $this->mailer->addItem(Upominka::qrPayments($clientDebts));
             }
             $this->addAttachments($clientDebts);
@@ -196,7 +191,7 @@ class ByEmail extends Sand {
      */
     public function addAttachments($clientDebts) {
         foreach ($clientDebts as $debtCode => $debt) {
-            if (defined('MAX_MAIL_SIZE') && ($this->mailer->getCurrentMailSize() > constant('MAX_MAIL_SIZE'))) {
+            if (Functions::cfg('MAX_MAIL_SIZE') && ($this->mailer->getCurrentMailSize() > Functions::cfg('MAX_MAIL_SIZE'))) {
                 $this->mailer->addItem(new DivTag(sprintf(_('Not enough space in this mail for attaching %s '),
                                         $debtCode)));
                 continue;

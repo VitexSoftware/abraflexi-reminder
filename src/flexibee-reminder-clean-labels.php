@@ -8,6 +8,10 @@
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
  */
+
+use Ease\Locale;
+use Ease\Shared;
+use FlexiPeeHP\FlexiBeeRO;
 use FlexiPeeHP\Reminder\Upominac;
 
 define('EASE_APPNAME', 'Clean Remind Labels');
@@ -15,12 +19,14 @@ define('EASE_APPNAME', 'Clean Remind Labels');
 
 
 require_once '../vendor/autoload.php';
-$shared = new Ease\Shared();
+$shared = new Shared();
 if (file_exists('../client.json')) {
     $shared->loadConfig('../client.json', true);
 }
-$shared->loadConfig('../reminder.json', true);
-$localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
+if (file_exists('../reminder.json')) {
+    $shared->loadConfig('../reminder.json', true);
+}
+$localer = new Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
 $reminder = new Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
@@ -34,13 +40,13 @@ foreach ($labelsRequiedRaw as $label) {
 
 $labeledClients = $reminder->getCustomerList([implode(' or ', $labelsRequied)]);
 if (empty($labeledClients)) {
-    $reminder->addStatusMessage(_('None to clear'));
+    $reminder->addStatusMessage(__('None to clear'));
 } else {
     $pos = 0;
     foreach ($labeledClients as $clientCode => $clientInfo) {
-        $reminder->customer->adresar->setMyKey(\FlexiPeeHP\FlexiBeeRO::code($clientCode));
+        $reminder->customer->adresar->setMyKey(FlexiBeeRO::code($clientCode));
         $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
         $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
-        $reminder->addStatusMessage(++$pos . '/' . count($labeledClients) . ' ' . $clientCode . ' ' . _('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning' );
+        $reminder->addStatusMessage(++$pos . '/' . count($labeledClients) . ' ' . $clientCode . ' ' . __('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning' );
     }
 }

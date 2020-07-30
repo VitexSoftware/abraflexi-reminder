@@ -2,39 +2,47 @@
 
 namespace FlexiPeeHP\Reminder;
 
+use Ease\Container;
+use Ease\Functions;
+use Ease\Html\BodyTag;
+use Ease\Html\HtmlTag;
+use Ease\Html\SimpleHeadTag;
+use Ease\Html\TitleTag;
+use Ease\HtmlMailer;
+use Ease\Shared;
+
 /**
  * FlexiBee Reminder Mailer
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
  */
-class Mailer extends \Ease\HtmlMailer
-{
+class Mailer extends HtmlMailer {
 
     /**
      * Send Remind by mail
      * 
      * @param string $subject
-     * @param \Ease\Container   $moduleDir
+     * @param Container   $moduleDir
      */
-    public function __construct($sendTo, $subject)
-    {
-        $shared                 = \Ease\Shared::instanced();
+    public function __construct($sendTo, $subject) {
+        $shared = Shared::instanced();
         $this->fromEmailAddress = $shared->getConfigValue('REMIND_FROM');
 
-        if (defined('MUTE') && (constant('MUTE') == 'true')) {
-            $sendTo = constant('EASE_MAILTO');
+        if (Functions::cfg('MUTE') === true) {
+            $sendTo = Functions::cfg('EASE_MAILTO');
         }
         parent::__construct($sendTo, $subject);
 
-        if (defined('MAIL_CC')) {
-            $this->mailHeaders['Cc'] = constant('MAIL_CC');
+        if (Functions::cfg('MAIL_CC')) {
+            $this->setMailHeaders(['Cc' => Functions::cfg('MAIL_CC')]);
         }
-        
-        $this->htmlDocument = new \Ease\Html\HtmlTag(new \Ease\Html\SimpleHeadTag([
-            new \Ease\Html\TitleTag($this->emailSubject),
-            '<style>'.Upominka::$styles.'</style>']));
-        $this->htmlBody     = $this->htmlDocument->addItem(new \Ease\Html\BodyTag());
+
+
+        $this->htmlDocument = new HtmlTag(new SimpleHeadTag([
+                    new TitleTag($this->emailSubject),
+                    '<style>' . Upominka::$styles . '</style>']));
+        $this->htmlBody = $this->htmlDocument->addItem(new BodyTag());
     }
 
     /**
@@ -44,13 +52,12 @@ class Mailer extends \Ease\HtmlMailer
      *
      * @return Ease\pointer|null ukazatel na vložený obsah
      */
-    public function &addItem($item, $pageItemName = null)
-    {
+    public function &addItem($item, $pageItemName = null) {
         $mailBody = '';
         if (is_object($item)) {
             if (is_object($this->htmlDocument)) {
                 if (is_null($this->htmlBody)) {
-                    $this->htmlBody = new \Ease\Html\BodyTag();
+                    $this->htmlBody = new BodyTag();
                 }
                 $mailBody = $this->htmlBody->addItem($item, $pageItemName);
             } else {
@@ -65,8 +72,7 @@ class Mailer extends \Ease\HtmlMailer
         return $mailBody;
     }
 
-    public function getCss()
-    {
+    public function getCss() {
         
     }
 
@@ -75,15 +81,15 @@ class Mailer extends \Ease\HtmlMailer
      *
      * @return int Size in bytes
      */
-    public function getCurrentMailSize()
-    {
+    public function getCurrentMailSize() {
         $this->finalize();
         $this->finalized = false;
         if (function_exists('mb_internal_encoding') &&
-            (((int) ini_get('mbstring.func_overload')) & 2)) {
+                (((int) ini_get('mbstring.func_overload')) & 2)) {
             return mb_strlen($this->mailBody, '8bit');
         } else {
             return strlen($this->mailBody);
         }
     }
+
 }

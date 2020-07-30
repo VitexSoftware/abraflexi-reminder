@@ -1,18 +1,21 @@
 <?php
 
 /**
- * System.spoje.net - Odeslání Upomínek
+ * FlexiBee Reminder - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017 Vitex Software
+ * @copyright  (G) 2017-2020 Vitex Software
  */
+use Ease\Locale;
+use Ease\Shared;
+use FlexiPeeHP\FlexiBeeRO;
 use FlexiPeeHP\Reminder\Upominac;
 
 define('EASE_APPNAME', 'Reminder');
 define('MODULES', './FlexiPeeHP/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
-$shared = new \Ease\Shared();
+$shared = new Shared();
 if (file_exists('../client.json')) {
     $shared->loadConfig('../client.json', true);
 }
@@ -23,7 +26,7 @@ if (file_exists('../reminder.json')) {
         define($key, $value);
     }
 }
-$localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
+$localer = new Locale('cs_CZ', '../i18n', 'flexibee-reminder');
 
 $reminder = new Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
@@ -51,7 +54,7 @@ foreach ($allDebts as $code => $debt) {
         $clientCodeShort = '';
     } else {
         $clientCode = $debt['firma'];
-        $clientCodeShort = \FlexiPeeHP\FlexiBeeRO::uncode($clientCode);
+        $clientCodeShort = FlexiBeeRO::uncode($clientCode);
     }
 
     if (array_key_exists($debt['firma'], $clientsToSkip)) {
@@ -60,7 +63,7 @@ foreach ($allDebts as $code => $debt) {
 
     $counter++;
 
-    $curcode = FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
+    $curcode = FlexiBeeRO::uncode($debt['mena']);
     if (!isset($howmuchRaw[$curcode])) {
         $howmuchRaw[$curcode] = 0;
     }
@@ -95,7 +98,7 @@ foreach ($allDebts as $code => $debt) {
 $pointer = 0;
 foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 
-    $clientCodeShort = \FlexiPeeHP\FlexiBeeRO::uncode($clientCode);
+    $clientCodeShort = FlexiBeeRO::uncode($clientCode);
 
     if (array_key_exists($clientCode, $clientsToSkip)) {
         continue;
@@ -111,7 +114,7 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
                 Upominac::formatTotals($clientData['totals']),
                 'success');
     } else {
-        $reminder->addStatusMessage(_('Missing Client CODE'),'warning');
+        $reminder->addStatusMessage(__('Missing Client CODE'), 'warning');
     }
 
     $reminder->processUserDebts($clientData, $clientDebts);

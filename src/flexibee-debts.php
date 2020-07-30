@@ -4,7 +4,7 @@
 use FlexiPeeHP\Reminder\Upominac;
 
 /**
- * System.spoje.net - Odeslání Upomínek
+ * FlexiBee Reminder - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
