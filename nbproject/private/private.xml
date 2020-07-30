@@ -6,8 +6,13 @@
         <group name="Group 20171205-02:25:52"/>
         <group/>
         <group name="EASE">
-            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/FlexiPeeHP/Reminder/SmsByAxfone.php</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/flexibee-inventarize-customers.php</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/flexibee-reminder-clean-labels.php</file>
             <file>file:/home/vitex/Projects/EASE/flexibee-reminder/README.md</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/flexibee-debts.php</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/FlexiPeeHP/Reminder/Notifier/ByEmail.php</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/FlexiPeeHP/Reminder/Upominac.php</file>
+            <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/FlexiPeeHP/Reminder/Mailer.php</file>
             <file>file:/home/vitex/Projects/EASE/flexibee-reminder/src/flexibee-reminder.php</file>
         </group>
     </open-files>
