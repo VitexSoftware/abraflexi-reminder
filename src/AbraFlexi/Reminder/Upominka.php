@@ -1,20 +1,20 @@
 <?php
 
 /**
- * FlexiPeeHP - Remind class Brick
+ * AbraFlexi - Remind class Brick
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2018 Vitex Software
  */
 
-namespace FlexiPeeHP\Reminder;
+namespace AbraFlexi\Reminder;
 
 /**
  * Description of Upominka
  *
  * @author vitex
  */
-class Upominka extends \FlexiPeeHP\FlexiBeeRW {
+class Upominka extends \AbraFlexi\RW {
 
     /**
      * Remind templates evidence name
@@ -24,13 +24,13 @@ class Upominka extends \FlexiPeeHP\FlexiBeeRW {
 
     /**
      *
-     * @var \FlexiPeeHP\Adresar 
+     * @var \AbraFlexi\Adresar 
      */
     public $firmer = null;
 
     /**
      * Invoice
-     * @var \FlexiPeeHP\FakturaVydana
+     * @var \AbraFlexi\FakturaVydana
      */
     public $invoicer = null;
 
@@ -88,8 +88,8 @@ table.greyGridTable tfoot td {
     public function __construct($init = null, $options = array()) {
         parent::__construct($init, $options);
 
-        $this->invoicer = new \FlexiPeeHP\FakturaVydana();
-        $this->firmer = new \FlexiPeeHP\Adresar();
+        $this->invoicer = new \AbraFlexi\FakturaVydana();
+        $this->firmer = new \AbraFlexi\Adresar();
     }
 
     /**
@@ -97,7 +97,7 @@ table.greyGridTable tfoot td {
      * @param string $template prvniUpominka|druhaUpominka|pokusOSmir|inventarizace
      */
     public function loadTemplate($template) {
-        $this->takeData(current($this->getColumnsFromFlexibee('*',
+        $this->takeData(current($this->getColumnsFromAbraFlexi('*',
                                 ['typSablonyK' => 'typSablony.' . $template])));
     }
 
@@ -111,7 +111,7 @@ table.greyGridTable tfoot td {
     public static function getSums($debts) {
         $sumsCelkem = [];
         foreach ($debts as $debt) {
-            $currency = \FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
+            $currency = \AbraFlexi\RO::uncode($debt['mena']);
             if ($currency == 'CZK') {
                 $amount = $debt['zbyvaUhradit'];
             } else {
@@ -134,11 +134,11 @@ table.greyGridTable tfoot td {
      * @return \Ease\Html\DivTag
      */
     public static function qrPayments($debts) {
-        $invoicer = new \FlexiPeeHP\FakturaVydana();
+        $invoicer = new \AbraFlexi\FakturaVydana();
         $qrDiv = new \Ease\Html\DivTag();
         $qrDiv->addItem(new \Ease\Html\H3Tag(_('QR Invoices')));
         foreach ($debts as $invoiceId => $invoiceInfo) {
-            $currency = \FlexiPeeHP\FlexiBeeRO::uncode($invoiceInfo['mena']);
+            $currency = \AbraFlexi\RO::uncode($invoiceInfo['mena']);
             if ($currency == 'CZK') {
                 $amount = $invoiceInfo['zbyvaUhradit'];
             } else {

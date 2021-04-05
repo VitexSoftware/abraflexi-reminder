@@ -1,18 +1,18 @@
 <?php
 
 /**
- * FlexiBee Reminder - Odeslání Upomínek
+ * AbraFlexi Reminder - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
  */
 use Ease\Locale;
 use Ease\Shared;
-use FlexiPeeHP\FlexiBeeRO;
-use FlexiPeeHP\Reminder\Upominac;
+use AbraFlexi\RO;
+use AbraFlexi\Reminder\Upominac;
 
 define('EASE_APPNAME', 'Reminder');
-define('MODULES', './FlexiPeeHP/Reminder/Notifier');
+define('MODULES', './AbraFlexi/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
 $shared = new Shared();
@@ -26,7 +26,7 @@ if (file_exists('../reminder.json')) {
         define($key, $value);
     }
 }
-$localer = new Locale('cs_CZ', '../i18n', 'flexibee-reminder');
+$localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
 $reminder = new Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
@@ -54,7 +54,7 @@ foreach ($allDebts as $code => $debt) {
         $clientCodeShort = '';
     } else {
         $clientCode = $debt['firma'];
-        $clientCodeShort = FlexiBeeRO::uncode($clientCode);
+        $clientCodeShort = RO::uncode($clientCode);
     }
 
     if (array_key_exists($debt['firma'], $clientsToSkip)) {
@@ -63,7 +63,7 @@ foreach ($allDebts as $code => $debt) {
 
     $counter++;
 
-    $curcode = FlexiBeeRO::uncode($debt['mena']);
+    $curcode = RO::uncode($debt['mena']);
     if (!isset($howmuchRaw[$curcode])) {
         $howmuchRaw[$curcode] = 0;
     }
@@ -98,7 +98,7 @@ foreach ($allDebts as $code => $debt) {
 $pointer = 0;
 foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 
-    $clientCodeShort = FlexiBeeRO::uncode($clientCode);
+    $clientCodeShort = RO::uncode($clientCode);
 
     if (array_key_exists($clientCode, $clientsToSkip)) {
         continue;

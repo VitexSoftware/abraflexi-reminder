@@ -1,15 +1,15 @@
 <?php
 
-use FlexiPeeHP\Reminder\SmsToAddress;
+use AbraFlexi\Reminder\SmsToAddress;
 
 /**
- * FlexiBee Reminder Axfone API client
+ * AbraFlexi Reminder Axfone API client
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
  */
 
-namespace FlexiPeeHP\Reminder;
+namespace AbraFlexi\Reminder;
 
 /**
  * Description of Axone
@@ -36,7 +36,7 @@ class SmsByAxfone extends SmsToAddress {
     /**
      * Send SMS to Address usinx AXFONE API
      * 
-     * @param \FlexiPeeHP\Adresar $address To
+     * @param \AbraFlexi\Adresar $address To
      * @param string              $message Plaintext
      * @param array               $options Description
      */
@@ -59,9 +59,9 @@ class SmsByAxfone extends SmsToAddress {
     public function curlInit() {
         $this->curl = \curl_init(); // create curl resource
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true); // return content as a string from curl_exec
-        curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true); // follow redirects (compatibility for future changes in FlexiBee)
+        curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true); // follow redirects (compatibility for future changes in AbraFlexi)
         curl_setopt($this->curl, CURLOPT_HTTPAUTH, true);       // HTTP authentication
-        curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, false); // FlexiBee by default uses Self-Signed certificates
+        curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, false); // AbraFlexi by default uses Self-Signed certificates
         curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($this->curl, CURLOPT_VERBOSE, false); // For debugging
 
@@ -108,7 +108,7 @@ class SmsByAxfone extends SmsToAddress {
 //        }
 //        $httpHeadersFinal = [];
 //        foreach ($httpHeaders as $key => $value) {
-//            if (($key == 'User-Agent') && ($value == 'FlexiPeeHP')) {
+//            if (($key == 'User-Agent') && ($value == 'AbraFlexi')) {
 //                $value .= ' v'.self::$libVersion;
 //            }
 //            $httpHeadersFinal[] = $key.': '.$value;

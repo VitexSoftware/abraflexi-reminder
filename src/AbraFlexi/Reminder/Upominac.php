@@ -1,13 +1,13 @@
 <?php
 
 /**
- * FlexiPeeHP - Reminder class 
+ * AbraFlexi - Reminder class 
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018 Spoje.Net 2019-2020 VitexSoftware
  */
 
-namespace FlexiPeeHP\Reminder;
+namespace AbraFlexi\Reminder;
 
 use DateTime;
 
@@ -16,18 +16,18 @@ use DateTime;
  *
  * @author vitex
  */
-class Upominac extends \FlexiPeeHP\FlexiBeeRW {
+class Upominac extends \AbraFlexi\RW {
 
     /**
      *
-     * @var \FlexiPeeHP\Bricks\Customer
+     * @var \AbraFlexi\Bricks\Customer
      */
     public $customer = null;
 
     /**
      * Invoice
      * 
-     * @var \FlexiPeeHP\FakturaVydana
+     * @var \AbraFlexi\FakturaVydana
      */
     public $invoicer = null;
 
@@ -39,8 +39,8 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
      */
     public function __construct($init = null, $options = array()) {
         parent::__construct($init, $options);
-        $this->customer = new \FlexiPeeHP\Bricks\Customer();
-        $this->invoicer = new \FlexiPeeHP\FakturaVydana(null, ['defaultUrlParams' => ['limit' => 0]]);
+        $this->customer = new \AbraFlexi\Bricks\Customer();
+        $this->invoicer = new \AbraFlexi\FakturaVydana(null, ['defaultUrlParams' => ['limit' => 0]]);
     }
 
     /**
@@ -62,7 +62,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
         $pos = 0;
         foreach ($clients as $cid => $clientIDs) {
             $pos++;
-            $stitky = \FlexiPeeHP\Stitek::listToArray($clientIDs['stitky']);
+            $stitky = \AbraFlexi\Stitek::listToArray($clientIDs['stitky']);
             if (count($skipLabels) && array_intersect($skipLabels, $stitky)) {
                 continue;
             }
@@ -105,7 +105,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
      * Enable customer
      *
      * @param string $stitky Labels
-     * @param int    $cid    FlexiBee AddressID
+     * @param int    $cid    AbraFlexi AddressID
      *
      * @return boolean Customer connect status
      */
@@ -119,7 +119,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
             unset($newStitky['UPOMINKA3']);
             unset($newStitky['NEPLATIC']);
 
-            if ($this->customer->adresar->insertToFlexiBee(['id' => $cid, 'stitky@removeAll' => 'true',
+            if ($this->customer->adresar->insertToAbraFlexi(['id' => $cid, 'stitky@removeAll' => 'true',
                         'stitky' => $newStitky])) {
                 $this->addStatusMessage(sprintf(_('No debts. Clear %s Remind labels'),
                                 $cid), 'success');
@@ -146,7 +146,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
         $counter = 0;
         foreach ($allDebths as $cid => $debts) {
             $counter++;
-            $this->customer->adresar->loadFromFlexiBee($cid);
+            $this->customer->adresar->loadFromAbraFlexi($cid);
             $this->addStatusMessage(sprintf(_('(%d / %d) #%s code: %s %s '),
                             $counter, count($allDebths),
                             $this->customer->adresar->getDataValue('id'),
@@ -161,7 +161,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
     /**
      * Process Customer debts
      *
-     * @param array $clientInfo  FlexiBee Address (Customer)
+     * @param array $clientInfo  AbraFlexi Address (Customer)
      * @param array $clientDebts Array provided by customer::getCustomerDebts()
      *
      * @return int max debt score 1: 0-7 days 1: 8-14 days 3: 15 days and more
@@ -178,7 +178,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
             switch ($debt['zamekK']) {
                 case 'zamek.zamceno':
                     $this->invoicer->dataReset();
-                    $this->invoicer->setMyKey(\FlexiPeeHP\FlexiBeeRO::code($did));
+                    $this->invoicer->setMyKey(\AbraFlexi\RO::code($did));
                     $unlock = $this->invoicer->performAction('unlock', 'int');
                     if ($unlock['success'] == 'false') {
                         $this->addStatusMessage(_('Invoice locked: skipping process'),
@@ -189,9 +189,9 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
                 case 'zamek.otevreno':
                 default:
 
-                    $invoicesToSave[$debt['id']] = ['id' => \FlexiPeeHP\FlexiBeeRO::code($did),
+                    $invoicesToSave[$debt['id']] = ['id' => \AbraFlexi\RO::code($did),
                         'evidence' => $debt['evidence']];
-                    $ddiff = \FlexiPeeHP\FakturaVydana::overdueDays($debt['datSplat']);
+                    $ddiff = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
                     $ddifs[$debt['id']] = $ddiff;
 
                     if (($ddiff <= 7) && ($ddiff >= 1)) {
@@ -238,7 +238,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
                                 $invoiceData[$colname] = 'Inventarizace:' . $invoiceData[$colname];
                             }
                             $this->invoicer->setEvidence($invoiceData['evidence']);
-                            if ($this->invoicer->insertToFlexiBee($invoiceData)) {
+                            if ($this->invoicer->insertToAbraFlexi($invoiceData)) {
                                 $this->addStatusMessage(sprintf(_('%s %s remind %s date saved'),
                                                 $invoiceData['evidence'], $invoiceCode,
                                                 $colname), 'info');
@@ -263,7 +263,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
         if (count($invoicesToLock)) {
             foreach ($invoicesToLock as $invoiceCode => $invoiceData) {
                 $this->invoicer->dataReset();
-                $this->invoicer->setMyKey(\FlexiPeeHP\FlexiBeeRO::code($did));
+                $this->invoicer->setMyKey(\AbraFlexi\RO::code($did));
                 $lock = $this->invoicer->performAction('lock', 'int');
                 if ($lock['success'] == 'true') {
                     $this->addStatusMessage(sprintf(_('Invoice %s locked again'),
@@ -281,14 +281,14 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
     /**
      * Obtain Customer "Score"
      *
-     * @param int $addressID FlexiBee user ID
+     * @param int $addressID AbraFlexi user ID
      * 
      * @return int ZewlScore
      */
     public function getCustomerScore($addressID) {
         $score = 0;
         $debts = $this->customer->getCustomerDebts($addressID);
-        $stitkyRaw = $this->customer->adresar->getColumnsFromFlexiBee(['stitky'],
+        $stitkyRaw = $this->customer->adresar->getColumnsFromAbraFlexi(['stitky'],
                 ['id' => $addressID]);
         $stitky = $stitkyRaw[0]['stitky'];
         if (!empty($debts)) {
@@ -334,12 +334,12 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
             if (strstr($debt['poznam'], 'Inventarizace:')) {
                 foreach (explode("\n", $debt['poznam']) as $invRow) {
                     if (strstr($invRow, 'Inventarizace:')) {
-                        $daysToLastInvent[] = \FlexiPeeHP\FakturaVydana::overdueDays(new \DateTime(str_replace('Inventarizace:',
+                        $daysToLastInvent[] = \AbraFlexi\FakturaVydana::overdueDays(new \DateTime(str_replace('Inventarizace:',
                                                         '', $invRow)));
                     }
                 }
             } else {
-                $daysToLastInvent[] = \FlexiPeeHP\FakturaVydana::overdueDays(empty($debt['datSmir']) ? ( empty($debt['datUp2']) ? ( empty($debt['datUp1']) ? $debt['datVyst'] : $debt['datUp1'] ) : $debt['datUp2'] ) : $debt['datSmir']);
+                $daysToLastInvent[] = \AbraFlexi\FakturaVydana::overdueDays(empty($debt['datSmir']) ? ( empty($debt['datUp2']) ? ( empty($debt['datUp1']) ? $debt['datVyst'] : $debt['datUp1'] ) : $debt['datUp2'] ) : $debt['datSmir']);
             }
         }
         $days = min($daysToLastInvent);
@@ -417,7 +417,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
             $d = dir($modulePath);
             while (false !== ($entry = $d->read())) {
                 if (is_file($modulePath . '/' . $entry)) {
-                    $class = '\\FlexiPeeHP\\Reminder\\Notifier\\' . pathinfo($entry, PATHINFO_FILENAME);
+                    $class = '\\AbraFlexi\\Reminder\\Notifier\\' . pathinfo($entry, PATHINFO_FILENAME);
                     $resultRaw[$class] = new $class($this, $score, $debts);
                 }
             }
@@ -457,7 +457,7 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
 
         $result = [];
         $this->invoicer->defaultUrlParams['order'] = 'datVyst@A';
-        $invoices = $this->invoicer->getColumnsFromFlexibee([
+        $invoices = $this->invoicer->getColumnsFromAbraFlexi([
             'id',
             'kod',
             'stavUhrK',
@@ -476,19 +476,19 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
             'mena',
             'zamekK',
             'datVyst'],
-                ["datSplat lte '" . \FlexiPeeHP\FlexiBeeRW::dateToFlexiDate(new DateTime()) . "' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false"],
+                ["datSplat lte '" . \AbraFlexi\RW::dateToFlexiDate(new DateTime()) . "' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false"],
                 'kod');
 
         if ($this->invoicer->lastResponseCode == 200) {
             $skiplist = [];
             if (defined('SKIPLIST')) {
-                $skiplist = \FlexiPeeHP\Stitek::listToArray(constant('SKIPLIST'));
+                $skiplist = \AbraFlexi\Stitek::listToArray(constant('SKIPLIST'));
             }
 
             $evidenceUsed = $this->invoicer->getEvidence();
             foreach ($invoices as $invoiceId => $invoiceData) {
                 $invoiceData['evidence'] = $evidenceUsed;
-                if (array_key_exists(\FlexiPeeHP\FlexiBeeRO::uncode($invoiceData['typDokl']),
+                if (array_key_exists(\AbraFlexi\RO::uncode($invoiceData['typDokl']),
                                 $skiplist)) {
                     continue;
                 }
@@ -522,11 +522,11 @@ class Upominac extends \FlexiPeeHP\FlexiBeeRW {
      */
     public function getCustomerList($conditions = []) {
         //[/* 'typVztahuK'=>'typVztahu.odberDodav' */]
-        $allClients = $this->customer->adresar->getColumnsFromFlexiBee(['id', 'nazev',
+        $allClients = $this->customer->adresar->getColumnsFromAbraFlexi(['id', 'nazev',
             'stitky'], $conditions, 'kod');
         if (!empty($allClients)) {
             foreach ($allClients as $clientCode => $clientInfo) {
-                $allClients[$clientCode]['stitky'] = \FlexiPeeHP\Stitek::listToArray($clientInfo['stitky']);
+                $allClients[$clientCode]['stitky'] = \AbraFlexi\Stitek::listToArray($clientInfo['stitky']);
             }
         }
         return $allClients;

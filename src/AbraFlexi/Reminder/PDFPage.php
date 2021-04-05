@@ -1,13 +1,13 @@
 <?php
 
 /**
- * FlexiBee Reminder Mailer PDF Page
+ * AbraFlexi Reminder Mailer PDF Page
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
  */
 
-namespace FlexiPeeHP\Reminder;
+namespace AbraFlexi\Reminder;
 
 /**
  * Description of PDFPage

@@ -1,6 +1,6 @@
 <?php
 
-namespace FlexiPeeHP\Reminder\Notifier;
+namespace AbraFlexi\Reminder\Notifier;
 
 use DateTime;
 use Ease\Functions;
@@ -12,19 +12,19 @@ use Ease\Html\TdTag;
 use Ease\Html\TrTag;
 use Ease\Mailer as Mailer2;
 use Ease\Sand;
-use FlexiPeeHP\Bricks\Customer;
-use FlexiPeeHP\FakturaVydana;
-use FlexiPeeHP\FlexiBeeRO;
-use FlexiPeeHP\Formats;
-use FlexiPeeHP\Reminder\Mailer;
-use FlexiPeeHP\Reminder\Upominac;
-use FlexiPeeHP\Reminder\Upominka;
-use FlexiPeeHP\ui\CompanyLogo;
+use AbraFlexi\Bricks\Customer;
+use AbraFlexi\FakturaVydana;
+use AbraFlexi\RO;
+use AbraFlexi\Formats;
+use AbraFlexi\Reminder\Mailer;
+use AbraFlexi\Reminder\Upominac;
+use AbraFlexi\Reminder\Upominka;
+use AbraFlexi\ui\CompanyLogo;
 use function __;
 
 
 /**
- * FlexiPeeHP - Remind by eMail class 
+ * AbraFlexi - Remind by eMail class 
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2020 Spoje.Net
@@ -107,7 +107,7 @@ class ByEmail extends Sand {
                     $lastInvDays = Upominac::getDaysToLastInventarization($clientDebts);
                     if ($lastInvDays < 14) {
                         $this->addStatusMessage(sprintf(_('Last  remind / inventarization for %s send before %d days; skipping'),
-                                        FlexiBeeRO::uncode($customer), $lastInvDays),
+                                        RO::uncode($customer), $lastInvDays),
                                 'debug');
                         return false;
                     }
@@ -149,7 +149,7 @@ class ByEmail extends Sand {
                 _('Currency'), _('Due Date'), _('overdue days')]);
 
             foreach ($clientDebts as $debt) {
-                $currency = FlexiBeeRO::uncode($debt['mena']);
+                $currency = RO::uncode($debt['mena']);
                 if ($currency == 'CZK') {
                     $amount = $debt['zbyvaUhradit'];
                 } else {
@@ -160,7 +160,7 @@ class ByEmail extends Sand {
                     $debt['varSym'],
                     Upominka::formatCurrency($amount),
                     $currency,
-                    FlexiBeeRO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y'),
+                    RO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y'),
                     FakturaVydana::overdueDays($debt['datSplat'])
                 ]);
             }

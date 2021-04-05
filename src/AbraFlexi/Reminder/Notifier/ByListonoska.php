@@ -1,5 +1,5 @@
 <?php
-namespace FlexiPeeHP\Reminder\Notifier;
+namespace AbraFlexi\Reminder\Notifier;
 
 use DateTime;
 use Ease\Html\DivTag;
@@ -9,19 +9,19 @@ use Ease\Html\TableTag;
 use Ease\Html\TdTag;
 use Ease\Html\TrTag;
 use Ease\Sand;
-use FlexiPeeHP\Adresar;
-use FlexiPeeHP\Bricks\Customer;
-use FlexiPeeHP\FakturaVydana;
-use FlexiPeeHP\FlexiBeeRO;
-use FlexiPeeHP\Nastaveni;
-use FlexiPeeHP\Reminder\PDFPage;
-use FlexiPeeHP\Reminder\Upominac;
-use FlexiPeeHP\Reminder\Upominka;
-use FlexiPeeHP\ui\CompanyLogo;
+use AbraFlexi\Adresar;
+use AbraFlexi\Bricks\Customer;
+use AbraFlexi\FakturaVydana;
+use AbraFlexi\RO;
+use AbraFlexi\Nastaveni;
+use AbraFlexi\Reminder\PDFPage;
+use AbraFlexi\Reminder\Upominac;
+use AbraFlexi\Reminder\Upominka;
+use AbraFlexi\ui\CompanyLogo;
 use function __;
 
 /**
- * FlexiPeeHP - Remind by paper Mail class 
+ * AbraFlexi - Remind by paper Mail class 
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018 Spoje.Net
@@ -157,7 +157,7 @@ class ByListonoska extends Sand {
                 _('Currency'), _('Due Date'), _('overdue days')]);
 
             foreach ($clientDebts as $debt) {
-                $currency = FlexiBeeRO::uncode($debt['mena']);
+                $currency = RO::uncode($debt['mena']);
                 if ($currency == 'CZK') {
                     $amount = $debt['zbyvaUhradit'];
                 } else {
@@ -168,7 +168,7 @@ class ByListonoska extends Sand {
                     $debt['varSym'],
                     Upominka::formatCurrency($amount),
                     $currency,
-                    FlexiBeeRO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y'),
+                    RO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y'),
                     FakturaVydana::overdueDays($debt['datSplat'])
                 ]);
             }

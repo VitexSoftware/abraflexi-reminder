@@ -7,7 +7,7 @@
  * @copyright  (G) 2018 Vitex Software
  */
 define('EASE_APPNAME', 'ClientsNotifier');
-define('MODULES', './FlexiPeeHP/Reminder/Notifier');
+define('MODULES', './AbraFlexi/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
 $shared = new Ease\Shared();
@@ -17,9 +17,9 @@ if (file_exists('../client.json')) {
 if (file_exists('../reminder.json')) {
     $shared->loadConfig('../reminder.json', true);
 }
-$localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
+$localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
-$reminder = new \FlexiPeeHP\Reminder\Upominac();
+$reminder = new \AbraFlexi\Reminder\Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
 $allDebts = $reminder->getAllDebts();
 
@@ -35,6 +35,6 @@ foreach ($clientsToNotify as $firma => $debts) {
     $reminder->addStatusMessage(sprintf(_('(%d / %d) %s '), $counter++,
                     count($clientsToNotify),
                     isset(current($debts)['firma@showAs']) ? current($debts)['firma@showAs'] : current($debts)['firma'] ), 'debug');
-    $reminder->customer->adresar->loadFromFlexiBee($firma);
+    $reminder->customer->adresar->loadFromAbraFlexi($firma);
     $reminder->processNotifyModules(0, $debts, constant('MODULES') . '/ByEmail.php');
 }

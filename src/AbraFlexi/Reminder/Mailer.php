@@ -1,6 +1,6 @@
 <?php
 
-namespace FlexiPeeHP\Reminder;
+namespace AbraFlexi\Reminder;
 
 use Ease\Container;
 use Ease\Functions;
@@ -12,7 +12,7 @@ use Ease\HtmlMailer;
 use Ease\Shared;
 
 /**
- * FlexiBee Reminder Mailer
+ * AbraFlexi Reminder Mailer
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software

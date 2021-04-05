@@ -1,16 +1,16 @@
 <?php
 
-use FlexiPeeHP\Reminder\SmsToAddress;
+use AbraFlexi\Reminder\SmsToAddress;
 
 /**
- * FlexiBee Reminder local SMS sender
+ * AbraFlexi Reminder local SMS sender
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
  */
 
 
-namespace FlexiPeeHP\Reminder;
+namespace AbraFlexi\Reminder;
 
 /**
  * Description of SmsByGnokii

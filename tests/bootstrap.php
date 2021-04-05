@@ -1,6 +1,6 @@
 <?php
 /**
- * FlexiPeeHP-Bricks - Unit Test bootstrap
+ * AbraFlexi-Reminder - Unit Test bootstrap
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright (c) 2018, Vítězslav Dvořák

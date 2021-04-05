@@ -1,17 +1,17 @@
 <?php
 
-namespace FlexiPeeHP\Reminder\Notifier;
+namespace AbraFlexi\Reminder\Notifier;
 
 use DateTime;
 use Ease\Sand;
-use FlexiPeeHP\Reminder\SmsByAxfone;
-use FlexiPeeHP\Reminder\SmsByGnokii;
-use FlexiPeeHP\Reminder\SmsBySshGnokii;
-use FlexiPeeHP\Reminder\Upominac;
-use FlexiPeeHP\Reminder\Upominka;
+use AbraFlexi\Reminder\SmsByAxfone;
+use AbraFlexi\Reminder\SmsByGnokii;
+use AbraFlexi\Reminder\SmsBySshGnokii;
+use AbraFlexi\Reminder\Upominac;
+use AbraFlexi\Reminder\Upominka;
 
 /**
- * FlexiPeeHP - Remind by SMS class 
+ * AbraFlexi - Remind by SMS class 
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2020 Spoje.Net, Vitex Software

@@ -1,10 +1,10 @@
 #!/usr/bin/php -f
 <?php
 
-use FlexiPeeHP\Reminder\Upominac;
+use AbraFlexi\Reminder\Upominac;
 
 /**
- * FlexiBee Reminder - Odeslání Upomínek
+ * AbraFlexi Reminder - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
@@ -21,7 +21,7 @@ try {
     }
 
     $shared->loadConfig('../reminder.json', true);
-    $localer = new \Ease\Locale('cs_CZ', '../i18n', 'flexibee-reminder');
+    $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
     $reminder = new Upominac();
     $reminder->logBanner(constant('EASE_APPNAME'));
@@ -51,7 +51,7 @@ try {
 
         $counter++;
 
-        $curcode = FlexiPeeHP\FlexiBeeRO::uncode($debt['mena']);
+        $curcode = AbraFlexi\RO::uncode($debt['mena']);
         if (!isset($howmuchRaw[$curcode])) {
             $howmuchRaw[$curcode] = 0;
         }
@@ -75,7 +75,7 @@ try {
 
     $pointer = 0;
     foreach ($allDebtsByClient as $clientCodeRaw => $clientDebts) {
-        $clientCode = \FlexiPeeHP\FlexiBeeRO::uncode($clientCodeRaw);
+        $clientCode = \AbraFlexi\RO::uncode($clientCodeRaw);
 
         if (array_key_exists($clientCodeRaw, $clientsToSkip)) {
             continue;
@@ -87,7 +87,7 @@ try {
         }
         foreach ($clientDebts as $debtCode => $debtInfo) {
 
-            $curcode = FlexiPeeHP\FlexiBeeRO::uncode($debtInfo['mena']);
+            $curcode = AbraFlexi\RO::uncode($debtInfo['mena']);
             if ($curcode == 'CZK') {
                 $amount = floatval($debtInfo['zbyvaUhradit']);
             } else {
@@ -96,8 +96,8 @@ try {
 
             $reminder->addStatusMessage(sprintf('%d/%d (%s) [%s] %s %s: %s',
                             $pointer++, $counter,
-                            \FlexiPeeHP\FlexiBeeRO::uncode($debtInfo['typDokl']),
-                            \FlexiPeeHP\FlexiBeeRO::uncode($debtCode), $amount,
+                            \AbraFlexi\RO::uncode($debtInfo['typDokl']),
+                            \AbraFlexi\RO::uncode($debtCode), $amount,
                             $curcode, $debtInfo['popis']
                     ), 'debug');
         }

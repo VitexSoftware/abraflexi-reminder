@@ -1,16 +1,16 @@
 <?php
 
 /**
- * FlexiBee Reminder obtauin SMS number for FlexiBee Address
+ * AbraFlexi Reminder obtauin SMS number for AbraFlexi Address
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
  */
 
-namespace FlexiPeeHP\Reminder;
+namespace AbraFlexi\Reminder;
 
 use Ease\Functions;
-use FlexiPeeHP\Adresar;
+use AbraFlexi\Adresar;
 
 /**
  * Description of SmsToCustomer

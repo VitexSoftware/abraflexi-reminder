@@ -21,10 +21,10 @@ try {
 
 
     $labelsRequied = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'];
-    $labeler = new \FlexiPeeHP\Stitek();
+    $labeler = new \AbraFlexi\Stitek();
     foreach ($labelsRequied as $labelRequied) {
         if (!$labeler->recordExists(['kod' => $labelRequied])) {
-            $labeler->insertToFlexiBee([
+            $labeler->insertToAbraFlexi([
                 "kod" => $labelRequied,
                 "nazev" => $labelRequied,
                 "vsbAdr" => true
