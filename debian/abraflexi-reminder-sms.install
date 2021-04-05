@@ -1,0 +1,10 @@
+bin/sshgnokiisms                           usr/bin
+
+src/FlexiPeeHP/Reminder/Notifier/BySms.php usr/lib/abraflexi-reminder/Reminder/Notifier
+
+src/FlexiPeeHP/Reminder/SmsByAxfone.php    usr/lib/abraflexi-reminder/Reminder/
+src/FlexiPeeHP/Reminder/SmsByGnokii.php    usr/lib/abraflexi-reminder/Reminder/
+src/FlexiPeeHP/Reminder/SmsBySshGnokii.php usr/lib/abraflexi-reminder/Reminder/
+src/FlexiPeeHP/Reminder/Sms.php            usr/lib/abraflexi-reminder/Reminder/
+src/FlexiPeeHP/Reminder/SmsToAddress.php   usr/lib/abraflexi-reminder/Reminder/
+

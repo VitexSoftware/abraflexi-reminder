@@ -1,6 +1,7 @@
 {
     "name": "vitexsoftware/abraflexi-reminder",
     "description": "Reminder sender for AbraFlexi written in PHP",
+    "licence": "MII",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
@@ -11,19 +12,19 @@
     "require": {
         "vitexsoftware/flexibee-bricks": "abraflexi-dev",
         "listonoska/api": "^1.1",
-        "spipu/html2pdf": "*", 
-        "tecnickcom/tcpdf": "6.2.21" 
+        "spipu/html2pdf": "^5", 
+        "tecnickcom/tcpdf": "^6" 
     },
     "autoload": {
         "psr-4": {
-            "FlexiPeeHP\\Reminder\\": "src/FlexiPeeHP/Reminder/",
-            "FlexiPeeHP\\Reminder\\Notifier\\": "src/FlexiPeeHP/Reminder/"
+            "AbraFlexi\\Reminder\\": "src/AbraFlexi/Reminder/",
+            "AbraFlexi\\Reminder\\Notifier\\": "src/AbraFlexi/Reminder/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Test\\FlexiPeeHP\\": "vendor/spoje.net/flexibee/testing/src/FlexiPeeHP/",
-            "Test\\FlexiPeeHP\\Reminder\\": "tests/FlexiPeeHP/Reminder/"
+            "Test\\AbraFlexi\\": "vendor/spojenet/abraflexi/testing/src/AbraFlexi/",
+            "Test\\AbraFlexi\\Reminder\\": "tests/AbraFlexi/Reminder/"
         }
     },
     "require-dev": {

@@ -1,6 +1,6 @@
 {   
-    "name": "deb/flexibee-reminder",
-    "description": "Reminder sender for FlexiBee written in PHP",
+    "name": "deb/abraflexi-reminder",
+    "description": "Reminder sender for AbraFlexi written in PHP",
     "type": "project",
     "version": "0.3",
     "authors": [
@@ -10,16 +10,16 @@
         }
     ],
     "config": {
-        "vendor-dir": "/var/lib/flexibee-reminder"
+        "vendor-dir": "/var/lib/abraf;exo-reminder"
     },
     "require": {
-        "deb/flexibee": "*",
+        "deb/abraflexi": "*",
         "deb/ease-core": "*",
-        "deb/flexibee-bricks": "*"
+        "deb/abraflexi-bricks": "*"
     },
     "autoload": {
         "psr-4": {
-            "FlexiPeeHP\\Reminder\\": "./Reminder/"
+            "AbraFlexi\\Reminder\\": "./Reminder/"
         }
         
     },
@@ -34,7 +34,7 @@
         },
         {   
             "type": "path",
-            "url": "/usr/share/php/FlexiPeeHP"
+            "url": "/usr/share/php/AbraFlexi"
         },
         {   
             "type": "path",

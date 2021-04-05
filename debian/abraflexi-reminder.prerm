@@ -1,0 +1,15 @@
+#!/bin/bash
+# rm script for abraflexi-reminder
+
+. /usr/share/debconf/confmodule
+db_get composer/WEB_USER
+WEBUSER=$RET
+
+su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer -o remove listonoska/api -d /usr/lib/abraflexi-reminder/'
+su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer -o remove spipu/html2pdf -d /usr/lib/abraflexi-reminder/'
+
+rm /usr/lib/abraflexi-reminder/composer.lock
+
+#DEBHELPER#
+
+exit 0
