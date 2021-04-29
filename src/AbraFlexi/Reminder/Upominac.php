@@ -293,7 +293,7 @@ class Upominac extends \AbraFlexi\RW {
         $stitky = $stitkyRaw[0]['stitky'];
         if (!empty($debts)) {
             foreach ($debts as $did => $debt) {
-                $ddiff = self::poSplatnosti($debt['datSplat']);
+                $ddiff = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
 
                 if (($ddiff <= 7) && ($ddiff >= 1)) {
                     $score = self::maxScore($score, 1);
