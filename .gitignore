@@ -18,3 +18,15 @@
 /debian/php-flexibee-reminder.substvars
 /debian/files
 /debian/flexibee-reminder-gnokii/
+/debian/abraflexi-reminder-sms/
+/debian/abraflexi-reminder-papermail/
+/debian/abraflexi-reminder-gnokii/
+/debian/abraflexi-reminder/
+/debian/abraflexi-reminder-gnokii.debhelper.log
+/debian/abraflexi-reminder-papermail.debhelper.log
+/debian/abraflexi-reminder-papermail.substvars
+/debian/abraflexi-reminder-sms.debhelper.log
+/debian/abraflexi-reminder-sms.substvars
+/debian/abraflexi-reminder.debhelper.log
+/debian/abraflexi-reminder.postrm.debhelper
+/debian/abraflexi-reminder.substvars

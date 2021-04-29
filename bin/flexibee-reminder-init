@@ -1,2 +1,0 @@
-#!/bin/bash
-php -f /usr/lib/flexibee-reminder/init.php

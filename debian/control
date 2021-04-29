@@ -1,41 +1,41 @@
-Source: flexibee-reminder
+Source: abraflexi-reminder
 Build-Depends: debhelper (>= 7.0.50~)
 Standards-Version: 3.8.4
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
 Uploaders: Vitex <vitex@hippy.cz>
 Priority: optional
-Homepage: https://github.com/VitexSoftware/flexibee-reminder
+Homepage: https://github.com/VitexSoftware/abraflexi-reminder
 
-Package: flexibee-reminder
-Depends: ${misc:Depends}, php-flexibee-bricks, php-cli, locales-all
-Suggests: flexibee-server, flexibee-digest, flexibee-matcher, php-flexibee-config
+Package: abraflexi-reminder
+Depends: ${misc:Depends}, php-abraflexi-bricks, php-cli, locales-all
+Suggests: abraflexi-server, abraflexi-digest, abraflexi-matcher, php-abraflexi-config
 Architecture: all
 Section: web
 Priority: optional
-Description: Reminder sender for FlexiBee
+Description: Reminder sender for abraflexi
  Find All unpayed invoices for configured company and sent notification to payer
 
-Package: flexibee-reminder-sms
-Depends: ${misc:Depends}, flexibee-reminder 
-Suggests: flexibee-reminder-gnokii
+Package: abraflexi-reminder-sms
+Depends: ${misc:Depends}, abraflexi-reminder 
+Suggests: abraflexi-reminder-gnokii
 Architecture: all
 Section: web
 Priority: optional
-Description: SMS Suppot for Reminder sender for FlexiBee 
+Description: SMS Suppot for Reminder sender for abraflexi 
  Can send SMS using Gnokii (local or remote via ssh)  and Axfone API
 
-Package: flexibee-reminder-gnokii
+Package: abraflexi-reminder-gnokii
 Depends: ${misc:Depends}, gnokii-cli
 Architecture: all
 Section: web
 Priority: optional
-Description: Gnokii helper for Reminder sender for FlexiBee
- Allow send FlexiBee SMS Reminds using Gnokii 
+Description: Gnokii helper for Reminder sender for abraflexi
+ Allow send abraflexi SMS Reminds using Gnokii 
 
-Package: flexibee-reminder-papermail
-Depends: ${misc:Depends}, flexibee-reminder
+Package: abraflexi-reminder-papermail
+Depends: ${misc:Depends}, abraflexi-reminder
 Architecture: all
 Section: web
 Priority: optional
-Description: Paper mail support for Reminder sender for FlexiBee
+Description: Paper mail support for Reminder sender for abraflexi
  Sends reminds as Paper Mail using www.listonoska.cz

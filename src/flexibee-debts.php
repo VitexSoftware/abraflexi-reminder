@@ -16,15 +16,14 @@ require_once '../vendor/autoload.php';
 $shared = new \Ease\Shared();
 
 try {
-    if (file_exists('../client.json')) {
-        $shared->loadConfig('../client.json', true);
+    if (file_exists('../.env')) {
+        $shared->loadConfig('../.env', true);
     }
 
-    $shared->loadConfig('../reminder.json', true);
     $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
     $reminder = new Upominac();
-    $reminder->logBanner(constant('EASE_APPNAME'));
+    $reminder->logBanner(\Ease\Functions::cfg('APP_NAME'));
 
     $allDebts = $reminder->getAllDebts(['limit' => 0]);
     $allClients = $reminder->getCustomerList(['limit' => 0]);

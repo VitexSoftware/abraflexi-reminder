@@ -4,7 +4,7 @@
  * AbraFlexi - Remind class Brick
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2018 Vitex Software
+ * @copyright  (G) 2017-2021 Vitex Software
  */
 
 namespace AbraFlexi\Reminder;

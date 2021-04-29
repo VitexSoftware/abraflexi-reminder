@@ -8,7 +8,6 @@
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2020 Vitex Software
  */
-
 use Ease\Locale;
 use Ease\Shared;
 use AbraFlexi\RO;
@@ -16,21 +15,15 @@ use AbraFlexi\Reminder\Upominac;
 
 define('EASE_APPNAME', 'Clean Remind Labels');
 
-
-
 require_once '../vendor/autoload.php';
 $shared = new Shared();
-if (file_exists('../client.json')) {
-    $shared->loadConfig('../client.json', true);
-}
-if (file_exists('../reminder.json')) {
-    $shared->loadConfig('../reminder.json', true);
+if (file_exists('../.env')) {
+    $shared->loadConfig('../.env', true);
 }
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
 $reminder = new Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
-
 
 $labelsRequiedRaw = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC'];
 

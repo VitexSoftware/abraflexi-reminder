@@ -89,7 +89,6 @@ class BySms extends Sand {
         $result = false;
         $nazev = $customer->adresar->getDataValue('nazev');
 
-
         $upominka = new Upominka();
         switch ($score) {
             case 1:
@@ -111,7 +110,6 @@ class BySms extends Sand {
         $subject = $upominka->getDataValue('hlavicka') . ' ke dni ' . $dnes->format('d.m.Y');
         $heading = $upominka->getDataValue('uvod') . ' ' . $nazev . "\n" . $upominka->getDataValue('textNad') . "\n" . Upominac::formatTotals(Upominka::getSums($clientDebts));
         $result = $subject . ':' . $heading;
-
 
         return $result;
     }

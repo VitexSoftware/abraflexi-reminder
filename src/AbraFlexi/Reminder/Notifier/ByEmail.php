@@ -160,7 +160,7 @@ class ByEmail extends Sand {
                     $debt['varSym'],
                     Upominka::formatCurrency($amount),
                     $currency,
-                    RO::flexiDateToDateTime($debt['datSplat'])->format('d.m.Y'),
+                    $debt['datSplat']->format('d.m.Y'),
                     FakturaVydana::overdueDays($debt['datSplat'])
                 ]);
             }

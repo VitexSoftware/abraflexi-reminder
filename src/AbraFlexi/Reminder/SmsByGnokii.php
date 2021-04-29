@@ -6,9 +6,8 @@ use AbraFlexi\Reminder\SmsToAddress;
  * AbraFlexi Reminder local SMS sender
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2020 Vitex Software
+ * @copyright  (G) 2017-2021 Vitex Software
  */
-
 
 namespace AbraFlexi\Reminder;
 

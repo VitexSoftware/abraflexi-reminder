@@ -3,19 +3,10 @@ nextversion=$(shell echo $(repoversion) | perl -ne 'chomp; print join(".", splic
 
 
 
-all: fresh build install
+all:
 
 composer:
 	composer update
-
-fresh:
-	echo fresh
-
-install: 
-	echo install
-	
-build:
-	echo build
 
 clean:
 	rm -rf debian/flexibee-reminder 

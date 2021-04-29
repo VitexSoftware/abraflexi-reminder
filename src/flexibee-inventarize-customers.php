@@ -1,5 +1,6 @@
 #!/usr/bin/php -f
 <?php
+
 /**
  * System.spoje.net - Odeslání Upomínek
  *
@@ -11,18 +12,15 @@ define('MODULES', './AbraFlexi/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
 $shared = new Ease\Shared();
-if (file_exists('../client.json')) {
-    $shared->loadConfig('../client.json', true);
+if (file_exists('../.env')) {
+    $shared->loadConfig('../.env', true);
 }
-if (file_exists('../reminder.json')) {
-    $shared->loadConfig('../reminder.json', true);
-}
+
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
 $reminder = new \AbraFlexi\Reminder\Upominac();
 $reminder->logBanner(constant('EASE_APPNAME'));
 $allDebts = $reminder->getAllDebts();
-
 
 $clientsToNotify = [];
 foreach ($allDebts as $kod => $debtData) {

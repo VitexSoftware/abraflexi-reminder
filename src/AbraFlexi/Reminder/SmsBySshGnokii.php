@@ -5,7 +5,7 @@ use AbraFlexi\Reminder\SmsToAddress;
  * AbraFlexi Reminder remote SMS sender
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2020 Vitex Software
+ * @copyright  (G) 2017-2021 Vitex Software
  */
 
 

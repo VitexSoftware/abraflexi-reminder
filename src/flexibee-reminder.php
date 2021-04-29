@@ -16,15 +16,8 @@ define('MODULES', './AbraFlexi/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
 $shared = new Shared();
-if (file_exists('../client.json')) {
-    $shared->loadConfig('../client.json', true);
-}
-if (file_exists('../reminder.json')) {
-    $shared->loadConfig('../reminder.json', true);
-} else {
-    foreach ($_ENV as $key => $value) {
-        define($key, $value);
-    }
+if (file_exists('../.env')) {
+    $shared->loadConfig('../.env', true);
 }
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
@@ -121,5 +114,4 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 }
 
 $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
-
 
