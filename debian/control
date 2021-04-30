@@ -7,12 +7,12 @@ Priority: optional
 Homepage: https://github.com/VitexSoftware/abraflexi-reminder
 
 Package: abraflexi-reminder
-Depends: ${misc:Depends}, php-abraflexi-bricks, php-cli, locales-all
+Depends: ${misc:Depends}, php-vitexsoftware-abraflexi-bricks, php-cli, locales-all
 Suggests: abraflexi-server, abraflexi-digest, abraflexi-matcher, php-abraflexi-config
 Architecture: all
 Section: web
 Priority: optional
-Description: Reminder sender for abraflexi
+Description: Remind sender for abraflexi
  Find All unpayed invoices for configured company and sent notification to payer
 
 Package: abraflexi-reminder-sms
@@ -21,7 +21,7 @@ Suggests: abraflexi-reminder-gnokii
 Architecture: all
 Section: web
 Priority: optional
-Description: SMS Suppot for Reminder sender for abraflexi 
+Description: SMS Suppot for Remind sender for abraflexi 
  Can send SMS using Gnokii (local or remote via ssh)  and Axfone API
 
 Package: abraflexi-reminder-gnokii
@@ -29,7 +29,7 @@ Depends: ${misc:Depends}, gnokii-cli
 Architecture: all
 Section: web
 Priority: optional
-Description: Gnokii helper for Reminder sender for abraflexi
+Description: Gnokii helper for Remind sender for abraflexi
  Allow send abraflexi SMS Reminds using Gnokii 
 
 Package: abraflexi-reminder-papermail
