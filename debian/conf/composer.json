@@ -1,43 +1,48 @@
 {
-  "name": "deb/abraflexi-reminder",
-  "description": "Reminder sender for AbraFlexi written in PHP",
-  "type": "project",
-  "version": "1.4.4",
-  "authors": [
-    {
-      "name": "Vítězslav Dvořák",
-      "email": "info@vitexsoftware.cz"
-    }
-  ],
-  "config": {
-    "vendor-dir": "/var/lib/abraf;exo-reminder"
-  },
-  "require": {
-    "deb/abraflexi": "*",
-    "deb/ease-core": "*",
-    "deb/abraflexi-bricks": "*"
-  },
-  "autoload": {
-    "psr-4": {
-      "AbraFlexi\\Reminder\\": "./Reminder/"
-    }
-  },
-  "repositories": [
-    {
-      "type": "path",
-      "url": "/usr/share/php/EaseCore"
+    "name": "deb/abraflexi-reminder",
+    "description": "Reminder sender for AbraFlexi written in PHP",
+    "type": "project",
+    "version": "1.4.4",
+    "authors": [
+        {
+            "name": "Vítězslav Dvořák",
+            "email": "info@vitexsoftware.cz"
+        }
+    ],
+    "config": {
+        "vendor-dir": "/var/lib/abraflexi-reminder"
     },
-    {
-      "type": "path",
-      "url": "/usr/share/php/EaseHtml"
+    "require": {
+        "deb/abraflexi": "*",
+        "deb/ease-core": "*",
+        "deb/abraflexi-bricks": "*"
     },
-    {
-      "type": "path",
-      "url": "/usr/share/php/AbraFlexi"
+    "autoload": {
+        "psr-4": {
+            "AbraFlexi\\Reminder\\": "./Reminder/"
+        }
     },
-    {
-      "type": "path",
-      "url": "/usr/share/php/EaseBricks"
-    }
-  ]
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/usr/share/php/EaseCore"
+        },
+        {
+            "type": "path",
+            "url": "/usr/share/php/EaseHtml"
+        },
+        {
+            "type": "path",
+            "url": "/usr/share/php/AbraFlexi"
+        },
+        {
+            "type": "path",
+            "url": "/usr/share/php/EaseBricks"
+        },
+        {
+            "type": "path",
+            "url": "/usr/share/php/AbraFlexiBricks"
+        }
+
+    ]
 }
