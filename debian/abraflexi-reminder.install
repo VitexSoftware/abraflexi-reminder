@@ -1,7 +1,14 @@
 debian/conf/composer.json       usr/lib/abraflexi-reminder/
 src/*.php           	        usr/share/abraflexi-reminder/
 
-src/AbraFlexi/Reminder/*.php      usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php  usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/Mailer.php                       usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php  usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/PDFPage.php                      usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/SentPaymentConfirmation.php      usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/Upominac.php                     usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/Upominka.php                     usr/lib/abraflexi-reminder/Reminder/
 
 src/AbraFlexi/Reminder/Notifier/ByEmail.php src/lib/abraflexi-reminder/Reminder/Notifier
 
