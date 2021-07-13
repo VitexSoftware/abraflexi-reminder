@@ -7,10 +7,9 @@ set -e
     if [ "$1" = "configure" ]; then
         db_get composer/WEB_USER
         WEBUSER=$RET
-        
+        su - chown $WEBUSER -R /usr/lib/abraflexi-reminder/
         su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer  -o require listonoska/api -d /usr/lib/abraflexi-reminder/'
         su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer  -o require spipu/html2pdf -d /usr/lib/abraflexi-reminder/'
-
     fi
 
 
