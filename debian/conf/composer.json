@@ -10,7 +10,7 @@
     }
   ],
   "config": {
-    "vendor-dir": "/var/lib/abraflexi-reminder"
+    "vendor-dir": "/var/lib/composer/abraflexi-reminder"
   },
   "require": {
     "deb/abraflexi": "*",
