@@ -1,48 +1,47 @@
 {
-    "name": "deb/abraflexi-reminder",
-    "description": "Reminder sender for AbraFlexi written in PHP",
-    "type": "project",
-    "version": "1.4.4",
-    "authors": [
-        {
-            "name": "Vítězslav Dvořák",
-            "email": "info@vitexsoftware.cz"
-        }
-    ],
-    "config": {
-        "vendor-dir": "/var/lib/abraflexi-reminder"
+  "name": "deb/abraflexi-reminder",
+  "description": "Reminder sender for AbraFlexi written in PHP",
+  "type": "project",
+  "version": "1.4.4",
+  "authors": [
+    {
+      "name": "Vítězslav Dvořák",
+      "email": "info@vitexsoftware.cz"
+    }
+  ],
+  "config": {
+    "vendor-dir": "/var/lib/abraflexi-reminder"
+  },
+  "require": {
+    "deb/abraflexi": "*",
+    "deb/ease-core": "*",
+    "deb/abraflexi-bricks": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "AbraFlexi\\Reminder\\": "./Reminder/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "/usr/share/php/EaseCore"
     },
-    "require": {
-        "deb/abraflexi": "*",
-        "deb/ease-core": "*",
-        "deb/abraflexi-bricks": "*"
+    {
+      "type": "path",
+      "url": "/usr/share/php/EaseHtml"
     },
-    "autoload": {
-        "psr-4": {
-            "AbraFlexi\\Reminder\\": "./Reminder/"
-        }
+    {
+      "type": "path",
+      "url": "/usr/share/php/AbraFlexi"
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "/usr/share/php/EaseCore"
-        },
-        {
-            "type": "path",
-            "url": "/usr/share/php/EaseHtml"
-        },
-        {
-            "type": "path",
-            "url": "/usr/share/php/AbraFlexi"
-        },
-        {
-            "type": "path",
-            "url": "/usr/share/php/EaseBricks"
-        },
-        {
-            "type": "path",
-            "url": "/usr/share/php/AbraFlexiBricks"
-        }
-
-    ]
+    {
+      "type": "path",
+      "url": "/usr/share/php/EaseBricks"
+    },
+    {
+      "type": "path",
+      "url": "/usr/share/php/AbraFlexiBricks"
+    }
+  ]
 }

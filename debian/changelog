@@ -1,5 +1,6 @@
-abraflexi-reminder (1.4.4) UNRELEASED; urgency=medium
+abraflexi-reminder (1.4.5) UNRELEASED; urgency=medium
 
+  [ CyberVitexus ]
   * support for environment based configuration
   * twbootstrap renamed to bootstrap
   * Release v1.4
@@ -7,7 +8,11 @@ abraflexi-reminder (1.4.4) UNRELEASED; urgency=medium
   * Release v1.4.2
   * Axfone SMS Update
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Thu, 30 Jul 2020 20:49:21 +0200
+
+  [ Vitex ]
+  * Built by Jenkinsy
+
+ -- Vitex <vitex@exiv>  Tue, 13 Jul 2021 09:52:30 +0200
 
 abraflexi-reminder (1.2) EXPERIMENTAL; urgency=medium
 

@@ -34,7 +34,7 @@ class PaymentRecievedConfirmation extends Mailer {
 
     /**
      * 
-     * @param FakturaVydana $invoice
+     * @param \AbraFlexi\FakturaVydana $invoice
      */
     public function assignInvoice($invoice) {
         $defaultLocale = 'cs_CZ';
@@ -42,15 +42,13 @@ class PaymentRecievedConfirmation extends Mailer {
         putenv("LC_ALL=$defaultLocale");
 
         $body = new \Ease\Container();
-        $to = (new \AbraFlexi\Adresar($invoice->getDataValue('firma')))->getNotificationEmailAddres();
+
+        $to = $invoice->getFirmaObject()->getNotificationEmailAddress();
 
         $customerName = $invoice->getDataValue('firma@showAs');
         if (empty($customerName)) {
             $customerName = \AbraFlexi\RO::uncode($invoice->getDataValue('firma'));
         }
-
-
-
 
 
         $this->addItem(new \AbraFlexi\ui\CompanyLogo(['align' => 'right', 'id' => 'companylogo',
@@ -59,7 +57,7 @@ class PaymentRecievedConfirmation extends Mailer {
         $prober = new \AbraFlexi\Company();
         $infoRaw = $prober->getFlexiData();
         if (count($infoRaw) && !array_key_exists('success', $infoRaw)) {
-            $info = self::reindexArrayBy($infoRaw, 'dbNazev');
+            $info = \Ease\Functions::reindexArrayBy($infoRaw, 'dbNazev');
             $myCompany = $prober->getCompany();
             if (array_key_exists($myCompany, $info)) {
                 $this->addItem(new \Ease\Html\H2Tag($info[$myCompany]['nazev']));
