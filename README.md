@@ -1,6 +1,6 @@
-![Package Logo](flexibee-reminder.svg?raw=true "Project Logo")
+![Package Logo](abraflexi-reminder.svg?raw=true "Project Logo")
 
-Odesílač upomínek pro FlexiBee
+Odesílač upomínek pro AbraFlexi
 ==============================
 
   * PDF a ISDOC přílohy
@@ -14,16 +14,16 @@ Odesílač upomínek pro FlexiBee
   * Česká a anglická lokalizace. (gettext překladový systém)
   * balíčky pro debian/ubuntu ale může běžet i na windows
 
-Příkaz **flexibee-debts** pouze vypíše pohledávky dle jednotlivých dlužníků.
+Příkaz **abraflexi-debts** pouze vypíše pohledávky dle jednotlivých dlužníků.
 
-Příkaz **flexibee-reminder** Po spuštění (vytvoří potřebné štítky a) 
+Příkaz **abraflexi-reminder** Po spuštění (vytvoří potřebné štítky a) 
 zkontroluje v přednastavené firmě pohledávky. Při odeslání upomínky 
 Pokud nemá zákazník nastaven štítek NEUPOMINKOVAT, je mu odeslána upomínka.
 příkaz je určen k automatickému spouštění každý den.
 
 ![Upomínka](reminder-screenshot.png?raw=true "ukázka upomínky")
 
-Příkaz **flexibee-inventarize** zašle klientům přehled jejich závazků. 
+Příkaz **abraflexi-inventarize** zašle klientům přehled jejich závazků. 
 Předpokládá se jeho automatické spouštění jednou za měsíc.
 
 Prohledávají se evidence "vydané faktury" a "pohledávky"
@@ -33,7 +33,7 @@ Funkce štítků
 -------------
 
 Štítky mají jak informativní tak řídící funkci. Po spuštění upomínkovače se nejprve se projdou všichni klienti a těm kteří nemají žádní neuhrazené pohledávky jsou odstraněny štítky  UPOMINKA1,UPOMINKA2,UPOMINKA3 a NEPLATIC.
-Datum odeslání upomínky je zapisováno do jednotlivé faktury do sloupců datUp1,datUp2 a datSmir - více sloupců ve faktuře flexibee na  to není. viz: https://demo.flexibee.eu/c/demo/faktura-vydana/properties .
+Datum odeslání upomínky je zapisováno do jednotlivé faktury do sloupců datUp1,datUp2 a datSmir - více sloupců ve faktuře abraflexi na  to není. viz: https://demo.flexibee.eu/c/demo/faktura-vydana/properties .
 Avšak upomínaný je klient ne faktura a tuto skutečnost je třeba nějakým způsobem poznamenat. To se děje právě prostřednictvím štítku.
 Tzn. pokud má klient nastavený štítek UPOMINKA1 a UPOMINKA2 znamená to, že klientovi byly již odeslány dvě upomínky. Pro program to znamená že další odeslaná upomínka již bude pokus o smír.
 Současně je také informace o tom že upomínka byla opravdu odeslána. tzn. nenastaví se v případě že na zákazníka není znám email, nebo že poštovní server zrovna někdo rebootoval.
@@ -42,7 +42,7 @@ Další týden po odeslání třetí upomínky se klientovi nastaví informativn
 Upomínka Mailem
 ---------------
 
-Texty upomínek se mění ve flexibee evidenci **sablona-upominky**
+Texty upomínek se mění ve abraflexi evidenci **sablona-upominky**
 A je poznamenán datum jejího odeslání a současně je zákazníkovi přiřazen štítek UPOMINKA1-3
 Odeslaná upomínka obsahuje přehled všech položek po splatnosti a k nim patřičné přílohy ve formátech pdf a isdocx
 
@@ -71,9 +71,9 @@ Do konfiguračního dialogu je třeba doplnit
 jiná akce při upomínání
 -----------------------
 
-Do složky  **src/FlexiPeeHP/Reminder/Notifier** ( /usr/lib/php-flexibee-reminder/Reminder/Notifier/ v případě instalace z debianího balíčku )
+Do složky  **src/AbraFlexi/Reminder/Notifier** ( /usr/lib/abraflexi-reminder/Reminder/Notifier/ v případě instalace z debianího balíčku )
 je možné přidat další moduly vykonávající akci. Například odpojení neplatiče od služby atd.
-Jak takové doplňky psát by mělo být zřejmé z [ByEmail.php](src/FlexiPeeHP/Reminder/Notifier/ByEmail.php)
+Jak takové doplňky psát by mělo být zřejmé z [ByEmail.php](src/AbraFlexi/Reminder/Notifier/ByEmail.php)
 
 
 Debian/Ubuntu
@@ -86,20 +86,20 @@ Pro Linux jsou k dispozici .deb balíčky. Prosím použijte repo:
     echo "deb http://repo.vitexsoftware.cz $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/vitexsoftware.list
     sudo wget -O /etc/apt/trusted.gpg.d/vitexsoftware.gpg http://repo.vitexsoftware.cz/keyring.gpg
     apt update
-    apt install flexibee-reminder
+    apt install abraflexi-reminder
 ```
 
 Po instalaci balíku jsou v systému k dispozici tyto nové příkazy:
 
-  * **flexibee-debts**            - vypíše nalezené pohledávky
-  * **flexibee-reminder**         - obešle dlužníky
-  * **flexibee-nontify-customers** - odešle klientovi seznam jeho závazků
-  * **flexibee-reminder-init**    - připraví předvolenou firmu na použití s upomínačem 
+  * **abraflexi-debts**            - vypíše nalezené pohledávky
+  * **abraflexi-reminder**         - obešle dlužníky
+  * **abraflexi-nontify-customers** - odešle klientovi seznam jeho závazků
+  * **abraflexi-reminder-init**    - připraví předvolenou firmu na použití s upomínačem 
 
 Konfigurace
 -----------
 
-se nastavuje v souboru  /etc/flexibee/**reminder.json** 
+se nastavuje v souboru  /etc/abraflexi/**reminder.json** 
 
 ```json
     "EASE_MAILTO": "info@yourdomain.net",
@@ -132,13 +132,13 @@ se nastavuje v souboru  /etc/flexibee/**reminder.json**
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
 
 
-# Třídy v FlexiPeeHP/Reminder/:
+# Třídy v AbraFlexi/Reminder/:
 
 | Soubor                                                        | Popis                                 |
 | ------------------------------------------------------------- | --------------------------------------|
-| [Mailer.php](src/FlexiPeeHP/Reminder/Mailer.php)              | Třída pro HTML email
-| [Upominac.php](src/FlexiPeeHP/Reminder/Upominac.php)          | Třída upomínající neplatiče
-| [Upominka.php](src/FlexiPeeHP/Reminder/Upominka.php)          | Třída upomínky pro neplatiče
+| [Mailer.php](src/AbraFlexi/Reminder/Mailer.php)              | Třída pro HTML email
+| [Upominac.php](src/AbraFlexi/Reminder/Upominac.php)          | Třída upomínající neplatiče
+| [Upominka.php](src/AbraFlexi/Reminder/Upominka.php)          | Třída upomínky pro neplatiče
 
 Závislosti
 ----------
@@ -146,22 +146,22 @@ Závislosti
 Tento nástroj ke svojí funkci využívá následující knihovny:
 
  * [**EasePHP Framework core**](https://github.com/VitexSoftware/php-ease-core) - pomocné funkce např. logování
- * [**PHP FlexiBee**](https://github.com/Spoje-NET/php-flexibee)                - komunikace s [FlexiBee](https://flexibee.eu/)
- * [**PHP FlexiBee Bricks**](https://github.com/VitexSoftware/php-flexibee-bricks) - používá se třída Zákazníka
+ * [**PHP AbraFlexi**](https://github.com/Spoje-NET/php-abraflexi)                - komunikace s [AbraFlexi](https://abraflexi.eu/)
+ * [**PHP AbraFlexi Bricks**](https://github.com/VitexSoftware/php-abraflexi-bricks) - používá se třída Zákazníka
 
 Mohlo by vás zajímat
 --------------------
 
- * https://github.com/VitexSoftware/php-flexibee-matcher - Párovač faktur
- * https://github.com/VitexSoftware/FlexiBee-Digest      - Pravidelný souhrn
+ * https://github.com/VitexSoftware/php-abraflexi-matcher - Párovač faktur
+ * https://github.com/VitexSoftware/AbraFlexi-Digest      - Pravidelný souhrn
 
 Poděkování
 ----------
 
 Tento projekt by nevznikl bez podpory společnosti [Spoje.Net s.r.o.](http://spoje.net/)
 
-![Spoje.Net](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/logo-spojenet.png "Spoje.Net s.r.o.")
+![Spoje.Net](https://raw.githubusercontent.com/VitexSoftware/php-abraflexi-reminder/master/logo-spojenet.png "Spoje.Net s.r.o.")
 
 Za HTML verzi upomínek a zahrnutí ostatních pohledávek bylo hrazeno společností [Medinet .s.r.o.](http://medinetsro.cz/)
 
-![Medinet](https://raw.githubusercontent.com/VitexSoftware/php-flexibee-reminder/master/mendinet-logo.png "Medinet s.r.o.")
+![Medinet](https://raw.githubusercontent.com/VitexSoftware/php-abraflexi-reminder/master/mendinet-logo.png "Medinet s.r.o.")
