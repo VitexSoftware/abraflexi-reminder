@@ -1,3 +1,3 @@
 bin/gnokiisms usr/bin
-
-
+src/AbraFlexi/Reminder/SmsByGnokii.php    usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/SmsBySshGnokii.php usr/lib/abraflexi-reminder/Reminder/

@@ -15,6 +15,15 @@ Priority: optional
 Description: Remind sender for abraflexi
  Find All unpayed invoices for configured company and sent notification to payer
 
+Package: cron-abraflexi-reminder
+Depends: ${misc:Depends}, abraflexi-reminder 
+Suggests: abraflexi-reminder-gnokii
+Architecture: all
+Section: web
+Priority: optional
+Description: Run reminder every morning
+ Cron configuration to run reminder every monrning
+
 Package: abraflexi-reminder-sms
 Depends: ${misc:Depends}, abraflexi-reminder 
 Suggests: abraflexi-reminder-gnokii
@@ -23,6 +32,7 @@ Section: web
 Priority: optional
 Description: SMS Suppot for Remind sender for abraflexi 
  Can send SMS using Gnokii (local or remote via ssh)  and Axfone API
+
 
 Package: abraflexi-reminder-gnokii
 Depends: ${misc:Depends}, gnokii-cli

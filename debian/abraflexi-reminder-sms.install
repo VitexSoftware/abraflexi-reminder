@@ -3,8 +3,6 @@ bin/sshgnokiisms		usr/bin/
 src/AbraFlexi/Reminder/Notifier/BySms.php usr/lib/abraflexi-reminder/Reminder/Notifier
 
 src/AbraFlexi/Reminder/SmsByAxfone.php    usr/lib/abraflexi-reminder/Reminder/
-src/AbraFlexi/Reminder/SmsByGnokii.php    usr/lib/abraflexi-reminder/Reminder/
-src/AbraFlexi/Reminder/SmsBySshGnokii.php usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/Sms.php            usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/SmsToAddress.php   usr/lib/abraflexi-reminder/Reminder/
 
