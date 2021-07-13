@@ -5,7 +5,11 @@ src/AbraFlexi/Reminder/*.php      usr/lib/abraflexi-reminder/Reminder/
 
 src/AbraFlexi/Reminder/Notifier/ByEmail.php src/lib/abraflexi-reminder/Reminder/Notifier
 
-bin/*  		usr/bin/
+bin/abraflexi-debts  		usr/bin/
+bin/abraflexi-inventarize  	usr/bin/
+bin/abraflexi-reminder  	usr/bin/
+bin/abraflexi-reminder-init  	usr/bin/
+
 i18n/cs_CZ/LC_MESSAGES/*.mo     usr/share/locale/cs_CZ/LC_MESSAGES
 i18n/en_US/LC_MESSAGES/*.mo     usr/share/locale/en_US/LC_MESSAGES
 abraflexi-reminder.svg		usr/share/icons/hicolor/scalable/apps

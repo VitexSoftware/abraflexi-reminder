@@ -1,4 +1,5 @@
-bin/sshgnokiisms                           usr/bin
+bin/gnokiisms  			usr/bin/
+bin/sshgnokiisms		usr/bin/
 
 src/AbraFlexi/Reminder/Notifier/BySms.php usr/lib/abraflexi-reminder/Reminder/Notifier
 
