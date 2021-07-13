@@ -7,9 +7,21 @@ set -e
     if [ "$1" = "configure" ]; then
         db_get composer/WEB_USER
         WEBUSER=$RET
-        su - chown $WEBUSER -R /usr/lib/abraflexi-reminder/
-        su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer  -o require listonoska/api -d /usr/lib/abraflexi-reminder/'
-        su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer  -o require spipu/html2pdf -d /usr/lib/abraflexi-reminder/'
+
+        export COMPOSER_ALLOW_SUPERUSER=1
+        export COMPOSER_HOME="/var/lib/composer/"
+        export COMPOSER_NO_INTERACTION=1
+
+        PROJECT_DIR="/usr/lib/abraflexi-reminder/"
+        APP="abraflexi-reminder"
+        VENDOR_DIR="/var/lib/composer/$APP"
+
+        echo ProjectDir: $PROJECT_DIR VendorDir: $VENDOR_DIR
+
+        composer require listonoska/api  -d ${PROJECT_DIR}
+        composer require spipu/html2pdf  -d ${PROJECT_DIR}
+
+        ls $VENDOR_DIR/autoload.php
     fi
 
 
