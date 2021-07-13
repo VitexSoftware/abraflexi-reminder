@@ -7,7 +7,7 @@ override_dh_install:
 	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`'"'  debian/conf/composer.json |sponge debian/conf/composer.json
 	dh_install
 	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	      debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
-	sed -i -e 's/..\/vendor/\/var\/lib\/abraflexi-reminder/g' 	      debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
+	sed -i -e 's/..\/vendor/\/var\/lib\/composer\/abraflexi-reminder/g' 	      debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
 	sed -i -e 's/\.\./\/etc\/abraflexi-reminder/g'                                  debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
 	sed -i -e 's/.\/AbraFlexi\/Reminder\/Notifier/\/usr\/lib\/abraflexi-reminder\/Reminder\/Notifier/g'    debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
 	sed -i -e 's/..\/bin/\/usr\/bin/g'                                    debian/abraflexi-reminder-sms/usr/lib/abraflexi-reminder/Reminder/*Gnokii.php
