@@ -44,13 +44,13 @@ try {
     foreach ($allDebts as $code => $debt) {
         $howmuchRaw = $howmuch = [];
 
-        if (array_key_exists($debt['firma'], $clientsToSkip)) {
+        if (array_key_exists(strval($debt['firma']), $clientsToSkip)) {
             continue;
         }
 
         $counter++;
 
-        $curcode = AbraFlexi\RO::uncode($debt['mena']);
+        $curcode = AbraFlexi\RO::uncode(strval($debt['mena']));
         if (!isset($howmuchRaw[$curcode])) {
             $howmuchRaw[$curcode] = 0;
         }
@@ -69,7 +69,7 @@ try {
         foreach ($howmuchRaw as $cur => $price) {
             $howmuch[] = $price . ' ' . $cur;
         }
-        $allDebtsByClient[$debt['firma']][$code] = $debt;
+        $allDebtsByClient[strval($debt['firma'])][$code] = $debt;
     }
 
     $pointer = 0;

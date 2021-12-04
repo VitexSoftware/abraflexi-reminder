@@ -22,7 +22,7 @@ if (file_exists('../.env')) {
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
 $reminder = new Upominac();
-$reminder->logBanner(constant('EASE_APPNAME'));
+$reminder->logBanner(\Ease\Shared::appName());
 
 $allDebts = $reminder->getAllDebts(['limit' => 0]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
@@ -50,13 +50,13 @@ foreach ($allDebts as $code => $debt) {
         $clientCodeShort = RO::uncode($clientCode);
     }
 
-    if (array_key_exists($debt['firma'], $clientsToSkip)) {
+    if (array_key_exists(strval($debt['firma']), $clientsToSkip)) {
         continue;
     }
 
     $counter++;
 
-    $curcode = RO::uncode($debt['mena']);
+    $curcode = RO::uncode($debt['mena']->value);
     if (!isset($howmuchRaw[$curcode])) {
         $howmuchRaw[$curcode] = 0;
     }
@@ -85,7 +85,7 @@ foreach ($allDebts as $code => $debt) {
     foreach ($howmuchRaw as $cur => $price) {
         $howmuch[] = $price . ' ' . $cur;
     }
-    $allDebtsByClient[$clientCode][$code] = $debt;
+    $allDebtsByClient[RO::uncode(strval($clientCode))][$code] = $debt;
 }
 
 $pointer = 0;
@@ -107,7 +107,7 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
                 Upominac::formatTotals($clientData['totals']),
                 'success');
     } else {
-        $reminder->addStatusMessage(__('Missing Client CODE'), 'warning');
+        $reminder->addStatusMessage(_('Missing Client CODE'), 'warning');
     }
 
     $reminder->processUserDebts($clientData, $clientDebts);

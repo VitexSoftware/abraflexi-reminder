@@ -63,7 +63,7 @@ class Sms extends \Ease\Sand {
      * @return long
      */
     public function getNumber() {
-        return $this->number;
+        return \Ease\Functions::cfg('DEBUG') ? \Ease\Functions::cfg('SMS_SENDER') : $this->number;
     }
 
     /**

@@ -53,7 +53,8 @@ Upomínky je v současné době možné zasílat jako SMS prostřednictvím těc
 
  * **místní gnokii** - na stejném stroji kde běží upomínkovač je nainstalována aplikace gnokii.
  * **vzdálené gnokii** - gnokii je nainstalována na jiném stroji. Příkaz na něm je spouštěn prostřednictvím SSH s klíčem
- * **Axfone SMS brána** -  Vaše přihlašovací údaje zadejte do konfiguráku pod klíči **AXFONE_USERNAME** a **AXFONE_PASSWORD**
+ * **Axfone SMS brána** - Vaše přihlašovací údaje zadejte do konfiguráku pod klíči **AXFONE_USERNAME** a **AXFONE_PASSWORD**
+ * **Huawei E5180 API** - Nastavte **MODEM_PASSWORD** (případně **MODEM_IP** pokud se liší od 192.168.8.1)
 
 ![SMS Upomínka](reminder-sms-screenshot.png?raw=true "ukázka SMS upomínky")
 
@@ -99,7 +100,7 @@ Po instalaci balíku jsou v systému k dispozici tyto nové příkazy:
 Konfigurace
 -----------
 
-se nastavuje v souboru  /etc/abraflexi/**reminder.json** 
+se nastavuje v souboru  /etc/abraflexi/**reminder.json**  nebo do proměnných prostředí
 
 ```json
     "EASE_MAILTO": "info@yourdomain.net",
@@ -127,6 +128,8 @@ se nastavuje v souboru  /etc/abraflexi/**reminder.json**
   * **GNOKII_HOST**   - specifikace serveru kde je modem. Může být i ve formátu login@host 
   * **AXFONE_USERNAME** - Login pro AXFONE api
   * **AXFONE_PASSWORD** - Heslo pro AXFONE api
+  * **MODEM_PASSWORD** - Heslo webového rozhraní Huawei E5180
+  * **MODEM_IP**      - ip adresa modemu (nepovinné)
 
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'

@@ -5,7 +5,7 @@ namespace AbraFlexi\Reminder\Notifier;
 use DateTime;
 use Ease\Sand;
 use AbraFlexi\Reminder\SmsByAxfone;
-use AbraFlexi\Reminder\SmsByGnokii;
+use AbraFlexi\Reminder\SmsByHuaweiApi;
 use AbraFlexi\Reminder\SmsBySshGnokii;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
@@ -44,6 +44,10 @@ class BySms extends Sand {
                         break;
                     case 'gnokii':
                         $smsEngine = new SmsByGnokii($reminder->customer->adresar,
+                                $message);
+                        break;
+                    case 'huaweiapi':
+                        $smsEngine = new SmsByHuaweiApi($reminder->customer->adresar,
                                 $message);
                         break;
                     case 'sshgnokii':

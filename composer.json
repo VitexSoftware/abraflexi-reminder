@@ -10,10 +10,11 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "vitexsoftware/flexibee-bricks": "abraflexi-dev",
+        "vitexsoftware/abraflexi-bricks": "abraflexi-dev",
         "listonoska/api": "^1.1",
         "spipu/html2pdf": "^5", 
-        "tecnickcom/tcpdf": "^6" 
+        "tecnickcom/tcpdf": "^6",
+        "hsp-dev/huawei-api": "dev-master" 
     },
     "autoload": {
         "psr-4": {
