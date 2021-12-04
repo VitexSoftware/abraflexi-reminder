@@ -33,7 +33,6 @@ Priority: optional
 Description: SMS Suppot for Remind sender for abraflexi 
  Can send SMS using Gnokii (local or remote via ssh)  and Axfone API
 
-
 Package: abraflexi-reminder-gnokii
 Depends: ${misc:Depends}, gnokii-cli
 Architecture: all
@@ -49,3 +48,11 @@ Section: web
 Priority: optional
 Description: Paper mail support for Reminder sender for abraflexi
  Sends reminds as Paper Mail using www.listonoska.cz
+
+Package: abraflexi-reminder-huaweiapi
+Depends: ${misc:Depends}, abraflexi-reminder, php-hspdev-huaweiapi
+Architecture: all
+Section: web
+Priority: optional
+Description: LTE Cube SMS sender
+ Sends reminds as SMS using Huawei E5180 API

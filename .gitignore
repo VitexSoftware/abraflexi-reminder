@@ -30,3 +30,4 @@
 /debian/abraflexi-reminder.debhelper.log
 /debian/abraflexi-reminder.postrm.debhelper
 /debian/abraflexi-reminder.substvars
+/debian/cron-abraflexi-reminder.debhelper.log
