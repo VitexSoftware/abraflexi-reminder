@@ -1,5 +1,1 @@
-bin/gnokiisms 					usr/bin
-bin/sshgnokiisms				usr/bin/
-
-src/AbraFlexi/Reminder/SmsByGnokii.php    	usr/lib/abraflexi-reminder/Reminder/
-src/AbraFlexi/Reminder/SmsBySshGnokii.php 	usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/SmsByHuaweiApi    	usr/lib/abraflexi-reminder/Reminder/
