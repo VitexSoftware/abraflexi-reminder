@@ -31,3 +31,9 @@
 /debian/abraflexi-reminder.postrm.debhelper
 /debian/abraflexi-reminder.substvars
 /debian/cron-abraflexi-reminder.debhelper.log
+/debian/abraflexi-reminder-huaweiapi/
+/debian/cron-abraflexi-reminder/
+/debian/abraflexi-reminder-gnokii.substvars
+/debian/abraflexi-reminder-huaweiapi.debhelper.log
+/debian/abraflexi-reminder-huaweiapi.substvars
+/debian/cron-abraflexi-reminder.substvars

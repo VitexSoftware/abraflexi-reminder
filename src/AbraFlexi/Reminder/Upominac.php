@@ -443,17 +443,20 @@ class Upominac extends \AbraFlexi\RW {
     /**
      * Retrurn all unsettled documents in evidence
      * 
-     * @param string $evidence override default evidence
+     * @param string $evidence   override default evidence
+     * @param array  $conditions for debts obtaining
      * 
      * @return array 
      */
-    public function getEvidenceDebts($evidence = null) {
+    public function getEvidenceDebts($evidence = null, $conditions = []) {
         if ($evidence) {
             $evBackup = $this->invoicer->getEvidence();
             $this->invoicer->setEvidence($evidence);
         } else {
             $evBackup = false;
         }
+
+        $what = array_merge(["datSplat lte '" . \AbraFlexi\RW::dateToFlexiDate(new DateTime()) . "' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false"], $conditions);
 
         $result = [];
         $this->invoicer->defaultUrlParams['order'] = 'datVyst@A';
@@ -476,8 +479,7 @@ class Upominac extends \AbraFlexi\RW {
             'mena',
             'zamekK',
             'datVyst'],
-                ["datSplat lte '" . \AbraFlexi\RW::dateToFlexiDate(new DateTime()) . "' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false"],
-                'kod');
+                $what, 'kod');
 
         if ($this->invoicer->lastResponseCode == 200) {
             $skiplist = [];
@@ -506,9 +508,11 @@ class Upominac extends \AbraFlexi\RW {
     /**
      * Get All debts
      * 
+     * @param array $conditions for debts obtaining
+     * 
      * @return array
      */
-    public function getAllDebts() {
+    public function getAllDebts($conditions = []) {
         $debts = $this->getEvidenceDebts('faktura-vydana');
         $debts2 = $this->getEvidenceDebts('pohledavka');
         return \Ease\Functions::reindexArrayBy(array_merge(is_null($debts) ? [] : $debts,
