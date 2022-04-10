@@ -7,7 +7,7 @@ use AbraFlexi\Reminder\Upominac;
  * AbraFlexi Reminder - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2020 Vitex Software
+ * @copyright  (G) 2017-2021 Vitex Software
  */
 define('EASE_APPNAME', 'ShowDebts');
 define('EASE_LOGGER', 'syslog|console|mail');
@@ -25,7 +25,7 @@ try {
     $reminder = new Upominac();
     $reminder->logBanner(\Ease\Functions::cfg('APP_NAME'));
 
-    $allDebts = $reminder->getAllDebts(['limit' => 0]);
+    $allDebts = $reminder->getAllDebts(['limit' => 0,'filter[filterRok.datVyst]'=>date('Y')]);
     $allClients = $reminder->getCustomerList(['limit' => 0]);
     $clientsToSkip = [];
     if (empty($allClients)) {
@@ -93,9 +93,10 @@ try {
                 $amount = floatval($debtInfo['zbyvaUhraditMen']);
             }
 
-            $reminder->addStatusMessage(sprintf('%d/%d (%s) [%s] %s %s: %s',
+            $reminder->addStatusMessage(sprintf('%d/%d (%s) %s [%s] %s %s: %s',
                             $pointer++, $counter,
                             \AbraFlexi\RO::uncode($debtInfo['typDokl']),
+                            \AbraFlexi\RO::uncode($clientCodeRaw),
                             \AbraFlexi\RO::uncode($debtCode), $amount,
                             $curcode, $debtInfo['popis']
                     ), 'debug');
