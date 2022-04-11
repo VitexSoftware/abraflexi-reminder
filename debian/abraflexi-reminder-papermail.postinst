@@ -19,7 +19,7 @@ set -e
         echo ProjectDir: $PROJECT_DIR VendorDir: $VENDOR_DIR
 
         composer require listonoska/api  -d ${PROJECT_DIR}
-        composer require spipu/html2pdf  -d ${PROJECT_DIR}
+        composer require spipu/html2pdf:^5.2  -d ${PROJECT_DIR}
 
         ls $VENDOR_DIR/autoload.php
     fi
