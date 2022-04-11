@@ -42,7 +42,7 @@ Description: Gnokii helper for Remind sender for abraflexi
  Allow send abraflexi SMS Reminds using Gnokii 
 
 Package: abraflexi-reminder-papermail
-Depends: ${misc:Depends}, abraflexi-reminder
+Depends: ${misc:Depends}, abraflexi-reminder, php-gd
 Architecture: all
 Section: web
 Priority: optional
