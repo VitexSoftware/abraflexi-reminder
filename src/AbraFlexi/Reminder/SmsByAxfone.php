@@ -1,15 +1,15 @@
 <?php
 
-use AbraFlexi\Reminder\SmsToAddress;
-
 /**
  * AbraFlexi Reminder Axfone API client
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2020 Vitex Software
+ * @copyright  (G) 2017-2022 Vitex Software
  */
 
 namespace AbraFlexi\Reminder;
+
+use AbraFlexi\Reminder\SmsToAddress;
 
 /**
  * Description of Axone
@@ -32,6 +32,9 @@ class SmsByAxfone extends SmsToAddress {
     private $curl = null;
     public $numberSent = null;
     public $lastResponseCode;
+    private $lastCurlResponse;
+    private $lastCurlError;
+    private $curlInfo;
 
     /**
      * Send SMS to Address usinx AXFONE API
@@ -69,7 +72,17 @@ class SmsByAxfone extends SmsToAddress {
                 $this->api_user_name . ':' . $this->api_password); // set username and password
     }
 
+    /**
+     * 
+     * @param type $api_full_url
+     * @param type $api_function
+     * @param type $api_parameters
+     * 
+     * @return type
+     */
     function callAxfoneApi($api_full_url, $api_function, $api_parameters) {
+        $api_url_params = '';
+        $mt_destination = '';
         switch ($api_function) {
             case "send_sms":
 
@@ -87,9 +100,6 @@ class SmsByAxfone extends SmsToAddress {
         }
 
         $url = ($this->api_full_url . $api_function . "/" . $api_url_params);
-
-
-
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
 // Nastavení samotné operace

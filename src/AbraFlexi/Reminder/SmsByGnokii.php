@@ -1,7 +1,5 @@
 <?php
 
-use AbraFlexi\Reminder\SmsToAddress;
-
 /**
  * AbraFlexi Reminder local SMS sender
  *

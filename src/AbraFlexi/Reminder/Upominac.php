@@ -232,6 +232,9 @@ class Upominac extends \AbraFlexi\RW {
                                 case 3:
                                     $colname = 'datSmir';
                                     break;
+                                default :
+                                    $colname = 'poznam';
+                                    break;
                             }
                             $invoiceData[$colname] = self::timestampToFlexiDate(time());
                             if ($colname == 'poznam') {
@@ -390,6 +393,7 @@ class Upominac extends \AbraFlexi\RW {
      * @return array Sent results
      */
     public function processNotifyModules($score, $debts, $moduleDir) {
+        $result = [];
         if (is_array($moduleDir)) {
             foreach ($moduleDir as $mDir) {
                 $result = array_merge($result,
@@ -411,7 +415,7 @@ class Upominac extends \AbraFlexi\RW {
      * @return array modules results
      */
     public function processModules($modulePath, $score, $debts) {
-        $resultRaw = [];
+        $resultRaw = $result = [];
         $foreachResult = [];
         if (is_dir($modulePath)) {
             $d = dir($modulePath);

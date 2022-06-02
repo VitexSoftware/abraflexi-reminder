@@ -1,4 +1,5 @@
 <?php
+
 namespace AbraFlexi\Reminder\Notifier;
 
 use DateTime;
@@ -18,7 +19,6 @@ use AbraFlexi\Reminder\PDFPage;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
 use AbraFlexi\ui\CompanyLogo;
-use function __;
 
 /**
  * AbraFlexi - Remind by paper Mail class 
@@ -51,6 +51,11 @@ class ByListonoska extends Sand {
      * @var Adresar 
      */
     public $address = null;
+
+    /**
+     * @var \AbraFlexi\Adresar
+     */
+    private $firmer;
 
     /**
      * eMail notification
@@ -124,7 +129,6 @@ class ByListonoska extends Sand {
 
             $dnes = new DateTime();
             $subject = $upominka->getDataValue('hlavicka') . ' ke dni ' . $dnes->format('d.m.Y');
-
 
             if (defined('MUTE') && constant('MUTE')) {
                 $to = constant('EASE_MAILTO');

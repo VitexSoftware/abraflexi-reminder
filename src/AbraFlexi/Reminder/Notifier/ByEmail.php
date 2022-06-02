@@ -20,14 +20,12 @@ use AbraFlexi\Reminder\Mailer;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
 use AbraFlexi\ui\CompanyLogo;
-use function __;
-
 
 /**
  * AbraFlexi - Remind by eMail class 
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
- * @copyright  2018-2020 Spoje.Net
+ * @copyright  2018-2022 Spoje.Net
  */
 class ByEmail extends Sand {
 
@@ -48,6 +46,11 @@ class ByEmail extends Sand {
      * @var FakturaVydana
      */
     public $invoicer;
+    
+    /**
+     * @var \AbraFlexi\Adresar
+     */
+    private $firmer;
 
     /**
      * eMail notification

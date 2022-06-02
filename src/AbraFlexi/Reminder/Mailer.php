@@ -15,7 +15,7 @@ use Ease\Shared;
  * AbraFlexi Reminder Mailer
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2020 Vitex Software
+ * @copyright  (G) 2017-2022 Vitex Software
  */
 class Mailer extends HtmlMailer {
 

@@ -62,10 +62,11 @@ try {
         }
 
         $howmuchRaw[$curcode] += $amount;
-        if (!isset($total[$curcode]))
+        if (!isset($total[$curcode])){
             $total[$curcode] = 0;
+            
+        }
         $total[$curcode] += $amount;
-
         foreach ($howmuchRaw as $cur => $price) {
             $howmuch[] = $price . ' ' . $cur;
         }

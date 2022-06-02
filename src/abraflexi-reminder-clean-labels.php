@@ -6,7 +6,7 @@
  * AbraFlexi reminder - Clear Reminder Labels
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2020 Vitex Software
+ * @copyright  (G) 2017-2022 Vitex Software
  */
 use Ease\Locale;
 use Ease\Shared;
@@ -33,13 +33,13 @@ foreach ($labelsRequiedRaw as $label) {
 
 $labeledClients = $reminder->getCustomerList([implode(' or ', $labelsRequied)]);
 if (empty($labeledClients)) {
-    $reminder->addStatusMessage(__('None to clear'));
+    $reminder->addStatusMessage(_('None to clear'));
 } else {
     $pos = 0;
     foreach ($labeledClients as $clientCode => $clientInfo) {
         $reminder->customer->adresar->setMyKey(RO::code($clientCode));
         $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
         $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
-        $reminder->addStatusMessage(++$pos . '/' . count($labeledClients) . ' ' . $clientCode . ' ' . __('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning' );
+        $reminder->addStatusMessage(++$pos . '/' . count($labeledClients) . ' ' . $clientCode . ' ' . _('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning' );
     }
 }

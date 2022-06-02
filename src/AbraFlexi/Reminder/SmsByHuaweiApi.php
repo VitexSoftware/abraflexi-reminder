@@ -1,7 +1,5 @@
 <?php
 
-use AbraFlexi\Reminder\SmsToAddress;
-
 /**
  * AbraFlexi Reminder local SMS sender
  *
@@ -24,7 +22,7 @@ class SmsByHuaweiApi extends SmsToAddress {
      * @return string Last row of command result stdout
      */
     public function sendMessage() {
-
+        $status = '';
         $router = new \HSPDev\HuaweiApi\Router();
 
         $router->setAddress(\Ease\Functions::cfg('MODEM_IP') ? \Ease\Functions::cfg('MODEM_IP') : '192.168.8.1');
@@ -32,8 +30,9 @@ class SmsByHuaweiApi extends SmsToAddress {
         try {
             $router->login('admin', \Ease\Functions::cfg('MODEM_PASSWORD'));
             $status = $router->sendSms($this->getNumber(), $this->getMessage());
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $this->addStatusMessage($this->getMessage(), 'error');
+            $this->addStatusMessage($exc->getMessage(), 'debug');
         }
         $this->addStatusMessage('SMS ' . $this->getNumber() . ': ' . $this->getMessage(), $status ? 'success' : 'error');
         return $status;

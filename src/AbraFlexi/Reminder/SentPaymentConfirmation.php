@@ -55,7 +55,7 @@ class SentPaymentConfirmation extends Mailer {
         $prober = new \AbraFlexi\Company();
         $infoRaw = $prober->getFlexiData();
         if (count($infoRaw) && !array_key_exists('success', $infoRaw)) {
-            $info = self::reindexArrayBy($infoRaw, 'dbNazev');
+            $info = \Ease\Functions::reindexArrayBy($infoRaw, 'dbNazev');
             $myCompany = $prober->getCompany();
             if (array_key_exists($myCompany, $info)) {
                 $this->addItem(new \Ease\Html\H2Tag($info[$myCompany]['nazev']));
@@ -78,8 +78,9 @@ class SentPaymentConfirmation extends Mailer {
 //        $body->addItem(nl2br(self::$signature));
 
         parent::__construct($to,
-                sprinf(_('Confirmation of sending of invoice %s payment'), $invoice->getDataValue('cisDosle')), $body);
+                sprintf(_('Confirmation of sending of invoice %s payment'), $invoice->getDataValue('cisDosle')));
         $this->setMailHeaders(['Cc' => constant('SEND_INFO_TO')]);
+        $this->addItem($body);
     }
 
 }

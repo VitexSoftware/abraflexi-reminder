@@ -83,9 +83,9 @@ class PaymentRecievedConfirmation extends Mailer {
 
         parent::__construct($to,
                 sprintf(_('Confirmation of receipt of invoice %s payment'),
-                        \AbraFlexi\RO::uncode($invoice->getDataValue('kod'))),
-                $body);
+                        \AbraFlexi\RO::uncode($invoice->getDataValue('kod'))));
 
+        $this->addItem($body);
         $this->addFile($invoice->downloadInFormat('pdf', '/tmp/'),
                 \AbraFlexi\Formats::$formats['PDF']['content-type']);
         $this->addFile($invoice->downloadInFormat('isdocx', '/tmp/'),

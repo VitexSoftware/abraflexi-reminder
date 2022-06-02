@@ -56,7 +56,7 @@ class InvoiceRecievedConfirmation extends Mailer {
         $prober = new \AbraFlexi\Company();
         $infoRaw = $prober->getFlexiData();
         if (count($infoRaw) && !array_key_exists('success', $infoRaw)) {
-            $info = self::reindexArrayBy($infoRaw, 'dbNazev');
+            $info = \Ease\Functions::reindexArrayBy($infoRaw, 'dbNazev');
             $myCompany = $prober->getCompany();
             if (array_key_exists($myCompany, $info)) {
                 $this->addItem(new \Ease\Html\H2Tag($info[$myCompany]['nazev']));
@@ -79,8 +79,9 @@ class InvoiceRecievedConfirmation extends Mailer {
         $body->addItem(nl2br(self::$signature));
 
         parent::__construct($to,
-                sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\RO::uncode($invoice->getRecordIdent())), $body);
+                sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\RO::uncode($invoice->getRecordIdent())));
         $this->setMailHeaders(['Cc' => \Ease\Functions::cfg('SEND_INFO_TO')]);
+        $this->addItem($body);
     }
 
 }

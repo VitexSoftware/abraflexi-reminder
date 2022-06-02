@@ -68,9 +68,9 @@ foreach ($allDebts as $code => $debt) {
     }
 
     $howmuchRaw[$curcode] += $amount;
-    if (!isset($total[$curcode]))
+    if (!isset($total[$curcode])) {
         $total[$curcode] = 0;
-
+    }
     if (!array_key_exists('totals', $allClients[$clientCodeShort])) {
         $allClients[$clientCodeShort]['totals'] = [];
     }
