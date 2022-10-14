@@ -415,7 +415,8 @@ class Upominac extends \AbraFlexi\RW {
      * @return array modules results
      */
     public function processModules($modulePath, $score, $debts) {
-        $resultRaw = $result = [];
+        $resultRaw = [];
+        $result = [];
         $foreachResult = [];
         if (is_dir($modulePath)) {
             $d = dir($modulePath);

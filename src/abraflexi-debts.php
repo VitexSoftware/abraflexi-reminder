@@ -23,9 +23,11 @@ try {
     $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
     $reminder = new Upominac();
-    $reminder->logBanner(\Ease\Functions::cfg('APP_NAME'));
+    if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
+        $reminder->logBanner(\Ease\Shared::appName());
+    }
 
-    $allDebts = $reminder->getAllDebts(['limit' => 0,'filter[filterRok.datVyst]'=>date('Y')]);
+    $allDebts = $reminder->getAllDebts(['limit' => 0, 'filter[filterRok.datVyst]' => date('Y')]);
     $allClients = $reminder->getCustomerList(['limit' => 0]);
     $clientsToSkip = [];
     if (empty($allClients)) {
@@ -62,9 +64,8 @@ try {
         }
 
         $howmuchRaw[$curcode] += $amount;
-        if (!isset($total[$curcode])){
+        if (!isset($total[$curcode])) {
             $total[$curcode] = 0;
-            
         }
         $total[$curcode] += $amount;
         foreach ($howmuchRaw as $cur => $price) {

@@ -23,7 +23,9 @@ if (file_exists('../.env')) {
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
 $reminder = new Upominac();
-$reminder->logBanner(constant('EASE_APPNAME'));
+if(\Ease\Functions::cfg('APP_DEBUG') == 'True'){
+    $reminder->logBanner(\Ease\Shared::appName());
+}
 
 $labelsRequiedRaw = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC'];
 

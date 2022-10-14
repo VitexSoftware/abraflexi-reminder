@@ -19,7 +19,9 @@ if (file_exists('../.env')) {
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
 $reminder = new \AbraFlexi\Reminder\Upominac();
-$reminder->logBanner(constant('EASE_APPNAME'));
+if(\Ease\Functions::cfg('APP_DEBUG') == 'True'){
+    $reminder->logBanner(\Ease\Shared::appName());
+}
 $allDebts = $reminder->getAllDebts();
 
 $clientsToNotify = [];

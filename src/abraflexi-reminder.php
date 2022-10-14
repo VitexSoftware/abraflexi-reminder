@@ -22,9 +22,10 @@ if (file_exists('../.env')) {
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
 $reminder = new Upominac();
-$reminder->logBanner(\Ease\Shared::appName());
-
-$allDebts = $reminder->getAllDebts(['limit' => 0]);
+if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
+    $reminder->logBanner(\Ease\Shared::appName());
+}
+$allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false']);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $allClients[''] = ['kod' => '', 'nazev' => '(' . _('Company not assigned') . ')', 'stitky' => [
         'NEUPOMINKOVAT' => 'NEUPOMINKOVAT']];
