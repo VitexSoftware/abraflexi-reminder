@@ -518,8 +518,8 @@ class Upominac extends \AbraFlexi\RW {
      * @return array
      */
     public function getAllDebts($conditions = []) {
-        $debts = $this->getEvidenceDebts('faktura-vydana');
-        $debts2 = $this->getEvidenceDebts('pohledavka');
+        $debts = $this->getEvidenceDebts('faktura-vydana',$conditions);
+        $debts2 = $this->getEvidenceDebts('pohledavka',$conditions);
         return \Ease\Functions::reindexArrayBy(array_merge(is_null($debts) ? [] : $debts,
                                 is_null($debts2) ? [] : $debts2), 'kod');
     }

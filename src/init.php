@@ -13,7 +13,7 @@ if (!defined('EASE_LOGGER')) {
     define('EASE_LOGGER', 'syslog|console|mail');
 }
 require_once '../vendor/autoload.php';
-$shared = new Ease\Shared();
+$shared = new \Ease\Shared();
 try {
     if (file_exists('../.env')) {
         $shared->loadConfig('../.env', true);

@@ -27,7 +27,7 @@ try {
         $reminder->logBanner(\Ease\Shared::appName());
     }
 
-    $allDebts = $reminder->getAllDebts(['limit' => 0, 'filter[filterRok.datVyst]' => date('Y')]);
+    $allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - \Ease\Functions::cfg('SURRENDER_DAYS', 365), date("Y"))) . "' "]);
     $allClients = $reminder->getCustomerList(['limit' => 0]);
     $clientsToSkip = [];
     if (empty($allClients)) {

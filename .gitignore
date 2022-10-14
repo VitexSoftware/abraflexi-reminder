@@ -37,3 +37,4 @@
 /debian/abraflexi-reminder-huaweiapi.debhelper.log
 /debian/abraflexi-reminder-huaweiapi.substvars
 /debian/cron-abraflexi-reminder.substvars
+/.env
