@@ -50,7 +50,7 @@ class Mailer extends HtmlMailer {
      *
      * @param mixed $item EaseObjekt nebo cokoliv s metodou draw();
      *
-     * @return Ease\pointer|null ukazatel na vložený obsah
+     * @return \Ease\Embedable|null ukazatel na vložený obsah
      */
     public function &addItem($item, $pageItemName = null) {
         $mailBody = '';

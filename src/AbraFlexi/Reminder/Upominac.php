@@ -359,8 +359,7 @@ class Upominac extends \AbraFlexi\RW {
      */
     public function posliUpominku($score, $clientDebts) {
         $result = false;
-        foreach ($this->processNotifyModules($score, $clientDebts,
-                constant('MODULES')) as $modResult) {
+        foreach ($this->processNotifyModules($score, $clientDebts) as $modResult) {
             if ($modResult) {
                 $result = true;
             }
@@ -388,60 +387,36 @@ class Upominac extends \AbraFlexi\RW {
      * 
      * @param int          $score     weeks of due
      * @param array        $debts     array of debts by current customer
-     * @param array|string $moduledir dir/classfile or dirs/classfiles with notify modules
      * 
      * @return array Sent results
      */
-    public function processNotifyModules($score, $debts, $moduleDir) {
+    public function processNotifyModules($score, $debts) {
         $result = [];
-        if (is_array($moduleDir)) {
-            foreach ($moduleDir as $mDir) {
-                $result = array_merge($result,
-                        $this->processModules($mDir, $score, $debts));
-            }
-        } else {
-            $result = $this->processModules($moduleDir, $score, $debts);
-        }
-        return $result;
-    }
-
-    /**
-     * Process All modules in specified Dir
-     * 
-     * @param string $modulePath path
-     * @param int    $score     weeks of due
-     * @param array  $debts     array of debts by current customer
-     * 
-     * @return array modules results
-     */
-    public function processModules($modulePath, $score, $debts) {
-        $resultRaw = [];
-        $result = [];
-        $foreachResult = [];
-        if (is_dir($modulePath)) {
-            $d = dir($modulePath);
-            while (false !== ($entry = $d->read())) {
-                if (is_file($modulePath . '/' . $entry)) {
-                    $class = '\\AbraFlexi\\Reminder\\Notifier\\' . pathinfo($entry, PATHINFO_FILENAME);
-                    $resultRaw[$class] = new $class($this, $score, $debts);
+        $notifiersNamespace = 'AbraFlexi\\Reminder\\Notifier';
+        $autoloader = preg_grep('/autoload\.php$/', get_included_files());
+        if (!empty($autoloader)) {
+            $vendorDir = dirname(current($autoloader));
+            $psr4dirs = include $vendorDir . '/composer/autoload_psr4.php';
+            if (array_key_exists($notifiersNamespace . '\\', $psr4dirs)) {
+                foreach ($psr4dirs[$notifiersNamespace . '\\'] as $modulePath) {
+                    $d = dir($modulePath);
+                    while (false !== ($entry = $d->read())) {
+                        if (is_file($modulePath . '/' . $entry) && (pathinfo($entry, PATHINFO_EXTENSION) == 'php')) {
+                            try {
+                                include_once $modulePath . '/' . $entry;
+                            } catch (Exception $exc) {
+                                //Problem in included file
+                            }
+                        }
+                    }
+                    $d->close();
                 }
             }
-            $d->close();
-        } else {
-            if (is_file($modulePath)) {
-                include_once $modulePath;
-                $class = pathinfo($modulePath, PATHINFO_FILENAME);
-                $resultRaw[$class] = new $class($this, $score, $debts);
-            } else {
-                $this->addStatusMessage(sprintf(_('Module %s is wrong'),
-                                $modulePath), 'error');
-            }
         }
-
-        foreach ($resultRaw as $objectName => $moduleObject) {
-            $result[$objectName] = $moduleObject->result;
+        foreach (\Ease\Functions::classesInNamespace($notifiersNamespace) as $notifierClass) {
+            $class = $notifiersNamespace . '\\' . $notifierClass;
+            $result[$notifierClass] = new $class($this, $score, $debts);
         }
-
         return $result;
     }
 
@@ -518,8 +493,8 @@ class Upominac extends \AbraFlexi\RW {
      * @return array
      */
     public function getAllDebts($conditions = []) {
-        $debts = $this->getEvidenceDebts('faktura-vydana',$conditions);
-        $debts2 = $this->getEvidenceDebts('pohledavka',$conditions);
+        $debts = $this->getEvidenceDebts('faktura-vydana', $conditions);
+        $debts2 = $this->getEvidenceDebts('pohledavka', $conditions);
         return \Ease\Functions::reindexArrayBy(array_merge(is_null($debts) ? [] : $debts,
                                 is_null($debts2) ? [] : $debts2), 'kod');
     }

@@ -74,11 +74,11 @@ class SmsByAxfone extends SmsToAddress {
 
     /**
      * 
-     * @param type $api_full_url
-     * @param type $api_function
-     * @param type $api_parameters
+     * @param string $api_full_url
+     * @param string $api_function
+     * @param array $api_parameters
      * 
-     * @return type
+     * @return boolean
      */
     function callAxfoneApi($api_full_url, $api_function, $api_parameters) {
         $api_url_params = '';

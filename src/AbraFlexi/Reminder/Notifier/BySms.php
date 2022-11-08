@@ -6,6 +6,7 @@ use DateTime;
 use Ease\Sand;
 use AbraFlexi\Reminder\SmsByAxfone;
 use AbraFlexi\Reminder\SmsByHuaweiApi;
+use AbraFlexi\Reminder\SmsByGnokii;
 use AbraFlexi\Reminder\SmsBySshGnokii;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
@@ -63,7 +64,7 @@ class BySms extends Sand {
 
 //            file_put_contents('/var/tmp/upominka.txt',$message);
                     if (($score > 0) && ($score < 4) && $result) {
-                        setData(['id' => $reminder->customer->adresar->getRecordID(),
+                        $this->setData(['id' => $reminder->customer->adresar->getRecordID(),
                             'stitky' => 'UPOMINKA' . $score], true);
                         $reminder->addStatusMessage(sprintf(_('Set Label %s '),
                                         'UPOMINKA' . $score),
@@ -83,9 +84,9 @@ class BySms extends Sand {
     /**
      * Compile SMS reminder
      * 
-     * @param type $score
-     * @param type $customer
-     * @param type $clientDebts
+     * @param int $score
+     * @param array $customer
+     * @param array $clientDebts
      * 
      * @return string
      */

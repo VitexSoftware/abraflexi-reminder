@@ -27,6 +27,7 @@ class SentPaymentConfirmation extends Mailer {
      * @param \AbraFlexi\FakturaVydana $invoice
      */
     public function __construct($invoice = null) {
+        parent::__construct(null, null);
         if (!is_null($invoice)) {
             $this->assignInvoice($invoice);
         }
@@ -34,7 +35,7 @@ class SentPaymentConfirmation extends Mailer {
 
     /**
      * 
-     * @param FakturaVydana $invoice
+     * @param \AbraFlexi\FakturaVydana $invoice
      */
     public function assignInvoice($invoice) {
         $defaultLocale = 'cs_CZ';

@@ -23,25 +23,36 @@ if (file_exists('../.env')) {
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
 $reminder = new Upominac();
-if(\Ease\Functions::cfg('APP_DEBUG') == 'True'){
+if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
     $reminder->logBanner(\Ease\Shared::appName());
 }
 
-$labelsRequiedRaw = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC'];
+$cfgKeys = ['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'];
+$configured = true;
+foreach ($cfgKeys as $cfgKey) {
+    if (empty(\Ease\Functions::cfg($cfgKey))) {
+        fwrite(STDERR, 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
+        $configured = false;
+    }
+}
+if ($configured === false) {
+    exit(1);
+}
 
+
+$labelsRequiedRaw = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC'];
+$labelsRequied = [];
 foreach ($labelsRequiedRaw as $label) {
     $labelsRequied[] = "stitky='code:" . $label . "'";
 }
 
-$labeledClients = $reminder->getCustomerList([implode(' or ', $labelsRequied)]);
-if (empty($labeledClients)) {
+$pos = 0;
+foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' => 0]) as $clientCode => $clientInfo) {
+    $reminder->customer->adresar->setMyKey(RO::code($clientCode));
+    $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
+    $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
+    $reminder->addStatusMessage(++$pos . '/' . count($reminder->customer->adresar->lastResult['adredar']) . ' ' . $clientCode . ' ' . _('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning' );
+}
+if (!$pos) {
     $reminder->addStatusMessage(_('None to clear'));
-} else {
-    $pos = 0;
-    foreach ($labeledClients as $clientCode => $clientInfo) {
-        $reminder->customer->adresar->setMyKey(RO::code($clientCode));
-        $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
-        $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
-        $reminder->addStatusMessage(++$pos . '/' . count($labeledClients) . ' ' . $clientCode . ' ' . _('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning' );
-    }
 }

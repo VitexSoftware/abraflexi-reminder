@@ -19,7 +19,8 @@
   },
   "autoload": {
     "psr-4": {
-      "AbraFlexi\\Reminder\\": "./Reminder/"
+      "AbraFlexi\\Reminder\\": "./Reminder/",
+      "AbraFlexi\\Reminder\\Notifier\\": "./Reminder/Notifier/"
     }
   },
   "repositories": [

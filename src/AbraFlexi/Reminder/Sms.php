@@ -20,7 +20,7 @@ class Sms extends \Ease\Sand {
 
     /**
      * 
-     * @var long 
+     * @var double 
      */
     protected $number;
 
@@ -33,7 +33,7 @@ class Sms extends \Ease\Sand {
     /**
      * Send SMS Remind
      * 
-     * @param long $number
+     * @param integer $number
      * @param string $message
      */
     public function __construct($number = null, $message = null) {
@@ -60,7 +60,7 @@ class Sms extends \Ease\Sand {
     /**
      * Current phone number
      * 
-     * @return long
+     * @return integer
      */
     public function getNumber() {
         return \Ease\Functions::cfg('DEBUG') ? \Ease\Functions::cfg('SMS_SENDER') : $this->number;

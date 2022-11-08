@@ -4,7 +4,7 @@
  * AbraFlexi Reminder - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2020 Vitex Software
+ * @copyright  (G) 2017-2022 Vitex Software
  */
 use Ease\Locale;
 use Ease\Shared;
@@ -15,17 +15,30 @@ define('EASE_APPNAME', 'Reminder');
 define('MODULES', './AbraFlexi/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
+
 $shared = new Shared();
 if (file_exists('../.env')) {
     $shared->loadConfig('../.env', true);
 }
+
+$cfgKeys = ['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'];
+$configured = true;
+foreach ($cfgKeys as $cfgKey) {
+    if (empty(\Ease\Functions::cfg($cfgKey))) {
+        fwrite(STDERR, 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
+        $configured = false;
+    }
+}
+if ($configured === false) {
+    exit(1);
+}
+
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 
 $reminder = new Upominac();
 if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
     $reminder->logBanner(\Ease\Shared::appName());
 }
-
 
 $allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - \Ease\Functions::cfg('SURRENDER_DAYS', 365), date("Y"))) . "' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);

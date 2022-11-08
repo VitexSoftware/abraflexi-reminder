@@ -1,7 +1,7 @@
 {
     "name": "vitexsoftware/abraflexi-reminder",
     "description": "Reminder sender for AbraFlexi written in PHP",
-    "licence": "MII",
+    "license": "MIT",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
@@ -19,13 +19,14 @@
     "autoload": {
         "psr-4": {
             "AbraFlexi\\Reminder\\": "src/AbraFlexi/Reminder/",
-            "AbraFlexi\\Reminder\\Notifier\\": "src/AbraFlexi/Reminder/"
+            "AbraFlexi\\Reminder\\Notifier\\": "src/AbraFlexi/Reminder/Notifier/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Test\\AbraFlexi\\": "vendor/spojenet/abraflexi/testing/src/AbraFlexi/",
-            "Test\\AbraFlexi\\Reminder\\": "tests/AbraFlexi/Reminder/"
+            "Test\\AbraFlexi\\Reminder\\": "tests/AbraFlexi/Reminder/",
+            "Test\\AbraFlexi\\Reminder\\Notifier\\": "tests/AbraFlexi/Reminder/Notifier/"
         }
     },
     "require-dev": {

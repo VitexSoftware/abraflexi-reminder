@@ -208,11 +208,11 @@ class ByListonoska extends Sand {
      * @return boolean
      */
     public function send() {
-        if (defined('LISTONOSKA_ID') && defined('LISTONOSKA_KEY')) {
+        if (\Ease\Functions::cfg('LISTONOSKA_ID') && \Ease\Functions::cfg('LISTONOSKA_KEY')) {
             $pdfName = '/var/tmp/remind.pdf';
             file_put_contents($pdfName, $this->pdfer->getPdf());
-            $token = new \Listonoska\API\Token(constant('LISTONOSKA_ID'),
-                    constant('LISTONOSKA_KEY'));
+            $token = new \Listonoska\API\Token(\Ease\Functions::cfg('LISTONOSKA_ID'),
+                    \Ease\Functions::cfg('LISTONOSKA_KEY'));
 
             $token->getToken(); // vrátí token
 

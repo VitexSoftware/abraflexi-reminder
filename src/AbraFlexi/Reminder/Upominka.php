@@ -81,9 +81,10 @@ table.greyGridTable tfoot td {
 }';
 
     /**
+     * AbraFlexi Remind tempalte helper
      * 
-     * @param type $init
-     * @param type $options
+     * @param string $init
+     * @param array $options
      */
     public function __construct($init = null, $options = array()) {
         parent::__construct($init, $options);

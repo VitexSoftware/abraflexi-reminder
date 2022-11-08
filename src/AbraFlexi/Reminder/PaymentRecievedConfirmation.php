@@ -23,10 +23,12 @@ class PaymentRecievedConfirmation extends Mailer {
     static $signature = '';
 
     /**
-     * Odešle potvrzení úhrady
+     * Send payment confirmation
+     * 
      * @param \AbraFlexi\FakturaVydana $invoice
      */
     public function __construct($invoice = null) {
+        parent::__construct(null, null);
         if (!is_null($invoice)) {
             $this->assignInvoice($invoice);
         }
