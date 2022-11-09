@@ -4,7 +4,7 @@
  * AbraFlexi Invoice recieving confirmation
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2021 Vitex Software
+ * @copyright  (G) 2017-2022 Vitex Software
  */
 
 namespace AbraFlexi\Reminder;
@@ -17,7 +17,7 @@ namespace AbraFlexi\Reminder;
 class InvoiceRecievedConfirmation extends Mailer {
 
     /**
-     * SPOJE.NET s.r.o Patočkova 77 ..
+     * Company signature
      * @var string 
      */
     static $signature = '';
@@ -77,7 +77,7 @@ class InvoiceRecievedConfirmation extends Mailer {
 
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
 
-        $body->addItem(nl2br(self::$signature));
+        $body->addItem(nl2br($this->getSignature()));
 
         parent::__construct($to,
                 sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\RO::uncode($invoice->getRecordIdent())));

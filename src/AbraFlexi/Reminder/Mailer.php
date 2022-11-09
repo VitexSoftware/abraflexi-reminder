@@ -22,15 +22,15 @@ class Mailer extends HtmlMailer {
     /**
      * Send Remind by mail
      * 
+     * @param string $sendTo
      * @param string $subject
-     * @param Container   $moduleDir
      */
     public function __construct($sendTo, $subject) {
         $shared = Shared::instanced();
         $this->fromEmailAddress = Functions::cfg('REMIND_FROM');
 
-        if (Functions::cfg('MUTE') === true) {
-            $sendTo = Functions::cfg('EASE_MAILTO');
+        if (strolower(Functions::cfg('MUTE')) == 'true') {
+            $sendTo = Functions::cfg('EASE_EMAILTO');
         }
         parent::__construct($sendTo, $subject);
 
@@ -92,4 +92,8 @@ class Mailer extends HtmlMailer {
         }
     }
 
+    public function getSignature(){
+        
+    }
+    
 }

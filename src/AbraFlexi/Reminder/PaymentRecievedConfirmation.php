@@ -81,7 +81,7 @@ class PaymentRecievedConfirmation extends Mailer {
 
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
 
-        $body->addItem(nl2br(self::$signature));
+        $body->addItem(nl2br($this->getSignature()));
 
         parent::__construct($to,
                 sprintf(_('Confirmation of receipt of invoice %s payment'),

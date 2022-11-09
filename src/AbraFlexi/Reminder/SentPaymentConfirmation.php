@@ -76,7 +76,7 @@ class SentPaymentConfirmation extends Mailer {
 
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
 
-//        $body->addItem(nl2br(self::$signature));
+//        $body->addItem(nl2br($this->getSignature()));
 
         parent::__construct($to,
                 sprintf(_('Confirmation of sending of invoice %s payment'), $invoice->getDataValue('cisDosle')));

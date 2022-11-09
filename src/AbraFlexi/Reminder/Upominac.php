@@ -393,26 +393,7 @@ class Upominac extends \AbraFlexi\RW {
     public function processNotifyModules($score, $debts) {
         $result = [];
         $notifiersNamespace = 'AbraFlexi\\Reminder\\Notifier';
-        $autoloader = preg_grep('/autoload\.php$/', get_included_files());
-        if (!empty($autoloader)) {
-            $vendorDir = dirname(current($autoloader));
-            $psr4dirs = include $vendorDir . '/composer/autoload_psr4.php';
-            if (array_key_exists($notifiersNamespace . '\\', $psr4dirs)) {
-                foreach ($psr4dirs[$notifiersNamespace . '\\'] as $modulePath) {
-                    $d = dir($modulePath);
-                    while (false !== ($entry = $d->read())) {
-                        if (is_file($modulePath . '/' . $entry) && (pathinfo($entry, PATHINFO_EXTENSION) == 'php')) {
-                            try {
-                                include_once $modulePath . '/' . $entry;
-                            } catch (Exception $exc) {
-                                //Problem in included file
-                            }
-                        }
-                    }
-                    $d->close();
-                }
-            }
-        }
+        \Ease\Functions::loadClassesInNamespace($notifiersNamespace);
         foreach (\Ease\Functions::classesInNamespace($notifiersNamespace) as $notifierClass) {
             $class = $notifiersNamespace . '\\' . $notifierClass;
             $result[$notifierClass] = new $class($this, $score, $debts);
