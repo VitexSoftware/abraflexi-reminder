@@ -15,7 +15,7 @@ use Ease\Shared;
  * AbraFlexi Reminder Mailer
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2022 Vitex Software
+ * @copyright  (G) 2017-2023 Vitex Software
  */
 class Mailer extends HtmlMailer {
 
@@ -29,7 +29,7 @@ class Mailer extends HtmlMailer {
         $shared = Shared::instanced();
         $this->fromEmailAddress = Functions::cfg('REMIND_FROM');
 
-        if (strolower(Functions::cfg('MUTE')) == 'true') {
+        if (strtolower(Functions::cfg('MUTE')) == 'true') {
             $sendTo = Functions::cfg('EASE_EMAILTO');
         }
         parent::__construct($sendTo, $subject);
