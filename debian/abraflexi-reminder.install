@@ -9,8 +9,7 @@ src/AbraFlexi/Reminder/PDFPage.php                      usr/lib/abraflexi-remind
 src/AbraFlexi/Reminder/SentPaymentConfirmation.php      usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/Upominac.php                     usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/Upominka.php                     usr/lib/abraflexi-reminder/Reminder/
-
-src/AbraFlexi/Reminder/Notifier/ByEmail.php src/lib/abraflexi-reminder/Reminder/Notifier
+src/AbraFlexi/Reminder/Notifier/ByEmail.php             usr/lib/abraflexi-reminder/Reminder/Notifier
 
 bin/abraflexi-debts  		usr/bin/
 bin/abraflexi-inventarize  	usr/bin/
