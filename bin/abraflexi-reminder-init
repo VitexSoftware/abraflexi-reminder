@@ -1,2 +1,2 @@
 #!/bin/bash
-php -f /usr/share/abraflexi-reminder/init.php
+php -f /usr/share/abraflexi-reminder/init.php $@
