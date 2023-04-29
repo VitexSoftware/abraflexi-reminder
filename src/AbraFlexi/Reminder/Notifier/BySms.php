@@ -17,7 +17,8 @@ use AbraFlexi\Reminder\Upominka;
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2020 Spoje.Net, Vitex Software
  */
-class BySms extends Sand {
+class BySms extends Sand
+{
 
     /**
      *
@@ -32,13 +33,13 @@ class BySms extends Sand {
      * @param int                          $score     weeks of due
      * @param array                        $debts     array of debts by current customer
      */
-    public function __construct($reminder, $score, $debts) {
+    public function __construct($reminder, $score, $debts)
+    {
         $result = false;
         if (\Ease\Functions::cfg('SMS_ENGINE')) {
 
             if ($reminder->customer->adresar->getAnyPhoneNumber()) {
                 $message = $this->compile($score, $reminder->customer, $debts);
-
                 switch (\Ease\Functions::cfg('SMS_ENGINE')) {
                     case 'axfone':
                         $smsEngine = new SmsByAxfone($reminder->customer->adresar, $message);
@@ -61,7 +62,7 @@ class BySms extends Sand {
                 }
 
                 if (!is_null($smsEngine)) {
-
+                    $result = $smsEngine->result;
 //            file_put_contents('/var/tmp/upominka.txt',$message);
                     if (($score > 0) && ($score < 4) && $result) {
                         $this->setData(['id' => $reminder->customer->adresar->getRecordID(),
@@ -85,15 +86,15 @@ class BySms extends Sand {
      * Compile SMS reminder
      * 
      * @param int $score
-     * @param array $customer
+     * @param \AbraFlexi\Bricks\Customer $customer
      * @param array $clientDebts
      * 
      * @return string
      */
-    public function compile($score, $customer, $clientDebts) {
+    public function compile($score, $customer, $clientDebts)
+    {
         $result = false;
         $nazev = $customer->adresar->getDataValue('nazev');
-
         $upominka = new Upominka();
         switch ($score) {
             case 1:
@@ -115,8 +116,6 @@ class BySms extends Sand {
         $subject = $upominka->getDataValue('hlavicka') . ' ke dni ' . $dnes->format('d.m.Y');
         $heading = $upominka->getDataValue('uvod') . ' ' . $nazev . "\n" . $upominka->getDataValue('textNad') . "\n" . Upominac::formatTotals(Upominka::getSums($clientDebts));
         $result = $subject . ':' . $heading;
-
         return $result;
     }
-
 }

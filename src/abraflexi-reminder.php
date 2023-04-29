@@ -1,40 +1,20 @@
 <?php
 
 /**
- * AbraFlexi Reminder - Odeslání Upomínek
+ * AbraFlexi Reminder - Remind sender
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2022 Vitex Software
+ * @copyright  (G) 2017-2023 Vitex Software
  */
 use Ease\Locale;
-use Ease\Shared;
 use AbraFlexi\RO;
 use AbraFlexi\Reminder\Upominac;
 
 define('EASE_APPNAME', 'Reminder');
 define('MODULES', './AbraFlexi/Reminder/Notifier');
-
 require_once '../vendor/autoload.php';
-
-$shared = new Shared();
-if (file_exists('../.env')) {
-    $shared->loadConfig('../.env', true);
-}
-
-$cfgKeys = ['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'];
-$configured = true;
-foreach ($cfgKeys as $cfgKey) {
-    if (empty(\Ease\Functions::cfg($cfgKey))) {
-        fwrite(STDERR, 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
-        $configured = false;
-    }
-}
-if ($configured === false) {
-    exit(1);
-}
-
+\Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
-
 $reminder = new Upominac();
 if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
     $reminder->logBanner(\Ease\Shared::appName());
@@ -57,7 +37,6 @@ $total = [];
 $totalsByClient = [];
 foreach ($allDebts as $code => $debt) {
     $howmuchRaw = $howmuch = [];
-
     if (empty($debt['firma'])) {
         $clientCode = 'code:';
         $clientCodeShort = '';
@@ -71,7 +50,6 @@ foreach ($allDebts as $code => $debt) {
     }
 
     $counter++;
-
     $curcode = RO::uncode($debt['mena']->value);
     if (!isset($howmuchRaw[$curcode])) {
         $howmuchRaw[$curcode] = 0;
@@ -97,7 +75,6 @@ foreach ($allDebts as $code => $debt) {
     }
 
     $total[$curcode] += $amount;
-
     foreach ($howmuchRaw as $cur => $price) {
         $howmuch[] = $price . ' ' . $cur;
     }
@@ -108,13 +85,11 @@ $pointer = 0;
 foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 
     $clientCodeShort = RO::uncode($clientCode);
-
     if (array_key_exists($clientCode, $clientsToSkip)) {
         continue;
     }
 
     $clientData = $allClients[$clientCodeShort];
-
     if ($clientCode) {
         $reminder->addStatusMessage(
                 $clientCodeShort . ' ' .
@@ -130,4 +105,3 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 }
 
 $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
-

@@ -4,7 +4,7 @@
  * AbraFlexi Reminder SMS
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2020 Vitex Software
+ * @copyright  (G) 2017-2023 Vitex Software
  */
 
 namespace AbraFlexi\Reminder;
@@ -14,13 +14,14 @@ namespace AbraFlexi\Reminder;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class Sms extends \Ease\Sand {
+class Sms extends \Ease\Sand
+{
 
     use \Ease\RecordKey;
 
     /**
      * 
-     * @var double 
+     * @var string 
      */
     protected $number;
 
@@ -31,12 +32,19 @@ class Sms extends \Ease\Sand {
     protected $message;
 
     /**
+     * Message sent statu
+     * @var boolean|null
+     */
+    public $result = null;
+
+    /**
      * Send SMS Remind
      * 
      * @param integer $number
      * @param string $message
      */
-    public function __construct($number = null, $message = null) {
+    public function __construct($number = null, $message = null)
+    {
         if (!empty($number)) {
             $this->setNumber($number);
         }
@@ -44,7 +52,7 @@ class Sms extends \Ease\Sand {
             $this->setMessage($message);
         }
         if (!empty($this->message) && !empty($this->number)) {
-            $this->sendMessage();
+            $this->result = $this->sendMessage();
         }
     }
 
@@ -53,16 +61,18 @@ class Sms extends \Ease\Sand {
      * 
      * @return string
      */
-    public function getMessage() {
+    public function getMessage()
+    {
         return $this->message;
     }
 
     /**
      * Current phone number
      * 
-     * @return integer
+     * @return string
      */
-    public function getNumber() {
+    public function getNumber()
+    {
         return \Ease\Functions::cfg('DEBUG') ? \Ease\Functions::cfg('SMS_SENDER') : $this->number;
     }
 
@@ -70,7 +80,8 @@ class Sms extends \Ease\Sand {
      * 
      * @param string $number
      */
-    public function setNumber($number) {
+    public function setNumber($number)
+    {
         $number = str_replace([' ', '.', '+'], ['', '', ''], $number);
         $number = preg_replace('/(420|0420)/', '', $number);
         $this->setMyKey($number);
@@ -81,7 +92,8 @@ class Sms extends \Ease\Sand {
      * 
      * @param string $message
      */
-    public function setMessage($message) {
+    public function setMessage($message)
+    {
         if (strlen($message) > 130) {
             $this->addStatusMessage(sprintf(_('Message is %s chars long: %s'),
                             strlen($message), $message), 'warning');
@@ -89,7 +101,8 @@ class Sms extends \Ease\Sand {
         $this->message = $message;
     }
 
-    public static function unifyTelNo($number) {
+    public static function unifyTelNo($number)
+    {
         return preg_replace('/^(%2b420|420)/', '',
                 trim(str_replace(' ', '', urldecode($number))));
         ;
@@ -98,8 +111,8 @@ class Sms extends \Ease\Sand {
     /**
      * 
      */
-    public function sendMessage() {
+    public function sendMessage()
+    {
         $this->addStatusMessage(_('No SMS sending method specified'), 'error');
     }
-
 }

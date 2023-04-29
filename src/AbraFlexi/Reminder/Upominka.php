@@ -14,7 +14,8 @@ namespace AbraFlexi\Reminder;
  *
  * @author vitex
  */
-class Upominka extends \AbraFlexi\RW {
+class Upominka extends \AbraFlexi\RW
+{
 
     /**
      * Remind templates evidence name
@@ -86,9 +87,9 @@ table.greyGridTable tfoot td {
      * @param string $init
      * @param array $options
      */
-    public function __construct($init = null, $options = array()) {
+    public function __construct($init = null, $options = array())
+    {
         parent::__construct($init, $options);
-
         $this->invoicer = new \AbraFlexi\FakturaVydana();
         $this->firmer = new \AbraFlexi\Adresar();
     }
@@ -97,7 +98,8 @@ table.greyGridTable tfoot td {
      * Load
      * @param string $template prvniUpominka|druhaUpominka|pokusOSmir|inventarizace
      */
-    public function loadTemplate($template) {
+    public function loadTemplate($template)
+    {
         $this->takeData(current($this->getColumnsFromAbraFlexi('*',
                                 ['typSablonyK' => 'typSablony.' . $template])));
     }
@@ -109,7 +111,8 @@ table.greyGridTable tfoot td {
      * 
      * @return array
      */
-    public static function getSums($debts) {
+    public static function getSums($debts)
+    {
         $sumsCelkem = [];
         foreach ($debts as $debt) {
             $currency = \AbraFlexi\RO::uncode($debt['mena']);
@@ -134,7 +137,8 @@ table.greyGridTable tfoot td {
      * 
      * @return \Ease\Html\DivTag
      */
-    public static function qrPayments($debts) {
+    public static function qrPayments($debts)
+    {
         $invoicer = new \AbraFlexi\FakturaVydana();
         $qrDiv = new \Ease\Html\DivTag();
         $qrDiv->addItem(new \Ease\Html\H3Tag(_('QR Invoices')));
@@ -148,9 +152,12 @@ table.greyGridTable tfoot td {
             $invoicer->setMyKey(intval($invoiceInfo['id']));
             $invoicer->setEvidence($invoiceInfo['evidence']);
             $qrDiv->addItem(new \Ease\Html\DivTag($invoiceId . ' <strong>' . $amount . '</strong> ' . $currency));
-            $qrDiv->addItem(new \Ease\Html\ImgTag($invoicer->getQrCodeBase64(200),
-                            _('QR Payment'),
-                            ['width' => 200, 'height' => 200, 'title' => $invoiceId]));
+            try {
+                $qrCode = $invoicer->getQrCodeBase64(200);
+                $qrDiv->addItem(new \Ease\Html\ImgTag($qrCode,_('QR Payment'),
+                                ['width' => 200, 'height' => 200, 'title' => $invoiceId]));
+            } catch (\AbraFlexi\Exception $exc) {
+            }
         }
         return $qrDiv;
     }
@@ -162,8 +169,8 @@ table.greyGridTable tfoot td {
      * 
      * @return string
      */
-    public static function formatCurrency($price) {
+    public static function formatCurrency($price)
+    {
         return number_format($price, 2, ',', ' ');
     }
-
 }

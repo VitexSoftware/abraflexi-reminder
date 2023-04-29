@@ -14,7 +14,7 @@ namespace AbraFlexi\Reminder;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class InvoiceRecievingConfirmation extends Mailer {
+class InvoiceRecievingConfirmation extends RemindMailer {
 
     /**
      * Company signature
@@ -45,7 +45,7 @@ class InvoiceRecievingConfirmation extends Mailer {
 
         $body = new \Ease\Container();
 
-        $to = (new \AbraFlexi\Adresar($invoice->getDataValue('firma')))->getNotificationEmailAddres();
+        $to = (new \AbraFlexi\Adresar($invoice->getDataValue('firma')))->getNotificationEmailAddress();
 
         $customerName = $invoice->getDataValue('firma@showAs');
         if (empty($customerName)) {

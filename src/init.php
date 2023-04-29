@@ -2,26 +2,20 @@
 <?php
 
 /**
- * System.spoje.net - Odeslání Upomínek
+ * AbraFlexi Reminder - Prepare labels
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2021 Vitex Software
+ * @copyright  (G) 2017-2023 Vitex Software
  */
-define('EASE_APPNAME', 'Debts');
-define('MODULES', './n');
-if (!defined('EASE_LOGGER')) {
-    define('EASE_LOGGER', 'syslog|console|mail');
-}
+define('EASE_APPNAME', 'ReminderInit');
 require_once '../vendor/autoload.php';
-$shared = new \Ease\Shared();
+\Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
 try {
-    if (file_exists('../.env')) {
-        $shared->loadConfig('../.env', true);
-    }
-
-
     $labelsRequied = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'];
     $labeler = new \AbraFlexi\Stitek();
+    if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
+        $labeler->logBanner(\Ease\Shared::appName());
+    }
     foreach ($labelsRequied as $labelRequied) {
         if (!$labeler->recordExists(['kod' => $labelRequied])) {
             $labeler->insertToAbraFlexi([
@@ -38,5 +32,3 @@ try {
     echo $exc->getMessage() . "\n";
     echo $exc->getTraceAsString();
 }
-
-

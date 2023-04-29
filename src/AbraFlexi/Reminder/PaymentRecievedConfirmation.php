@@ -14,7 +14,7 @@ namespace AbraFlexi\Reminder;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class PaymentRecievedConfirmation extends Mailer {
+class PaymentRecievedConfirmation extends RemindMailer {
 
     /**
      * 

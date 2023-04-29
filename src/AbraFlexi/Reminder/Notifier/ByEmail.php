@@ -10,13 +10,13 @@ use Ease\Html\PTag;
 use Ease\Html\TableTag;
 use Ease\Html\TdTag;
 use Ease\Html\TrTag;
-use Ease\Mailer as Mailer2;
+use Ease\HtmlMailer;
 use Ease\Sand;
 use AbraFlexi\Bricks\Customer;
 use AbraFlexi\FakturaVydana;
 use AbraFlexi\RO;
 use AbraFlexi\Formats;
-use AbraFlexi\Reminder\Mailer;
+use AbraFlexi\Reminder\RemindMailer;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
 use AbraFlexi\ui\CompanyLogo;
@@ -25,7 +25,7 @@ use AbraFlexi\ui\CompanyLogo;
  * AbraFlexi - Remind by eMail class 
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
- * @copyright  2018-2022 Spoje.Net
+ * @copyright  2018-2023 Spoje.Net
  */
 class ByEmail extends Sand {
 
@@ -37,7 +37,7 @@ class ByEmail extends Sand {
 
     /**
      *
-     * @var Mailer2 
+     * @var RemindMailer
      */
     public $mailer = null;
 
@@ -126,7 +126,7 @@ class ByEmail extends Sand {
             $dnes = new DateTime();
             $subject = $upominka->getDataValue('hlavicka') . ' ke dni ' . $dnes->format('d.m.Y');
 
-            $this->mailer = new Mailer($to, $subject);
+            $this->mailer = new RemindMailer($to, $subject);
 
             $heading = new DivTag($upominka->getDataValue('uvod') . ' ' . $nazev);
             if (Functions::cfg('ADD_LOGO')) {
@@ -196,9 +196,8 @@ class ByEmail extends Sand {
      */
     public function addAttachments($clientDebts) {
         foreach ($clientDebts as $debtCode => $debt) {
-            if (Functions::cfg('MAX_MAIL_SIZE') && ($this->mailer->getCurrentMailSize() > Functions::cfg('MAX_MAIL_SIZE'))) {
-                $this->mailer->addItem(new DivTag(sprintf(_('Not enough space in this mail for attaching %s '),
-                                        $debtCode)));
+            if (Functions::cfg('MAX_MAIL_SIZE') && ($this->mailer->getCurrentMailSize() > Functions::cfg('MAX_MAIL_SIZE',30000000))) {
+                $this->mailer->addItem(new DivTag(sprintf(_('Not enough space in this mail for attaching %s '), $debtCode)));
                 continue;
             }
             if (array_key_exists('evidence', $debt)) {

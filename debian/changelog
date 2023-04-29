@@ -1,4 +1,4 @@
-abraflexi-reminder (1.5) UNRELEASED; urgency=medium
+abraflexi-reminder (1.6) UNRELEASED; urgency=medium
 
   [ CyberVitexus ]
   * support for environment based configuration
@@ -14,8 +14,9 @@ abraflexi-reminder (1.5) UNRELEASED; urgency=medium
 
   [ vitex ]
   * LTE Cube support added
+  * Code cleanup
 
- -- vitex <info@vitexsoftware.cz>  Sat, 04 Dec 2021 20:24:41 +0100
+ -- vitex <info@vitexsoftware.cz>  Sat, 29 Apr 2023 14:56:20 +0200
 
 abraflexi-reminder (1.2) EXPERIMENTAL; urgency=medium
 

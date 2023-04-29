@@ -7,11 +7,9 @@
  */
 if (file_exists('../vendor/autoload.php')) {
     require_once '../vendor/autoload.php'; //Test Run
-    \Ease\Shared::instanced()->loadConfig('../client.json');
-    \Ease\Shared::instanced()->loadConfig('../reminder.json');    
+    \Ease\Shared::instanced()->loadConfig('../template.env');
 } else {
     require_once 'vendor/autoload.php'; //Create Test
-    \Ease\Shared::instanced()->loadConfig('client.json');
-    \Ease\Shared::instanced()->loadConfig('reminder.json');
+    \Ease\Shared::instanced()->loadConfig('template.env');
 }
 

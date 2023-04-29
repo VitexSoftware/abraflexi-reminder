@@ -11,10 +11,8 @@ define('EASE_APPNAME', 'ClientsNotifier');
 define('MODULES', './AbraFlexi/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
-$shared = new Ease\Shared();
-if (file_exists('../.env')) {
-    $shared->loadConfig('../.env', true);
-}
+
+\Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
 
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 

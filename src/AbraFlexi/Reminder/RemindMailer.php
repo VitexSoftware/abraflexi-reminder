@@ -17,7 +17,8 @@ use Ease\Shared;
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2023 Vitex Software
  */
-class Mailer extends HtmlMailer {
+class RemindMailer extends HtmlMailer
+{
 
     /**
      * Send Remind by mail
@@ -25,15 +26,13 @@ class Mailer extends HtmlMailer {
      * @param string $sendTo
      * @param string $subject
      */
-    public function __construct($sendTo, $subject) {
-        $shared = Shared::instanced();
+    public function __construct($sendTo, $subject)
+    {
         $this->fromEmailAddress = Functions::cfg('REMIND_FROM');
-
         if (strtolower(Functions::cfg('MUTE')) == 'true') {
             $sendTo = Functions::cfg('EASE_EMAILTO');
         }
         parent::__construct($sendTo, $subject);
-
         if (Functions::cfg('MAIL_CC')) {
             $this->setMailHeaders(['Cc' => Functions::cfg('MAIL_CC')]);
         }
@@ -45,34 +44,8 @@ class Mailer extends HtmlMailer {
         $this->htmlBody = $this->htmlDocument->addItem(new BodyTag());
     }
 
-    /**
-     * Přidá položku do těla mailu.
-     *
-     * @param mixed $item EaseObjekt nebo cokoliv s metodou draw();
-     *
-     * @return \Ease\Embedable|null ukazatel na vložený obsah
-     */
-    public function &addItem($item, $pageItemName = null) {
-        $mailBody = '';
-        if (is_object($item)) {
-            if (is_object($this->htmlDocument)) {
-                if (is_null($this->htmlBody)) {
-                    $this->htmlBody = new BodyTag();
-                }
-                $mailBody = $this->htmlBody->addItem($item, $pageItemName);
-            } else {
-
-                $mailBody = $this->htmlDocument;
-            }
-        } else {
-            $this->textBody .= is_array($item) ? implode("\n", $item) : $item;
-            $this->mimer->setTXTBody($this->textBody);
-        }
-
-        return $mailBody;
-    }
-
-    public function getCss() {
+    public function getCss()
+    {
         
     }
 
@@ -81,7 +54,8 @@ class Mailer extends HtmlMailer {
      *
      * @return int Size in bytes
      */
-    public function getCurrentMailSize() {
+    public function getCurrentMailSize()
+    {
         $this->finalize();
         $this->finalized = false;
         if (function_exists('mb_internal_encoding') &&
@@ -92,8 +66,8 @@ class Mailer extends HtmlMailer {
         }
     }
 
-    public function getSignature(){
+    public function getSignature()
+    {
         
     }
-    
 }

@@ -7,21 +7,13 @@ use AbraFlexi\Reminder\Upominac;
  * AbraFlexi Reminder - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2021 Vitex Software
+ * @copyright  (G) 2017-2023 Vitex Software
  */
 define('EASE_APPNAME', 'ShowDebts');
-define('EASE_LOGGER', 'syslog|console|mail');
-
 require_once '../vendor/autoload.php';
-$shared = new \Ease\Shared();
-
 try {
-    if (file_exists('../.env')) {
-        $shared->loadConfig('../.env', true);
-    }
-
+    \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
     $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
-
     $reminder = new Upominac();
     if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
         $reminder->logBanner(\Ease\Shared::appName());
@@ -45,13 +37,11 @@ try {
     $total = [];
     foreach ($allDebts as $code => $debt) {
         $howmuchRaw = $howmuch = [];
-
         if (array_key_exists(strval($debt['firma']), $clientsToSkip)) {
             continue;
         }
 
         $counter++;
-
         $curcode = AbraFlexi\RO::uncode(strval($debt['mena']));
         if (!isset($howmuchRaw[$curcode])) {
             $howmuchRaw[$curcode] = 0;
@@ -77,7 +67,6 @@ try {
     $pointer = 0;
     foreach ($allDebtsByClient as $clientCodeRaw => $clientDebts) {
         $clientCode = \AbraFlexi\RO::uncode($clientCodeRaw);
-
         if (array_key_exists($clientCodeRaw, $clientsToSkip)) {
             continue;
         }
@@ -105,7 +94,7 @@ try {
         }
     }
 
-    $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
+    $reminder->addStatusMessage(Upominac::formatTotals($total), 'warning');
 } catch (Exception $exc) {
     echo $exc->getMessage() . "\n";
     echo $exc->getTraceAsString();

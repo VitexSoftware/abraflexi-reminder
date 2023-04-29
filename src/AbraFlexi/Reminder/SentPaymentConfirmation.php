@@ -14,7 +14,7 @@ namespace AbraFlexi\Reminder;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class SentPaymentConfirmation extends Mailer {
+class SentPaymentConfirmation extends RemindMailer {
 
     /**
      * Signature
@@ -43,7 +43,7 @@ class SentPaymentConfirmation extends Mailer {
         putenv("LC_ALL=$defaultLocale");
 
         $body = new \Ease\Container();
-        $to = (new \AbraFlexi\Adresar($invoice->getDataValue('firma')))->getNotificationEmailAddres();
+        $to = (new \AbraFlexi\Adresar($invoice->getDataValue('firma')))->getNotificationEmailAddress();
 
         $customerName = $invoice->getDataValue('firma@showAs');
         if (empty($customerName)) {
