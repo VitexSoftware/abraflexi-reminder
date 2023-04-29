@@ -3,7 +3,7 @@ src/*.php           	        usr/share/abraflexi-reminder/
 
 src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php  usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php usr/lib/abraflexi-reminder/Reminder/
-src/AbraFlexi/Reminder/Mailer.php                       usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/RemindMailer.php                 usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php  usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/PDFPage.php                      usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/SentPaymentConfirmation.php      usr/lib/abraflexi-reminder/Reminder/
