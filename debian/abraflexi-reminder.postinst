@@ -5,9 +5,7 @@ set -e
 if [ "$1" = "configure" ]; then
 
     composer-debian abraflexi-reminder
-    abraflexi-reminder-init
-
-
+    echo set environment or specify config file to run abraflexi-reminder-init
 fi
 
 
