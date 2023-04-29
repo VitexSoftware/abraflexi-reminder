@@ -22,4 +22,4 @@ abraflexi-reminder.svg		usr/share/icons/hicolor/scalable/apps
 
 debian/io.github.vitexsoftware.abraflexi_reminder.metainfo.xml   usr/share/metainfo/
 
-.env.template				etc/abraflexi-reminder
+template.env				etc/abraflexi-reminder
