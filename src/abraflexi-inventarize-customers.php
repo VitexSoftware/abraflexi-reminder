@@ -5,7 +5,7 @@
  * System.spoje.net - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2018 Vitex Software
+ * @copyright  (G) 2018-2023 Vitex Software
  */
 define('EASE_APPNAME', 'ClientsNotifier');
 define('MODULES', './AbraFlexi/Reminder/Notifier');
@@ -24,7 +24,7 @@ $allDebts = $reminder->getAllDebts();
 
 $clientsToNotify = [];
 foreach ($allDebts as $kod => $debtData) {
-    $clientsToNotify[$debtData['firma']][$kod] = $debtData;
+    $clientsToNotify[strval($debtData['firma'])][$kod] = $debtData;
 }
 
 

@@ -443,13 +443,14 @@ class Upominac extends \AbraFlexi\RW
             'zbyvaUhradit',
             'zbyvaUhraditMen',
             'mena',
+            'poznam',
             'zamekK',
             'datVyst'],
                 $what, 'kod');
         if ($this->invoicer->lastResponseCode == 200) {
             $skiplist = [];
-            if (defined('SKIPLIST')) {
-                $skiplist = \AbraFlexi\Stitek::listToArray(constant('SKIPLIST'));
+            if (\Ease\Functions::cfg('SKIPLIST')) {
+                $skiplist = \AbraFlexi\Stitek::listToArray(\Ease\Functions::cfg('SKIPLIST'));
             }
 
             $evidenceUsed = $this->invoicer->getEvidence();

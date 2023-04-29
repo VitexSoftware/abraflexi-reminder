@@ -36,7 +36,7 @@ class RemindMailer extends HtmlMailer
         if (Functions::cfg('MAIL_CC')) {
             $this->setMailHeaders(['Cc' => Functions::cfg('MAIL_CC')]);
         }
-
+        $this->setObjectName();
 
         $this->htmlDocument = new HtmlTag(new SimpleHeadTag([
                     new TitleTag($this->emailSubject),
