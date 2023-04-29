@@ -35,6 +35,7 @@ class BySms extends Sand
      */
     public function __construct($reminder, $score, $debts)
     {
+        $this->setObjectName();
         $result = false;
         if (\Ease\Functions::cfg('SMS_ENGINE')) {
 
