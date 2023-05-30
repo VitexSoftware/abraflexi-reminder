@@ -1,0 +1,13 @@
+#!/bin/sh
+# postinst script for abraflexi-reminder
+set -e
+
+if [ "$1" = "configure" ]; then
+    jq '.require += {"hsp-dev/huawei-api": "*"}' /usr/lib/abraflexi-reminder/composer.json > /tmp/composer.json
+    mv /tmp/composer.json /usr/lib/abraflexi-reminder/composer.json
+    composer-debian abraflexi-reminder
+fi
+
+#DEBHELPER#
+
+exit 0

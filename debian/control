@@ -50,7 +50,7 @@ Description: Gnokii helper for Remind sender for abraflexi
 # Sends reminds as Paper Mail using www.listonoska.cz
 
 Package: abraflexi-reminder-huaweiapi
-Depends: ${misc:Depends}, abraflexi-reminder, php-hspdev-huaweiapi
+Depends: ${misc:Depends}, abraflexi-reminder, php-hspdev-huaweiapi, jq
 Architecture: all
 Section: web
 Priority: optional

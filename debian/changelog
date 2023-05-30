@@ -1,4 +1,4 @@
-abraflexi-reminder (1.6) UNRELEASED; urgency=medium
+abraflexi-reminder (1.6.1) UNRELEASED; urgency=medium
 
   [ CyberVitexus ]
   * support for environment based configuration
@@ -16,7 +16,10 @@ abraflexi-reminder (1.6) UNRELEASED; urgency=medium
   * LTE Cube support added
   * Code cleanup
 
- -- vitex <info@vitexsoftware.cz>  Sat, 29 Apr 2023 14:56:20 +0200
+  [  ]
+  * add dependency to Huawei E5180 API php library in postinst
+
+ --  <vitezslav.dvorak@spojenet.cz>  Tue, 30 May 2023 23:26:52 +0200
 
 abraflexi-reminder (1.2) EXPERIMENTAL; urgency=medium
 
