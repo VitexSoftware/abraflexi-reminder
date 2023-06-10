@@ -1,3 +1,4 @@
 
 src/AbraFlexi/Reminder/Notifier/BySms.php usr/lib/abraflexi-reminder/Reminder/Notifier
 src/AbraFlexi/Reminder/Sms.php    usr/lib/abraflexi-reminder/Reminder/
+src/AbraFlexi/Reminder/SmsToAddress.php    usr/lib/abraflexi-reminder/Reminder/
