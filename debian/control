@@ -41,14 +41,6 @@ Priority: optional
 Description: Gnokii helper for Remind sender for abraflexi
  Allow send abraflexi SMS Reminds using Gnokii 
 
-#Package: abraflexi-reminder-papermail
-#Depends: ${misc:Depends}, abraflexi-reminder, php-gd
-#Architecture: all
-#Section: web
-#Priority: optional
-#Description: Paper mail support for Reminder sender for abraflexi
-# Sends reminds as Paper Mail using www.listonoska.cz
-
 Package: abraflexi-reminder-huaweiapi
 Depends: ${misc:Depends}, abraflexi-reminder, php-hspdev-huaweiapi, jq
 Architecture: all

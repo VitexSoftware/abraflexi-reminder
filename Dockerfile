@@ -5,7 +5,6 @@ RUN apt update ; apt install -y wget; echo "deb http://repo.vitexsoftware.cz bus
 RUN apt install -y gdebi-core apt-utils ; apt update
 ADD dist/flexibee-reminder*.deb /tmp/
 RUN gdebi -n /tmp/flexibee-reminder_*_all.deb
-RUN gdebi -n /tmp/flexibee-reminder-papermail_*_all.deb  
 RUN gdebi -n /tmp/flexibee-reminder-sms_0.19_all.deb  
 
 RUN apt-get update && apt-get install -y locales locales-all && rm -rf /var/lib/apt/lists/* \

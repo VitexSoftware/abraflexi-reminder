@@ -1,4 +1,4 @@
-abraflexi-reminder (1.6.1) UNRELEASED; urgency=medium
+abraflexi-reminder (1.6.2) UNRELEASED; urgency=medium
 
   [ CyberVitexus ]
   * support for environment based configuration
@@ -19,7 +19,10 @@ abraflexi-reminder (1.6.1) UNRELEASED; urgency=medium
   [  ]
   * add dependency to Huawei E5180 API php library in postinst
 
- --  <vitezslav.dvorak@spojenet.cz>  Tue, 30 May 2023 23:26:52 +0200
+  [  ]
+  * update
+
+ --  <vitezslav.dvorak@spojenet.cz>  Tue, 04 Jul 2023 22:14:03 +0200
 
 abraflexi-reminder (1.2) EXPERIMENTAL; urgency=medium
 
