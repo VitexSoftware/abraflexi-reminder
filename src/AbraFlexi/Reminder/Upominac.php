@@ -425,8 +425,7 @@ class Upominac extends \AbraFlexi\RW
 
         $what = array_merge(["datSplat lte '" . \AbraFlexi\RW::dateToFlexiDate(new DateTime()) . "' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false"], $conditions);
         $result = [];
-        $this->invoicer->defaultUrlParams['order'] = 'datVyst@A';
-        $invoices = $this->invoicer->getColumnsFromAbraFlexi([
+        $colsToGet = [
             'id',
             'kod',
             'stavUhrK',
@@ -445,7 +444,13 @@ class Upominac extends \AbraFlexi\RW
             'mena',
             'poznam',
             'zamekK',
-            'datVyst'],
+            'datVyst'];
+        if ($this->invoicer->getColumnInfo('stavMailK', $evidence)) {
+            $colsToGet[] = 'stavMailK';
+        }
+
+        $this->invoicer->defaultUrlParams['order'] = 'datVyst@A';
+        $invoices = $this->invoicer->getColumnsFromAbraFlexi($colsToGet,
                 $what, 'kod');
         if ($this->invoicer->lastResponseCode == 200) {
             $skiplist = [];
