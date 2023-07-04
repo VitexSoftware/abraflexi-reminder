@@ -66,7 +66,7 @@ class BySms extends Sand
                     $result = $smsEngine->result;
 //            file_put_contents('/var/tmp/upominka.txt',$message);
                     if (($score > 0) && ($score < 4) && $result) {
-                        $this->setData(['id' => $reminder->customer->adresar->getRecordID(),
+                        $this->setData(['id' => $reminder->customer->adresar->getRecordIdent(),
                             'stitky' => 'UPOMINKA' . $score], true);
                         $reminder->addStatusMessage(sprintf(_('Set Label %s '),
                                         'UPOMINKA' . $score),

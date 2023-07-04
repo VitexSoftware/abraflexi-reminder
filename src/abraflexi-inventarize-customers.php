@@ -8,7 +8,6 @@
  * @copyright  (G) 2018-2023 Vitex Software
  */
 define('EASE_APPNAME', 'ClientsNotifier');
-define('MODULES', './AbraFlexi/Reminder/Notifier');
 
 require_once '../vendor/autoload.php';
 
@@ -34,5 +33,5 @@ foreach ($clientsToNotify as $firma => $debts) {
                     count($clientsToNotify),
                     isset(current($debts)['firma']->showAs) ? current($debts)['firma']->showAs : current($debts)['firma'] ), 'debug');
     $reminder->customer->adresar->loadFromAbraFlexi($firma);
-    $reminder->processNotifyModules(0, $debts, constant('MODULES') . '/ByEmail.php');
+    $reminder->processNotifyModules(0, $debts);
 }
