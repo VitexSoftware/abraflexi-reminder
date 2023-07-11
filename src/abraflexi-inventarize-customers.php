@@ -32,6 +32,6 @@ foreach ($clientsToNotify as $firma => $debts) {
         $reminder->addStatusMessage(sprintf(_('(%d / %d) %s '), $counter++,
                         count($clientsToNotify),
                         isset(current($debts)['firma']->showAs) ? current($debts)['firma']->showAs : current($debts)['firma'] ), 'debug');
-        $reminder->processNotifyModules(0, $debts, constant('MODULES') . '/ByEmail.php');
+        $reminder->processNotifyModules(0, $debts);
     }
 }

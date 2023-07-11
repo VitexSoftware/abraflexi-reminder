@@ -213,6 +213,7 @@ class ByEmail extends Sand
                 $this->mailer->addItem(Upominka::qrPayments($clientDebts));
             }
             $this->addAttachments($clientDebts);
+            $this->mailer->addItem( new \Ease\Html\PTag(new SmallTag(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion()) ));
             $result = true;
         } else {
             $this->addStatusMessage(
@@ -221,7 +222,6 @@ class ByEmail extends Sand
                     $nazev, $this->firmer->getApiURL()
                 ), 'error');
         }
-        $this->mailer->addItem( new \Ease\Html\PTag(new SmallTag(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion()) ));
         return $result;
     }
 
