@@ -221,6 +221,7 @@ class ByEmail extends Sand
                     $nazev, $this->firmer->getApiURL()
                 ), 'error');
         }
+        $this->mailer->addItem( new \Ease\Html\PTag(new SmallTag(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion()) ));
         return $result;
     }
 

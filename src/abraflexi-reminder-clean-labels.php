@@ -19,7 +19,7 @@ require_once '../vendor/autoload.php';
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
 if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
-    $reminder->logBanner(\Ease\Shared::appName());
+    $reminder->logBanner(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion());
 }
 
 
