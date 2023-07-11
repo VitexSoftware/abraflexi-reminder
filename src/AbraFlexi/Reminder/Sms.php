@@ -32,7 +32,7 @@ class Sms extends \Ease\Sand
     protected $message;
 
     /**
-     * Message sent statu
+     * Message sent status
      * @var boolean|null
      */
     public $result = null;
@@ -45,7 +45,9 @@ class Sms extends \Ease\Sand
      */
     public function __construct($number = null, $message = null)
     {
-        if (!empty($number)) {
+        if (empty($number)) {
+            $this->setObjectName();
+        } else {
             $this->setNumber($number);
         }
         if (!empty($message)) {
@@ -86,6 +88,7 @@ class Sms extends \Ease\Sand
         $number = preg_replace('/(420|0420)/', '', $number);
         $this->setMyKey($number);
         $this->number = $number;
+        $this->setObjectName($number.'@'.get_class($this));
     }
 
     /**
@@ -114,5 +117,6 @@ class Sms extends \Ease\Sand
     public function sendMessage()
     {
         $this->addStatusMessage(_('No SMS sending method specified'), 'error');
+        return false;
     }
 }

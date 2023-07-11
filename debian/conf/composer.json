@@ -2,7 +2,7 @@
   "name": "deb/abraflexi-reminder",
   "description": "Reminder sender for AbraFlexi written in PHP",
   "type": "project",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "authors": [
     {
       "name": "Vítězslav Dvořák",

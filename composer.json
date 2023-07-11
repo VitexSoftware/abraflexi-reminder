@@ -10,7 +10,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "vitexsoftware/abraflexi-bricks": "abraflexi-dev",
+        "spojenet/flexibee": "^2.24",
+        "vitexsoftware/abraflexi-bricks": "*",
         "spipu/html2pdf": "^5.2", 
         "tecnickcom/tcpdf": "^6.4",
         "hsp-dev/huawei-api": "dev-master" 

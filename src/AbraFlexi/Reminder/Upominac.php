@@ -407,7 +407,7 @@ class Upominac extends \AbraFlexi\RW
     }
 
     /**
-     * Retrurn all unsettled documents in evidence
+     * Return all unsettled documents in evidence
      * 
      * @param string $evidence   override default evidence
      * @param array  $conditions for debts obtaining
