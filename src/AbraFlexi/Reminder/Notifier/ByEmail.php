@@ -18,7 +18,6 @@ use Ease\Html\PTag;
 use Ease\Html\TableTag;
 use Ease\Html\TdTag;
 use Ease\Html\TrTag;
-use Ease\HtmlMailer;
 use Ease\Sand;
 
 /**
@@ -213,7 +212,7 @@ class ByEmail extends Sand
                 $this->mailer->addItem(Upominka::qrPayments($clientDebts));
             }
             $this->addAttachments($clientDebts);
-            $this->mailer->addItem( new \Ease\Html\PTag(new SmallTag(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion()) ));
+            $this->mailer->addItem( new \Ease\Html\PTag(new \Ease\Html\SmallTag(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion()) ));
             $result = true;
         } else {
             $this->addStatusMessage(
