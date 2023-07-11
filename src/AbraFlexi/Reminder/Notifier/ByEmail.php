@@ -181,6 +181,7 @@ class ByEmail extends Sand
             $this->addStatusMessage(sprintf(_('Client %s without email %s !!!'),
                             $nazev, $this->firmer->getApiURL()), 'error');
         }
+        $this->mailer->addItem( new \Ease\Html\PTag(new SmallTag(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion()) ));
         return $result;
     }
 

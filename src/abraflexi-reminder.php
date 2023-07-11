@@ -16,11 +16,11 @@ require_once '../vendor/autoload.php';
 \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
-if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
-    $reminder->logBanner(\Ease\Shared::appName());
+if (strtolower(\Ease\Functions::cfg('APP_DEBUG')) == 'true') {
+    $reminder->logBanner(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion());
 }
 
-$allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - \Ease\Functions::cfg('SURRENDER_DAYS', 365), date("Y"))) . "' "]);
+$allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Functions::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $allClients[''] = ['kod' => '', 'nazev' => '(' . _('Company not assigned') . ')', 'stitky' => [
         'NEUPOMINKOVAT' => 'NEUPOMINKOVAT']];
@@ -36,6 +36,7 @@ $counter = 0;
 $total = [];
 $totalsByClient = [];
 foreach ($allDebts as $code => $debt) {
+
     $howmuchRaw = $howmuch = [];
     if (empty($debt['firma'])) {
         $clientCode = 'code:';
@@ -83,25 +84,28 @@ foreach ($allDebts as $code => $debt) {
 
 $pointer = 0;
 foreach ($allDebtsByClient as $clientCode => $clientDebts) {
-
     $clientCodeShort = RO::uncode($clientCode);
-    if (array_key_exists($clientCode, $clientsToSkip)) {
-        continue;
-    }
-
-    $clientData = $allClients[$clientCodeShort];
-    if ($clientCode) {
-        $reminder->addStatusMessage(
-                $clientCodeShort . ' ' .
-                $clientData['nazev'] .
-                ' [' . implode(',', $clientData['stitky']) . '] ' .
-                Upominac::formatTotals($clientData['totals']),
-                'success');
+    if (empty(trim($clientCodeShort))) {
+        $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts))), 'error');
     } else {
-        $reminder->addStatusMessage(_('Missing Client CODE'), 'warning');
-    }
+        if (array_key_exists($clientCode, $clientsToSkip)) {
+            continue;
+        }
 
-    $reminder->processUserDebts($clientData, $clientDebts);
+        $clientData = $allClients[$clientCodeShort];
+        if ($clientCode) {
+            $reminder->addStatusMessage(
+                    $clientCodeShort . ' ' .
+                    $clientData['nazev'] .
+                    ' [' . implode(',', $clientData['stitky']) . '] ' .
+                    Upominac::formatTotals($clientData['totals']),
+                    'success');
+        } else {
+            $reminder->addStatusMessage(_('Missing Client CODE'), 'warning');
+        }
+
+        $reminder->processUserDebts($clientData, $clientDebts);
+    }
 }
 
 $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');

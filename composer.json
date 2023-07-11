@@ -11,7 +11,6 @@
     "minimum-stability": "dev",
     "require": {
         "vitexsoftware/abraflexi-bricks": "abraflexi-dev",
-        "listonoska/api": "^1.1",
         "spipu/html2pdf": "^5.2", 
         "tecnickcom/tcpdf": "^6.4",
         "hsp-dev/huawei-api": "dev-master" 

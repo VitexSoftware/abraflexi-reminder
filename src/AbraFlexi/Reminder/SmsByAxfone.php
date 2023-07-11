@@ -170,6 +170,16 @@ class SmsByAxfone extends SmsToAddress {
     }
 
     /**
+     * Obtain last curl error here
+     * 
+     * @return string
+     */
+    public function getCurlError()
+    {
+        return $this->lastCurlError;
+    }
+    
+    /**
      * 
      * @return boolean
      */
