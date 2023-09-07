@@ -26,7 +26,7 @@ use Ease\Sand;
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2023 Spoje.Net
  */
-class ByEmail extends Sand
+class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
 {
 
     /**
@@ -66,19 +66,6 @@ class ByEmail extends Sand
         if ($this->compile($score, $reminder->customer, $debts)) {
             $result = $this->send();
             //            file_put_contents('/var/tmp/upominka.html',$this->mailer->htmlDocument);
-            if ($score && $result) {
-                $reminder->customer->adresar->setData([
-                    'id' => $reminder->customer->adresar->getRecordIdent(),
-                    'stitky' => 'UPOMINKA' . $score
-                ], true);
-                $reminder->addStatusMessage(
-                    sprintf(
-                        _('Set Label %s '),
-                        'UPOMINKA' . $score
-                    ),
-                    $reminder->customer->adresar->sync() ? 'success' : 'error'
-                );
-            }
         } else {
             $this->addStatusMessage(_('Remind was not sent'), 'warning');
         }

@@ -17,7 +17,7 @@ use AbraFlexi\Reminder\Upominka;
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2020 Spoje.Net, Vitex Software
  */
-class BySms extends Sand
+class BySms extends Sand implements \AbraFlexi\Reminder\notifier
 {
 
     /**

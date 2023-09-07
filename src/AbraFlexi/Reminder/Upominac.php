@@ -74,7 +74,7 @@ class Upominac extends \AbraFlexi\RW
             $debts2 = $this->customer->getCustomerDebts((int) $clientIDs['id']);
             $this->customer->invoicer->setEvidence('faktura-vydana');
             $debts3 = array_merge(empty($debts) ? [] : $debts, empty($debts2) ? [] : $debts2);
-            if (!empty($debts3) && count($debts3)) {
+            if (!empty($debts3)) {
                 foreach ($debts3 as $did => $debtInfo) {
                     $allDebts[$cid][$did] = $debtInfo;
                     $debtCount++;
@@ -161,22 +161,14 @@ class Upominac extends \AbraFlexi\RW
     }
 
     /**
-     * Process Customer debts
-     *
-     * @param array $clientInfo  AbraFlexi Address (Customer)
-     * @param array $clientDebts Array provided by customer::getCustomerDebts()
-     *
-     * @return int max debt score 1: 0-7 days 1: 8-14 days 3: 15 days and more
+     * Obtain user zewl score and locked/unlocked invoices
+     * 
+     * @param array $clientDebts
+     * @param array $invoicesToSave
+     * @param array $invoicesToLock
      */
-    public function processUserDebts($clientInfo, $clientDebts)
+    public function getCustomerZewlScore($clientDebts, $invoicesToSave, $invoicesToLock)
     {
-        $this->customer->adresar->setData($clientInfo, true);
-        $this->customer->adresar->updateApiURL();
-        $zewlScore = 0;
-        $stitky = $clientInfo['stitky'];
-        $ddifs = [];
-        $invoicesToSave = [];
-        $invoicesToLock = [];
         foreach ($clientDebts as $did => $debt) {
             switch ($debt['zamekK']) {
                 case 'zamek.zamceno':
@@ -211,7 +203,27 @@ class Upominac extends \AbraFlexi\RW
                     break;
             }
         }
+        return $zewlScore;
+    }
 
+    /**
+     * Process Customer debts
+     *
+     * @param array $clientInfo  AbraFlexi Address (Customer)
+     * @param array $clientDebts Array provided by customer::getCustomerDebts()
+     *
+     * @return int max debt score 1: 0-7 days 1: 8-14 days 3: 15 days and more
+     */
+    public function processUserDebts($clientInfo, $clientDebts)
+    {
+        $this->customer->adresar->setData($clientInfo, true);
+        $this->customer->adresar->updateApiURL();
+        $zewlScore = 0;
+        $stitky = $clientInfo['stitky'];
+        $ddifs = [];
+        $invoicesToSave = [];
+        $invoicesToLock = [];
+        $zewlScore = $this->getCustomerZewlScore($clientDebts, &$invoicesToSave, &$invoicesToLock);
         if ($zewlScore == 3 && !array_key_exists('UPOMINKA2', $stitky)) {
             $zewlScore = 2;
         }
@@ -223,6 +235,7 @@ class Upominac extends \AbraFlexi\RW
             if (!array_key_exists('UPOMINKA' . $zewlScore, $stitky)) {
                 if (!array_key_exists('NEUPOMINKOVAT', $stitky)) {
                     if ($this->posliUpominku($zewlScore, $clientDebts)) {
+                        $this->setRemindLabel($zewlScore);
                         foreach ($invoicesToSave as $invoiceCode => $invoiceData) {
                             switch ($zewlScore) {
                                 case 1:
@@ -523,5 +536,20 @@ class Upominac extends \AbraFlexi\RW
             $tmp[] = Upominka::formatCurrency($value) . ' ' . $currency;
         }
         return implode(',', $tmp);
+    }
+
+    /**
+     * Set Remind Label for current customer
+     * 
+     * @param int  $zewlScore
+     * 
+     * @return boolean
+     */
+    public function setRemindLabel($zewlScore)
+    {
+        $this->customer->adresar->setData(['id' => $reminder->customer->adresar->getRecordIdent(), 'stitky' => 'UPOMINKA' . $zewlScore], true);
+        $saved = $this->customer->adresar->sync();
+        $this->addStatusMessage(sprintf(_('Set Label %s '), 'UPOMINKA' . $zewlScore), $saved ? 'success' : 'error' );
+        return $saved;
     }
 }

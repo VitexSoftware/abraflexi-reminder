@@ -20,7 +20,7 @@ class SmsByHuaweiApi extends SmsToAddress
     /**
      * Send SMS using remote Gnokii via sms
      *
-     * @return string Last row of command result stdout
+     * @return boolean Last row of command result stdout
      */
     public function sendMessage()
     {

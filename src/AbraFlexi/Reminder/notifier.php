@@ -2,17 +2,17 @@
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPInterface.php to edit this template
  */
 
-namespace AbraFlexi\Reminder\Notifier;
+namespace AbraFlexi\Reminder;
 
 /**
- * Description of WebHook
  *
  * @author vitex
  */
-class WebHook implements \AbraFlexi\Reminder\notifier {
+interface notifier
+{
     /**
      * Compile Reminder message with its contents
      *
@@ -22,8 +22,5 @@ class WebHook implements \AbraFlexi\Reminder\notifier {
      * 
      * @return boolean
      */
-    public function compile($score, $customer, $clientDebts) {
-     return false; //TODO
-    }
-
+    public function compile($score, $customer, $clientDebts);
 }

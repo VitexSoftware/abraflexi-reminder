@@ -14,7 +14,8 @@
         "vitexsoftware/abraflexi-bricks": "*",
         "spipu/html2pdf": "^5.2", 
         "tecnickcom/tcpdf": "^6.4",
-        "hsp-dev/huawei-api": "dev-master" 
+        "hsp-dev/huawei-api": "dev-master",
+        "dfridrich/czech-data-box": "dev-master" 
     },
     "autoload": {
         "psr-4": {

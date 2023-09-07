@@ -1,18 +1,28 @@
 <?php
 
+declare(strict_types=1);
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
  */
 
+/**
+ * 
+ *
+ * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
+ * @copyright  2023 Vitex Software
+ */
+
 namespace AbraFlexi\Reminder\Notifier;
 
 /**
- * Description of WebHook
+ * Description of ByDatovka
  *
  * @author vitex
  */
-class WebHook implements \AbraFlexi\Reminder\notifier {
+class ByDatovka extends \Defr\CzechDataBox\DataBox implements \AbraFlexi\Reminder\notifier
+{
+
     /**
      * Compile Reminder message with its contents
      *
@@ -22,8 +32,8 @@ class WebHook implements \AbraFlexi\Reminder\notifier {
      * 
      * @return boolean
      */
-    public function compile($score, $customer, $clientDebts) {
-     return false; //TODO
+    public function compile($score, $customer, $clientDebts)
+    {
+        
     }
-
 }
