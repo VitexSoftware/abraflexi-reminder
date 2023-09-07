@@ -31,6 +31,7 @@ class Upominac extends \AbraFlexi\RW
      * @var \AbraFlexi\FakturaVydana
      */
     public $invoicer = null;
+    private $htmlRemind;
 
     /**
      * Reminder
@@ -166,9 +167,11 @@ class Upominac extends \AbraFlexi\RW
      * @param array $clientDebts
      * @param array $invoicesToSave
      * @param array $invoicesToLock
+     * @param array $ddifs
      */
-    public function getCustomerZewlScore($clientDebts, $invoicesToSave, $invoicesToLock)
+    public function getCustomerZewlScore($clientDebts, &$invoicesToSave, &$invoicesToLock, &$ddifs)
     {
+        $zewlScore = 0;
         foreach ($clientDebts as $did => $debt) {
             switch ($debt['zamekK']) {
                 case 'zamek.zamceno':
@@ -218,12 +221,11 @@ class Upominac extends \AbraFlexi\RW
     {
         $this->customer->adresar->setData($clientInfo, true);
         $this->customer->adresar->updateApiURL();
-        $zewlScore = 0;
         $stitky = $clientInfo['stitky'];
         $ddifs = [];
         $invoicesToSave = [];
         $invoicesToLock = [];
-        $zewlScore = $this->getCustomerZewlScore($clientDebts, &$invoicesToSave, &$invoicesToLock);
+        $zewlScore = $this->getCustomerZewlScore($clientDebts, $invoicesToSave, $invoicesToLock, $ddifs);
         if ($zewlScore == 3 && !array_key_exists('UPOMINKA2', $stitky)) {
             $zewlScore = 2;
         }
@@ -512,8 +514,7 @@ class Upominac extends \AbraFlexi\RW
     public function getCustomerList($conditions = [])
     {
         //[/* 'typVztahuK'=>'typVztahu.odberDodav' */]
-        $allClients = $this->customer->adresar->getColumnsFromAbraFlexi(['id', 'nazev',
-            'stitky'], $conditions, 'kod');
+        $allClients = $this->customer->adresar->getColumnsFromAbraFlexi(['id', 'nazev','ic', 'stitky'], $conditions, 'kod');
         if (!empty($allClients)) {
             foreach ($allClients as $clientCode => $clientInfo) {
                 $allClients[$clientCode]['stitky'] = \AbraFlexi\Stitek::listToArray($clientInfo['stitky']);
@@ -547,9 +548,26 @@ class Upominac extends \AbraFlexi\RW
      */
     public function setRemindLabel($zewlScore)
     {
-        $this->customer->adresar->setData(['id' => $reminder->customer->adresar->getRecordIdent(), 'stitky' => 'UPOMINKA' . $zewlScore], true);
+        $this->customer->adresar->setData(['id' => $this->customer->adresar->getRecordIdent(), 'stitky' => 'UPOMINKA' . $zewlScore], true);
         $saved = $this->customer->adresar->sync();
         $this->addStatusMessage(sprintf(_('Set Label %s '), 'UPOMINKA' . $zewlScore), $saved ? 'success' : 'error' );
         return $saved;
     }
+
+    /**
+     * 
+     * @param mixed $htmlRemind
+     */
+    public function setHtmlRemind($htmlRemind)
+    {
+        $this->htmlRemind = $htmlRemind;
+    }
+    
+    public function savePdfRemind($saveTo)
+    {
+        $html2pdf = new \Spipu\Html2Pdf\Html2Pdf();
+        $html2pdf->writeHTML($this->htmlRemind->getRendered());
+        return $html2pdf->output($saveTo,'F');
+    }
+    
 }

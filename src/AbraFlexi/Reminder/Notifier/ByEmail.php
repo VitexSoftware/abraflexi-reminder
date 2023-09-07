@@ -59,13 +59,14 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
      * @param int      $score     weeks of due
      * @param array    $debts     array of debts by current customer
      */
-    public function __construct($reminder, $score, $debts)
+    public function __construct(&$reminder, $score, $debts)
     {
         $result = false;
         $this->setObjectName();
         if ($this->compile($score, $reminder->customer, $debts)) {
             $result = $this->send();
-            //            file_put_contents('/var/tmp/upominka.html',$this->mailer->htmlDocument);
+            $reminder->setHtmlRemind($this->mailer->htmlDocument);
+            file_put_contents('/var/tmp/upominka.html', $this->mailer->htmlDocument);
         } else {
             $this->addStatusMessage(_('Remind was not sent'), 'warning');
         }
@@ -87,7 +88,6 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
         $email = $customer->adresar->getNotificationEmailAddress();
         $nazev = $customer->adresar->getDataValue('nazev');
         $this->invoicer = new FakturaVydana();
-
         $this->firmer = &$customer->adresar;
         if ($email) {
 
@@ -106,12 +106,12 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
                     $lastInvDays = Upominac::getDaysToLastInventarization($clientDebts);
                     if ($lastInvDays < 14) {
                         $this->addStatusMessage(
-                            sprintf(
-                                _('Last  remind / inventarization for %s send before %d days; skipping'),
-                                RO::uncode($customer),
-                                $lastInvDays
-                            ),
-                            'debug'
+                                sprintf(
+                                        _('Last  remind / inventarization for %s send before %d days; skipping'),
+                                        RO::uncode($customer),
+                                        $lastInvDays
+                                ),
+                                'debug'
                         );
                         return false;
                     }
@@ -121,15 +121,13 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
 
 
             $invoices = [];
-
             $to = $email;
-
             $dnes = new DateTime();
             $subject = $upominka->getDataValue('hlavicka') . ' ke dni ' . $dnes->format('d.m.Y');
-
             $this->mailer = new RemindMailer($to, $subject);
-
             $heading = new DivTag($upominka->getDataValue('uvod') . ' ' . $nazev);
+
+            /*
             if (Functions::cfg('ADD_LOGO')) {
                 $headingTableRow = new TrTag();
                 $headingTableRow->addItem(new TdTag($heading));
@@ -140,25 +138,27 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
                     'title' => _('Company logo')
                 ]);
                 $headingTableRow->addItem(
-                    new TdTag(
-                        $logo,
-                        ['width' => '200px']
-                    )
+                        new TdTag(
+                                $logo,
+                                ['width' => '200px']
+                        )
                 );
                 $headingTable = new TableTag(
-                    $headingTableRow,
-                    ['width' => '100%']
+                        $headingTableRow,
+                        ['width' => '100%']
                 );
+                $headingTable->addRowHeaderColumns(['']);
                 $this->mailer->addItem($headingTable);
             } else {
                 $this->mailer->addItem($heading);
             }
-
+            */
+            
             $this->mailer->addItem(new PTag());
             $this->mailer->addItem(new DivTag(nl2br($upominka->getDataValue('textNad'))));
             $debtsTable = new TableTag(
-                null,
-                ['class' => 'greyGridTable']
+                    null,
+                    ['class' => 'greyGridTable']
             );
             $debtsTable->addRowHeaderColumns([
                 _('Code'),
@@ -168,7 +168,6 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
                 _('Due Date'),
                 _('overdue days')
             ]);
-
             foreach ($clientDebts as $debt) {
                 $currency = RO::uncode($debt['mena']);
                 if ($currency == 'CZK') {
@@ -195,18 +194,15 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
             $this->mailer->addItem(new HrTag());
             $this->mailer->addItem(new DivTag(nl2br($upominka->getDataValue('zapati'))));
 
-            if (Functions::cfg('QR_PAYMENTS')) {
-                $this->mailer->addItem(Upominka::qrPayments($clientDebts));
-            }
+//            if (Functions::cfg('QR_PAYMENTS')) {
+//                $this->mailer->addItem(Upominka::qrPayments($clientDebts));
+//            }
+            
             $this->addAttachments($clientDebts);
-            $this->mailer->addItem( new \Ease\Html\PTag(new \Ease\Html\SmallTag(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion()) ));
+            $this->mailer->addItem(new \Ease\Html\PTag(new \Ease\Html\SmallTag(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion())));
             $result = true;
         } else {
-            $this->addStatusMessage(
-                sprintf(
-                    _('Client %s without email %s !!!'),
-                    $nazev, $this->firmer->getApiURL()
-                ), 'error');
+            $this->addStatusMessage(sprintf(_('Client %s without email %s !!!'), $nazev, $this->firmer->getApiURL()), 'error');
         }
         return $result;
     }
@@ -219,8 +215,9 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
     public function addAttachments($clientDebts)
     {
         foreach ($clientDebts as $debtCode => $debt) {
-            if (Functions::cfg('MAX_MAIL_SIZE') && ($this->mailer->getCurrentMailSize() > Functions::cfg('MAX_MAIL_SIZE', 30000000))) {
-                $this->mailer->addStatusMessage(sprintf(_('Not enough space in this mail for attaching %s '), $debtCode), 'warning');
+            $mailSize = $this->mailer->getCurrentMailSize();
+            if ($mailSize > intval(Functions::cfg('MAX_MAIL_SIZE', 30000000))) {
+                $this->mailer->addStatusMessage(sprintf(_('Not enough space in this mail (%s) for attaching %s '), \Ease\Functions::formatBytes($mailSize), $debtCode), 'warning');
                 continue;
             }
             if (array_key_exists('evidence', $debt)) {
@@ -228,12 +225,12 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
             }
             $this->invoicer->setMyKey(RO::code($debt['kod']));
             $this->mailer->addFile(
-                $this->invoicer->downloadInFormat('pdf', '/tmp/'),
-                Formats::$formats['PDF']['content-type']
+                    $this->invoicer->downloadInFormat('pdf', '/tmp/'),
+                    Formats::$formats['PDF']['content-type']
             );
             $this->mailer->addFile(
-                $this->invoicer->downloadInFormat('isdocx', '/tmp/'),
-                Formats::$formats['ISDOCx']['content-type']
+                    $this->invoicer->downloadInFormat('isdocx', '/tmp/'),
+                    Formats::$formats['ISDOCx']['content-type']
             );
         }
     }
@@ -247,5 +244,4 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
     {
         return $this->mailer->send();
     }
-
 }
