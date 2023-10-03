@@ -3,8 +3,8 @@
 set -e
 
 if [ "$1" = "configure" ]; then
-    jq '.require += {"deb/huaweiapi": "*"}' /usr/lib/abraflexi-reminder/composer.json > /tmp/composer.json
-    mv /tmp/composer.json /usr/lib/abraflexi-reminder/composer.json
+    cat /usr/lib/abraflexi-reminder/composer.json | jq '.require += {"deb/huaweiapi": "*"}' | tee /usr/lib/abraflexi-reminder/composer.json
+    cat /usr/lib/abraflexi-reminder/composer.json | jq '.repositories += [{"type":"path","url":"/usr/share/php/HuaweiApi/"}]' | tee /usr/lib/abraflexi-reminder/composer.json
     composer-debian abraflexi-reminder
 fi
 
