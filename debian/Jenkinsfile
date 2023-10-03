@@ -1,6 +1,6 @@
 #!groovy
 
-String[] distributions = ['debian:buster', 'debian:bullseye', 'debian:bookworm', 'ubuntu:focal', 'ubuntu:jammy']
+String[] distributions = ['debian:bullseye', 'debian:bookworm', 'ubuntu:focal', 'ubuntu:jammy']
 
 String vendor = 'vitexsoftware'
 String distribution = ''
@@ -9,8 +9,8 @@ String distroCodename = ''
 String ver = ''
 
 properties([
-        copyArtifactPermission('*')
-    ])
+    copyArtifactPermission('*')
+])
 node() {
     ansiColor('xterm') {
         stage('SCM Checkout') {
@@ -35,11 +35,11 @@ distributions.each {
             stage('Checkout ' + distribution) {
                 buildImage = docker.image(vendor + '/' + distribution)
 		sh 'git checkout debian/changelog'
-                def VERSION = sh (
+                def version = sh (
                     script: 'dpkg-parsechangelog --show-field Version',
                     returnStdout: true
                 ).trim()
-                ver = VERSION + '~' + distroCodename + '~' + env.BUILD_NUMBER
+                ver = version + '.' + env.BUILD_NUMBER  + '~' + distroCodename
             }
             stage('Build ' + distribution) {
                 buildImage.inside {
