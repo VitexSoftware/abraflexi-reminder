@@ -42,7 +42,8 @@ Description: Gnokii helper for Remind sender for abraflexi
  Allow send abraflexi SMS Reminds using Gnokii 
 
 Package: abraflexi-reminder-huaweiapi
-Depends: ${misc:Depends}, abraflexi-reminder, php-hspdev-huaweiapi, jq
+PreDepends: jq
+Depends: ${misc:Depends}, abraflexi-reminder-sms, php-hspdev-huaweiapi
 Architecture: all
 Section: web
 Priority: optional
