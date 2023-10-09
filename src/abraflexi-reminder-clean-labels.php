@@ -19,7 +19,7 @@ require_once '../vendor/autoload.php';
 \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
-if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
+if (\Ease\Shared::cfg('APP_DEBUG') == 'True') {
     $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
 }
 

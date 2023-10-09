@@ -25,12 +25,12 @@ class SmsBySshGnokii extends SmsToAddress
      */
     public function sendMessage()
     {
-        if (defined('GNOKII_HOST')) {
-            $command = '../bin/sshgnokiisms ' . $this->getNumber() . ' "' . \Ease\Functions::rip($this->getMessage()) . '" ' . constant('GNOKII_HOST');
+        if (\Ease\Shared::cfg('GNOKII_HOST')) {
+            $command = '../bin/sshgnokiisms ' . $this->getNumber() . ' "' . \Ease\Functions::rip($this->getMessage()) . '" ' . \Ease\Shared::cfg('GNOKII_HOST');
             $this->addStatusMessage('SMS ' . $this->getNumber() . ': ' . $command, 'debug');
             return system($command);
         } else {
-            $this->addStatusMessage(_('Please set GNOKII_HOST in gnoki file'));
+            $this->addStatusMessage(_('Please set GNOKII_HOST in gnokii file'));
         }
         return '';
     }

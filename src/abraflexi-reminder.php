@@ -17,11 +17,11 @@ require_once '../vendor/autoload.php';
 \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
-if (strtolower(\Ease\Functions::cfg('APP_DEBUG')) == 'true') {
+if (strtolower(\Ease\Shared::cfg('APP_DEBUG')) == 'true') {
     $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
 }
 
-$allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Functions::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
+$allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Shared::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $allClients[''] = ['kod' => '', 'nazev' => '(' . _('Company not assigned') . ')', 'stitky' => [
         'NEUPOMINKOVAT' => 'NEUPOMINKOVAT']];
@@ -86,7 +86,7 @@ $pointer = 0;
 foreach ($allDebtsByClient as $clientCode => $clientDebts) {
     $clientCodeShort = RO::uncode($clientCode);
     if (empty(trim($clientCodeShort))) {
-        $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts))), 'error');
+        $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($clientDebts))), 'error');
     } else {
         if (array_key_exists($clientCode, $clientsToSkip)) {
             continue;

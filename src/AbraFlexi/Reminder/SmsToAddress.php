@@ -23,12 +23,12 @@ class SmsToAddress extends Sms
      * Send SMS to default Phone number
      *
      * @param Adresar $address
-     * @param string              $message
+     * @param string  $message
      */
     public function __construct($address, $message = '')
     {
-        if (Functions::cfg('MUTE') && (Functions::cfg('MUTE') == 'true')) {
-            $smsNo = Functions::cfg('SMS_SENDER');
+        if (\Ease\Shared::cfg('MUTE') == 'true') {
+            $smsNo = \Ease\Shared::cfg('SMS_SENDER');
         } else {
             $smsNo = $address->getAnyPhoneNumber();
         }

@@ -14,7 +14,7 @@ require_once '../vendor/autoload.php';
 try {
     $labelsRequied = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'];
     $labeler = new \AbraFlexi\Stitek();
-    if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
+    if (\Ease\Shared::cfg('APP_DEBUG') == 'True') {
         $labeler->logBanner(\Ease\Shared::appName());
     }
     foreach ($labelsRequied as $labelRequied) {

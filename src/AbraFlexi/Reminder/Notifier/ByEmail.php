@@ -2,23 +2,23 @@
 
 namespace AbraFlexi\Reminder\Notifier;
 
-use AbraFlexi\Bricks\Customer;
-use AbraFlexi\FakturaVydana;
-use AbraFlexi\Formats;
-use AbraFlexi\Reminder\RemindMailer;
-use AbraFlexi\Reminder\Upominac;
-use AbraFlexi\Reminder\Upominka;
-use AbraFlexi\RO;
-use AbraFlexi\ui\CompanyLogo;
-use DateTime;
-use Ease\Functions;
-use Ease\Html\DivTag;
-use Ease\Html\HrTag;
-use Ease\Html\PTag;
-use Ease\Html\TableTag;
-use Ease\Html\TdTag;
-use Ease\Html\TrTag;
-use Ease\Sand;
+use AbraFlexi\Bricks\Customer,
+
+    \AbraFlexi\FakturaVydana,
+    \AbraFlexi\Formats,
+    \AbraFlexi\Reminder\RemindMailer,
+    \AbraFlexi\Reminder\Upominac,
+    \AbraFlexi\Reminder\Upominka,
+    \AbraFlexi\RO,
+    \AbraFlexi\ui\CompanyLogo,
+    \DateTime,
+    \Ease\Html\DivTag,
+    \Ease\Html\HrTag,
+    \Ease\Html\PTag,
+    \Ease\Html\TableTag,
+    \Ease\Html\TdTag,
+    \Ease\Html\TrTag,
+    \Ease\Sand;
 
 /**
  * AbraFlexi - Remind by eMail class
@@ -64,7 +64,6 @@ class ByEmail extends Sand
         $this->setObjectName();
         if ($this->compile($score, $reminder->customer, $debts)) {
             $result = $this->send();
-            //            file_put_contents('/var/tmp/upominka.html',$this->mailer->htmlDocument);
             if ($score && $result) {
                 $reminder->customer->adresar->setData([
                     'id' => $reminder->customer->adresar->getRecordIdent(),
@@ -141,7 +140,7 @@ class ByEmail extends Sand
             $this->mailer = new RemindMailer($to, $subject);
 
             $heading = new DivTag($upominka->getDataValue('uvod') . ' ' . $nazev);
-            if (Functions::cfg('ADD_LOGO')) {
+            if (\Ease\Shared::cfg('ADD_LOGO')) {
                 $headingTableRow = new TrTag();
                 $headingTableRow->addItem(new TdTag($heading));
                 $logo = new CompanyLogo([
@@ -206,7 +205,7 @@ class ByEmail extends Sand
             $this->mailer->addItem(new HrTag());
             $this->mailer->addItem(new DivTag(nl2br($upominka->getDataValue('zapati'))));
 
-            if (Functions::cfg('QR_PAYMENTS')) {
+            if (\Ease\Shared::cfg('QR_PAYMENTS')) {
                 $this->mailer->addItem(Upominka::qrPayments($clientDebts));
             }
             $this->addAttachments($clientDebts);
@@ -233,7 +232,7 @@ class ByEmail extends Sand
     public function addAttachments($clientDebts)
     {
         foreach ($clientDebts as $debtCode => $debt) {
-            if (Functions::cfg('MAX_MAIL_SIZE') && ($this->mailer->getCurrentMailSize() > Functions::cfg('MAX_MAIL_SIZE', 30000000))) {
+            if (\Ease\Shared::cfg('MAX_MAIL_SIZE') && ($this->mailer->getCurrentMailSize() > \Ease\Shared::cfg('MAX_MAIL_SIZE', 30000000))) {
                 $this->mailer->addStatusMessage(sprintf(_('Not enough space in this mail for attaching %s '), $debtCode), 'warning');
                 continue;
             }

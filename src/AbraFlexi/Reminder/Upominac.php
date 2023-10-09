@@ -487,8 +487,8 @@ class Upominac extends \AbraFlexi\RW
         );
         if ($this->invoicer->lastResponseCode == 200) {
             $skiplist = [];
-            if (\Ease\Functions::cfg('SKIPLIST')) {
-                $skiplist = \AbraFlexi\Stitek::listToArray(\Ease\Functions::cfg('SKIPLIST'));
+            if (\Ease\Shared::cfg('SKIPLIST')) {
+                $skiplist = \AbraFlexi\Stitek::listToArray(\Ease\Shared::cfg('SKIPLIST'));
             }
 
             $evidenceUsed = $this->invoicer->getEvidence();
@@ -559,7 +559,7 @@ class Upominac extends \AbraFlexi\RW
     {
         $tmp = [];
         foreach ($totals as $currency => $value) {
-            $tmp[] = Upominka::formatCurrency($value) . ' ' . $currency;
+            $tmp[] = \AbraFlexi\Reminder\Upominka::formatCurrency($value) . ' ' . $currency;
         }
         return implode(',', $tmp);
     }

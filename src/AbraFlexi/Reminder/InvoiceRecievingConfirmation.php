@@ -82,7 +82,7 @@ class InvoiceRecievingConfirmation extends RemindMailer
             $to,
             sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\RO::uncode($invoice->getRecordIdent()))
         );
-        $this->setMailHeaders(['Cc' => \Ease\Functions::cfg('SEND_INFO_TO')]);
+        $this->setMailHeaders(['Cc' => \Ease\Shared::cfg('SEND_INFO_TO')]);
         $this->addItem($body);
     }
 }

@@ -36,10 +36,10 @@ class BySms extends Sand
     {
         $this->setObjectName();
         $result = false;
-        if (\Ease\Functions::cfg('SMS_ENGINE')) {
+        if (\Ease\Shared::cfg('SMS_ENGINE')) {
             if ($reminder->customer->adresar->getAnyPhoneNumber()) {
                 $message = $this->compile($score, $reminder->customer, $debts);
-                switch (\Ease\Functions::cfg('SMS_ENGINE')) {
+                switch (\Ease\Shared::cfg('SMS_ENGINE')) {
                     case 'axfone':
                         $smsEngine = new SmsByAxfone($reminder->customer->adresar, $message);
                         break;

@@ -27,13 +27,13 @@ class RemindMailer extends HtmlMailer
      */
     public function __construct($sendTo, $subject)
     {
-        $this->fromEmailAddress = Functions::cfg('REMIND_FROM');
-        if (strtolower(Functions::cfg('MUTE')) == 'true') {
-            $sendTo = Functions::cfg('EASE_EMAILTO');
+        $this->fromEmailAddress = \Ease\Shared::cfg('REMIND_FROM');
+        if (strtolower(\Ease\Shared::cfg('MUTE')) == 'true') {
+            $sendTo = \Ease\Shared::cfg('EASE_EMAILTO');
         }
         parent::__construct($sendTo, $subject);
-        if (Functions::cfg('MAIL_CC')) {
-            $this->setMailHeaders(['Cc' => Functions::cfg('MAIL_CC')]);
+        if (\Ease\Shared::cfg('MAIL_CC')) {
+            $this->setMailHeaders(['Cc' => \Ease\Shared::cfg('MAIL_CC')]);
         }
         $this->setObjectName();
 

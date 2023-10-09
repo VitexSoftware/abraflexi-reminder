@@ -57,7 +57,7 @@ class SmsByAxfone extends SmsToAddress
         $this->api_url_protocol = "https://";
         $this->api_url_host = "sms.axfone.eu";
         $this->api_user_id = $this->api_user_name;
-        $this->api_parameters = ["MT_Source" => urlencode(\Ease\Functions::cfg('SMS_SENDER'))];
+        $this->api_parameters = ["MT_Source" => urlencode(\Ease\Shared::cfg('SMS_SENDER'))];
         $this->api_full_url = $this->api_url_protocol . $this->api_url_host . "/" . $this->api_user_id . "/";
     }
 

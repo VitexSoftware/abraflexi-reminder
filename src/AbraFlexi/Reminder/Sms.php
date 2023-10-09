@@ -74,7 +74,7 @@ class Sms extends \Ease\Sand
      */
     public function getNumber()
     {
-        return \Ease\Functions::cfg('DEBUG') ? \Ease\Functions::cfg('SMS_SENDER') : $this->number;
+        return \Ease\Shared::cfg('DEBUG') ? \Ease\Shared::cfg('SMS_SENDER') : $this->number;
     }
 
     /**

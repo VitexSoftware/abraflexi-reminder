@@ -16,11 +16,11 @@ try {
     \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
     $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
     $reminder = new Upominac();
-    if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
+    if (\Ease\Shared::cfg('APP_DEBUG') == 'True') {
         $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
     }
 
-    $allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Functions::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
+    $allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Shared::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
     $allClients = $reminder->getCustomerList(['limit' => 0]);
     $clientsToSkip = [];
     if (empty($allClients)) {
