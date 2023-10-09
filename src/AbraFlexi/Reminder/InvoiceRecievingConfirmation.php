@@ -14,20 +14,21 @@ namespace AbraFlexi\Reminder;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class InvoiceRecievingConfirmation extends RemindMailer {
-
+class InvoiceRecievingConfirmation extends RemindMailer
+{
     /**
      * Company signature
-     * @var string 
+     * @var string
      */
     static $signature = '';
 
     /**
      * Odešle potvrzení úhrady
-     * 
+     *
      * @param \AbraFlexi\FakturaVydana $invoice
      */
-    public function __construct($invoice = null) {
+    public function __construct($invoice = null)
+    {
         parent::__construct(null, null);
         if (!is_null($invoice)) {
             $this->assignInvoice($invoice);
@@ -35,26 +36,23 @@ class InvoiceRecievingConfirmation extends RemindMailer {
     }
 
     /**
-     * 
+     *
      * @param \AbraFlexi\FakturaPrijata $invoice
      */
-    public function assignInvoice($invoice) {
+    public function assignInvoice($invoice)
+    {
         $defaultLocale = 'cs_CZ';
         setlocale(LC_ALL, $defaultLocale);
         putenv("LC_ALL=$defaultLocale");
-
         $body = new \Ease\Container();
-
         $to = (new \AbraFlexi\Adresar($invoice->getDataValue('firma')))->getNotificationEmailAddress();
-
-        $customerName = $invoice->getDataValue('firma@showAs');
+        $customerName = $invoice->getDataValue('firma')->showAs;
         if (empty($customerName)) {
             $customerName = \AbraFlexi\RO::uncode($invoice->getDataValue('firma'));
         }
 
         $this->addItem(new \AbraFlexi\ui\CompanyLogo(['align' => 'right', 'id' => 'companylogo',
                     'height' => '50', 'title' => _('Company logo')]));
-
         $prober = new \AbraFlexi\Company();
         $infoRaw = $prober->getFlexiData();
         if (count($infoRaw) && !array_key_exists('success', $infoRaw)) {
@@ -66,24 +64,25 @@ class InvoiceRecievingConfirmation extends RemindMailer {
         }
 
 
-        $this->addItem(new \Ease\Html\DivTag(sprintf(_('Dear customer %s,'),
-                                $customerName)));
+        $this->addItem(new \Ease\Html\DivTag(sprintf(
+            _('Dear customer %s,'),
+            $customerName
+        )));
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
-
-        $this->addItem(new \Ease\Html\DivTag(sprintf(_('we confirm receipt of invoice %s as %s '),
-                                $invoice->getDataValue('cisDosle'), $invoice->getDataValue('kod'))));
+        $this->addItem(new \Ease\Html\DivTag(sprintf(
+            _('we confirm receipt of invoice %s as %s '),
+            $invoice->getDataValue('cisDosle'),
+            $invoice->getDataValue('kod')
+        )));
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
-
         $body->addItem(new \Ease\Html\DivTag(_('With greetings')));
-
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
-
         $body->addItem(nl2br($this->getSignature()));
-
-        parent::__construct($to,
-                sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\RO::uncode($invoice->getRecordIdent())));
+        parent::__construct(
+            $to,
+            sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\RO::uncode($invoice->getRecordIdent()))
+        );
         $this->setMailHeaders(['Cc' => \Ease\Functions::cfg('SEND_INFO_TO')]);
         $this->addItem($body);
     }
-
 }

@@ -16,14 +16,15 @@ use AbraFlexi\Reminder\SmsToAddress;
  *
  * @author vitex
  */
-class SmsBySshGnokii extends SmsToAddress {
-
+class SmsBySshGnokii extends SmsToAddress
+{
     /**
      * Send SMS using remote Gnokii via sms
      *
      * @return string Last row of command result stdout
      */
-    public function sendMessage() {
+    public function sendMessage()
+    {
         if (defined('GNOKII_HOST')) {
             $command = '../bin/sshgnokiisms ' . $this->getNumber() . ' "' . \Ease\Functions::rip($this->getMessage()) . '" ' . constant('GNOKII_HOST');
             $this->addStatusMessage('SMS ' . $this->getNumber() . ': ' . $command, 'debug');
@@ -33,5 +34,4 @@ class SmsBySshGnokii extends SmsToAddress {
         }
         return '';
     }
-
 }

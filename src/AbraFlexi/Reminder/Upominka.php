@@ -16,16 +16,15 @@ namespace AbraFlexi\Reminder;
  */
 class Upominka extends \AbraFlexi\RW
 {
-
     /**
      * Remind templates evidence name
-     * @var string 
+     * @var string
      */
     public $evidence = 'sablona-upominky';
 
     /**
      *
-     * @var \AbraFlexi\Adresar 
+     * @var \AbraFlexi\Adresar
      */
     public $firmer = null;
 
@@ -37,7 +36,7 @@ class Upominka extends \AbraFlexi\RW
 
     /**
      *
-     * @var string 
+     * @var string
      */
     static $styles = '
 table.greyGridTable {
@@ -83,7 +82,7 @@ table.greyGridTable tfoot td {
 
     /**
      * AbraFlexi Remind tempalte helper
-     * 
+     *
      * @param string $init
      * @param array $options
      */
@@ -100,15 +99,17 @@ table.greyGridTable tfoot td {
      */
     public function loadTemplate($template)
     {
-        $this->takeData(current($this->getColumnsFromAbraFlexi('*',
-                                ['typSablonyK' => 'typSablony.' . $template])));
+        $this->takeData(current($this->getColumnsFromAbraFlexi(
+            '*',
+            ['typSablonyK' => 'typSablony.' . $template]
+        )));
     }
 
     /**
      * Obtain all debts sums indexed by currency
-     * 
+     *
      * @param array $debts
-     * 
+     *
      * @return array
      */
     public static function getSums($debts)
@@ -132,9 +133,9 @@ table.greyGridTable tfoot td {
 
     /**
      * Block of QR Payment
-     * 
+     *
      * @param array  $debts
-     * 
+     *
      * @return \Ease\Html\DivTag
      */
     public static function qrPayments($debts)
@@ -154,8 +155,11 @@ table.greyGridTable tfoot td {
             $qrDiv->addItem(new \Ease\Html\DivTag($invoiceId . ' <strong>' . $amount . '</strong> ' . $currency));
             try {
                 $qrCode = $invoicer->getQrCodeBase64(200);
-                $qrDiv->addItem(new \Ease\Html\ImgTag($qrCode,_('QR Payment'),
-                                ['width' => 200, 'height' => 200, 'title' => $invoiceId]));
+                $qrDiv->addItem(new \Ease\Html\ImgTag(
+                    $qrCode,
+                    _('QR Payment'),
+                    ['width' => 200, 'height' => 200, 'title' => $invoiceId]
+                ));
             } catch (\AbraFlexi\Exception $exc) {
             }
         }
@@ -164,9 +168,9 @@ table.greyGridTable tfoot td {
 
     /**
      * Format Czech Currency
-     * 
+     *
      * @param float $price
-     * 
+     *
      * @return string
      */
     public static function formatCurrency($price)

@@ -7,6 +7,7 @@
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2023 Vitex Software
  */
+
 define('EASE_APPNAME', 'ReminderInit');
 require_once '../vendor/autoload.php';
 \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
@@ -23,9 +24,13 @@ try {
                 "nazev" => $labelRequied,
                 "vsbAdr" => true
             ]);
-            $labeler->addStatusMessage(sprintf(_('Requied label %s create'),
-                            $labelRequied),
-                    ($labeler->lastResponseCode == 201) ? 'success' : 'error' );
+            $labeler->addStatusMessage(
+                sprintf(
+                    _('Requied label %s create'),
+                    $labelRequied
+                ),
+                ($labeler->lastResponseCode == 201) ? 'success' : 'error'
+            );
         }
     }
 } catch (Exception $exc) {

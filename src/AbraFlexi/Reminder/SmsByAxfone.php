@@ -16,8 +16,8 @@ use AbraFlexi\Reminder\SmsToAddress;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class SmsByAxfone extends SmsToAddress {
-
+class SmsByAxfone extends SmsToAddress
+{
     use \Ease\RecordKey;
 
     public $api_url_protocol = "https://";
@@ -38,18 +38,20 @@ class SmsByAxfone extends SmsToAddress {
 
     /**
      * Send SMS to Address usinx AXFONE API
-     * 
+     *
      * @param \AbraFlexi\Adresar $address To
      * @param string              $message Plaintext
      * @param array               $options Description
      */
-    public function __construct($address = null, $message = null, $options = []) {
+    public function __construct($address = null, $message = null, $options = [])
+    {
         $this->setup($options);
         $this->curlInit();
         parent::__construct($address, $message);
     }
 
-    public function setup($options) {
+    public function setup($options)
+    {
         $this->setupProperty($options, 'api_user_name', 'AXFONE_USERNAME');
         $this->setupProperty($options, 'api_password', 'AXFONE_PASSWORD');
         $this->api_url_protocol = "https://";
@@ -59,7 +61,8 @@ class SmsByAxfone extends SmsToAddress {
         $this->api_full_url = $this->api_url_protocol . $this->api_url_host . "/" . $this->api_user_id . "/";
     }
 
-    public function curlInit() {
+    public function curlInit()
+    {
         $this->curl = \curl_init(); // create curl resource
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true); // return content as a string from curl_exec
         curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true); // follow redirects (compatibility for future changes in AbraFlexi)
@@ -68,27 +71,33 @@ class SmsByAxfone extends SmsToAddress {
         curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($this->curl, CURLOPT_VERBOSE, false); // For debugging
 
-        curl_setopt($this->curl, CURLOPT_USERPWD,
-                $this->api_user_name . ':' . $this->api_password); // set username and password
+        curl_setopt(
+            $this->curl,
+            CURLOPT_USERPWD,
+            $this->api_user_name . ':' . $this->api_password
+        ); // set username and password
     }
 
     /**
-     * 
+     *
      * @param string $api_full_url
      * @param string $api_function
      * @param array $api_parameters
-     * 
+     *
      * @return boolean
      */
-    function callAxfoneApi($api_full_url, $api_function, $api_parameters) {
+    function callAxfoneApi($api_full_url, $api_function, $api_parameters)
+    {
         $api_url_params = '';
         $mt_destination = '';
         switch ($api_function) {
             case "send_sms":
-
                 $mt_source = $api_parameters["MT_Source"];
-                $mt_destination = preg_replace('/^420/', '',
-                        $api_parameters["MT_Destination"]);
+                $mt_destination = preg_replace(
+                    '/^420/',
+                    '',
+                    $api_parameters["MT_Destination"]
+                );
 
                 if (substr($mt_destination, 0, 6) !== "%2b420") {
                     $mt_destination = "%2b420" . $mt_destination;
@@ -132,21 +141,29 @@ class SmsByAxfone extends SmsToAddress {
         $this->lastCurlError = curl_error($this->curl);
         $this->lastResponseCode = $this->curlInfo['http_code'];
 
-        if (($this->lastResponseCode != 200) || strstr($this->lastResponseCode,
-                        'ERROR')) {
-            $this->addStatusMessage(urldecode($mt_destination) . ': ' . str_replace("\n",
-                            ' ', strip_tags($this->lastCurlResponse)), 'error');
+        if (
+            ($this->lastResponseCode != 200) || strstr(
+                $this->lastResponseCode,
+                'ERROR'
+            )
+        ) {
+            $this->addStatusMessage(urldecode($mt_destination) . ': ' . str_replace(
+                "\n",
+                ' ',
+                strip_tags($this->lastCurlResponse)
+            ), 'error');
         }
         return $this->lastResponseCode == 200;
     }
 
     /**
-     * 
+     *
      * @param string $sms
-     * 
+     *
      * @return boolean
      */
-    function sendSmsMessage($sms) {
+    function sendSmsMessage($sms)
+    {
 
         $sms_id = $this->getMyKey();
         $sms_klient_id = $this->getDataValue('specSym');
@@ -155,11 +172,16 @@ class SmsByAxfone extends SmsToAddress {
         $this->api_parameters["MT_Data"] = $sms;
         $this->api_parameters["MT_RefID"] = $sms_id . "|" . $sms_klient_id . "|" . time();
 
-        $sms_action_result["status"] = $this->callAxfoneApi($this->api_full_url,
-                "send_sms", $this->api_parameters);
+        $sms_action_result["status"] = $this->callAxfoneApi(
+            $this->api_full_url,
+            "send_sms",
+            $this->api_parameters
+        );
 
-        $this->addStatusMessage($this->api_parameters["MT_Destination"] . ':' . $sms,
-                !$sms_action_result["status"] ? 'error' : 'success');
+        $this->addStatusMessage(
+            $this->api_parameters["MT_Destination"] . ':' . $sms,
+            !$sms_action_result["status"] ? 'error' : 'success'
+        );
 
         if (!$sms_action_result["status"]) {
             //echo "Nastala chyba při odesílání SMS!";
@@ -171,20 +193,20 @@ class SmsByAxfone extends SmsToAddress {
 
     /**
      * Obtain last curl error here
-     * 
+     *
      * @return string
      */
     public function getCurlError()
     {
         return $this->lastCurlError;
     }
-    
+
     /**
-     * 
+     *
      * @return boolean
      */
-    public function sendMessage() {
+    public function sendMessage()
+    {
         return $this->sendSmsMessage($this->message);
     }
-
 }

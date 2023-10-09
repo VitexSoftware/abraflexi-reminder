@@ -9,6 +9,7 @@ use AbraFlexi\Reminder\Upominac;
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2023 Vitex Software
  */
+
 define('EASE_APPNAME', 'ShowDebts');
 require_once '../vendor/autoload.php';
 try {
@@ -16,7 +17,7 @@ try {
     $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
     $reminder = new Upominac();
     if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
-        $reminder->logBanner(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion());
+        $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
     }
 
     $allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Functions::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
@@ -72,11 +73,12 @@ try {
         }
 
         if ($clientCode) {
-            $reminder->addStatusMessage($clientCode . ' ' . $allClients[$clientCode]['nazev'] . ' [' . implode(',',
-                            $allClients[$clientCode]['stitky']) . ']');
+            $reminder->addStatusMessage($clientCode . ' ' . $allClients[$clientCode]['nazev'] . ' [' . implode(
+                ',',
+                $allClients[$clientCode]['stitky']
+            ) . ']');
         }
         foreach ($clientDebts as $debtCode => $debtInfo) {
-
             $curcode = AbraFlexi\RO::uncode($debtInfo['mena']);
             if ($curcode == 'CZK') {
                 $amount = floatval($debtInfo['zbyvaUhradit']);
@@ -84,13 +86,17 @@ try {
                 $amount = floatval($debtInfo['zbyvaUhraditMen']);
             }
 
-            $reminder->addStatusMessage(sprintf('%d/%d (%s) %s [%s] %s %s: %s',
-                            $pointer++, $counter,
-                            \AbraFlexi\RO::uncode($debtInfo['typDokl']),
-                            \AbraFlexi\RO::uncode($clientCodeRaw),
-                            \AbraFlexi\RO::uncode($debtCode), $amount,
-                            $curcode, $debtInfo['popis']
-                    ), 'debug');
+            $reminder->addStatusMessage(sprintf(
+                '%d/%d (%s) %s [%s] %s %s: %s',
+                $pointer++,
+                $counter,
+                \AbraFlexi\RO::uncode($debtInfo['typDokl']),
+                \AbraFlexi\RO::uncode($clientCodeRaw),
+                \AbraFlexi\RO::uncode($debtCode),
+                $amount,
+                $curcode,
+                $debtInfo['popis']
+            ), 'debug');
         }
     }
 
@@ -99,5 +105,3 @@ try {
     echo $exc->getMessage() . "\n";
     echo $exc->getTraceAsString();
 }
-
-

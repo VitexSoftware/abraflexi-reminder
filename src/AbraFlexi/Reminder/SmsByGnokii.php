@@ -14,17 +14,17 @@ namespace AbraFlexi\Reminder;
  *
  * @author vitex
  */
-class SmsByGnokii extends SmsToAddress {
-
+class SmsByGnokii extends SmsToAddress
+{
     /**
      * Send SMS using remote Gnokii via sms
      *
      * @return string Last row of command result stdout
      */
-    public function sendMessage() {
+    public function sendMessage()
+    {
         $command = '../bin/gnokiisms ' . $this->getNumber() . ' "' . \Ease\Functions::rip($this->getMessage()) . '" ';
         $this->addStatusMessage('SMS ' . $this->getNumber() . ': ' . $command, 'debug');
         return system($command);
     }
-
 }

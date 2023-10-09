@@ -12,6 +12,7 @@ namespace AbraFlexi\Reminder\Notifier;
  *
  * @author vitex
  */
-class WebHook {
+class WebHook
+{
     //put your code here
 }

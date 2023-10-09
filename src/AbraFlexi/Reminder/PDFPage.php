@@ -14,13 +14,13 @@ namespace AbraFlexi\Reminder;
  *
  * @author vitex
  */
-class PDFPage extends \Ease\WebPage {
-
-    public function getPdf() {
+class PDFPage extends \Ease\WebPage
+{
+    public function getPdf()
+    {
         $html2pdf = new \Spipu\Html2Pdf\Html2Pdf();
         file_put_contents('/var/tmp/upominka.html', $this->getRendered());
         $html2pdf->writeHTML($this->getRendered());
         return $html2pdf->output();
     }
-
 }

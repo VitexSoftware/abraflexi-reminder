@@ -14,11 +14,11 @@ namespace AbraFlexi\Reminder;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class InvoiceRecievedConfirmation extends RemindMailer {
-
+class InvoiceRecievedConfirmation extends RemindMailer
+{
     /**
      * Company signature
-     * @var string 
+     * @var string
      */
     static $signature = '';
 
@@ -26,7 +26,8 @@ class InvoiceRecievedConfirmation extends RemindMailer {
      * Odešle potvrzení úhrady
      * @param \AbraFlexi\FakturaVydana $invoice
      */
-    public function __construct($invoice = null) {
+    public function __construct($invoice = null)
+    {
         parent::__construct(null, null);
         if (!is_null($invoice)) {
             $this->assignInvoice($invoice);
@@ -34,10 +35,11 @@ class InvoiceRecievedConfirmation extends RemindMailer {
     }
 
     /**
-     * 
+     *
      * @param \AbraFlexi\FakturaPrijata $invoice
      */
-    public function assignInvoice($invoice) {
+    public function assignInvoice($invoice)
+    {
         $defaultLocale = 'cs_CZ';
         setlocale(LC_ALL, $defaultLocale);
         putenv("LC_ALL=$defaultLocale");
@@ -65,12 +67,17 @@ class InvoiceRecievedConfirmation extends RemindMailer {
         }
 
 
-        $this->addItem(new \Ease\Html\DivTag(sprintf(_('Dear customer %s,'),
-                                $customerName)));
+        $this->addItem(new \Ease\Html\DivTag(sprintf(
+            _('Dear customer %s,'),
+            $customerName
+        )));
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
 
-        $this->addItem(new \Ease\Html\DivTag(sprintf(_('we confirm receipt of invoice %s as %s '),
-                                $invoice->getDataValue('cisDosle'), $invoice->getDataValue('kod'))));
+        $this->addItem(new \Ease\Html\DivTag(sprintf(
+            _('we confirm receipt of invoice %s as %s '),
+            $invoice->getDataValue('cisDosle'),
+            $invoice->getDataValue('kod')
+        )));
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
 
         $body->addItem(new \Ease\Html\DivTag(_('With greetings')));
@@ -79,10 +86,11 @@ class InvoiceRecievedConfirmation extends RemindMailer {
 
         $body->addItem(nl2br($this->getSignature()));
 
-        parent::__construct($to,
-                sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\RO::uncode($invoice->getRecordIdent())));
+        parent::__construct(
+            $to,
+            sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\RO::uncode($invoice->getRecordIdent()))
+        );
         $this->setMailHeaders(['Cc' => \Ease\Functions::cfg('SEND_INFO_TO')]);
         $this->addItem($body);
     }
-
 }

@@ -7,6 +7,7 @@
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2018-2023 Vitex Software
  */
+
 define('EASE_APPNAME', 'ClientsNotifier');
 
 require_once '../vendor/autoload.php';
@@ -14,7 +15,7 @@ require_once '../vendor/autoload.php';
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new \AbraFlexi\Reminder\Upominac();
 if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
-    $reminder->logBanner(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion());
+    $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
 }
 $allDebts = $reminder->getAllDebts();
 $clientsToNotify = [];
@@ -26,12 +27,15 @@ foreach ($allDebts as $kod => $debtData) {
 $counter = 0;
 foreach ($clientsToNotify as $firma => $debts) {
     if (empty(trim(\AbraFlexi\RO::uncode($firma)))) {
-        $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts)) ), 'error');
+        $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts))), 'error');
     } else {
         $reminder->customer->adresar->loadFromAbraFlexi($firma);
-        $reminder->addStatusMessage(sprintf(_('(%d / %d) %s '), $counter++,
-                        count($clientsToNotify),
-                        isset(current($debts)['firma']->showAs) ? current($debts)['firma']->showAs : current($debts)['firma'] ), 'debug');
+        $reminder->addStatusMessage(sprintf(
+            _('(%d / %d) %s '),
+            $counter++,
+            count($clientsToNotify),
+            isset(current($debts)['firma']->showAs) ? current($debts)['firma']->showAs : current($debts)['firma']
+        ), 'debug');
         $reminder->processNotifyModules(0, $debts);
     }
 }

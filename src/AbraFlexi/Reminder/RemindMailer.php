@@ -19,10 +19,9 @@ use Ease\Shared;
  */
 class RemindMailer extends HtmlMailer
 {
-
     /**
      * Send Remind by mail
-     * 
+     *
      * @param string $sendTo
      * @param string $subject
      */
@@ -46,7 +45,6 @@ class RemindMailer extends HtmlMailer
 
     public function getCss()
     {
-        
     }
 
     /**
@@ -58,8 +56,10 @@ class RemindMailer extends HtmlMailer
     {
         $this->finalize();
         $this->finalized = false;
-        if (function_exists('mb_internal_encoding') &&
-                (((int) ini_get('mbstring.func_overload')) & 2)) {
+        if (
+            function_exists('mb_internal_encoding') &&
+                (((int) ini_get('mbstring.func_overload')) & 2)
+        ) {
             return mb_strlen($this->mailBody, '8bit');
         } else {
             return strlen($this->mailBody);
@@ -68,6 +68,5 @@ class RemindMailer extends HtmlMailer
 
     public function getSignature()
     {
-        
     }
 }

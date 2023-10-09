@@ -8,6 +8,7 @@
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2023 Vitex Software
  */
+
 use Ease\Locale;
 use Ease\Shared;
 use AbraFlexi\RO;
@@ -19,7 +20,7 @@ require_once '../vendor/autoload.php';
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
 if (\Ease\Functions::cfg('APP_DEBUG') == 'True') {
-    $reminder->logBanner(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion());
+    $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
 }
 
 
@@ -34,7 +35,7 @@ foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' =>
     $reminder->customer->adresar->setMyKey(RO::code($clientCode));
     $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
     $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
-    $reminder->addStatusMessage(++$pos . '/' . count($reminder->customer->adresar->lastResult['adresar']) . ' ' . $clientCode . ' ' . _('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning' );
+    $reminder->addStatusMessage(++$pos . '/' . count($reminder->customer->adresar->lastResult['adresar']) . ' ' . $clientCode . ' ' . _('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode == 201) ? 'success' : 'warning');
 }
 if (!$pos) {
     $reminder->addStatusMessage(_('None to clear'));

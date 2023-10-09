@@ -14,11 +14,11 @@ namespace AbraFlexi\Reminder;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class SentPaymentConfirmation extends RemindMailer {
-
+class SentPaymentConfirmation extends RemindMailer
+{
     /**
      * Signature
-     * @var string 
+     * @var string
      */
     static $signature = '';
 
@@ -26,7 +26,8 @@ class SentPaymentConfirmation extends RemindMailer {
      * Odešle potvrzení úhrady
      * @param \AbraFlexi\FakturaVydana $invoice
      */
-    public function __construct($invoice = null) {
+    public function __construct($invoice = null)
+    {
         parent::__construct(null, null);
         if (!is_null($invoice)) {
             $this->assignInvoice($invoice);
@@ -34,10 +35,11 @@ class SentPaymentConfirmation extends RemindMailer {
     }
 
     /**
-     * 
+     *
      * @param \AbraFlexi\FakturaVydana $invoice
      */
-    public function assignInvoice($invoice) {
+    public function assignInvoice($invoice)
+    {
         $defaultLocale = 'cs_CZ';
         setlocale(LC_ALL, $defaultLocale);
         putenv("LC_ALL=$defaultLocale");
@@ -64,12 +66,16 @@ class SentPaymentConfirmation extends RemindMailer {
         }
 
 
-        $this->addItem(new \Ease\Html\DivTag(sprintf(_('Dear partner %s,'),
-                                $customerName)));
+        $this->addItem(new \Ease\Html\DivTag(sprintf(
+            _('Dear partner %s,'),
+            $customerName
+        )));
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
 
-        $this->addItem(new \Ease\Html\DivTag(sprintf(_('we confirm sending bank order to pay your invoice %s'),
-                                $invoice->getDataValue('cisDosle'))));
+        $this->addItem(new \Ease\Html\DivTag(sprintf(
+            _('we confirm sending bank order to pay your invoice %s'),
+            $invoice->getDataValue('cisDosle')
+        )));
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
 
         $body->addItem(new \Ease\Html\DivTag(_('With greetings')));
@@ -78,10 +84,11 @@ class SentPaymentConfirmation extends RemindMailer {
 
 //        $body->addItem(nl2br($this->getSignature()));
 
-        parent::__construct($to,
-                sprintf(_('Confirmation of sending of invoice %s payment'), $invoice->getDataValue('cisDosle')));
+        parent::__construct(
+            $to,
+            sprintf(_('Confirmation of sending of invoice %s payment'), $invoice->getDataValue('cisDosle'))
+        );
         $this->setMailHeaders(['Cc' => constant('SEND_INFO_TO')]);
         $this->addItem($body);
     }
-
 }

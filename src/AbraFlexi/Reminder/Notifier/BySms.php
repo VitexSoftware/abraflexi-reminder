@@ -12,23 +12,22 @@ use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
 
 /**
- * AbraFlexi - Remind by SMS class 
+ * AbraFlexi - Remind by SMS class
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2020 Spoje.Net, Vitex Software
  */
 class BySms extends Sand
 {
-
     /**
      *
-     * @var boolean status 
+     * @var boolean status
      */
     public $result = null;
 
     /**
      * eMail notification
-     * 
+     *
      * @param Upominac $reminder
      * @param int                          $score     weeks of due
      * @param array                        $debts     array of debts by current customer
@@ -38,7 +37,6 @@ class BySms extends Sand
         $this->setObjectName();
         $result = false;
         if (\Ease\Functions::cfg('SMS_ENGINE')) {
-
             if ($reminder->customer->adresar->getAnyPhoneNumber()) {
                 $message = $this->compile($score, $reminder->customer, $debts);
                 switch (\Ease\Functions::cfg('SMS_ENGINE')) {
@@ -46,16 +44,22 @@ class BySms extends Sand
                         $smsEngine = new SmsByAxfone($reminder->customer->adresar, $message);
                         break;
                     case 'gnokii':
-                        $smsEngine = new SmsByGnokii($reminder->customer->adresar,
-                                $message);
+                        $smsEngine = new SmsByGnokii(
+                            $reminder->customer->adresar,
+                            $message
+                        );
                         break;
                     case 'huaweiapi':
-                        $smsEngine = new SmsByHuaweiApi($reminder->customer->adresar,
-                                $message);
+                        $smsEngine = new SmsByHuaweiApi(
+                            $reminder->customer->adresar,
+                            $message
+                        );
                         break;
                     case 'sshgnokii':
-                        $smsEngine = new SmsBySshGnokii($reminder->customer->adresar,
-                                $message);
+                        $smsEngine = new SmsBySshGnokii(
+                            $reminder->customer->adresar,
+                            $message
+                        );
                         break;
                     default:
                         $smsEngine = null;
@@ -68,28 +72,34 @@ class BySms extends Sand
                     if (($score > 0) && ($score < 4) && $result) {
                         $this->setData(['id' => $reminder->customer->adresar->getRecordIdent(),
                             'stitky' => 'UPOMINKA' . $score], true);
-                        $reminder->addStatusMessage(sprintf(_('Set Label %s '),
-                                        'UPOMINKA' . $score),
-                                $reminder->customer->adresar->sync() ? 'success' : 'error' );
+                        $reminder->addStatusMessage(
+                            sprintf(
+                                _('Set Label %s '),
+                                'UPOMINKA' . $score
+                            ),
+                            $reminder->customer->adresar->sync() ? 'success' : 'error'
+                        );
                     }
 
                     $this->result = $result;
                 }
             } else {
-                $this->addStatusMessage(sprintf(_('Client %s without phone neumber %s !!!'),
-                                $reminder->customer->adresar->getDataValue('nazev'),
-                                $reminder->customer->adresar->getApiURL()), 'warning');
+                $this->addStatusMessage(sprintf(
+                    _('Client %s without phone neumber %s !!!'),
+                    $reminder->customer->adresar->getDataValue('nazev'),
+                    $reminder->customer->adresar->getApiURL()
+                ), 'warning');
             }
         }
     }
 
     /**
      * Compile SMS reminder
-     * 
+     *
      * @param int $score
      * @param \AbraFlexi\Bricks\Customer $customer
      * @param array $clientDebts
-     * 
+     *
      * @return string
      */
     public function compile($score, $customer, $clientDebts)
@@ -107,7 +117,7 @@ class BySms extends Sand
             case 3:
                 $upominka->loadTemplate('pokusOSmir');
                 break;
-            default :
+            default:
                 $upominka->loadTemplate('inventarizace');
         }
 

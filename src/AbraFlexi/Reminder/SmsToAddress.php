@@ -17,15 +17,16 @@ use AbraFlexi\Adresar;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class SmsToAddress extends Sms {
-
+class SmsToAddress extends Sms
+{
     /**
      * Send SMS to default Phone number
-     * 
+     *
      * @param Adresar $address
      * @param string              $message
      */
-    public function __construct($address, $message = '') {
+    public function __construct($address, $message = '')
+    {
         if (Functions::cfg('MUTE') && (Functions::cfg('MUTE') == 'true')) {
             $smsNo = Functions::cfg('SMS_SENDER');
         } else {
@@ -33,9 +34,10 @@ class SmsToAddress extends Sms {
         }
         parent::__construct($smsNo, $message);
         if (empty($smsNo)) {
-            $address->addStatusMessage($address->getRecordIdent() . ' ' . $address->getApiURL() . ' ' . _('Address or primary contact without any phone number'),
-                    'warning');
+            $address->addStatusMessage(
+                $address->getRecordIdent() . ' ' . $address->getApiURL() . ' ' . _('Address or primary contact without any phone number'),
+                'warning'
+            );
         }
     }
-
 }

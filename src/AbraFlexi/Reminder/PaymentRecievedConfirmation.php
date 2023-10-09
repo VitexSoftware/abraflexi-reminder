@@ -14,20 +14,21 @@ namespace AbraFlexi\Reminder;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class PaymentRecievedConfirmation extends RemindMailer {
-
+class PaymentRecievedConfirmation extends RemindMailer
+{
     /**
-     * 
-     * @var string 
+     *
+     * @var string
      */
     static $signature = '';
 
     /**
      * Send payment confirmation
-     * 
+     *
      * @param \AbraFlexi\FakturaVydana $invoice
      */
-    public function __construct($invoice = null) {
+    public function __construct($invoice = null)
+    {
         parent::__construct(null, null);
         if (!is_null($invoice)) {
             $this->assignInvoice($invoice);
@@ -35,10 +36,11 @@ class PaymentRecievedConfirmation extends RemindMailer {
     }
 
     /**
-     * 
+     *
      * @param \AbraFlexi\FakturaVydana $invoice
      */
-    public function assignInvoice($invoice) {
+    public function assignInvoice($invoice)
+    {
         $defaultLocale = 'cs_CZ';
         setlocale(LC_ALL, $defaultLocale);
         putenv("LC_ALL=$defaultLocale");
@@ -67,14 +69,18 @@ class PaymentRecievedConfirmation extends RemindMailer {
         }
 
 
-        $this->addItem(new \Ease\Html\DivTag(sprintf(_('Dear customer %s,'),
-                                $customerName)));
+        $this->addItem(new \Ease\Html\DivTag(sprintf(
+            _('Dear customer %s,'),
+            $customerName
+        )));
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
 
-        $this->addItem(new \Ease\Html\DivTag(sprintf(_('we confirm receipt of payment %s %s on %s '),
-                                $invoice->getDataValue('sumCelkem'),
-                                \AbraFlexi\RO::uncode($invoice->getDataValue('mena')),
-                                $invoice->getDataValue('kod'))));
+        $this->addItem(new \Ease\Html\DivTag(sprintf(
+            _('we confirm receipt of payment %s %s on %s '),
+            $invoice->getDataValue('sumCelkem'),
+            \AbraFlexi\RO::uncode($invoice->getDataValue('mena')),
+            $invoice->getDataValue('kod')
+        )));
         $this->addItem(new \Ease\Html\DivTag("\n<br>"));
 
         $body->addItem(new \Ease\Html\DivTag(_('With greetings')));
@@ -83,17 +89,24 @@ class PaymentRecievedConfirmation extends RemindMailer {
 
         $body->addItem(nl2br($this->getSignature()));
 
-        parent::__construct($to,
-                sprintf(_('Confirmation of receipt of invoice %s payment'),
-                        \AbraFlexi\RO::uncode($invoice->getDataValue('kod'))));
+        parent::__construct(
+            $to,
+            sprintf(
+                _('Confirmation of receipt of invoice %s payment'),
+                \AbraFlexi\RO::uncode($invoice->getDataValue('kod'))
+            )
+        );
 
         $this->addItem($body);
-        $this->addFile($invoice->downloadInFormat('pdf', '/tmp/'),
-                \AbraFlexi\Formats::$formats['PDF']['content-type']);
-        $this->addFile($invoice->downloadInFormat('isdocx', '/tmp/'),
-                \AbraFlexi\Formats::$formats['ISDOCx']['content-type']);
+        $this->addFile(
+            $invoice->downloadInFormat('pdf', '/tmp/'),
+            \AbraFlexi\Formats::$formats['PDF']['content-type']
+        );
+        $this->addFile(
+            $invoice->downloadInFormat('isdocx', '/tmp/'),
+            \AbraFlexi\Formats::$formats['ISDOCx']['content-type']
+        );
 
         $this->setMailHeaders(['Cc' => constant('SEND_INFO_TO')]);
     }
-
 }

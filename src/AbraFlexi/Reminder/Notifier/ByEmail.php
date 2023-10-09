@@ -21,17 +21,16 @@ use Ease\Html\TrTag;
 use Ease\Sand;
 
 /**
- * AbraFlexi - Remind by eMail class 
+ * AbraFlexi - Remind by eMail class
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2023 Spoje.Net
  */
 class ByEmail extends Sand
 {
-
     /**
      *
-     * @var boolean status 
+     * @var boolean status
      */
     public $result = null;
 
@@ -54,7 +53,7 @@ class ByEmail extends Sand
 
     /**
      * eMail notification
-     * 
+     *
      * @param Upominac $reminder
      * @param int      $score     weeks of due
      * @param array    $debts     array of debts by current customer
@@ -91,7 +90,7 @@ class ByEmail extends Sand
      * @param int                         $score        Weeks after due date
      * @param Customer $customer
      * @param array                       $clientDebts
-     * 
+     *
      * @return boolean
      */
     public function compile($score, $customer, $clientDebts)
@@ -103,7 +102,6 @@ class ByEmail extends Sand
 
         $this->firmer = &$customer->adresar;
         if ($email) {
-
             $upominka = new Upominka();
             switch ($score) {
                 case 1:
@@ -212,21 +210,24 @@ class ByEmail extends Sand
                 $this->mailer->addItem(Upominka::qrPayments($clientDebts));
             }
             $this->addAttachments($clientDebts);
-            $this->mailer->addItem( new \Ease\Html\PTag(new \Ease\Html\SmallTag(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion()) ));
+            $this->mailer->addItem(new \Ease\Html\PTag(new \Ease\Html\SmallTag(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion())));
             $result = true;
         } else {
             $this->addStatusMessage(
                 sprintf(
                     _('Client %s without email %s !!!'),
-                    $nazev, $this->firmer->getApiURL()
-                ), 'error');
+                    $nazev,
+                    $this->firmer->getApiURL()
+                ),
+                'error'
+            );
         }
         return $result;
     }
 
     /**
      * Attach PDF and ISDOC invoices
-     * 
+     *
      * @param array $clientDebts
      */
     public function addAttachments($clientDebts)
@@ -260,5 +261,4 @@ class ByEmail extends Sand
     {
         return $this->mailer->send();
     }
-
 }

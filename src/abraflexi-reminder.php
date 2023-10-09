@@ -6,6 +6,7 @@
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2023 Vitex Software
  */
+
 use Ease\Locale;
 use AbraFlexi\RO;
 use AbraFlexi\Reminder\Upominac;
@@ -17,7 +18,7 @@ require_once '../vendor/autoload.php';
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
 if (strtolower(\Ease\Functions::cfg('APP_DEBUG')) == 'true') {
-    $reminder->logBanner(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion());
+    $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
 }
 
 $allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Functions::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
@@ -36,7 +37,6 @@ $counter = 0;
 $total = [];
 $totalsByClient = [];
 foreach ($allDebts as $code => $debt) {
-
     $howmuchRaw = $howmuch = [];
     if (empty($debt['firma'])) {
         $clientCode = 'code:';
@@ -95,11 +95,12 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
         $clientData = $allClients[$clientCodeShort];
         if ($clientCode) {
             $reminder->addStatusMessage(
-                    $clientCodeShort . ' ' .
+                $clientCodeShort . ' ' .
                     $clientData['nazev'] .
                     ' [' . implode(',', $clientData['stitky']) . '] ' .
                     Upominac::formatTotals($clientData['totals']),
-                    'success');
+                'success'
+            );
         } else {
             $reminder->addStatusMessage(_('Missing Client CODE'), 'warning');
         }

@@ -16,7 +16,6 @@ namespace AbraFlexi\Reminder;
  */
 class SmsByHuaweiApi extends SmsToAddress
 {
-
     /**
      * Send SMS using remote Gnokii via sms
      *

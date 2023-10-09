@@ -16,18 +16,17 @@ namespace AbraFlexi\Reminder;
  */
 class Sms extends \Ease\Sand
 {
-
     use \Ease\RecordKey;
 
     /**
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $number;
 
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $message;
 
@@ -39,7 +38,7 @@ class Sms extends \Ease\Sand
 
     /**
      * Send SMS Remind
-     * 
+     *
      * @param integer $number
      * @param string $message
      */
@@ -60,7 +59,7 @@ class Sms extends \Ease\Sand
 
     /**
      * Current message text
-     * 
+     *
      * @return string
      */
     public function getMessage()
@@ -70,7 +69,7 @@ class Sms extends \Ease\Sand
 
     /**
      * Current phone number
-     * 
+     *
      * @return string
      */
     public function getNumber()
@@ -79,7 +78,7 @@ class Sms extends \Ease\Sand
     }
 
     /**
-     * 
+     *
      * @param string $number
      */
     public function setNumber($number)
@@ -88,31 +87,37 @@ class Sms extends \Ease\Sand
         $number = preg_replace('/(420|0420)/', '', $number);
         $this->setMyKey($number);
         $this->number = $number;
-        $this->setObjectName($number.'@'.get_class($this));
+        $this->setObjectName($number . '@' . get_class($this));
     }
 
     /**
-     * 
+     *
      * @param string $message
      */
     public function setMessage($message)
     {
         if (strlen($message) > 130) {
-            $this->addStatusMessage(sprintf(_('Message is %s chars long: %s'),
-                            strlen($message), $message), 'warning');
+            $this->addStatusMessage(sprintf(
+                _('Message is %s chars long: %s'),
+                strlen($message),
+                $message
+            ), 'warning');
         }
         $this->message = $message;
     }
 
     public static function unifyTelNo($number)
     {
-        return preg_replace('/^(%2b420|420)/', '',
-                trim(str_replace(' ', '', urldecode($number))));
+        return preg_replace(
+            '/^(%2b420|420)/',
+            '',
+            trim(str_replace(' ', '', urldecode($number)))
+        );
         ;
     }
 
     /**
-     * 
+     *
      */
     public function sendMessage()
     {
