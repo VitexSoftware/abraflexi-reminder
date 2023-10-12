@@ -113,11 +113,13 @@ class Sms extends \Ease\Sand
             '',
             trim(str_replace(' ', '', urldecode($number)))
         );
-        ;
+        
     }
 
     /**
-     *
+     * Send message now placeholder
+     * 
+     * @return boolean message sent ?
      */
     public function sendMessage()
     {

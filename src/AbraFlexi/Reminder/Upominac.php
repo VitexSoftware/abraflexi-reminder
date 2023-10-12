@@ -182,7 +182,8 @@ class Upominac extends \AbraFlexi\RW
      */
     public function processUserDebts($clientInfo, $clientDebts)
     {
-        $this->customer->adresar->setData($clientInfo, true);
+        $this->customer->adresar->dataReset();
+        $this->customer->adresar->setData($clientInfo);
         $this->customer->adresar->updateApiURL();
         $zewlScore = 0;
         $stitky = $clientInfo['stitky'];

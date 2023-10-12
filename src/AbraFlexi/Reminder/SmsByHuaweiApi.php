@@ -19,11 +19,10 @@ class SmsByHuaweiApi extends SmsToAddress
     /**
      * Send SMS using remote Gnokii via sms
      *
-     * @return string Last row of command result stdout
+     * @return bool message sending result
      */
     public function sendMessage()
     {
-        $status = '';
         $router = new \HSPDev\HuaweiApi\Router();
         $router->setAddress(\Ease\Shared::cfg('MODEM_IP', '192.168.8.1'));
         try {
