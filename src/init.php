@@ -12,7 +12,7 @@ define('EASE_APPNAME', 'ReminderInit');
 require_once '../vendor/autoload.php';
 \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
 try {
-    $labelsRequied = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'];
+    $labelsRequied = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINAT'];
     $labeler = new \AbraFlexi\Stitek();
     if (\Ease\Shared::cfg('APP_DEBUG') == 'True') {
         $labeler->logBanner(\Ease\Shared::appName());

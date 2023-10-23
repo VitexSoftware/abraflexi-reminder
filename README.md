@@ -108,7 +108,7 @@ se nastavuje v souboru  /etc/abraflexi/**reminder.json**  nebo do proměnných p
 * **MAX_MAIL_SIZE** - maximální velikost vysledného mailu v Bytech. (1250000 = 10Mb) Pokud je tato velikost překročena, nejsou již přikládány žádné další přílohy.
 * **QR_PAYMENTS**   - zda vložit do upomínky QR kódy pro [QR Platby](http://qr-platba.cz/)
 * **ADD_LOGO**      - zda vložit do upomínky logo upomínající firmy
-* **SKIPLIST**      - nebrat doklady těchto typů v potaz
+* **REMINDER_SKIPDOCTYPE**  - nebrat doklady těchto typů v potaz
 * **MUTE**          - neodesílá klientům notifikace. Maily se pro kontrolu odesílají na **EASE_MAILTO**
 * **SMS_SENDER**    - Telefoní číslo odesilatele sms. Např.: +420739778202
 * **SMS_ENGINE**    - Metoda odeslání SMS. Možné hodnoty: **none**: neodesílat SMS, **gnokii**: místní Gnokii, **sshgnokii**: [Gnokii](https://www.gnokii.org/) na vzdáleném serveru (GNOKII_HOST) , **axfone** [Axfone](https://www.axfone.eu/) API

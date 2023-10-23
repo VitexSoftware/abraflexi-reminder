@@ -17,9 +17,15 @@ if (\Ease\Shared::cfg('APP_DEBUG') == 'True') {
     $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
 }
 $allDebts = $reminder->getAllDebts();
+$allClients = $reminder->getCustomerList(['limit' => 0]);
 $clientsToNotify = [];
 foreach ($allDebts as $kod => $debtData) {
-    $clientsToNotify[strval($debtData['firma'])][$kod] = $debtData;
+    $firma = \AbraFlexi\RO::uncode(strval($debtData['firma']));
+    if (strlen($firma) && array_key_exists('NEUPOMINAT', $allClients[$firma]['stitky'])) {
+        $reminder->addStatusMessage(sprintf(_('Skipping %s by label'), $firma));
+        continue;
+    }
+    $clientsToNotify[$firma][$kod] = $debtData;
 }
 
 

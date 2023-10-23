@@ -27,7 +27,7 @@ try {
         $reminder->addStatusMessage(_('No customers found'), 'warning');
     } else {
         foreach ($allClients as $clientCodeRaw => $clientInfo) {
-            if (array_key_exists('NEUPOMINKOVAT', $clientInfo['stitky'])) {
+            if (array_key_exists('NEUPOMINAT', $clientInfo['stitky'])) {
                 $clientsToSkip[$clientCodeRaw] = $clientInfo;
             }
         }

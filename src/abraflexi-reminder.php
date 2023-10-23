@@ -24,10 +24,10 @@ if (strtolower(\Ease\Shared::cfg('APP_DEBUG')) == 'true') {
 $allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Shared::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $allClients[''] = ['kod' => '', 'nazev' => '(' . _('Company not assigned') . ')', 'stitky' => [
-        'NEUPOMINKOVAT' => 'NEUPOMINKOVAT']];
+        'NEUPOMINAT' => 'NEUPOMINAT']];
 $clientsToSkip = [];
 foreach ($allClients as $clientCode => $clientInfo) {
-    if (array_key_exists('NEUPOMINKOVAT', $clientInfo['stitky'])) {
+    if (array_key_exists('NEUPOMINAT', $clientInfo['stitky'])) {
         $clientsToSkip[$clientCode] = $clientInfo;
     }
 }

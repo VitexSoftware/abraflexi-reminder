@@ -235,7 +235,7 @@ class Upominac extends \AbraFlexi\RW
         }
         if ($zewlScore > 0 && (array_sum($ddifs) > 0) && count($invoicesToSave)) {
             if (!array_key_exists('UPOMINKA' . $zewlScore, $stitky)) {
-                if (!array_key_exists('NEUPOMINKOVAT', $stitky)) {
+                if (!array_key_exists('NEUPOMINAT', $stitky)) {
                     if ($this->posliUpominku($zewlScore, $clientDebts)) {
                         foreach ($invoicesToSave as $invoiceCode => $invoiceData) {
                             switch ($zewlScore) {
@@ -487,9 +487,9 @@ class Upominac extends \AbraFlexi\RW
             'kod'
         );
         if ($this->invoicer->lastResponseCode == 200) {
-            $skiplist = [];
-            if (\Ease\Shared::cfg('SKIPLIST')) {
-                $skiplist = \AbraFlexi\Stitek::listToArray(\Ease\Shared::cfg('SKIPLIST'));
+            $docTypeSkipList = [];
+            if (\Ease\Shared::cfg('REMINDER_SKIPDOCTYPE')) {
+                $docTypeSkipList = \AbraFlexi\Stitek::listToArray(\Ease\Shared::cfg('REMINDER_SKIPDOCTYPE'));
             }
 
             $evidenceUsed = $this->invoicer->getEvidence();
@@ -498,7 +498,7 @@ class Upominac extends \AbraFlexi\RW
                 if (
                     array_key_exists(
                         \AbraFlexi\RO::uncode($invoiceData['typDokl']),
-                        $skiplist
+                        $docTypeSkipList
                     )
                 ) {
                     continue;
