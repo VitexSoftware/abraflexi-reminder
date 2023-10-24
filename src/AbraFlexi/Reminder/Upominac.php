@@ -475,7 +475,9 @@ class Upominac extends \AbraFlexi\RW
             'mena',
             'poznam',
             'zamekK',
-            'datVyst'];
+            'datVyst',
+            'stitky'
+            ];
         if ($this->invoicer->getColumnInfo('stavMailK', $evidence)) {
             $colsToGet[] = 'stavMailK';
         }

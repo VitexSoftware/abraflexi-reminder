@@ -38,6 +38,12 @@ $total = [];
 $totalsByClient = [];
 foreach ($allDebts as $code => $debt) {
     $howmuchRaw = $howmuch = [];
+    
+    if(strstr($debt['stitky'],'NEUPOMINAT')){
+        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label'),$code),'info');
+        continue;
+    }
+    
     if (empty($debt['firma'])) {
         $clientCode = 'code:';
         $clientCodeShort = '';
