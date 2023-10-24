@@ -21,7 +21,7 @@ $allClients = $reminder->getCustomerList(['limit' => 0]);
 $clientsToNotify = [];
 foreach ($allDebts as $kod => $debtData) {
     if(strstr($debtData['stitky'],'NEUPOMINAT')){
-        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label'),$code),'info');
+        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label'),$kod),'info');
         continue;
     }
     
