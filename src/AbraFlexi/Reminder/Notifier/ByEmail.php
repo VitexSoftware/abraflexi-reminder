@@ -86,9 +86,9 @@ class ByEmail extends Sand
     /**
      * Compile Reminder message with its contents
      *
-     * @param int                         $score        Weeks after due date
+     * @param int      $score        Weeks after due date
      * @param Customer $customer
-     * @param array                       $clientDebts
+     * @param array    $clientDebts
      *
      * @return boolean
      */

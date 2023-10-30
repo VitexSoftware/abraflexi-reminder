@@ -28,6 +28,7 @@ class SmsToAddress extends Sms
     public function __construct($address, $message = '')
     {
         if (\Ease\Shared::cfg('MUTE') == 'true') {
+            // Do not send message to Customers in MUTE mode
             $smsNo = \Ease\Shared::cfg('SMS_SENDER');
         } else {
             $smsNo = $address->getAnyPhoneNumber();

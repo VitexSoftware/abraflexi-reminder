@@ -1,0 +1,3 @@
+#!/bin/bash
+php -f /usr/share/abraflexi-reminder/abraflexi-reminder-clean-labels.php $@
+

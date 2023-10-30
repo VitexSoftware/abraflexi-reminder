@@ -78,7 +78,8 @@ class Sms extends \Ease\Sand
     }
 
     /**
-     *
+     * Use Telephone number for SMS
+     * 
      * @param string $number
      */
     public function setNumber($number)
@@ -91,7 +92,8 @@ class Sms extends \Ease\Sand
     }
 
     /**
-     *
+     * Set SMS message text
+     * 
      * @param string $message
      */
     public function setMessage($message)
@@ -103,9 +105,16 @@ class Sms extends \Ease\Sand
                 $message
             ), 'warning');
         }
-        $this->message = $message;
+        $this->message = trim($message . ' ' . \Ease\Shared::cfg('SMS_SIGNATURE'));
     }
 
+    /**
+     * Unify Telephone number format
+     * 
+     * @param string $number
+     * 
+     * @return string
+     */
     public static function unifyTelNo($number)
     {
         return preg_replace(

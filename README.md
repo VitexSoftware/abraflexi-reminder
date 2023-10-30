@@ -14,7 +14,7 @@ Odesílač upomínek pro AbraFlexi
 * Česká a anglická lokalizace. (gettext překladový systém)
 * balíčky pro debian/ubuntu ale může běžet i na windows
 
-Příkaz **abraflexi-debts** pouze vypíše pohledávky dle jednotlivých dlužníků.
+Příkaz **abraflexi-show-debts** pouze vypíše pohledávky dle jednotlivých dlužníků.
 
 Příkaz **abraflexi-reminder** Po spuštění (vytvoří potřebné štítky a)
 zkontroluje v přednastavené firmě pohledávky. Při odeslání upomínky
@@ -79,9 +79,9 @@ Pro Linux jsou k dispozici .deb balíčky. Prosím použijte repo:
 
 Po instalaci balíku jsou v systému k dispozici tyto nové příkazy:
 
-* **abraflexi-debts**            - vypíše nalezené pohledávky
+* **abraflexi-show-debts**       - vypíše nalezené pohledávky
 * **abraflexi-reminder**         - obešle dlužníky
-* **abraflexi-nontify-customers** - odešle klientovi seznam jeho závazků
+* **abraflexi-notify-customers** - odešle klientovi seznam jeho závazků
 * **abraflexi-reminder-init**    - připraví předvolenou firmu na použití s upomínačem
 
 Konfigurace
@@ -112,11 +112,13 @@ se nastavuje v souboru  /etc/abraflexi/**reminder.json**  nebo do proměnných p
 * **MUTE**          - neodesílá klientům notifikace. Maily se pro kontrolu odesílají na **EASE_MAILTO**
 * **SMS_SENDER**    - Telefoní číslo odesilatele sms. Např.: +420739778202
 * **SMS_ENGINE**    - Metoda odeslání SMS. Možné hodnoty: **none**: neodesílat SMS, **gnokii**: místní Gnokii, **sshgnokii**: [Gnokii](https://www.gnokii.org/) na vzdáleném serveru (GNOKII_HOST) , **axfone** [Axfone](https://www.axfone.eu/) API
+* **SMS_SIGNATURE** - podpis připojovaný na konec odesílaných SMS
 * **GNOKII_HOST**   - specifikace serveru kde je modem. Může být i ve formátu login@host
 * **AXFONE_USERNAME** - Login pro AXFONE api
 * **AXFONE_PASSWORD** - Heslo pro AXFONE api
 * **MODEM_PASSWORD** - Heslo webového rozhraní Huawei E5180
 * **MODEM_IP**      - ip adresa modemu (nepovinné)
+* **JSON_REPORT_FILE** - Uloží přehled dlužníků do Json souboru
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
 
@@ -151,6 +153,6 @@ Tento projekt by nevznikl bez podpory společnosti [Spoje.Net s.r.o.](http://spo
 
 ![Spoje.Net](https://raw.githubusercontent.com/VitexSoftware/php-abraflexi-reminder/master/logo-spojenet.png "Spoje.Net s.r.o.")
 
-Za HTML verzi upomínek a zahrnutí ostatních pohledávek bylo hrazeno společností [Medinet .s.r.o.](http://medinetsro.cz/)
+Za HTML verzi upomínek a zahrnutí ostatních pohledávek, jež bylo hrazeno společností [Medinet .s.r.o.](http://medinetsro.cz/)
 
 ![Medinet](https://raw.githubusercontent.com/VitexSoftware/php-abraflexi-reminder/master/mendinet-logo.png "Medinet s.r.o.")

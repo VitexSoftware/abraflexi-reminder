@@ -10,7 +10,6 @@
  */
 
 use Ease\Locale;
-use Ease\Shared;
 use AbraFlexi\RO;
 use AbraFlexi\Reminder\Upominac;
 

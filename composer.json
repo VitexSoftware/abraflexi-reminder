@@ -13,7 +13,7 @@
         "spojenet/flexibee": "^2.24",
         "vitexsoftware/abraflexi-bricks": "*",
         "spipu/html2pdf": "^5.2", 
-        "tecnickcom/tcpdf": "^6.4",
+        "tecnickcom/tcpdf": "^6.6",
         "hsp-dev/huawei-api": "dev-master" 
     },
     "autoload": {
