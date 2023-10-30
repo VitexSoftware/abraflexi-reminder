@@ -9,7 +9,6 @@
 
 namespace AbraFlexi\Reminder;
 
-use Ease\Functions;
 use AbraFlexi\Adresar;
 
 /**

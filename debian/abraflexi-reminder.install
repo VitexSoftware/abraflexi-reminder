@@ -11,10 +11,11 @@ src/AbraFlexi/Reminder/Upominac.php                     usr/lib/abraflexi-remind
 src/AbraFlexi/Reminder/Upominka.php                     usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/Notifier/ByEmail.php             usr/lib/abraflexi-reminder/Reminder/Notifier
 
-bin/abraflexi-debts  		usr/bin/
+bin/abraflexi-show-debts        usr/bin/
 bin/abraflexi-inventarize  	usr/bin/
 bin/abraflexi-reminder  	usr/bin/
 bin/abraflexi-reminder-init  	usr/bin/
+bin/abraflexi-reminder-clean-labels usr/bin/
 
 i18n/cs_CZ/LC_MESSAGES/*.mo     usr/share/locale/cs_CZ/LC_MESSAGES
 i18n/en_US/LC_MESSAGES/*.mo     usr/share/locale/en_US/LC_MESSAGES
