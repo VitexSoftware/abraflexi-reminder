@@ -14,6 +14,8 @@ use AbraFlexi\Reminder\SmsToAddress;
 /**
  * Description of Axone
  *
+ * @deprecated since version 1.6.3
+ * 
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
 class SmsByAxfone extends SmsToAddress
