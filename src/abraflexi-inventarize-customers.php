@@ -20,11 +20,11 @@ $allDebts = $reminder->getAllDebts();
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $clientsToNotify = [];
 foreach ($allDebts as $kod => $debtData) {
-    if(strstr($debtData['stitky'],'NEUPOMINAT')){
-        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label'),$kod),'info');
+    if (strstr($debtData['stitky'], 'NEUPOMINAT')) {
+        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label'), $kod), 'info');
         continue;
     }
-    
+
     $firma = \AbraFlexi\RO::uncode(strval($debtData['firma']));
     if (strlen($firma) && array_key_exists('NEUPOMINAT', $allClients[$firma]['stitky'])) {
         $reminder->addStatusMessage(sprintf(_('Skipping %s by label'), $firma));

@@ -77,9 +77,9 @@ foreach ($allDebtsByClient as $clientCodeRaw => $clientDebts) {
 
     if ($clientCode) {
         $reminder->addStatusMessage($clientCode . ' ' . $allClients[$clientCode]['nazev'] . ' [' . implode(
-                        ',',
-                        $allClients[$clientCode]['stitky']
-                ) . ']');
+            ',',
+            $allClients[$clientCode]['stitky']
+        ) . ']');
     }
     foreach ($clientDebts as $debtCode => $debtInfo) {
         $curcode = AbraFlexi\RO::uncode($debtInfo['mena']);
@@ -90,16 +90,16 @@ foreach ($allDebtsByClient as $clientCodeRaw => $clientDebts) {
         }
 
         $reminder->addStatusMessage(sprintf(
-                        '%d/%d (%s) %s [%s] %s %s: %s',
-                        $pointer++,
-                        $counter,
-                        \AbraFlexi\RO::uncode($debtInfo['typDokl']),
-                        \AbraFlexi\RO::uncode($clientCodeRaw),
-                        \AbraFlexi\RO::uncode($debtCode),
-                        $amount,
-                        $curcode,
-                        $debtInfo['popis']
-                ), 'debug');
+            '%d/%d (%s) %s [%s] %s %s: %s',
+            $pointer++,
+            $counter,
+            \AbraFlexi\RO::uncode($debtInfo['typDokl']),
+            \AbraFlexi\RO::uncode($clientCodeRaw),
+            \AbraFlexi\RO::uncode($debtCode),
+            $amount,
+            $curcode,
+            $debtInfo['popis']
+        ), 'debug');
     }
 }
 
@@ -110,5 +110,5 @@ $reminder->addStatusMessage(Upominac::formatTotals($total), 'warning');
 $jsonOutput['total'] = $total;
 
 if (\Ease\Shared::cfg('JSON_REPORT_FILE', false)) {
-   $reminder->addStatusMessage( sprintf(_('Saving json report to %s'),\Ease\Shared::cfg('JSON_REPORT_FILE')) , file_put_contents(\Ease\Shared::cfg('JSON_REPORT_FILE'), json_encode($jsonOutput, JSON_PRETTY_PRINT)) ? 'success' : 'error' );
+    $reminder->addStatusMessage(sprintf(_('Saving json report to %s'), \Ease\Shared::cfg('JSON_REPORT_FILE')), file_put_contents(\Ease\Shared::cfg('JSON_REPORT_FILE'), json_encode($jsonOutput, JSON_PRETTY_PRINT)) ? 'success' : 'error');
 }

@@ -79,7 +79,7 @@ class Sms extends \Ease\Sand
 
     /**
      * Use Telephone number for SMS
-     * 
+     *
      * @param string $number
      */
     public function setNumber($number)
@@ -93,7 +93,7 @@ class Sms extends \Ease\Sand
 
     /**
      * Set SMS message text
-     * 
+     *
      * @param string $message
      */
     public function setMessage($message)
@@ -110,9 +110,9 @@ class Sms extends \Ease\Sand
 
     /**
      * Unify Telephone number format
-     * 
+     *
      * @param string $number
-     * 
+     *
      * @return string
      */
     public static function unifyTelNo($number)
@@ -122,12 +122,11 @@ class Sms extends \Ease\Sand
             '',
             trim(str_replace(' ', '', urldecode($number)))
         );
-        
     }
 
     /**
      * Send message now placeholder
-     * 
+     *
      * @return boolean message sent ?
      */
     public function sendMessage()
