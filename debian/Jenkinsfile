@@ -60,7 +60,7 @@ distributions.each {
                     sh 'echo "INSTALATION"'
                     sh 'IFS="\n\b"; for package in  `ls $WORKSPACE/dist/debian/ | grep .deb | awk -F_ \'{print \$1}\'` ; do  echo -e "${GREEN} installing ${package} on `lsb_release -sc` ${ENDCOLOR} " ; sudo  DEBIAN_FRONTEND=noninteractive DEBCONF_DEBUG=' + debconf_debug  + ' apt-get -y install $package ; done;'
                     sh 'abraflexi-reminder-init /etc/abraflexi-reminder/template.env'
-                    sh 'abraflexi-debts /etc/abraflexi-reminder/template.env'
+                    sh 'abraflexi-show-debts /etc/abraflexi-reminder/template.env'
                     sh 'abraflexi-reminder /etc/abraflexi-reminder/template.env'
                     sh 'abraflexi-inventarize /etc/abraflexi-reminder/template.env'
                     stash includes: 'dist/**', name: 'dist-' + distroCodename
