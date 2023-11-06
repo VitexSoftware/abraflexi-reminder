@@ -119,6 +119,7 @@ se nastavuje v souboru  /etc/abraflexi/**reminder.json**  nebo do proměnných p
 * **MODEM_PASSWORD** - Heslo webového rozhraní Huawei E5180
 * **MODEM_IP**      - ip adresa modemu (nepovinné)
 * **JSON_REPORT_FILE** - Uloží přehled dlužníků do Json souboru
+* **NO_REMIND_LABEL** - Není li zadáno používá se se **NEUPOMINAT**
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
 
