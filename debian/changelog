@@ -1,4 +1,4 @@
-abraflexi-reminder (1.6.3) UNRELEASED; urgency=medium
+abraflexi-reminder (1.6.4) UNRELEASED; urgency=medium
 
   [ CyberVitexus ]
   * support for environment based configuration
@@ -24,8 +24,9 @@ abraflexi-reminder (1.6.3) UNRELEASED; urgency=medium
 
   [  ]
   * configurable NO_REMIND_LABEL
+  * MultiFlexi support added
 
- --  <vitezslav.dvorak@spojenet.cz>  Mon, 06 Nov 2023 18:19:45 +0100
+ -- vitex <info@vitexsoftware.cz>  Fri, 10 Nov 2023 20:57:52 +0100
 
 abraflexi-reminder (1.2) EXPERIMENTAL; urgency=medium
 
