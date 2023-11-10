@@ -11,4 +11,4 @@ override_dh_install:
 	sed -i -e 's/\.\./\/etc\/abraflexi-reminder/g'                                  debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
 	sed -i -e 's/.\/AbraFlexi\/Reminder\/Notifier/\/usr\/lib\/abraflexi-reminder\/Reminder\/Notifier/g'    debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
 	sed -i -e 's/..\/bin/\/usr\/bin/g'                                    debian/abraflexi-reminder-gnokii/usr/lib/abraflexi-reminder/Reminder/*Gnokii.php
-	sed -i -e 's/..\/.env//'                                  debian/abraflexi-reminder/usr/lib/abraflexi-reminder/*.php
+	sed -i -e 's/..\/.env//'                                  debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
