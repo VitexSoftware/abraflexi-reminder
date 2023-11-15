@@ -27,7 +27,7 @@ if (empty($allClients)) {
     $reminder->addStatusMessage(_('No customers found'), 'warning');
 } else {
     foreach ($allClients as $clientCodeRaw => $clientInfo) {
-        if (array_key_exists('NEUPOMINAT', $clientInfo['stitky'])) {
+        if (array_key_exists(\Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
             $clientsToSkip[$clientCodeRaw] = $clientInfo;
         }
     }
