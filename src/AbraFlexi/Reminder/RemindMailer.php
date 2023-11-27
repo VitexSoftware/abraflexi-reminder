@@ -30,7 +30,7 @@ class RemindMailer extends HtmlMailer
         if (strtolower(\Ease\Shared::cfg('MUTE')) == 'true') {
             $sendTo = \Ease\Shared::cfg('EASE_EMAILTO');
         }
-        parent::__construct($sendTo, $subject, null, ['From' => \Ease\Shared::cfg('REMIND_FROM', \Ease\Shared::cfg('MAIL_FROM'))]);
+        parent::__construct($sendTo, $subject, null, ['From' => \Ease\Shared::cfg('REMIND_FROM')]);
         if (\Ease\Shared::cfg('MAIL_CC')) {
             $this->setMailHeaders(['Cc' => \Ease\Shared::cfg('MAIL_CC')]);
         }

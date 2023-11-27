@@ -32,6 +32,12 @@
             "description": "AbraFlexi Server URI",
             "defval": "https:\/\/demo.flexibee.eu:5434",
             "required": true
+        },
+        "REMIND_FROM": {
+            "type": "string",
+            "description": "Mail Sender",
+            "defval": "",
+            "required": true
         }
     },
     "multiflexi": "1.7.2"
