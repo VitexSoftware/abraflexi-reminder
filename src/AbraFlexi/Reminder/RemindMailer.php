@@ -27,11 +27,10 @@ class RemindMailer extends HtmlMailer
      */
     public function __construct($sendTo, $subject)
     {
-        $this->fromEmailAddress = \Ease\Shared::cfg('REMIND_FROM');
         if (strtolower(\Ease\Shared::cfg('MUTE')) == 'true') {
             $sendTo = \Ease\Shared::cfg('EASE_EMAILTO');
         }
-        parent::__construct($sendTo, $subject);
+        parent::__construct($sendTo, $subject, null, ['From' => \Ease\Shared::cfg('REMIND_FROM')]);
         if (\Ease\Shared::cfg('MAIL_CC')) {
             $this->setMailHeaders(['Cc' => \Ease\Shared::cfg('MAIL_CC')]);
         }
@@ -57,7 +56,7 @@ class RemindMailer extends HtmlMailer
         $this->finalize();
         $this->finalized = false;
         if (
-            function_exists('mb_internal_encoding') &&
+                function_exists('mb_internal_encoding') &&
                 (((int) ini_get('mbstring.func_overload')) & 2)
         ) {
             return mb_strlen($this->mailBody, '8bit');

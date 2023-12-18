@@ -33,21 +33,9 @@
             "defval": "https:\/\/demo.flexibee.eu:5434",
             "required": true
         },
-        "NO_REMIND_LABEL": {
-            "type": "string",
-            "description": "Ignore documents/customers with this Label",
-            "defval": "NEUPOMINAT",
-            "required": false
-        },
-        "MAX_MAIL_SIZE": {
-            "type": "string",
-            "description": "",
-            "defval": "",
-            "required": true
-        },
         "REMIND_FROM": {
-            "type": "email",
-            "description": "Remind sender mail Address",
+            "type": "string",
+            "description": "Mail Sender",
             "defval": "",
             "required": true
         }

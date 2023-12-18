@@ -14,7 +14,7 @@ require_once '../vendor/autoload.php';
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new \AbraFlexi\Reminder\Upominac();
 if (\Ease\Shared::cfg('APP_DEBUG') == 'True') {
-    $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
+    $reminder->logBanner();
 }
 $allDebts = $reminder->getAllDebts();
 $allClients = $reminder->getCustomerList(['limit' => 0]);
