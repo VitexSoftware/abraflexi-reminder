@@ -20,7 +20,7 @@ $allDebts = $reminder->getAllDebts();
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $clientsToNotify = [];
 foreach ($allDebts as $kod => $debtData) {
-    if (\AbraFlexi\FakturaVydana::overdueDays($debtData['datSplat']) < 60) {
+    if (\AbraFlexi\FakturaVydana::overdueDays($debtData['datSplat']) < \Ease\Shared::cfg('OVERDUE_PATIENCE', 0)) {
         continue; // Patience
     }
 
