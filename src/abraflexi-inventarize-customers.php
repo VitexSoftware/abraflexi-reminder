@@ -5,7 +5,7 @@
  * Inventarize
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2018-2023 Vitex Software
+ * @copyright  (G) 2018-2024 Vitex Software
  */
 
 define('EASE_APPNAME', 'AbraFlexi Inventarizace');
@@ -20,14 +20,18 @@ $allDebts = $reminder->getAllDebts();
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $clientsToNotify = [];
 foreach ($allDebts as $kod => $debtData) {
+    if (\AbraFlexi\FakturaVydana::overdueDays($debtData['datSplat']) < 60) {
+        continue; // Patience
+    }
+
     if (strstr($debtData['stitky'], \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'))) {
-        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label'), $kod), 'info');
+        $reminder->addStatusMessage(sprintf(_('I skip the %s for %s because of the set label on the document'), $debtData['kod'], $debtData['firma']->showAs), 'info');
         continue;
     }
 
     $firma = \AbraFlexi\RO::uncode(strval($debtData['firma']));
     if (strlen($firma) && array_key_exists(\Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $allClients[$firma]['stitky'])) {
-        $reminder->addStatusMessage(sprintf(_('Skipping %s by label'), $firma));
+        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label for the Company'), $debtData['firma']->showAs));
         continue;
     }
     $clientsToNotify[$firma][$kod] = $debtData;

@@ -525,6 +525,15 @@ class Upominac extends \AbraFlexi\RW
      */
     public function getAllDebts($conditions = [])
     {
+
+//je třeba upravit rozesílání upomínke v system a multiflexi tak, aby do upomínání nevstupovaly
+//doklady se zápornou částkou
+//dobropisy
+//doklady s částkou 0
+//tj současný filtr na "neuhrazeno" je třeba rozšířit ... castka > 0, typdokladu <> dobropis
+
+
+//        $conditions[''];
         $debts = $this->getEvidenceDebts('faktura-vydana', $conditions);
         $debts2 = $this->getEvidenceDebts('pohledavka', $conditions);
         return \Ease\Functions::reindexArrayBy(array_merge(
