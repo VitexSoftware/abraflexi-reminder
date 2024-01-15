@@ -12,7 +12,7 @@ src/AbraFlexi/Reminder/Upominka.php                     usr/lib/abraflexi-remind
 src/AbraFlexi/Reminder/Notifier/ByEmail.php             usr/lib/abraflexi-reminder/Reminder/Notifier
 
 bin/abraflexi-show-debts        usr/bin/
-bin/abraflexi-inventarize  	usr/bin/
+bin/abraflexi-notify-customers 	usr/bin/
 bin/abraflexi-reminder  	usr/bin/
 bin/abraflexi-reminder-init  	usr/bin/
 bin/abraflexi-reminder-clean-labels usr/bin/
