@@ -12,5 +12,3 @@ if (file_exists('../vendor/autoload.php')) {
     require_once 'vendor/autoload.php'; //Create Test
     \Ease\Shared::instanced()->loadConfig('.env.example');
 }
-
-
