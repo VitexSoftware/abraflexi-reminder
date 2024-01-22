@@ -4,7 +4,7 @@
  * AbraFlexi Reminder - Remind sender
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2023 Vitex Software
+ * @copyright  (G) 2017-2024 Vitex Software
  */
 
 use Ease\Locale;
@@ -18,7 +18,7 @@ require_once '../vendor/autoload.php';
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
 if (strtolower(\Ease\Shared::cfg('APP_DEBUG')) == 'true') {
-    $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
+    $reminder->logBanner();
 }
 
 $allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Shared::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
@@ -29,6 +29,8 @@ $clientsToSkip = [];
 foreach ($allClients as $clientCode => $clientInfo) {
     if (array_key_exists(\Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
         $clientsToSkip[$clientCode] = $clientInfo;
+    } else {
+        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label %s'), $clientCode, \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')), 'info');
     }
 }
 
@@ -40,7 +42,7 @@ foreach ($allDebts as $code => $debt) {
     $howmuchRaw = $howmuch = [];
 
     if (strstr($debt['stitky'], \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'))) {
-        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label'), $code), 'info');
+        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label %s'), $code, \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')), 'info');
         continue;
     }
 

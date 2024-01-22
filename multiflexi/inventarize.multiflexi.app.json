@@ -38,6 +38,18 @@
             "description": "Mail Sender",
             "defval": "",
             "required": true
+        },
+        "REMINDER_SKIPDOCTYPE": {
+            "type": "string",
+            "description": "Document types to skip",
+            "defval": "TEST",
+            "required": true
+        },
+        "OVERDUE_PATIENCE": {
+            "type": "number",
+            "description": "Days of silence after due date",
+            "defval": "0",
+            "required": false
         }
     },
     "multiflexi": "1.7.2"
