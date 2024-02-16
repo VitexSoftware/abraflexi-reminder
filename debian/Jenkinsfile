@@ -62,7 +62,7 @@ distributions.each {
                     sh 'abraflexi-reminder-init /etc/abraflexi-reminder/example.env'
                     sh 'abraflexi-show-debts /etc/abraflexi-reminder/example.env'
                     sh 'abraflexi-reminder /etc/abraflexi-reminder/example.env'
-                    sh 'abraflexi-inventarize /etc/abraflexi-reminder/example.env'
+                    sh 'abraflexi-notify-customers /etc/abraflexi-reminder/example.env'
                     stash includes: 'dist/**', name: 'dist-' + distroCodename
                 }
             }
