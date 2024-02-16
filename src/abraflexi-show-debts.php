@@ -7,7 +7,7 @@ use AbraFlexi\Reminder\Upominac;
  * AbraFlexi Reminder - Odeslání Upomínek
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2023 Vitex Software
+ * @copyright  (G) 2017-2024 Vitex Software
  */
 
 define('EASE_APPNAME', 'ShowDebts');
@@ -20,7 +20,7 @@ if (\Ease\Shared::cfg('APP_DEBUG') == 'True') {
     $reminder->logBanner(\Ease\Shared::appName() . ' v' . \Ease\Shared::appVersion());
 }
 
-$allDebts = $reminder->getAllDebts(['limit' => 0, 'storno eq false', "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Shared::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
+$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Shared::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $clientsToSkip = [];
 if (empty($allClients)) {

@@ -123,7 +123,7 @@ class Upominac extends \AbraFlexi\RW
             unset($newStitky['UPOMINKA3']);
             unset($newStitky['NEPLATIC']);
             if (
-                $this->customer->adresar->insertToAbraFlexi(['id' => $cid, 'stitky@removeAll' => 'true',
+                    $this->customer->adresar->insertToAbraFlexi(['id' => $cid, 'stitky@removeAll' => 'true',
                         'stitky' => $newStitky])
             ) {
                 $this->addStatusMessage(sprintf(
@@ -454,7 +454,7 @@ class Upominac extends \AbraFlexi\RW
             $evBackup = false;
         }
 
-        $what = array_merge(["datSplat lte '" . \AbraFlexi\RW::dateToFlexiDate(new DateTime()) . "' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false"], $conditions);
+        $what = array_merge(["datSplat lte '" . \AbraFlexi\RW::dateToFlexiDate(new DateTime()) . "' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false AND sumCelkem > 0"], $conditions);
         $result = [];
         $colsToGet = [
             'id',
@@ -477,12 +477,13 @@ class Upominac extends \AbraFlexi\RW
             'zamekK',
             'datVyst',
             'stitky'
-            ];
+        ];
         if ($this->invoicer->getColumnInfo('stavMailK', $evidence)) {
             $colsToGet[] = 'stavMailK';
         }
 
         $this->invoicer->defaultUrlParams['order'] = 'datVyst@A';
+        $this->invoicer->defaultUrlParams['includes'] = '/' . $this->invoicer->getEvidence() . '/typDokl';
         $invoices = $this->invoicer->getColumnsFromAbraFlexi(
             $colsToGet,
             $what,
@@ -498,10 +499,10 @@ class Upominac extends \AbraFlexi\RW
             foreach ($invoices as $invoiceId => $invoiceData) {
                 $invoiceData['evidence'] = $evidenceUsed;
                 if (
-                    array_key_exists(
-                        \AbraFlexi\RO::uncode($invoiceData['typDokl']),
-                        $docTypeSkipList
-                    )
+                        array_key_exists(
+                            \AbraFlexi\RO::uncode($invoiceData['typDokl']),
+                            $docTypeSkipList
+                        )
                 ) {
                     continue;
                 }
@@ -532,9 +533,13 @@ class Upominac extends \AbraFlexi\RW
 //doklady s částkou 0
 //tj současný filtr na "neuhrazeno" je třeba rozšířit ... castka > 0, typdokladu <> dobropis
 
-
-//        $conditions[''];
         $debts = $this->getEvidenceDebts('faktura-vydana', $conditions);
+        foreach ($debts as $did => $ddata) {
+            if ($ddata['typDokl']->value[0]['typDoklK'] == 'typDokladu.dobropis') {
+                unset($debts[$did]);
+            }
+        }
+
         $debts2 = $this->getEvidenceDebts('pohledavka', $conditions);
         return \Ease\Functions::reindexArrayBy(array_merge(
             empty($debts) ? [] : $debts,
