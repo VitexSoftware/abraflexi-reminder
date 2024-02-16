@@ -45,7 +45,13 @@
             "defval": "",
             "required": true
         },
-        "SKIPLIST": {
+        "SURRENDER_DAYS": {
+            "type": "number",
+            "description": "Do not process old cases",
+            "defval": "90",
+            "required": false
+        },
+        "REMINDER_SKIPDOCTYPE": {
             "type": "string",
             "description": "Ignore this document types",
             "defval": "DOBROPIS,ZDD",
