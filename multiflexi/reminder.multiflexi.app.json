@@ -5,7 +5,8 @@
     "executable": "abraflexi-reminder",
     "setup": "abraflexi-reminder-init",
     "cmdparams": "",
-    "requirements": "MultiFlexi",
+    "requirements": "AbraFlexi",
+    "uuid": "",
     "deploy": "apt install abraflexi-reminder",
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
     "environment": {
