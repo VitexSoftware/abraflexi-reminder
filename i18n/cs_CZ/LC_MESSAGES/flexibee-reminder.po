@@ -1,211 +1,305 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-03-27 18:39+0100\n"
-"PO-Revision-Date: 2020-03-27 18:41+0100\n"
+"POT-Creation-Date: 2024-02-29 12:49+0100\n"
+"PO-Revision-Date: 2024-02-29 13:04+0100\n"
 "Last-Translator: Vítězslav Dvořák <info@vitexsoftware.cz>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../..\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SearchPath-0: ../src\n"
 "X-Poedit-SearchPathExcluded-0: ../vendor\n"
 
-#: ../src/FlexiPeeHP/Reminder/Sms.php:76
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:57
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:55
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:150
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:59
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:56
+msgid "Company logo"
+msgstr "Logo společnosti"
+
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:71
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:68
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:73
 #, php-format
-msgid "Message %s chars long: %s"
-msgstr "Zpráva %s je dlouhá: %s znaků"
+msgid "Dear customer %s,"
+msgstr "Vážený zákazníku %s,"
 
-#: ../src/FlexiPeeHP/Reminder/Sms.php:94
-msgid "No SMS sending method specified"
-msgstr "Nebyla specifikována metoda odesílání SMS"
-
-#: ../src/FlexiPeeHP/Reminder/SmsToAddress.php:33
-msgid "Address or primary contact without any phone number"
-msgstr "Adresa nebo primární kontakt bez telefoního čísla"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:55
-msgid "Getting clients"
-msgstr "Získávám zákazníky"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:59
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:77
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:73
 #, php-format
-msgid "%s Clients Found"
-msgstr "%s Klientů nalezeno"
+msgid "we confirm receipt of invoice %s as %s "
+msgstr "potvrzujeme přijetí faktury %s jako %s "
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:60
-msgid "Getting debts"
-msgstr "Získávám pohledávky"
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:83
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:78
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:86
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:81
+msgid "With greetings"
+msgstr "S pozdravem"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:87
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:91
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:83
 #, php-format
-msgid "%s Debts Found"
-msgstr "%s Pohledávek nalezeno"
+msgid "Confirmation of receipt your invoice %s"
+msgstr "Potvrzení přijetí úhrady %s"
 
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:125
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:128
-#, php-format
-msgid "No debts. Clear %s Remind labels"
-msgstr "Bez pohledávek. Čistím %s štítky upomínek"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:146
-#, php-format
-msgid "%d clients to remind process"
-msgstr "%d klientů k upomenutí zpracováno"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:152
-#, php-format
-msgid "(%d / %d) #%s code: %s %s "
-msgstr "(%d / %d) #%s code: %s %s "
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:187
-msgid "Invoice locked: skipping process"
-msgstr "Faktura zamknutá přeskakuji zpracování"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:242
-#, php-format
-msgid "%s %s remind %s date saved"
-msgstr "%s %s  Datum upomínky %s uloženo"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:246
-#, php-format
-msgid "%s %s remind %s date save failed"
-msgstr "%s %s chyba ukládání data upomínky %s"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:253
-msgid "Remind send disbled"
-msgstr "Odesílání pohledávek zakázáno"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:256
-#, php-format
-msgid "Remind %d already sent"
-msgstr "Upomínka  %d  byla již odeslána"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:260
-msgid "No debts to remind"
-msgstr "Žádne pohledávky k upomenutí"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:269
-#, php-format
-msgid "Invoice %s locked again"
-msgstr "Faktura %s byla znovu uzamknuta"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:272
-#, php-format
-msgid "Invoice %s locking failed"
-msgstr "Faktura %s chyba znovuzamykání"
-
-#: ../src/FlexiPeeHP/Reminder/Upominac.php:410
-#, php-format
-msgid "Module %s is wrong"
-msgstr "Složka modulů %s je špatná"
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:142
-msgid "QR Invoices"
-msgstr "QR Faktury"
-
-#: ../src/FlexiPeeHP/Reminder/Upominka.php:154
-msgid "QR Payment"
-msgstr "QR Platby"
-
-#: ../src/Init.php:28
-#, php-format
-msgid "Requied label %s create"
-msgstr "Vytvoření požadovaného štítku %s"
-
-#: ../src/flexibee-debts.php:30
-msgid "No customers found"
-msgstr "Zákazník nebyl nalezen"
-
-#: ../src/flexibee-inventarize-customers.php:31
-#, php-format
-msgid "(%d / %d) %s "
-msgstr "(%d / %d) %s "
-
-#: ../src/flexibee-remind-clean-labels.php:34
-msgid "None to clear"
-msgstr "Není co čistit"
-
-#: ../src/flexibee-remind-clean-labels.php:41
-msgid "Labels Cleanup"
-msgstr "Čištění štítků"
-
-#: ../src/flexibee-reminder.php:27
-msgid "Company not assigned"
-msgstr "Zákazník není přiřazen"
-
-#: ../src/notifiers/ByEmail.php:45 ../src/notifiers/ByListonoska.php:54
-#: ../src/notifiers/BySms.php:54
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:74
+#: ../src/AbraFlexi/Reminder/Notifier/BySms.php:77
 #, php-format
 msgid "Set Label %s "
 msgstr "Štítek %s  nastaven "
 
-#: ../src/notifiers/ByEmail.php:50 ../src/notifiers/ByListonoska.php:59
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:81
 msgid "Remind was not sent"
 msgstr "Upomínka  nebyla odeslána"
 
-#: ../src/notifiers/ByEmail.php:110 ../src/notifiers/ByListonoska.php:123
-msgid "Company logo"
-msgstr "Logo společnosti"
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:120
+#, php-format
+msgid "Last  remind / inventarization for %s send before %d days; skipping"
+msgstr "Poslední  upomínka/inventarizace pro %s byla odeslána před %d dny; přeskakuji"
 
-#: ../src/notifiers/ByEmail.php:124 ../src/notifiers/ByListonoska.php:137
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:174
 msgid "Code"
 msgstr "Kód"
 
-#: ../src/notifiers/ByEmail.php:124 ../src/notifiers/ByListonoska.php:137
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:175
 msgid "var. sym."
 msgstr "var. sym."
 
-#: ../src/notifiers/ByEmail.php:124 ../src/notifiers/ByListonoska.php:137
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:176
 msgid "Amount"
 msgstr "Částka"
 
-#: ../src/notifiers/ByEmail.php:125 ../src/notifiers/ByListonoska.php:138
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:177
 msgid "Currency"
 msgstr "Měna"
 
-#: ../src/notifiers/ByEmail.php:125 ../src/notifiers/ByListonoska.php:138
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:178
 msgid "Due Date"
 msgstr "Splatnost"
 
-#: ../src/notifiers/ByEmail.php:125 ../src/notifiers/ByListonoska.php:138
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:179
 msgid "overdue days"
 msgstr "dní po splatnosti"
 
-#: ../src/notifiers/ByEmail.php:144 ../src/notifiers/ByListonoska.php:157
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:199
 msgid "Total"
 msgstr "Celkem"
 
-#: ../src/notifiers/ByEmail.php:159 ../src/notifiers/ByListonoska.php:172
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:217
 #, php-format
 msgid "Client %s without email %s !!!"
 msgstr "Klient %s bez emailu %s !!!"
 
-#: ../src/notifiers/ByEmail.php:175
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:236
 #, php-format
 msgid "Not enough space in this mail for attaching %s "
 msgstr "V tomto mailu není dost místa pro přiložení %s "
 
-#: ../src/notifiers/ByListonoska.php:62
-#, php-format
-msgid "Incomplete post address for %s"
-msgstr "Nekompletní poštovní adresa pro %s"
-
-#: ../src/notifiers/BySms.php:62
+#: ../src/AbraFlexi/Reminder/Notifier/BySms.php:88
 #, php-format
 msgid "Client %s without phone neumber %s !!!"
 msgstr "Klient %s bez telefoního čísla %s !!!"
 
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:79
+#, php-format
+msgid "we confirm receipt of payment %s %s on %s "
+msgstr "potvrzujeme přijetí platby %s %s na %s "
+
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:95
+#, php-format
+msgid "Confirmation of receipt of invoice %s payment"
+msgstr "Potvrzení přijetí faktury %s platby"
+
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:70
+#, php-format
+msgid "Dear partner %s,"
+msgstr "Vážený zákaníku %s,"
+
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:76
+#, php-format
+msgid "we confirm sending bank order to pay your invoice %s"
+msgstr "potvrzujeme odeslaní bankovního příkazu k úhradě vaší faktury %s"
+
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:89
+#, php-format
+msgid "Confirmation of sending of invoice %s payment"
+msgstr "Potvrzení odeslání faktury %s platby"
+
+#: ../src/AbraFlexi/Reminder/Sms.php:103
+#, php-format
+msgid "Message is %s chars long: %s"
+msgstr "Zpráva %s je dlouhá: %s znaků"
+
+#: ../src/AbraFlexi/Reminder/Sms.php:134
+msgid "No SMS sending method specified"
+msgstr "Nebyla specifikována metoda odesílání SMS"
+
+#: ../src/AbraFlexi/Reminder/SmsBySshGnokii.php:33
+msgid "Please set GNOKII_HOST in gnokii file"
+msgstr "Prosím nastav GNOKII_HOST v gnokii souboru"
+
+#: ../src/AbraFlexi/Reminder/SmsToAddress.php:38
+msgid "Address or primary contact without any phone number"
+msgstr "Adresa nebo primární kontakt bez telefoního čísla"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:58
+msgid "Getting clients"
+msgstr "Získávám zákazníky"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:61
+#, php-format
+msgid "%s Clients Found"
+msgstr "%s Klientů nalezeno"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:62
+msgid "Getting debts"
+msgstr "Získávám pohledávky"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:88
+#, php-format
+msgid "%s Debts Found"
+msgstr "%s Pohledávek nalezeno"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:130
+#: ../src/AbraFlexi/Reminder/Upominac.php:135
+#, php-format
+msgid "No debts. Clear %s Remind labels"
+msgstr "Bez pohledávek. Čistím %s štítky upomínek"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:155
+#, php-format
+msgid "%d clients to remind process"
+msgstr "%d klientů k upomenutí zpracováno"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:163
+#, php-format
+msgid "(%d / %d) #%s code: %s %s "
+msgstr "(%d / %d) #%s code: %s %s "
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:201
+msgid "Invoice locked: skipping process"
+msgstr "Faktura zamknutá přeskakuji zpracování"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:262
+#, php-format
+msgid "%s %s remind %s date saved"
+msgstr "%s %s  Datum upomínky %s uloženo"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:269
+#, php-format
+msgid "%s %s remind %s date save failed"
+msgstr "%s %s chyba ukládání data upomínky %s"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:278
+msgid "Remind send disbled"
+msgstr "Odesílání pohledávek zakázáno"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:282
+#, php-format
+msgid "Remind %d already sent"
+msgstr "Upomínka  %d  byla již odeslána"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:287
+msgid "No debts to remind"
+msgstr "Žádne pohledávky k upomenutí"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:297
+#, php-format
+msgid "Invoice %s locked again"
+msgstr "Faktura %s byla znovu uzamknuta"
+
+#: ../src/AbraFlexi/Reminder/Upominac.php:302
+#, php-format
+msgid "Invoice %s locking failed"
+msgstr "Faktura %s chyba znovuzamykání"
+
+#: ../src/AbraFlexi/Reminder/Upominka.php:145
+msgid "QR Invoices"
+msgstr "QR Faktury"
+
+#: ../src/AbraFlexi/Reminder/Upominka.php:160
+msgid "QR Payment"
+msgstr "QR Platby"
+
+#: ../src/abraflexi-inventarize-customers.php:28
+#, php-format
+msgid "I skip the %s for %s because of the set label on the document"
+msgstr "Přeskakuji %s pro %s z důvodu nastaveného štítku na dokumentu"
+
+#: ../src/abraflexi-inventarize-customers.php:35
+#, php-format
+msgid "Unknown customer %s"
+msgstr "Neznámý zákazník %s"
+
+#: ../src/abraflexi-inventarize-customers.php:40
+#, php-format
+msgid "I skip the %s because of the set label for the Company"
+msgstr "Přeskakuju %s z důvodu nastaveného štítku pro společnost"
+
+#: ../src/abraflexi-inventarize-customers.php:50
+#: ../src/abraflexi-reminder.php:97
+#, php-format
+msgid "Invoices %s without Company assigned"
+msgstr "Faktury %s bez přiřazené firmy"
+
+#: ../src/abraflexi-inventarize-customers.php:55
+#, php-format
+msgid "(%d / %d) %s "
+msgstr "(%d / %d) %s "
+
+#: ../src/abraflexi-reminder-clean-labels.php:37
+msgid "Labels Cleanup"
+msgstr "Čištění štítků"
+
+#: ../src/abraflexi-reminder-clean-labels.php:40
+msgid "None to clear"
+msgstr "Není co čistit"
+
+#: ../src/abraflexi-reminder.php:26
+msgid "Company not assigned"
+msgstr "Zákazník není přiřazen"
+
+#: ../src/abraflexi-reminder.php:33 ../src/abraflexi-reminder.php:45
+#, php-format
+msgid "I skip the %s because of the set label %s"
+msgstr "Přeskakuji %s z důvodu nastavení štítku %s"
+
+#: ../src/abraflexi-reminder.php:113
+msgid "Missing Client CODE"
+msgstr "Chybějící KÓD klienta"
+
+#: ../src/abraflexi-show-debts.php:27
+msgid "No customers found"
+msgstr "Zákazník nebyl nalezen"
+
+#: ../src/abraflexi-show-debts.php:113
+#, php-format
+msgid "Saving json report to %s"
+msgstr "Ukládám json report do %s"
+
+#: ../src/init.php:29
+#, php-format
+msgid "Requied label %s create"
+msgstr "Vytvoření požadovaného štítku %s"
+
+#, php-format
+#~ msgid "Module %s is wrong"
+#~ msgstr "Složka modulů %s je špatná"
+
+#, php-format
+#~ msgid "Incomplete post address for %s"
+#~ msgstr "Nekompletní poštovní adresa pro %s"
+
 #~ msgid "Please pay"
 #~ msgstr "Prosíme uhraďte"
-
-#~ msgid "Dear customer"
-#~ msgstr "Vážený zákazníku,"
 
 #~ msgid "we are sending you an overview of your commitments to us"
 #~ msgstr "zasíláme vám přehled vašich závazků vůči nám"
@@ -353,9 +447,6 @@ msgstr "Klient %s bez telefoního čísla %s !!!"
 
 #~ msgid "No outcoming invoices"
 #~ msgstr "žádné vydané faktury"
-
-#~ msgid "missing login"
-#~ msgstr "chybějící login"
 
 #~ msgid "missing password"
 #~ msgstr "chybějící heslo"
@@ -1027,9 +1118,6 @@ msgstr "Klient %s bez telefoního čísla %s !!!"
 #, fuzzy
 #~ msgid "Faktura za Eura"
 #~ msgstr "Faktura za Eura %s"
-
-#~ msgid "Unknown invoice type: %s"
-#~ msgstr "Neznámý druh faktury  %s "
 
 #~ msgid "Castecna uhrada - DOBROPIS: prijato: %s ma byt zaplaceno %s"
 #~ msgstr "Castecna uhrada - DOBROPIS: prijato: %s ma byt zaplaceno %s"
