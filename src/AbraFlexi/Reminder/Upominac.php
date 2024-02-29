@@ -500,7 +500,7 @@ class Upominac extends \AbraFlexi\RW
                 $invoiceData['evidence'] = $evidenceUsed;
                 if (
                         array_key_exists(
-                            \AbraFlexi\RO::uncode($invoiceData['typDokl']),
+                            \AbraFlexi\RO::uncode(strval($invoiceData['typDokl'])),
                             $docTypeSkipList
                         )
                 ) {
