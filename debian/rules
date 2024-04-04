@@ -11,3 +11,7 @@ override_dh_install:
 	sed -i -e 's/.\/AbraFlexi\/Reminder\/Notifier/\/usr\/lib\/abraflexi-reminder\/Reminder\/Notifier/g'    debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
 	sed -i -e 's/..\/bin/\/usr\/bin/g'                                    debian/abraflexi-reminder-gnokii/usr/lib/abraflexi-reminder/Reminder/*Gnokii.php
 	sed -i -e 's/..\/.env//'                                  debian/abraflexi-reminder/usr/share/abraflexi-reminder/*.php
+	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`'"'  multiflexi/clear_reminder_labels.multiflexi.app.json |sponge  debian/multiflexi-abraflexi-reminder/usr/lib/abraflexi-reminder/multiflexi/clear_reminder_labels.multiflexi.app.json
+	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`'"'  multiflexi/debts_overview.multiflexi.app.json |sponge  debian/multiflexi-abraflexi-reminder/usr/lib/abraflexi-reminder/multiflexi/debts_overview.multiflexi.app.json
+	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`'"'  multiflexi/inventarize.multiflexi.app.json |sponge  debian/multiflexi-abraflexi-reminder/usr/lib/abraflexi-reminder/multiflexi/inventarize.multiflexi.app.json
+	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`'"'  multiflexi/reminder.multiflexi.app.json |sponge  debian/multiflexi-abraflexi-reminder/usr/lib/abraflexi-reminder/multiflexi/reminder.multiflexi.app.json
