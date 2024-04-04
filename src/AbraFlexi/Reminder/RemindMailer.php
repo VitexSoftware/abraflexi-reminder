@@ -2,20 +2,17 @@
 
 namespace AbraFlexi\Reminder;
 
-use Ease\Container;
-use Ease\Functions;
 use Ease\Html\BodyTag;
 use Ease\Html\HtmlTag;
 use Ease\Html\SimpleHeadTag;
 use Ease\Html\TitleTag;
 use Ease\HtmlMailer;
-use Ease\Shared;
 
 /**
- * AbraFlexi Reminder Mailer
+ * AbraFlexi Reminder's Mailer
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2023 Vitex Software
+ * @copyright  (G) 2017-2024 Vitex Software
  */
 class RemindMailer extends HtmlMailer
 {

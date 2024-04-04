@@ -158,3 +158,11 @@ Tento projekt by nevznikl bez podpory společnosti [Spoje.Net s.r.o.](http://spo
 Za HTML verzi upomínek a zahrnutí ostatních pohledávek, jež bylo hrazeno společností [Medinet .s.r.o.](http://medinetsro.cz/)
 
 ![Medinet](https://raw.githubusercontent.com/VitexSoftware/php-abraflexi-reminder/master/mendinet-logo.png "Medinet s.r.o.")
+
+MultiFlexi
+----------
+
+AbraFlexi Reminder is ready for run as [MultiFlexi](https://multiflexi.eu) application.
+See the full list of ready-to-run applications within the MultiFlexi platform on the [application list page](https://www.multiflexi.eu/apps.php).
+
+[![MultiFlexi App](https://github.com/VitexSoftware/MultiFlexi/blob/main/doc/multiflexi-app.svg)](https://www.multiflexi.eu/apps.php)
