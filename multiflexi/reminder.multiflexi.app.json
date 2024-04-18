@@ -9,6 +9,7 @@
     "uuid": "",
     "deploy": "apt install abraflexi-reminder",
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
+    "topics": "AbraFlexi,Reminder,Mail,Sms",
     "environment": {
         "ABRAFLEXI_COMPANY": {
             "type": "string",

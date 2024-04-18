@@ -109,6 +109,10 @@ $reminder->addStatusMessage(Upominac::formatTotals($total), 'warning');
 
 $jsonOutput['total'] = $total;
 
+$jsonReport = json_encode($jsonOutput, JSON_PRETTY_PRINT);
+
 if (\Ease\Shared::cfg('JSON_REPORT_FILE', false)) {
-    $reminder->addStatusMessage(sprintf(_('Saving json report to %s'), \Ease\Shared::cfg('JSON_REPORT_FILE')), file_put_contents(\Ease\Shared::cfg('JSON_REPORT_FILE'), json_encode($jsonOutput, JSON_PRETTY_PRINT)) ? 'success' : 'error');
+    $reminder->addStatusMessage(sprintf(_('Saving json report to %s'), \Ease\Shared::cfg('JSON_REPORT_FILE')), file_put_contents(\Ease\Shared::cfg('JSON_REPORT_FILE'), $jsonReport) ? 'success' : 'error');
+} else {
+    echo $jsonReport;
 }

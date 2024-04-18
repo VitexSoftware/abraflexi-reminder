@@ -18,7 +18,7 @@ class RemindMailer extends HtmlMailer
 {
     /**
      * List off attachments to clean
-     * 
+     *
      * @var var<string>
      */
     public $attachments = [];
@@ -49,13 +49,14 @@ class RemindMailer extends HtmlMailer
     /**
      * @inheritDoc
      */
-    public function addFile($filename, $mimeType = 'text/plain'){
-        if(parent::addFile($filename, $mimeType)){
+    public function addFile($filename, $mimeType = 'text/plain')
+    {
+        if (parent::addFile($filename, $mimeType)) {
             $this->attachments[] = $filename;
         }
     }
-    
-    
+
+
     public function getCss()
     {
     }
@@ -82,13 +83,14 @@ class RemindMailer extends HtmlMailer
     public function getSignature()
     {
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function send() {
-        foreach ($this->attachments as $attachment){
-            if(file_exists($attachment)){
+    public function send()
+    {
+        foreach ($this->attachments as $attachment) {
+            if (file_exists($attachment)) {
                 unlink($attachment);
             }
         }

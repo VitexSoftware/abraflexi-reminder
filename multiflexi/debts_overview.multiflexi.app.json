@@ -9,6 +9,7 @@
     "uuid": "82710b78-5cf9-4380-a7e2-62b6e65b2027",
     "deploy": "apt install abraflexi-reminder",
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
+    "topics": "AbraFlexi,Reminder,Check,Json",
     "environment": {
         "ABRAFLEXI_COMPANY": {
             "type": "string",

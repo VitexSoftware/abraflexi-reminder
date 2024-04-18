@@ -209,7 +209,7 @@ class ByEmail extends Sand
                 $this->mailer->addItem(Upominka::qrPayments($clientDebts));
             }
             $this->addAttachments($clientDebts);
-            $this->mailer->addItem(new \Ease\Html\PTag(new \Ease\Html\SmallTag(new \Ease\Html\ATag('https://github.com/VitexSoftware/abraflexi-reminder', \Ease\Shared::appName() ) . ' v' . \Ease\Shared::appVersion())));
+            $this->mailer->addItem(new \Ease\Html\PTag(new \Ease\Html\SmallTag(new \Ease\Html\ATag('https://github.com/VitexSoftware/abraflexi-reminder', \Ease\Shared::appName()) . ' v' . \Ease\Shared::appVersion())));
             $result = true;
         } else {
             $this->addStatusMessage(
