@@ -12,7 +12,7 @@ use AbraFlexi\RO;
 use AbraFlexi\Reminder\Upominac;
 
 define('EASE_APPNAME', 'AbraFlexi reminder');
-define('MODULES', './AbraFlexi/Reminder/Notifier');
+
 require_once '../vendor/autoload.php';
 \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');

@@ -17,6 +17,13 @@ use Ease\HtmlMailer;
 class RemindMailer extends HtmlMailer
 {
     /**
+     * List off attachments to clean
+     * 
+     * @var var<string>
+     */
+    public $attachments = [];
+
+    /**
      * Send Remind by mail
      *
      * @param string $sendTo
@@ -39,6 +46,16 @@ class RemindMailer extends HtmlMailer
         $this->htmlBody = $this->htmlDocument->addItem(new BodyTag());
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function addFile($filename, $mimeType = 'text/plain'){
+        if(parent::addFile($filename, $mimeType)){
+            $this->attachments[] = $filename;
+        }
+    }
+    
+    
     public function getCss()
     {
     }
@@ -64,5 +81,17 @@ class RemindMailer extends HtmlMailer
 
     public function getSignature()
     {
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function send() {
+        foreach ($this->attachments as $attachment){
+            if(file_exists($attachment)){
+                unlink($attachment);
+            }
+        }
+        return parent::send();
     }
 }
