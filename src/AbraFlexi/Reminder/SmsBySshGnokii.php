@@ -1,37 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * AbraFlexi Reminder remote SMS sender
+ * This file is part of the AbraFlexi Reminder package
  *
- * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2021 Vitex Software
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AbraFlexi\Reminder;
 
-use AbraFlexi\Reminder\SmsToAddress;
-
 /**
- * Description of SmsBySshGnokii
+ * Description of SmsBySshGnokii.
  *
  * @author vitex
  */
 class SmsBySshGnokii extends SmsToAddress
 {
     /**
-     * Send SMS using remote Gnokii via sms
+     * Send SMS using remote Gnokii via sms.
      *
      * @return string Last row of command result stdout
      */
     public function sendMessage()
     {
         if (\Ease\Shared::cfg('GNOKII_HOST')) {
-            $command = '../bin/sshgnokiisms ' . $this->getNumber() . ' "' . \Ease\Functions::rip($this->getMessage()) . '" ' . \Ease\Shared::cfg('GNOKII_HOST');
-            $this->addStatusMessage('SMS ' . $this->getNumber() . ': ' . $command, 'debug');
+            $command = '../bin/sshgnokiisms '.$this->getNumber().' "'.\Ease\Functions::rip($this->getMessage()).'" '.\Ease\Shared::cfg('GNOKII_HOST');
+            $this->addStatusMessage('SMS '.$this->getNumber().': '.$command, 'debug');
+
             return system($command);
-        } else {
-            $this->addStatusMessage(_('Please set GNOKII_HOST in gnokii file'));
         }
+
+        $this->addStatusMessage(_('Please set GNOKII_HOST in gnokii file'));
+
         return '';
     }
 }

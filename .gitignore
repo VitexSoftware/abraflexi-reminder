@@ -35,3 +35,4 @@
 /debian/multiflexi-abraflexi-reminder.substvars
 /debian/multiflexi-abraflexi-reminder/
 nbproject/configs
+/.build/

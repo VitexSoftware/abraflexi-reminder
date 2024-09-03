@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the AbraFlexi Reminder package
+ *
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\AbraFlexi\Reminder;
 
 use AbraFlexi\Reminder\SmsToAddress;
@@ -9,11 +22,7 @@ use AbraFlexi\Reminder\SmsToAddress;
  */
 class SmsToAddressTest extends \PHPUnit\Framework\TestCase
 {
-
-    /**
-     * @var SmsToAddress
-     */
-    protected $object;
+    protected SmsToAddress $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -30,6 +39,5 @@ class SmsToAddressTest extends \PHPUnit\Framework\TestCase
      */
     protected function tearDown(): void
     {
-        
     }
 }

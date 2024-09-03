@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the AbraFlexi Reminder package
+ *
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AbraFlexi\Reminder;
 
 use Ease\Html\BodyTag;
@@ -9,7 +22,7 @@ use Ease\Html\TitleTag;
 use Ease\HtmlMailer;
 
 /**
- * AbraFlexi Reminder's Mailer
+ * AbraFlexi Reminder's Mailer.
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2024 Vitex Software
@@ -17,75 +30,73 @@ use Ease\HtmlMailer;
 class RemindMailer extends HtmlMailer
 {
     /**
-     * List off attachments to clean
+     * List off attachments to clean.
      *
      * @var var<string>
      */
     public $attachments = [];
 
     /**
-     * Send Remind by mail
-     *
-     * @param string $sendTo
-     * @param string $subject
+     * Send Remind by mail.
      */
-    public function __construct($sendTo, $subject)
+    public function __construct(string $sendTo = '', string $subject = '')
     {
-        if (strtolower(\Ease\Shared::cfg('MUTE')) == 'true') {
+        if (strtolower(\Ease\Shared::cfg('MUTE')) === 'true') {
             $sendTo = \Ease\Shared::cfg('EASE_EMAILTO');
         }
+
         parent::__construct($sendTo, $subject, null, ['From' => \Ease\Shared::cfg('REMIND_FROM')]);
+
         if (\Ease\Shared::cfg('MAIL_CC')) {
             $this->setMailHeaders(['Cc' => \Ease\Shared::cfg('MAIL_CC')]);
         }
+
         $this->setObjectName();
 
         $this->htmlDocument = new HtmlTag(new SimpleHeadTag([
-                    new TitleTag($this->emailSubject),
-                    '<style>' . Upominka::$styles . '</style>']));
+            new TitleTag($this->emailSubject),
+            '<style>'.Upominka::$styles.'</style>']));
         $this->htmlBody = $this->htmlDocument->addItem(new BodyTag());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function addFile($filename, $mimeType = 'text/plain')
+    public function addFile($filename, $mimeType = 'text/plain'): void
     {
         if (parent::addFile($filename, $mimeType)) {
             $this->attachments[] = $filename;
         }
     }
 
-
-    public function getCss()
+    public function getCss(): void
     {
     }
 
     /**
-     * Count current mail size
-     *
-     * @return int Size in bytes
+     * Count current mail size.
      */
-    public function getCurrentMailSize()
+    public function getCurrentMailSize(): int
     {
         $this->finalize();
         $this->finalized = false;
+
         if (
-                function_exists('mb_internal_encoding') &&
-                (((int) ini_get('mbstring.func_overload')) & 2)
+            \function_exists('mb_internal_encoding') && (((int) \ini_get('mbstring.func_overload')) & 2)
         ) {
             return mb_strlen($this->mailBody, '8bit');
-        } else {
-            return strlen($this->mailBody);
         }
+
+        return \strlen($this->mailBody);
     }
 
-    public function getSignature()
+    public function getSignature(): string
     {
+        return '';
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function send()
     {
@@ -94,6 +105,13 @@ class RemindMailer extends HtmlMailer
                 unlink($attachment);
             }
         }
-        return parent::send();
+
+        try {
+            $result = parent::send();
+        } catch (\Exception $exc) {
+            $result = false;
+        }
+
+        return $result;
     }
 }

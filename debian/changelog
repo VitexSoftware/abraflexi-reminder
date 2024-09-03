@@ -1,4 +1,10 @@
-abraflexi-reminder (1.6.6) UNRELEASED; urgency=medium
+abraflexi-reminder (1.7.0) UNRELEASED; urgency=medium
+
+  * Strict Types used
+
+ -- vitex <info@vitexsoftware.cz>  Tue, 03 Sep 2024 11:46:30 +0200
+
+abraflexi-reminder (1.6.6) EXPERIMENTAL; urgency=medium
 
   [ CyberVitexus ]
   * support for environment based configuration
@@ -32,7 +38,7 @@ abraflexi-reminder (1.6.6) UNRELEASED; urgency=medium
   [  ]
   * output Report Json to stdout when JSON_REPORT_FILE is not defined
 
- --  <vitezslav.dvorak@spojenet.cz>  Thu, 18 Apr 2024 13:58:40 +0200
+ -- vitex <info@vitexsoftware.cz>  Tue, 03 Sep 2024 11:45:54 +0200
 
 abraflexi-reminder (1.2) EXPERIMENTAL; urgency=medium
 

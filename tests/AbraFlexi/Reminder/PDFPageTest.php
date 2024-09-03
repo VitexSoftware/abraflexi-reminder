@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the AbraFlexi Reminder package
+ *
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\AbraFlexi\Reminder;
 
 use AbraFlexi\Reminder\PDFPage;
@@ -9,11 +22,7 @@ use AbraFlexi\Reminder\PDFPage;
  */
 class PDFPageTest extends \PHPUnit\Framework\TestCase
 {
-
-    /**
-     * @var PDFPage
-     */
-    protected $object;
+    protected PDFPage $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -21,7 +30,7 @@ class PDFPageTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new PDFPage;
+        $this->object = new PDFPage();
     }
 
     /**
@@ -30,18 +39,18 @@ class PDFPageTest extends \PHPUnit\Framework\TestCase
      */
     protected function tearDown(): void
     {
-        
     }
 
     /**
-     * @covers AbraFlexi\Reminder\PDFPage::getPdf
+     * @covers \AbraFlexi\Reminder\PDFPage::getPdf
+     *
      * @todo   Implement testGetPdf().
      */
-    public function testGetPdf()
+    public function testGetPdf(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 }

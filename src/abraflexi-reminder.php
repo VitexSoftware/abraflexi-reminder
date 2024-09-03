@@ -1,33 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * AbraFlexi Reminder - Remind sender
+ * This file is part of the AbraFlexi Reminder package
  *
- * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2024 Vitex Software
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-use Ease\Locale;
-use AbraFlexi\RO;
+use AbraFlexi\Functions;
 use AbraFlexi\Reminder\Upominac;
+use Ease\Locale;
 
-define('EASE_APPNAME', 'AbraFlexi reminder');
+\define('EASE_APPNAME', 'AbraFlexi reminder');
 
 require_once '../vendor/autoload.php';
-\Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], isset($argv[1]) ? $argv[1] : '../.env');
+\Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], $argv[1] ?? '../.env');
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
-if (strtolower(\Ease\Shared::cfg('APP_DEBUG')) == 'true') {
+
+if (strtolower(\Ease\Shared::cfg('APP_DEBUG')) === 'true') {
     $reminder->logBanner();
 }
 
-$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '" . \AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, date("m"), date("d") - intval(\Ease\Shared::cfg('SURRENDER_DAYS', 365)), date("Y"))) . "' "]);
+$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) \Ease\Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
-$allClients[''] = ['kod' => '', 'nazev' => '(' . _('Company not assigned') . ')', 'stitky' => [
-        \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT') => \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')]];
+$allClients[''] = ['kod' => '', 'nazev' => '('._('Company not assigned').')', 'stitky' => [
+    \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT') => \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')]];
 $clientsToSkip = [];
+
 foreach ($allClients as $clientCode => $clientInfo) {
-    if (array_key_exists(\Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
+    if (\array_key_exists(\Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
         $clientsToSkip[$clientCode] = $clientInfo;
     } else {
         $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label %s'), $clientCode, \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')), 'info');
@@ -38,11 +46,13 @@ $allDebtsByClient = [];
 $counter = 0;
 $total = [];
 $totalsByClient = [];
+
 foreach ($allDebts as $code => $debt) {
     $howmuchRaw = $howmuch = [];
 
     if (strstr($debt['stitky'], \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'))) {
         $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label %s'), $code, \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')), 'info');
+
         continue;
     }
 
@@ -51,63 +61,72 @@ foreach ($allDebts as $code => $debt) {
         $clientCodeShort = '';
     } else {
         $clientCode = $debt['firma'];
-        $clientCodeShort = RO::uncode($clientCode);
+        $clientCodeShort = Functions::uncode((string) $clientCode);
     }
 
-    if (array_key_exists(strval($debt['firma']), $clientsToSkip)) {
+    if (\array_key_exists((string) $debt['firma'], $clientsToSkip)) {
         continue;
     }
 
-    $counter++;
-    $curcode = RO::uncode($debt['mena']->value);
+    ++$counter;
+    $curcode = Functions::uncode((string) $debt['mena']);
+
     if (!isset($howmuchRaw[$curcode])) {
         $howmuchRaw[$curcode] = 0;
     }
 
-    if ($curcode == 'CZK') {
-        $amount = floatval($debt['zbyvaUhradit']);
+    if ($curcode === 'CZK') {
+        $amount = (float) $debt['zbyvaUhradit'];
     } else {
-        $amount = floatval($debt['zbyvaUhraditMen']);
+        $amount = (float) $debt['zbyvaUhraditMen'];
     }
 
     $howmuchRaw[$curcode] += $amount;
+
     if (!isset($total[$curcode])) {
         $total[$curcode] = 0;
     }
-    if (!array_key_exists('totals', $allClients[$clientCodeShort])) {
+
+    if (!\array_key_exists('totals', $allClients[$clientCodeShort])) {
         $allClients[$clientCodeShort]['totals'] = [];
     }
-    if (!array_key_exists($curcode, $allClients[$clientCodeShort]['totals'])) {
+
+    if (!\array_key_exists($curcode, $allClients[$clientCodeShort]['totals'])) {
         $allClients[$clientCodeShort]['totals'][$curcode] = $amount;
     } else {
         $allClients[$clientCodeShort]['totals'][$curcode] += $amount;
     }
 
     $total[$curcode] += $amount;
+
     foreach ($howmuchRaw as $cur => $price) {
-        $howmuch[] = $price . ' ' . $cur;
+        $howmuch[] = $price.' '.$cur;
     }
-    $allDebtsByClient[RO::uncode(strval($clientCode))][$code] = $debt;
+
+    $allDebtsByClient[Functions::uncode((string) $clientCode)][$code] = $debt;
 }
 
 $pointer = 0;
+
 foreach ($allDebtsByClient as $clientCode => $clientDebts) {
-    $clientCodeShort = RO::uncode($clientCode);
+    $clientCodeShort = Functions::uncode($clientCode);
+
     if (empty(trim($clientCodeShort))) {
         $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($clientDebts))), 'error');
     } else {
-        if (array_key_exists($clientCode, $clientsToSkip)) {
+        if (\array_key_exists($clientCode, $clientsToSkip)) {
             continue;
         }
 
         $clientData = $allClients[$clientCodeShort];
+
         if ($clientCode) {
             $reminder->addStatusMessage(
-                $clientCodeShort . ' ' .
-                    $clientData['nazev'] .
-                    ' [' . implode(',', $clientData['stitky']) . '] ' .
+                $clientCodeShort.' '.
+                    $clientData['nazev'].
+                    ' ['.implode(',', $clientData['stitky']).'] '.
                     Upominac::formatTotals($clientData['totals']),
-                'success'
+                'success',
             );
         } else {
             $reminder->addStatusMessage(_('Missing Client CODE'), 'warning');

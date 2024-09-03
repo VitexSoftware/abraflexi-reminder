@@ -1,30 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * AbraFlexi Reminder local SMS sender
+ * This file is part of the AbraFlexi Reminder package
  *
- * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2021 Vitex Software
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AbraFlexi\Reminder;
 
 /**
- * Description of SmsByGnokii
+ * Description of SmsByGnokii.
  *
  * @author vitex
  */
 class SmsByGnokii extends SmsToAddress
 {
     /**
-     * Send SMS using remote Gnokii via sms
+     * Send SMS using remote Gnokii via sms.
      *
      * @return string Last row of command result stdout
      */
     public function sendMessage()
     {
-        $command = '../bin/gnokiisms ' . $this->getNumber() . ' "' . \Ease\Functions::rip($this->getMessage()) . '" ';
-        $this->addStatusMessage('SMS ' . $this->getNumber() . ': ' . $command, 'debug');
+        $command = '../bin/gnokiisms '.$this->getNumber().' "'.\Ease\Functions::rip($this->getMessage()).'" ';
+        $this->addStatusMessage('SMS '.$this->getNumber().': '.$command, 'debug');
+
         return system($command);
     }
 }

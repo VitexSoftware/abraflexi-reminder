@@ -34,6 +34,24 @@
             "description": "AbraFlexi Server URI",
             "defval": "https:\/\/demo.flexibee.eu:5434",
             "required": true
+        },
+        "RESULT_FILE": {
+            "type": "string",
+            "description": "write output json data to",
+            "defval": "transaction_report.json",
+            "required": false
+        },
+        "SURRENDER_DAYS": {
+            "type": "integer",
+            "description": "Days to surrender",
+            "defval": "365",
+            "required": false
+        },
+        "NO_REMIND_LABEL": {
+            "type": "string",
+            "description": "Ignore documents/customers with this Label",
+            "defval": "NEUPOMINAT",
+            "required": false
         }
     },
     "multiflexi": "1.7.2"

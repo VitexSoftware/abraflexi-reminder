@@ -1,18 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the AbraFlexi Reminder package
+ *
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AbraFlexi\Reminder\Notifier;
 
-use DateTime;
-use Ease\Sand;
-use AbraFlexi\Reminder\SmsByAxfone;
-use AbraFlexi\Reminder\SmsByHuaweiApi;
 use AbraFlexi\Reminder\SmsByGnokii;
+use AbraFlexi\Reminder\SmsByHuaweiApi;
 use AbraFlexi\Reminder\SmsBySshGnokii;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
+use Ease\Sand;
 
 /**
- * AbraFlexi - Remind by SMS class
+ * AbraFlexi - Remind by SMS class.
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2020 Spoje.Net, Vitex Software
@@ -20,64 +31,68 @@ use AbraFlexi\Reminder\Upominka;
 class BySms extends Sand
 {
     /**
-     *
-     * @var boolean status
+     * @var bool status
      */
-    public $result = null;
+    public bool $result;
 
     /**
-     * eMail notification
+     * eMail notification.
      *
      * @param Upominac $reminder
-     * @param int                          $score     weeks of due
-     * @param array                        $debts     array of debts by current customer
+     * @param int      $score    weeks of due
+     * @param array    $debts    array of debts by current customer
      */
     public function __construct($reminder, $score, $debts)
     {
         $this->setObjectName();
         $result = false;
+
         if (\Ease\Shared::cfg('SMS_ENGINE')) {
             if ($reminder->customer->adresar->getAnyPhoneNumber()) {
                 $message = $this->compile($score, $reminder->customer, $debts);
+
                 switch (\Ease\Shared::cfg('SMS_ENGINE')) {
-                    case 'axfone':
-                        $smsEngine = new SmsByAxfone($reminder->customer->adresar, $message);
-                        break;
                     case 'gnokii':
                         $smsEngine = new SmsByGnokii(
                             $reminder->customer->adresar,
-                            $message
+                            $message,
                         );
+
                         break;
                     case 'huaweiapi':
                         $smsEngine = new SmsByHuaweiApi(
                             $reminder->customer->adresar,
-                            $message
+                            $message,
                         );
+
                         break;
                     case 'sshgnokii':
                         $smsEngine = new SmsBySshGnokii(
                             $reminder->customer->adresar,
-                            $message
+                            $message,
                         );
+
                         break;
+
                     default:
                         $smsEngine = null;
+
                         break;
                 }
 
-                if (!is_null($smsEngine)) {
+                if (null !== $smsEngine) {
                     $result = $smsEngine->result;
-//            file_put_contents('/var/tmp/upominka.txt',$message);
+
+                    //            file_put_contents('/var/tmp/upominka.txt',$message);
                     if (($score > 0) && ($score < 4) && $result) {
                         $this->setData(['id' => $reminder->customer->adresar->getRecordIdent(),
-                            'stitky' => 'UPOMINKA' . $score], true);
+                            'stitky' => 'UPOMINKA'.$score], true);
                         $reminder->addStatusMessage(
                             sprintf(
                                 _('Set Label %s '),
-                                'UPOMINKA' . $score
+                                'UPOMINKA'.$score,
                             ),
-                            $reminder->customer->adresar->sync() ? 'success' : 'error'
+                            $reminder->customer->adresar->sync() ? 'success' : 'error',
                         );
                     }
 
@@ -87,18 +102,18 @@ class BySms extends Sand
                 $this->addStatusMessage(sprintf(
                     _('Client %s without phone neumber %s !!!'),
                     $reminder->customer->adresar->getDataValue('nazev'),
-                    $reminder->customer->adresar->getApiURL()
+                    $reminder->customer->adresar->getApiURL(),
                 ), 'warning');
             }
         }
     }
 
     /**
-     * Compile SMS reminder
+     * Compile SMS reminder.
      *
-     * @param int $score
+     * @param int                        $score
      * @param \AbraFlexi\Bricks\Customer $customer
-     * @param array $clientDebts
+     * @param array                      $clientDebts
      *
      * @return string
      */
@@ -107,26 +122,29 @@ class BySms extends Sand
         $result = false;
         $nazev = $customer->adresar->getDataValue('nazev');
         $upominka = new Upominka();
+
         switch ($score) {
             case 1:
                 $upominka->loadTemplate('prvniUpominka');
+
                 break;
             case 2:
                 $upominka->loadTemplate('druhaUpominka');
+
                 break;
             case 3:
                 $upominka->loadTemplate('pokusOSmir');
+
                 break;
+
             default:
                 $upominka->loadTemplate('inventarizace');
         }
 
+        $dnes = new \DateTime();
+        $subject = $upominka->getDataValue('hlavicka').' ke dni '.$dnes->format('d.m.Y');
+        $heading = $upominka->getDataValue('uvod').' '.$nazev."\n".$upominka->getDataValue('textNad')."\n".Upominac::formatTotals(Upominka::getSums($clientDebts));
 
-
-        $dnes = new DateTime();
-        $subject = $upominka->getDataValue('hlavicka') . ' ke dni ' . $dnes->format('d.m.Y');
-        $heading = $upominka->getDataValue('uvod') . ' ' . $nazev . "\n" . $upominka->getDataValue('textNad') . "\n" . Upominac::formatTotals(Upominka::getSums($clientDebts));
-        $result = $subject . ':' . $heading;
-        return $result;
+        return $subject.':'.$heading;
     }
 }

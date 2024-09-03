@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the AbraFlexi Reminder package
+ *
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\AbraFlexi\Reminder;
 
 use AbraFlexi\Reminder\SmsBySshGnokii;
@@ -9,11 +22,7 @@ use AbraFlexi\Reminder\SmsBySshGnokii;
  */
 class SmsBySshGnokiiTest extends \PHPUnit\Framework\TestCase
 {
-
-    /**
-     * @var SmsBySshGnokii
-     */
-    protected $object;
+    protected SmsBySshGnokii $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -21,7 +30,7 @@ class SmsBySshGnokiiTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new SmsBySshGnokii;
+        $this->object = new SmsBySshGnokii();
     }
 
     /**
@@ -30,18 +39,18 @@ class SmsBySshGnokiiTest extends \PHPUnit\Framework\TestCase
      */
     protected function tearDown(): void
     {
-        
     }
 
     /**
-     * @covers AbraFlexi\Reminder\SmsBySshGnokii::sendMessage
+     * @covers \AbraFlexi\Reminder\SmsBySshGnokii::sendMessage
+     *
      * @todo   Implement testSendMessage().
      */
-    public function testSendMessage()
+    public function testSendMessage(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 }

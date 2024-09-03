@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the AbraFlexi Reminder package
+ *
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\AbraFlexi\Reminder;
 
 use AbraFlexi\Reminder\Upominac;
@@ -9,11 +22,7 @@ use AbraFlexi\Reminder\Upominac;
  */
 class UpominacTest extends \Tests\AbraFlexi\RWTest
 {
-
-    /**
-     * @var Upominac
-     */
-    protected $object;
+    protected Upominac $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -21,7 +30,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
      */
     protected function setUp(): void
     {
-        $this->object = new Upominac;
+        $this->object = new Upominac();
     }
 
     /**
@@ -30,157 +39,168 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
      */
     protected function tearDown(): void
     {
-        
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::getCustomersDebts
+     * @covers \AbraFlexi\Reminder\Upominac::getCustomersDebts
+     *
      * @todo   Implement testGetCustomersDebts().
      */
-    public function testGetCustomersDebts()
+    public function testGetCustomersDebts(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::everythingPaidOff
+     * @covers \AbraFlexi\Reminder\Upominac::everythingPaidOff
+     *
      * @todo   Implement testEverythingPaidOff().
      */
-    public function testEverythingPaidOff()
+    public function testEverythingPaidOff(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::enableCustomer
+     * @covers \AbraFlexi\Reminder\Upominac::enableCustomer
+     *
      * @todo   Implement testEnableCustomer().
      */
-    public function testEnableCustomer()
+    public function testEnableCustomer(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::processAllDebts
+     * @covers \AbraFlexi\Reminder\Upominac::processAllDebts
+     *
      * @todo   Implement testProcessAllDebts().
      */
-    public function testProcessAllDebts()
+    public function testProcessAllDebts(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::processUserDebts
+     * @covers \AbraFlexi\Reminder\Upominac::processUserDebts
+     *
      * @todo   Implement testProcessUserDebts().
      */
-    public function testProcessUserDebts()
+    public function testProcessUserDebts(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::getCustomerScore
+     * @covers \AbraFlexi\Reminder\Upominac::getCustomerScore
+     *
      * @todo   Implement testGetCustomerScore().
      */
-    public function testGetCustomerScore()
+    public function testGetCustomerScore(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::posliUpominku
+     * @covers \AbraFlexi\Reminder\Upominac::posliUpominku
+     *
      * @todo   Implement testPosliUpominku().
      */
-    public function testPosliUpominku()
+    public function testPosliUpominku(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::processNotifyModules
+     * @covers \AbraFlexi\Reminder\Upominac::processNotifyModules
+     *
      * @todo   Implement testProcessNotifyModules().
      */
-    public function testProcessNotifyModules()
+    public function testProcessNotifyModules(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::processModules
+     * @covers \AbraFlexi\Reminder\Upominac::processModules
+     *
      * @todo   Implement testProcessModules().
      */
-    public function testProcessModules()
+    public function testProcessModules(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::getEvidenceDebts
+     * @covers \AbraFlexi\Reminder\Upominac::getEvidenceDebts
+     *
      * @todo   Implement testGetEvidenceDebts().
      */
-    public function testGetEvidenceDebts()
+    public function testGetEvidenceDebts(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::getAllDebts
+     * @covers \AbraFlexi\Reminder\Upominac::getAllDebts
+     *
      * @todo   Implement testGetAllDebts().
      */
-    public function testGetAllDebts()
+    public function testGetAllDebts(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::getCustomerList
+     * @covers \AbraFlexi\Reminder\Upominac::getCustomerList
+     *
      * @todo   Implement testGetCustomerList().
      */
-    public function testGetCustomerList()
+    public function testGetCustomerList(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Upominac::formatTotals
+     * @covers \AbraFlexi\Reminder\Upominac::formatTotals
      */
-    public function testFormatTotals()
+    public function testFormatTotals(): void
     {
         $this->assertEquals('10,10 CZK,1,20 EUR', Upominac::formatTotals(['CZK' => 10.1, 'EUR' => 1.2]));
     }

@@ -1,44 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * AbraFlexi - Remind class Brick
+ * This file is part of the AbraFlexi Reminder package
  *
- * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2021 Vitex Software
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AbraFlexi\Reminder;
 
 /**
- * Description of Upominka
+ * Description of Remind.
  *
  * @author vitex
  */
 class Upominka extends \AbraFlexi\RW
 {
-    /**
-     * Remind templates evidence name
-     * @var string
-     */
-    public $evidence = 'sablona-upominky';
+    public \AbraFlexi\Adresar $firmer;
 
     /**
-     *
-     * @var \AbraFlexi\Adresar
+     * Invoice.
      */
-    public $firmer = null;
+    public \AbraFlexi\FakturaVydana $invoicer;
+    public static string $styles = <<<'EOD'
 
-    /**
-     * Invoice
-     * @var \AbraFlexi\FakturaVydana
-     */
-    public $invoicer = null;
-
-    /**
-     *
-     * @var string
-     */
-    static $styles = '
 table.greyGridTable {
   border: 2px solid #FFFFFF;
   width: 100%;
@@ -78,63 +69,66 @@ table.greyGridTable tfoot {
 }
 table.greyGridTable tfoot td {
   font-size: 14px;
-}';
+}
+EOD;
 
     /**
-     * AbraFlexi Remind tempalte helper
+     * AbraFlexi Remind tempalte helper.
      *
      * @param string $init
-     * @param array $options
+     * @param array  $options
      */
-    public function __construct($init = null, $options = array())
+    public function __construct($init = null, $options = [])
     {
+        $this->evidence = 'sablona-upominky';
         parent::__construct($init, $options);
         $this->invoicer = new \AbraFlexi\FakturaVydana();
         $this->firmer = new \AbraFlexi\Adresar();
     }
 
     /**
-     * Load
+     * Load.
+     *
      * @param string $template prvniUpominka|druhaUpominka|pokusOSmir|inventarizace
      */
-    public function loadTemplate($template)
+    public function loadTemplate($template): void
     {
         $this->takeData(current($this->getColumnsFromAbraFlexi(
             '*',
-            ['typSablonyK' => 'typSablony.' . $template]
+            ['typSablonyK' => 'typSablony.'.$template],
         )));
     }
 
     /**
-     * Obtain all debts sums indexed by currency
-     *
-     * @param array $debts
-     *
-     * @return array
+     * Obtain all debts sums indexed by currency.
      */
-    public static function getSums($debts)
+    public static function getSums(array $debts): array
     {
         $sumsCelkem = [];
+
         foreach ($debts as $debt) {
-            $currency = \AbraFlexi\RO::uncode($debt['mena']);
-            if ($currency == 'CZK') {
+            $currency = \AbraFlexi\Functions::uncode((string) $debt['mena']);
+
+            if ($currency === 'CZK') {
                 $amount = $debt['zbyvaUhradit'];
             } else {
                 $amount = $debt['zbyvaUhraditMen'];
             }
-            if (!array_key_exists($currency, $sumsCelkem)) {
+
+            if (!\array_key_exists($currency, $sumsCelkem)) {
                 $sumsCelkem[$currency] = $amount;
             } else {
                 $sumsCelkem[$currency] += $amount;
             }
         }
+
         return $sumsCelkem;
     }
 
     /**
-     * Block of QR Payment
+     * Block of QR Payment.
      *
-     * @param array  $debts
+     * @param array $debts
      *
      * @return \Ease\Html\DivTag
      */
@@ -143,31 +137,36 @@ table.greyGridTable tfoot td {
         $invoicer = new \AbraFlexi\FakturaVydana();
         $qrDiv = new \Ease\Html\DivTag();
         $qrDiv->addItem(new \Ease\Html\H3Tag(_('QR Invoices')));
+
         foreach ($debts as $invoiceId => $invoiceInfo) {
-            $currency = \AbraFlexi\RO::uncode($invoiceInfo['mena']);
-            if ($currency == 'CZK') {
+            $currency = \AbraFlexi\Functions::uncode((string) $invoiceInfo['mena']);
+
+            if ($currency === 'CZK') {
                 $amount = $invoiceInfo['zbyvaUhradit'];
             } else {
                 $amount = $invoiceInfo['zbyvaUhraditMen'];
             }
-            $invoicer->setMyKey(intval($invoiceInfo['id']));
+
+            $invoicer->setMyKey((int) $invoiceInfo['id']);
             $invoicer->setEvidence($invoiceInfo['evidence']);
-            $qrDiv->addItem(new \Ease\Html\DivTag($invoiceId . ' <strong>' . $amount . '</strong> ' . $currency));
+            $qrDiv->addItem(new \Ease\Html\DivTag($invoiceId.' <strong>'.$amount.'</strong> '.$currency));
+
             try {
                 $qrCode = $invoicer->getQrCodeBase64(200);
                 $qrDiv->addItem(new \Ease\Html\ImgTag(
                     $qrCode,
                     _('QR Payment'),
-                    ['width' => 200, 'height' => 200, 'title' => $invoiceId]
+                    ['width' => 200, 'height' => 200, 'title' => $invoiceId],
                 ));
             } catch (\AbraFlexi\Exception $exc) {
             }
         }
+
         return $qrDiv;
     }
 
     /**
-     * Format Czech Currency
+     * Format Czech Currency.
      *
      * @param float $price
      *

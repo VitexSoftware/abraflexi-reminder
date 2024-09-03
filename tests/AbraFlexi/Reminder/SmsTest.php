@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the AbraFlexi Reminder package
+ *
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\AbraFlexi\Reminder;
 
 use AbraFlexi\Reminder\Sms;
@@ -9,11 +22,7 @@ use AbraFlexi\Reminder\Sms;
  */
 class SmsTest extends \PHPUnit\Framework\TestCase
 {
-
-    /**
-     * @var Sms
-     */
-    protected $object;
+    protected Sms $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -21,7 +30,7 @@ class SmsTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new Sms;
+        $this->object = new Sms();
     }
 
     /**
@@ -30,78 +39,83 @@ class SmsTest extends \PHPUnit\Framework\TestCase
      */
     protected function tearDown(): void
     {
-        
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Sms::getMessage
+     * @covers \AbraFlexi\Reminder\Sms::getMessage
+     *
      * @todo   Implement testGetMessage().
      */
-    public function testGetMessage()
+    public function testGetMessage(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Sms::getNumber
+     * @covers \AbraFlexi\Reminder\Sms::getNumber
+     *
      * @todo   Implement testGetNumber().
      */
-    public function testGetNumber()
+    public function testGetNumber(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Sms::setNumber
+     * @covers \AbraFlexi\Reminder\Sms::setNumber
+     *
      * @todo   Implement testSetNumber().
      */
-    public function testSetNumber()
+    public function testSetNumber(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Sms::setMessage
+     * @covers \AbraFlexi\Reminder\Sms::setMessage
+     *
      * @todo   Implement testSetMessage().
      */
-    public function testSetMessage()
+    public function testSetMessage(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Sms::unifyTelNo
+     * @covers \AbraFlexi\Reminder\Sms::unifyTelNo
+     *
      * @todo   Implement testUnifyTelNo().
      */
-    public function testUnifyTelNo()
+    public function testUnifyTelNo(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 
     /**
-     * @covers AbraFlexi\Reminder\Sms::sendMessage
+     * @covers \AbraFlexi\Reminder\Sms::sendMessage
+     *
      * @todo   Implement testSendMessage().
      */
-    public function testSendMessage()
+    public function testSendMessage(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.',
         );
     }
 }
