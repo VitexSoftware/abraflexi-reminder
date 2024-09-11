@@ -163,6 +163,9 @@ MultiFlexi
 ----------
 
 AbraFlexi Reminder is ready for run as [MultiFlexi](https://multiflexi.eu) application.
+
+<img src="abraflexi-inventarize.svg?raw=true" width="100" height="100"><img src="abraflexi-reminder-clean-labels.svg?raw=true" width="100" height="100"><img src="abraflexi-reminder.svg?raw=true" width="100" height="100"><img src="abraflexi-show-debts.svg?raw=true" width="100" height="100">
+
 See the full list of ready-to-run applications within the MultiFlexi platform on the [application list page](https://www.multiflexi.eu/apps.php).
 
 [![MultiFlexi App](https://github.com/VitexSoftware/MultiFlexi/blob/main/doc/multiflexi-app.svg)](https://www.multiflexi.eu/apps.php)

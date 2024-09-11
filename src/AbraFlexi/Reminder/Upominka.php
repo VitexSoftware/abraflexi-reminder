@@ -73,7 +73,7 @@ table.greyGridTable tfoot td {
 EOD;
 
     /**
-     * AbraFlexi Remind tempalte helper.
+     * AbraFlexi Remind template helper.
      *
      * @param string $init
      * @param array  $options

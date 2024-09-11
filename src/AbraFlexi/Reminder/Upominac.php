@@ -43,9 +43,9 @@ class Upominac extends \AbraFlexi\RW
     }
 
     /**
-     * Obtain customer debths Array.
+     * Obtain customer debts Array.
      *
-     * @param array $skipLabels  labels of Customer (Addressbook) to skip
+     * @param array $skipLabels  labels of Customer (AddressBook) to skip
      * @param bool  $cleanLabels clean debtor labels when all is paid
      *
      * @return array of all customer's documents after due date
