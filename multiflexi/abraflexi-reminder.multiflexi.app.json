@@ -118,6 +118,7 @@
             "description": "SMS Engine",
             "defval": "",
             "required": false
+        }
     },
     "multiflexi": "1.7.2"
 }
