@@ -4,10 +4,8 @@ set -e
 
 . /usr/share/debconf/confmodule
 
-#cat /etc/multiflexi/multiflexi.env
-
-# Iterate over all json files inf usr/lib/abraflexi-reminder/multiflexi
-for file in `ls /usr/lib/abraflexi-reminder/multiflexi/*.json`
+APPLICATION=`echo $DPKG_MAINTSCRIPT_PACKAGE | sed 's/multiflexi-//'`
+for file in `ls /usr/lib/$APPLICATION/multiflexi/*.json`
 do
 	multiflexi-json2app $file
 done
