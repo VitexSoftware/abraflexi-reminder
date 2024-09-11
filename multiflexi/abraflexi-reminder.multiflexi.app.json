@@ -4,7 +4,7 @@
     "description": "Remind unsettled invoices",
     "executable": "abraflexi-reminder",
     "setup": "abraflexi-reminder-init",
-    "cmdparams": "0fd52fdd-1c83-4346-b9f9-13e82bd5d6d0",
+    "cmdparams": "",
     "requirements": "AbraFlexi",
     "uuid": "0fd52fdd-1c83-4346-b9f9-13e82bd5d6d0",
     "deploy": "apt install abraflexi-reminder",

@@ -24,7 +24,7 @@ require_once '../vendor/autoload.php';
 $localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
 
-if (strtolower(\Ease\Shared::cfg('APP_DEBUG')) === 'true') {
+if (strtolower(\Ease\Shared::cfg('APP_DEBUG','false')) === 'true') {
     $reminder->logBanner();
 }
 
