@@ -20,13 +20,13 @@ use AbraFlexi\Reminder\Upominac;
  * AbraFlexi Reminder - lists debtors and defaulters.
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2024 Vitex Software
+ * @copyright  (G) 2017-2024 VitexSoftware
  */
 \define('EASE_APPNAME', 'ShowDebts');
 
 require_once '../vendor/autoload.php';
 
-$options = getopt('o::e::', ['output::environment::']);
+$options = getopt('o::e::', ['output::','environment::']);
 
 \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], \array_key_exists('environment', $options) ? $options['environment'] : '../.env');
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
