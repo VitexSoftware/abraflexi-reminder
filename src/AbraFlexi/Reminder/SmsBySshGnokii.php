@@ -24,20 +24,18 @@ class SmsBySshGnokii extends SmsToAddress
 {
     /**
      * Send SMS using remote Gnokii via sms.
-     *
-     * @return string Last row of command result stdout
      */
-    public function sendMessage()
+    public function sendMessage(): bool
     {
         if (\Ease\Shared::cfg('GNOKII_HOST')) {
             $command = '../bin/sshgnokiisms '.$this->getNumber().' "'.\Ease\Functions::rip($this->getMessage()).'" '.\Ease\Shared::cfg('GNOKII_HOST');
             $this->addStatusMessage('SMS '.$this->getNumber().': '.$command, 'debug');
 
-            return system($command);
+            return !empty(system($command));
         }
 
         $this->addStatusMessage(_('Please set GNOKII_HOST in gnokii file'));
 
-        return '';
+        return false;
     }
 }

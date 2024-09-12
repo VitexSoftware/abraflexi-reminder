@@ -31,7 +31,7 @@ class PaymentRecievedConfirmation extends RemindMailer
      */
     public function __construct($invoice = null)
     {
-        parent::__construct(null, null);
+        parent::__construct('', '');
 
         if (null !== $invoice) {
             $this->assignInvoice($invoice);

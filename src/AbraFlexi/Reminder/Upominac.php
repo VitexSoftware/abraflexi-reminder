@@ -393,7 +393,7 @@ class Upominac extends \AbraFlexi\RW
             if (strstr($debt['poznam'], 'Inventarizace:')) {
                 foreach (explode("\n", $debt['poznam']) as $invRow) {
                     if (strstr($invRow, 'Inventarizace:')) {
-                        $daysToLastInvent[] = \AbraFlexi\FakturaVydana::overdueDays(new \DateTime(str_replace(
+                        $daysToLastInvent[] = \AbraFlexi\FakturaVydana::overdueDays(new \AbraFlexi\Date(str_replace(
                             'Inventarizace:',
                             '',
                             $invRow,

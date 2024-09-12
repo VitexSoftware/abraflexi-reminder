@@ -29,12 +29,10 @@ class InvoiceRecievingConfirmation extends RemindMailer
 
     /**
      * Odešle potvrzení úhrady.
-     *
-     * @param \AbraFlexi\FakturaVydana $invoice
      */
-    public function __construct($invoice = null)
+    public function __construct(\AbraFlexi\Document $invoice = null)
     {
-        parent::__construct(null, null);
+        parent::__construct('', '');
 
         if (null !== $invoice) {
             $this->assignInvoice($invoice);

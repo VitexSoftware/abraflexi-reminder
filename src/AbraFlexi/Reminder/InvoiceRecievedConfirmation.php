@@ -41,10 +41,7 @@ class InvoiceRecievedConfirmation extends RemindMailer
         }
     }
 
-    /**
-     * @param \AbraFlexi\FakturaPrijata $invoice
-     */
-    public function assignInvoice($invoice): void
+    public function assignInvoice(\AbraFlexi\Document $invoice): void
     {
         $defaultLocale = 'cs_CZ';
         setlocale(\LC_ALL, $defaultLocale);

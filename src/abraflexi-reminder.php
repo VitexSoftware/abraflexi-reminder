@@ -71,10 +71,11 @@ foreach ($allDebts as $code => $debt) {
     ++$counter;
     $curcode = Functions::uncode((string) $debt['mena']);
 
-    if (!isset($howmuchRaw[$curcode])) {
+    if (!array_key_exists($curcode, $howmuchRaw) || empty($howmuchRaw[$curcode])) {
         $howmuchRaw[$curcode] = 0;
     }
 
+    
     if ($curcode === 'CZK') {
         $amount = (float) $debt['zbyvaUhradit'];
     } else {

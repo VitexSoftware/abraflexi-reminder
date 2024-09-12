@@ -32,7 +32,7 @@ class RemindMailer extends HtmlMailer
     /**
      * List off attachments to clean.
      *
-     * @var var<string>
+     * @var array<string>
      */
     public $attachments = [];
 
@@ -41,7 +41,7 @@ class RemindMailer extends HtmlMailer
      */
     public function __construct(string $sendTo = '', string $subject = '')
     {
-        if (strtolower(\Ease\Shared::cfg('MUTE'), 'false') === 'true') {
+        if (strtolower(\Ease\Shared::cfg('MUTE', 'false')) === 'true') {
             $sendTo = \Ease\Shared::cfg('EASE_EMAILTO');
         }
 
@@ -62,11 +62,12 @@ class RemindMailer extends HtmlMailer
     /**
      * {@inheritDoc}
      */
-    public function addFile($filename, $mimeType = 'text/plain'): void
+    public function addFile($filename, $mimeType = 'text/plain'): bool
     {
         if (parent::addFile($filename, $mimeType)) {
             $this->attachments[] = $filename;
         }
+        return !empty($this->attachments);
     }
 
     public function getCss(): void
