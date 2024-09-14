@@ -216,7 +216,7 @@ class Upominac extends \AbraFlexi\RW
                     // no break
                 case 'zamek.otevreno':
                 default:
-                    $invoicesToSave[$debt['id']] = ['id' => \AbraFlexi\RO::code($did),
+                    $invoicesToSave[$debt['id']] = ['id' => \AbraFlexi\RO::code((string) $did),
                         'evidence' => $debt['evidence']];
                     $ddiff = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
                     $ddifs[$debt['id']] = $ddiff;

@@ -34,7 +34,7 @@ class RemindMailer extends HtmlMailer
      *
      * @var array<string>
      */
-    public $attachments = [];
+    public array $attachments = [];
 
     /**
      * Send Remind by mail.
@@ -67,6 +67,7 @@ class RemindMailer extends HtmlMailer
         if (parent::addFile($filename, $mimeType)) {
             $this->attachments[] = $filename;
         }
+
         return !empty($this->attachments);
     }
 
