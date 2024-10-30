@@ -45,7 +45,7 @@ class RemindMailer extends HtmlMailer
             $sendTo = \Ease\Shared::cfg('EASE_EMAILTO');
         }
 
-        parent::__construct($sendTo, $subject, null, ['From' => \Ease\Shared::cfg('REMIND_FROM')]);
+        parent::__construct($sendTo, $subject, '', ['From' => \Ease\Shared::cfg('REMIND_FROM')]);
 
         if (\Ease\Shared::cfg('MAIL_CC')) {
             $this->setMailHeaders(['Cc' => \Ease\Shared::cfg('MAIL_CC')]);
@@ -55,7 +55,8 @@ class RemindMailer extends HtmlMailer
 
         $this->htmlDocument = new HtmlTag(new SimpleHeadTag([
             new TitleTag($this->emailSubject),
-            '<style>'.Upominka::$styles.'</style>']));
+            '<style>'.Upominka::$styles.'</style>',
+        ]));
         $this->htmlBody = $this->htmlDocument->addItem(new BodyTag());
     }
 
@@ -100,7 +101,7 @@ class RemindMailer extends HtmlMailer
     /**
      * {@inheritDoc}
      */
-    public function send()
+    public function send(): bool
     {
         foreach ($this->attachments as $attachment) {
             if (file_exists($attachment)) {

@@ -13,10 +13,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-if (file_exists('../vendor/autoload.php')) {
-    require_once '../vendor/autoload.php'; // Test Run
-    \Ease\Shared::instanced()->loadConfig('../.env.example');
-} else {
-    require_once 'vendor/autoload.php'; // Create Test
-    \Ease\Shared::instanced()->loadConfig('.env.example');
-}
+\define('EASE_APPNAME', 'AbraFlexi Reminder Test');
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+\Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], __DIR__.'/../.env');

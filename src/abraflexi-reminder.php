@@ -109,7 +109,7 @@ foreach ($allDebts as $code => $debt) {
 $pointer = 0;
 
 foreach ($allDebtsByClient as $clientCode => $clientDebts) {
-    $clientCodeShort = Functions::uncode((string)$clientCode);
+    $clientCodeShort = Functions::uncode((string) $clientCode);
 
     if (empty(trim($clientCodeShort))) {
         $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($clientDebts))), 'error');

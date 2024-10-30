@@ -47,7 +47,7 @@ class BySms extends Sand
         $this->setObjectName();
         $result = false;
 
-        if (\Ease\Shared::cfg('SMS_ENGINE')) {
+        if (\Ease\Shared::cfg('SMS_ENGINE', false)) {
             if ($reminder->customer->adresar->getAnyPhoneNumber()) {
                 $message = $this->compile($score, $reminder->customer, $debts);
 

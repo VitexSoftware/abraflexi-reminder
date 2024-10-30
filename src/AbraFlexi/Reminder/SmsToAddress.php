@@ -35,17 +35,20 @@ class SmsToAddress extends Sms
         if (\Ease\Shared::cfg('MUTE') === 'true') {
             // Do not send message to Customers in MUTE mode
             $smsNo = \Ease\Shared::cfg('SMS_SENDER');
+            $this->result = false;
         } else {
             $smsNo = $address->getAnyPhoneNumber();
         }
 
         parent::__construct($smsNo, $message);
 
-        if (empty($smsNo)) {
-            $address->addStatusMessage(
-                $address->getRecordIdent().' '.$address->getApiURL().' '._('Address or primary contact without any phone number'),
-                'warning',
-            );
+        if (\Ease\Shared::cfg('MUTE') !== 'true') {
+            if (empty($smsNo)) {
+                $address->addStatusMessage(
+                    $address->getRecordIdent().' '.$address->getApiURL().' '._('Address or primary contact without any phone number'),
+                    'warning',
+                );
+            }
         }
     }
 }

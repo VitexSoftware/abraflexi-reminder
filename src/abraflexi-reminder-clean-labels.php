@@ -8,6 +8,7 @@
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2024 Vitex Software
  */
+
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\RO;
 use Ease\Locale;
