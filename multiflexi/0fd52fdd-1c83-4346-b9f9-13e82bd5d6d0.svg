@@ -5,7 +5,7 @@
    version="1.1"
    viewBox="0 0 132.29167 132.29167"
    id="svg16"
-   sodipodi:docname="abraflexi-show-debts.svg"
+   sodipodi:docname="abraflexi-reminder.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -16,12 +16,6 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs20">
-    <rect
-       x="-53.944597"
-       y="22.520168"
-       width="19.638238"
-       height="12.658706"
-       id="rect30" />
     <filter
        style="color-interpolation-filters:sRGB"
        inkscape:label="Drop Shadow"
@@ -57,29 +51,6 @@
          operator="over"
          result="composite2"
          id="feComposite120" />
-    </filter>
-    <filter
-       inkscape:label="Fluorescence"
-       inkscape:menu="Color"
-       inkscape:menu-tooltip="Oversaturate colors which can be fluorescent in real world"
-       style="color-interpolation-filters:sRGB"
-       id="filter62"
-       x="0"
-       y="0"
-       width="1"
-       height="1">
-      <feColorMatrix
-         type="hueRotate"
-         values="0"
-         id="feColorMatrix56" />
-      <feColorMatrix
-         type="saturate"
-         values="1"
-         id="feColorMatrix58" />
-      <feColorMatrix
-         type="matrix"
-         values="2 -1 0 0 0 0 2 -1 0 0 -1 0 2 0 0 0 0 0 1 0 "
-         id="feColorMatrix60" />
     </filter>
     <clipPath
        clipPathUnits="userSpaceOnUse"
@@ -137,15 +108,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1280"
-     inkscape:window-height="739"
+     inkscape:window-width="1920"
+     inkscape:window-height="1120"
      id="namedview18"
      showgrid="false"
      inkscape:zoom="0.428"
-     inkscape:cx="-244.15888"
-     inkscape:cy="553.73832"
-     inkscape:window-x="1920"
-     inkscape:window-y="294"
+     inkscape:cx="-17.523364"
+     inkscape:cy="633.17757"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg16"
      inkscape:showpageshadow="2"
@@ -164,70 +135,58 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="g394"
-     transform="matrix(0.95656268,0,0,1,2.8732011,-7.4083335)">
+     id="g315"
+     transform="matrix(0.25377153,0,0,-0.25377153,1.180324,131.11135)">
     <g
-       id="g315"
-       transform="matrix(0.13314466,0,0,-0.13314466,32.060802,100.23086)">
+       id="g14">
       <g
-         id="g14">
+         id="g16"
+         clip-path="url(#clipPath20)">
         <g
-           id="g16"
-           clip-path="url(#clipPath20)">
-          <g
-             id="g22"
-             clip-path="url(#clipPath26)">
-            <path
-               d="M -1,513 H 513 V -1 H -1 Z"
-               style="fill:#f6b102;fill-opacity:1;fill-rule:nonzero;stroke:none"
-               id="path28" />
-          </g>
-        </g>
-      </g>
-      <g
-         id="g30">
-        <g
-           id="g32"
-           clip-path="url(#clipPath36)">
-          <g
-             id="g38"
-             clip-path="url(#clipPath42)">
-            <path
-               d="M 252.6875,363 H 425.7089 V 161.0939 H 252.6875 Z"
-               style="fill:#fdebbf;fill-opacity:1;fill-rule:nonzero;stroke:none"
-               id="path44" />
-          </g>
-        </g>
-      </g>
-      <g
-         id="g46">
-        <g
-           id="g48"
-           clip-path="url(#clipPath52)">
-          <g
-             id="g54"
-             clip-path="url(#clipPath58)">
-            <path
-               d="M 82.51535,363 H 311.6214 V 161.0939 H 82.51535 Z"
-               style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-               id="path60" />
-          </g>
+           id="g22"
+           clip-path="url(#clipPath26)">
+          <path
+             d="M -1,513 H 513 V -1 H -1 Z"
+             style="fill:#f6b102;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             id="path28" />
         </g>
       </g>
     </g>
-    <text
-       xml:space="preserve"
-       id="text28"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect30);display:inline;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter62)"
-       transform="matrix(8.4482676,0,0,8.0275442,453.04415,-168.31349)"><tspan
-         x="-53.945312"
-         y="32.149013"
-         id="tspan502">{   }</tspan></text>
+    <g
+       id="g30">
+      <g
+         id="g32"
+         clip-path="url(#clipPath36)">
+        <g
+           id="g38"
+           clip-path="url(#clipPath42)">
+          <path
+             d="M 252.6875,363 H 425.7089 V 161.0939 H 252.6875 Z"
+             style="fill:#fdebbf;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             id="path44" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g46">
+      <g
+         id="g48"
+         clip-path="url(#clipPath52)">
+        <g
+           id="g54"
+           clip-path="url(#clipPath58)">
+          <path
+             d="M 82.51535,363 H 311.6214 V 161.0939 H 82.51535 Z"
+             style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             id="path60" />
+        </g>
+      </g>
+    </g>
   </g>
   <g
      style="filter:url(#filter122)"
      id="layer1"
-     transform="matrix(0.20237746,0,0,0.19490734,-18.365097,40.965535)">
+     transform="matrix(0.21405847,0,0,0.21405847,-0.90360267,31.665306)">
     <g
        id="g2486"
        transform="translate(5.6295,-46.644)">
