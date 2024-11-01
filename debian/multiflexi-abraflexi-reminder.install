@@ -1,2 +1,3 @@
-multiflexi/*  usr/lib/abraflexi-reminder/multiflexi
+multiflexi/*.json  usr/lib/abraflexi-reminder/multiflexi
+multiflexi/*.svg   usr/share/multiflexi/images
 
