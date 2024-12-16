@@ -52,6 +52,12 @@
             "description": "Ignore documents/customers with this Label",
             "defval": "NEUPOMINAT",
             "required": false
+        },
+        "EASE_LOGGER": {
+            "type": "string",
+            "description": "write log messages using",
+            "defval": "console|syslog",
+            "required": false
         }
     },
     "multiflexi": "1.7.2"

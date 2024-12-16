@@ -60,17 +60,21 @@ foreach ($allDebts as $kod => $debtData) {
 $counter = 0;
 
 foreach ($clientsToNotify as $firma => $debts) {
-    if (empty(trim(\AbraFlexi\Functions::uncode($firma)))) {
-        $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts))), 'error');
+    if ($firma) {
+        if (empty(trim(\AbraFlexi\Functions::uncode($firma)))) {
+            $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts))), 'error');
+        } else {
+            $reminder->customer->adresar->dataReset();
+            $reminder->customer->adresar->loadFromAbraFlexi(\AbraFlexi\RO::code($firma));
+            $reminder->addStatusMessage(sprintf(
+                _('(%d / %d) %s '),
+                $counter++,
+                \count($clientsToNotify),
+                isset(current($debts)['firma']->showAs) ? current($debts)['firma']->showAs : current($debts)['firma'],
+            ), 'debug');
+            $reminder->processNotifyModules(0, $debts);
+        }
     } else {
-        $reminder->customer->adresar->dataReset();
-        $reminder->customer->adresar->loadFromAbraFlexi(\AbraFlexi\RO::code($firma));
-        $reminder->addStatusMessage(sprintf(
-            _('(%d / %d) %s '),
-            $counter++,
-            \count($clientsToNotify),
-            isset(current($debts)['firma']->showAs) ? current($debts)['firma']->showAs : current($debts)['firma'],
-        ), 'debug');
-        $reminder->processNotifyModules(0, $debts);
+        $reminder->addStatusMessage('unnamed company'.json_encode(array_keys($debts)));
     }
 }

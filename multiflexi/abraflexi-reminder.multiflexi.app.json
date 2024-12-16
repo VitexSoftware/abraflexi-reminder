@@ -118,6 +118,12 @@
             "description": "SMS Engine",
             "defval": "",
             "required": false
+        },
+        "EASE_LOGGER": {
+            "type": "string",
+            "description": "write log messages using",
+            "defval": "console|syslog",
+            "required": false
         }
     },
     "multiflexi": "1.7.2"

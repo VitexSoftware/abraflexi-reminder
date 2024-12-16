@@ -52,6 +52,12 @@
             "description": "Days of silence after due date",
             "defval": "0",
             "required": false
+        },
+        "EASE_LOGGER": {
+            "type": "string",
+            "description": "write log messages using",
+            "defval": "console|syslog",
+            "required": false
         }
     },
     "multiflexi": "1.7.2"
