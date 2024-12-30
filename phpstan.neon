@@ -1,1 +1,2 @@
-phpstan-default-baseline.neon
+parameters:
+	ignoreErrors:
