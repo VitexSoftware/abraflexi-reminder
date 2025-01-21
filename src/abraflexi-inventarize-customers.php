@@ -61,7 +61,7 @@ $counter = 0;
 
 foreach ($clientsToNotify as $firma => $debts) {
     if ($firma) {
-        if (empty(trim(\AbraFlexi\Functions::uncode((string)$firma)))) {
+        if (empty(trim(\AbraFlexi\Functions::uncode((string) $firma)))) {
             $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts))), 'error');
         } else {
             $reminder->customer->adresar->dataReset();

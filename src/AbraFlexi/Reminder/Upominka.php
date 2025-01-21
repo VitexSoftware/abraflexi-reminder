@@ -174,6 +174,6 @@ EOD;
      */
     public static function formatCurrency($price)
     {
-        return number_format((float)$price, 2, ',', ' ');
+        return number_format((float) $price, 2, ',', ' ');
     }
 }
