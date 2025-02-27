@@ -185,8 +185,9 @@ class Upominac extends \AbraFlexi\RW
      *
      * @return int max debt score 1: 0-7 days 1: 8-14 days 3: 15 days and more
      */
-    public function processUserDebts($clientInfo, $clientDebts)
+    public function processUserDebts($clientInfo, $clientDebts): array
     {
+        $report = [];
         $this->customer->adresar->dataReset();
         $this->customer->adresar->setData($clientInfo);
         $this->customer->adresar->updateApiURL();
@@ -204,10 +205,7 @@ class Upominac extends \AbraFlexi\RW
                     $unlock = $this->invoicer->performAction('unlock', 'int');
 
                     if ($unlock['success'] === 'false') {
-                        $this->addStatusMessage(
-                            _('Invoice locked: skipping process'),
-                            'warning',
-                        );
+                        $this->addStatusMessage(_('Invoice locked: skipping process'), 'warning');
 
                         break;
                     }
@@ -248,7 +246,9 @@ class Upominac extends \AbraFlexi\RW
         if ($zewlScore > 0 && (array_sum($ddifs) > 0) && \count($invoicesToSave)) {
             if (!\array_key_exists('UPOMINKA'.$zewlScore, $stitky)) {
                 if (!\array_key_exists('NEUPOMINAT', $stitky)) {
-                    if ($this->posliUpominku($zewlScore, $clientDebts)) {
+                    $report['remindsSent'] = $this->posliUpominku($zewlScore, $clientDebts);
+
+                    if ($report['remindsSent']) {
                         foreach ($invoicesToSave as $invoiceCode => $invoiceData) {
                             switch ($zewlScore) {
                                 case 1:
@@ -279,33 +279,25 @@ class Upominac extends \AbraFlexi\RW
                             $this->invoicer->setEvidence($invoiceData['evidence']);
 
                             if ($this->invoicer->insertToAbraFlexi($invoiceData)) {
-                                $this->addStatusMessage(sprintf(
-                                    _('%s %s remind %s date saved'),
-                                    $invoiceData['evidence'],
-                                    $invoiceCode,
-                                    $colname,
-                                ), 'info');
+                                $this->addStatusMessage(sprintf(_('%s %s remind %s date saved'), $invoiceData['evidence'], $invoiceCode, $colname), 'info');
                             } else {
-                                $this->addStatusMessage(sprintf(
-                                    _('%s %s remind %s date save failed'),
-                                    $invoiceData['evidence'],
-                                    $invoiceCode,
-                                    $colname,
-                                ), 'error');
+                                $this->addStatusMessage(sprintf(_('%s %s remind %s date save failed'), $invoiceData['evidence'], $invoiceCode, $colname), 'error');
                             }
+
+                            $report['changed'] = $colname;
                         }
                     }
                 } else {
                     $this->addStatusMessage(_('Remind send disbled'));
+                    $report['message'] = _('Remind send disbled');
                 }
             } else {
-                $this->addStatusMessage(sprintf(
-                    _('Remind %d already sent'),
-                    $zewlScore,
-                ));
+                $this->addStatusMessage(sprintf(_('Remind %d already sent'), $zewlScore));
+                $report['message'] = sprintf(_('Remind %d already sent'), $zewlScore);
             }
         } else {
             $this->addStatusMessage(_('No debts to remind'), 'debug');
+            $report['message'] = _('No debts to remind');
         }
 
         if (\count($invoicesToLock)) {
@@ -315,20 +307,16 @@ class Upominac extends \AbraFlexi\RW
                 $lock = $this->invoicer->performAction('lock', 'int');
 
                 if ($lock['success'] === 'true') {
-                    $this->addStatusMessage(sprintf(
-                        _('Invoice %s locked again'),
-                        $invoiceCode,
-                    ), 'info');
+                    $this->addStatusMessage(sprintf(_('Invoice %s locked again'), $invoiceCode), 'info');
                 } else {
-                    $this->addStatusMessage(sprintf(
-                        _('Invoice %s locking failed'),
-                        $invoiceCode,
-                    ), 'error');
+                    $this->addStatusMessage(sprintf(_('Invoice %s locking failed'), $invoiceCode), 'error');
                 }
             }
         }
 
-        return $zewlScore;
+        $report['zewlScore'] = $zewlScore;
+
+        return $report;
     }
 
     /**
@@ -416,14 +404,14 @@ class Upominac extends \AbraFlexi\RW
      *
      * @return bool
      */
-    public function posliUpominku($score, $clientDebts)
+    public function posliUpominku($score, $clientDebts): array
     {
-        $result = false;
+        $result = [];
 
-        foreach ($this->processNotifyModules($score, $clientDebts) as $modResult) {
-            if ($modResult) {
-                $result = true;
-            }
+        $processed = $this->processNotifyModules($score, $clientDebts);
+
+        foreach ($processed as $modName => $modResult) {
+            $result[$modName] = $modResult->result;
         }
 
         return $result;

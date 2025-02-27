@@ -30,10 +30,7 @@ use Ease\Sand;
  */
 class BySms extends Sand
 {
-    /**
-     * @var bool status
-     */
-    public bool $result;
+    public array $result = [];
 
     /**
      * eMail notification.
@@ -53,24 +50,15 @@ class BySms extends Sand
 
                 switch (\Ease\Shared::cfg('SMS_ENGINE')) {
                     case 'gnokii':
-                        $smsEngine = new SmsByGnokii(
-                            $reminder->customer->adresar,
-                            $message,
-                        );
+                        $smsEngine = new SmsByGnokii($reminder->customer->adresar, $message);
 
                         break;
                     case 'huaweiapi':
-                        $smsEngine = new SmsByHuaweiApi(
-                            $reminder->customer->adresar,
-                            $message,
-                        );
+                        $smsEngine = new SmsByHuaweiApi($reminder->customer->adresar, $message);
 
                         break;
                     case 'sshgnokii':
-                        $smsEngine = new SmsBySshGnokii(
-                            $reminder->customer->adresar,
-                            $message,
-                        );
+                        $smsEngine = new SmsBySshGnokii($reminder->customer->adresar, $message);
 
                         break;
 
@@ -85,26 +73,16 @@ class BySms extends Sand
 
                     //            file_put_contents('/var/tmp/upominka.txt',$message);
                     if (($score > 0) && ($score < 4) && $result) {
-                        $this->setData(['id' => $reminder->customer->adresar->getRecordIdent(),
-                            'stitky' => 'UPOMINKA'.$score], true);
-                        $reminder->addStatusMessage(
-                            sprintf(
-                                _('Set Label %s '),
-                                'UPOMINKA'.$score,
-                            ),
-                            $reminder->customer->adresar->sync() ? 'success' : 'error',
-                        );
+                        $this->setData(['id' => $reminder->customer->adresar->getRecordIdent(), 'stitky' => 'UPOMINKA'.$score], true);
+                        $reminder->addStatusMessage(sprintf(_('Set Label %s '), 'UPOMINKA'.$score), $reminder->customer->adresar->sync() ? 'success' : 'error');
                     }
-
-                    $this->result = $result;
                 }
             } else {
-                $this->addStatusMessage(sprintf(
-                    _('Client %s without phone neumber %s !!!'),
-                    $reminder->customer->adresar->getDataValue('nazev'),
-                    $reminder->customer->adresar->getApiURL(),
-                ), 'warning');
+                $message = sprintf(_('Client %s without phone neumber %s !!!'), $reminder->customer->adresar->getDataValue('nazev'), $reminder->customer->adresar->getApiURL());
+                $this->addStatusMessage($message, 'warning');
             }
+
+            $this->result = ['sent' => $result, 'message' => $message];
         }
     }
 

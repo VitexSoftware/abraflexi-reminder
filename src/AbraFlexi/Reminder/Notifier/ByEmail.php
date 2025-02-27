@@ -40,10 +40,7 @@ use Ease\Sand;
  */
 class ByEmail extends Sand
 {
-    /**
-     * @var bool status
-     */
-    public bool $result;
+    public array $result = [];
     public RemindMailer $mailer;
     public FakturaVydana $invoicer;
     private \AbraFlexi\Adresar $firmer;
@@ -64,19 +61,25 @@ class ByEmail extends Sand
                     'id' => $reminder->customer->adresar->getRecordIdent(),
                     'stitky' => 'UPOMINKA'.$score,
                 ], true);
-                $reminder->addStatusMessage(
-                    sprintf(
-                        _('Set Label %s '),
-                        'UPOMINKA'.$score,
-                    ),
-                    $reminder->customer->adresar->sync() ? 'success' : 'error',
-                );
+                $labelUpdated = $reminder->customer->adresar->sync();
+
+                if ($labelUpdated) {
+                    $message = sprintf(_('Set Label %s '), 'UPOMINKA'.$score);
+                } else {
+                    $message = sprintf(_('Set Label %s failed'), 'UPOMINKA'.$score);
+                }
+
+                $reminder->addStatusMessage($message, $labelUpdated ? 'success' : 'error');
+            } else {
+                $message = _('Sent');
             }
         } else {
             $this->addStatusMessage(_('Remind was not sent'), 'warning');
+            $message = _('Remind was not sent');
+            $result = false;
         }
 
-        $this->result = $result;
+        $this->result = ['sent' => $result, 'message' => $message];
     }
 
     /**

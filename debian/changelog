@@ -1,9 +1,15 @@
+abraflexi-reminder (1.7.2) UNRELEASED; urgency=medium
+
+  * Code update
+
+ -- vitex <info@vitexsoftware.cz>  Thu, 27 Feb 2025 14:04:22 +0100
+
 abraflexi-reminder (1.7.1) EXPERIMENTAL; urgency=medium
 
   * Update For Current php-abraflexi
   * AbraFlexi logo updates
 
- -- vitex <info@vitexsoftware.cz>  Sun, 16 Feb 2025 11:52:52 +0100
+ -- vitex <info@vitexsoftware.cz>  Thu, 27 Feb 2025 14:04:14 +0100
 
 abraflexi-reminder (1.7.0) EXPERIMENTAL; urgency=medium
 

@@ -44,11 +44,17 @@ $clientsToSkip = [];
 if (empty($allClients)) {
     $reminder->addStatusMessage(_('No customers found'), 'warning');
 } else {
+    $clientCodes = [];
+
     foreach ($allClients as $clientCodeRaw => $clientInfo) {
         if (\array_key_exists(\Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
             $clientsToSkip[$clientCodeRaw] = $clientInfo;
         }
+
+        $clientCodes[] = $clientCodeRaw;
     }
+
+    $reminder->addStatusMessage(implode(', ', array_keys($clientsToSkip)).'  '.\count($clientsToSkip).' '._('clients will be skipped'), 'warning');
 }
 
 $jsonOutput = ['skippedClients' => $clientsToSkip];

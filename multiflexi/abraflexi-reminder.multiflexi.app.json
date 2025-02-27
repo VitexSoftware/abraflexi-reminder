@@ -119,6 +119,12 @@
             "defval": "",
             "required": false
         },
+        "RESULT_FILE": {
+            "type": "string",
+            "description": "write output json data to",
+            "defval": "reminder_{ABRAFLEXI_COMPANY}.json",
+            "required": false
+        },
         "EASE_LOGGER": {
             "type": "string",
             "description": "write log messages using",
