@@ -567,7 +567,7 @@ class Upominac extends \AbraFlexi\RW
     {
         // [/* 'typVztahuK'=>'typVztahu.odberDodav' */]
         $conditions['limit'] = 0;
-        $allClients = $this->customer->adresar->getColumnsFromAbraFlexi(['id', 'nazev',
+        $allClients = $this->customer->getAdresar()->getColumnsFromAbraFlexi(['id', 'nazev',
             'stitky'], $conditions, 'kod');
 
         if (!empty($allClients)) {
