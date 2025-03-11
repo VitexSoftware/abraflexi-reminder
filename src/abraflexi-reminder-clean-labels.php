@@ -5,12 +5,10 @@
 /**
  * AbraFlexi reminder - Clear Reminder Labels.
  *
- * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2024 Vitex Software
+ * author     Vítězslav Dvořák <info@vitexsofware.cz>
  */
 
 use AbraFlexi\Reminder\Upominac;
-use AbraFlexi\RO;
 use Ease\Locale;
 
 \define('EASE_APPNAME', 'Clean Remind Labels');
@@ -34,10 +32,16 @@ foreach ($labelsRequiedRaw as $label) {
 $pos = 0;
 
 foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' => 0]) as $clientCode => $clientInfo) {
-    $reminder->customer->adresar->setMyKey(RO::code($clientCode));
+    $reminder->customer->adresar->setMyKey(AbraFlexi\Functions::code($clientCode));
     $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
-    $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
-    $reminder->addStatusMessage(++$pos.'/'.\count($reminder->customer->adresar->lastResult['adresar']).' '.$clientCode.' '._('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode === 201) ? 'success' : 'warning');
+    
+    // Check if the customer has no debts
+    if (empty($reminder->customer->getCustomerDebts($clientCode))) {
+        $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
+        $reminder->addStatusMessage(++$pos.'/'.\count($reminder->customer->adresar->lastResult['adresar']).' '.$clientCode.' '._('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode === 201) ? 'success' : 'warning');
+    } else {
+        $reminder->addStatusMessage($clientCode.' '._('Customer has debts, labels not removed'), 'info');
+    }
 }
 
 if (!$pos) {
