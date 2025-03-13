@@ -85,13 +85,10 @@ class ByEmail extends Sand
     /**
      * Compile Reminder message with its contents.
      *
-     * @param int      $score       Weeks after due date
+     * @param int      $score    Weeks after due date
      * @param Customer $customer
-     * @param array    $clientDebts
-     *
-     * @return bool
      */
-    public function compile($score, $customer, $clientDebts)
+    public function compile(int $score, $customer, array $clientDebts): bool
     {
         $result = false;
         $email = $customer->adresar->getNotificationEmailAddress();
@@ -147,7 +144,7 @@ class ByEmail extends Sand
 
             $heading = new DivTag($upominka->getDataValue('uvod').' '.$nazev);
 
-            if (\Ease\Shared::cfg('ADD_LOGO')) {
+            if (strtolower(\Ease\Shared::cfg('ADD_LOGO', '')) === 'true') {
                 $headingTableRow = new TrTag();
                 $headingTableRow->addItem(new TdTag($heading));
                 $logo = new CompanyLogo([
@@ -222,14 +219,7 @@ class ByEmail extends Sand
             $this->mailer->addItem(new \Ease\Html\PTag(new \Ease\Html\SmallTag(new \Ease\Html\ATag('https://github.com/VitexSoftware/abraflexi-reminder', \Ease\Shared::appName()).' v'.\Ease\Shared::appVersion())));
             $result = true;
         } else {
-            $this->addStatusMessage(
-                sprintf(
-                    _('Client %s without email %s !!!'),
-                    $nazev,
-                    $this->firmer->getApiURL(),
-                ),
-                'error',
-            );
+            $this->addStatusMessage(sprintf(_('Client %s without email %s !!!'), $nazev, $this->firmer->getApiURL()), 'error');
         }
 
         return $result;

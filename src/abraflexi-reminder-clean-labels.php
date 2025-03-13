@@ -34,7 +34,7 @@ $pos = 0;
 foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' => 0]) as $clientCode => $clientInfo) {
     $reminder->customer->adresar->setMyKey(AbraFlexi\Functions::code($clientCode));
     $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
-    
+
     // Check if the customer has no debts
     if (empty($reminder->customer->getCustomerDebts($clientCode))) {
         $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
