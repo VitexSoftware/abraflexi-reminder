@@ -20,18 +20,18 @@ require_once '../vendor/autoload.php';
 \Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], $argv[1] ?? '../.env');
 
 try {
-    $labelsRequied = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINAT'];
+    $labelsRequied = ['UPOMINKA1' => _('First Remind was send'), 'UPOMINKA2' => _('Second Remind was send'), 'UPOMINKA3' => _('Third Remind was send'), 'NEPLATIC' => _('defaulter'), 'NEUPOMINAT' => _('Do not Remind'), 'DATA_BOX' => _('Send reminds to Czech Data Box')];
     $labeler = new \AbraFlexi\Stitek();
 
     if (\Ease\Shared::cfg('APP_DEBUG') === 'True') {
         $labeler->logBanner(\Ease\Shared::appName());
     }
 
-    foreach ($labelsRequied as $labelRequied) {
+    foreach ($labelsRequied as $labelRequied => $labelDescription) {
         if (!$labeler->recordExists(['kod' => $labelRequied])) {
             $labeler->insertToAbraFlexi([
                 'kod' => $labelRequied,
-                'nazev' => $labelRequied,
+                'nazev' => $labelDescription,
                 'vsbAdr' => true,
             ]);
             $labeler->addStatusMessage(

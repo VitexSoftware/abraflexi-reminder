@@ -15,23 +15,31 @@ declare(strict_types=1);
 
 /**
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
- * @copyright  2023 Vitex Software
+ * @copyright  2023-2025 Vitex Software
  */
 
 namespace AbraFlexi\Reminder\Notifier;
+
+use AbraFlexi\Bricks\Customer;
+use AbraFlexi\FakturaVydana;
+use AbraFlexi\Reminder\notifier;
+use AbraFlexi\Reminder\Upominac;
+use AbraFlexi\Reminder\Upominka;
+use Ease\Shared;
 
 /**
  * Description of ByDatovka.
  *
  * @author vitex
  */
-class ByDatovka extends \Defr\CzechDataBox\DataBox implements \AbraFlexi\Reminder\notifier
+class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
 {
     public FakturaVydana $invoicer;
+    public bool $result = false;
     private $pdf;
     private $subject;
-    private $pdfFiles = [];
-    private $dataBoxId;
+    private array $pdfFiles = [];
+    private string $dataBoxId;
 
     //    /**
     //     *
@@ -47,41 +55,61 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements \AbraFlexi\Reminde
             mkdir($this->directory);
         }
 
-        $this->loginWithUsernameAndPassword(\Ease\Functions::cfg('DATOVKA_LOGIN'), \Ease\Functions::cfg('DATOVKA_PASSWORD'), true); // Pro ostrou verzi
-        $result = false;
+        $labels = \AbraFlexi\Stitek::getLabels($reminder->customer->adresar);
         $ic = $reminder->customer->adresar->getDataValue('ic');
 
-        if ($ic) {
+        if ($ic && \array_key_exists('DATA_BOX', $labels)) {
             $this->dataBoxId = $this->ico2databoxid($ic);
 
-            if ($this->dataBoxId) {
-                $this->pdf = $reminder->savePdfRemind($this->directory.'/upominka.pdf');
-
-                if ($this->compile($score, $reminder->customer, $debts)) {
-                    $result = $this->send();
-                } else {
-                    $this->reminder->addStatusMessage(_('Remind was not sent'), 'warning');
-                }
+            if (empty(Shared::cfg('DATOVKA_LOGIN') && Shared::cfg('DATOVKA_PASSWORD'))) {
+                $reminder->addStatusMessage(_('Czech Data Box is unconfigured'));
             } else {
-                $this->reminder->addStatusMessage();
+                if ($this->login($reminder)) {
+                    $result = false;
+
+                    if ($this->dataBoxId) {
+                        $this->pdf = $reminder->savePdfRemind($this->directory.'/upominka.pdf');
+
+                        if ($this->compile($score, $reminder->customer, $debts)) {
+                            $result = $this->send();
+                        } else {
+                            $this->reminder->addStatusMessage(_('Remind was not sent'), 'warning');
+                        }
+                    } else {
+                        $this->reminder->addStatusMessage();
+                    }
+                }
+
+                $this->result = $result;
             }
         }
+    }
 
-        $this->result = $result;
+    public function login($reminder): bool
+    {
+        $online = false;
+        $this->loginWithUsernameAndPassword(\Ease\Shared::cfg('DATOVKA_LOGIN'), \Ease\Shared::cfg('DATOVKA_PASSWORD'), true);
+
+        // TODO: loginWithCertificateAndPassword
+        try {
+            $online = $this->testConnection();
+        } catch (\Defr\CzechDataBox\DataBoxException $exc) {
+            echo $exc->getTraceAsString();
+
+            $reminder->addStatusMessage($exc->getMessage(), 'error');
+        }
+
+        return $online;
     }
 
     /**
      * Compile Reminder message with its contents.
      *
-     * @param int      $score       Weeks after due date
-     * @param Customer $customer
-     * @param array    $clientDebts
-     *
-     * @return bool
+     * @param int $score Weeks after due date
      */
-    public function compile($score, $customer, $clientDebts)
+    public function compile(int $score, Customer $customer, array $clientDebts): bool
     {
-        $upominka = new \AbraFlexi\Reminder\Upominka();
+        $upominka = new Upominka();
 
         switch ($score) {
             case 1:
@@ -138,7 +166,7 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements \AbraFlexi\Reminde
             }
 
             $this->invoicer->setMyKey(\AbraFlexi\RO::code($debt['kod']));
-            $this->pdfFiles[] = $this->invoicer->downloadInFormat('pdf', '/tmp/');
+            $this->pdfFiles[] = $this->invoicer->downloadInFormat('pdf', sys_get_temp_dir());
         }
     }
 

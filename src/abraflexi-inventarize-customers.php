@@ -14,6 +14,19 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use AbraFlexi\Functions;
+use Ease\Shared;
+
+/**
+ * This file is part of the AbraFlexi Reminder package.
+ *
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 \define('EASE_APPNAME', 'AbraFlexi Inventarizace');
 
 require_once '../vendor/autoload.php';
@@ -21,8 +34,8 @@ require_once '../vendor/autoload.php';
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new \AbraFlexi\Reminder\Upominac();
 
-if (\Ease\Shared::cfg('APP_DEBUG') === 'True') {
-    $reminder->logBanner();
+if (Shared::cfg('APP_DEBUG') === 'True') {
+    $reminder->logBanner(Shared::cfg('OVERDUE_PATIENCE', 0));
 }
 
 $allDebts = $reminder->getAllDebts();
@@ -30,17 +43,17 @@ $allClients = $reminder->getCustomerList(['limit' => 0]);
 $clientsToNotify = [];
 
 foreach ($allDebts as $kod => $debtData) {
-    if (\AbraFlexi\FakturaVydana::overdueDays($debtData['datSplat']) < \Ease\Shared::cfg('OVERDUE_PATIENCE', 0)) {
+    if (\AbraFlexi\FakturaVydana::overdueDays($debtData['datSplat']) < Shared::cfg('OVERDUE_PATIENCE', 0)) {
         continue; // Patience
     }
 
-    if (strstr($debtData['stitky'], \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'))) {
+    if (strstr($debtData['stitky'], Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'))) {
         $reminder->addStatusMessage(sprintf(_('I skip the %s for %s because of the set label on the document'), $debtData['kod'], $debtData['firma']->showAs), 'info');
 
         continue;
     }
 
-    $firma = \AbraFlexi\Functions::uncode((string) $debtData['firma']);
+    $firma = Functions::uncode((string) $debtData['firma']);
 
     if (\strlen($firma) && (\array_key_exists($firma, $allClients) === false)) {
         $reminder->addStatusMessage(sprintf(_('Unknown customer %s'), $firma), 'warning');
@@ -61,11 +74,11 @@ $counter = 0;
 
 foreach ($clientsToNotify as $firma => $debts) {
     if ($firma) {
-        if (empty(trim(\AbraFlexi\Functions::uncode((string) $firma)))) {
+        if (empty(trim(Functions::uncode((string) $firma)))) {
             $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts))), 'error');
         } else {
             $reminder->customer->adresar->dataReset();
-            $reminder->customer->adresar->loadFromAbraFlexi(\AbraFlexi\RO::code((string) $firma));
+            $reminder->customer->adresar->loadFromAbraFlexi(Functions::code((string) $firma));
             $reminder->addStatusMessage(sprintf(
                 _('(%d / %d) %s '),
                 $counter++,

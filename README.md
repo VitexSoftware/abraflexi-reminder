@@ -14,7 +14,7 @@ Odesílač upomínek pro AbraFlexi
 * Česká a anglická lokalizace. (gettext překladový systém)
 * balíčky pro debian/ubuntu ale může běžet i na windows
 
-Příkaz **abraflexi-show-debts** pouze vypíše pohledávky dle jednotlivých dlužníků.
+Příkaz **abraflexi-show-debts** pouze vypíše pohledávky dle jednotlivých dlužníků (export do json).
 
 Příkaz **abraflexi-reminder** Po spuštění (vytvoří potřebné štítky a)
 zkontroluje v přednastavené firmě pohledávky. Při odeslání upomínky
@@ -32,17 +32,17 @@ Funkce štítků
 -------------
 
 Štítky mají jak informativní tak řídící funkci. Po spuštění upomínkovače se nejprve se projdou všichni klienti a těm kteří nemají žádní neuhrazené pohledávky jsou odstraněny štítky  UPOMINKA1,UPOMINKA2,UPOMINKA3 a NEPLATIC.
-Datum odeslání upomínky je zapisováno do jednotlivé faktury do sloupců datUp1,datUp2 a datSmir - [více sloupců ve faktuře abraflexi na to není](https://demo.flexibee.eu/c/demo/faktura-vydana/properties).
+Datum odeslání upomínky je zapisováno do jednotlivé faktury do sloupců `datUp1`,`datUp2` a `datSmir` - [více sloupců ve faktuře abraflexi na to není](https://demo.flexibee.eu/c/demo/faktura-vydana/properties).
 Avšak upomínaný je klient ne faktura a tuto skutečnost je třeba nějakým způsobem poznamenat. To se děje právě prostřednictvím štítku.
-Tzn. pokud má klient nastavený štítek UPOMINKA1 a UPOMINKA2 znamená to, že klientovi byly již odeslány dvě upomínky. Pro program to znamená že další odeslaná upomínka již bude pokus o smír.
+Tzn. pokud má klient nastavený štítek `UPOMINKA1` a `UPOMINKA2` znamená to, že klientovi byly již odeslány dvě upomínky. Pro program to znamená že další odeslaná upomínka již bude pokus o smír.
 Současně je také informace o tom že upomínka byla opravdu odeslána. tzn. nenastaví se v případě že na zákazníka není znám email, nebo že poštovní server zrovna někdo rebootoval.
-Další týden po odeslání třetí upomínky se klientovi nastaví informativní štítek NEPLATIC
+Další týden po odeslání třetí upomínky se klientovi nastaví informativní štítek `NEPLATIC`
 
 Upomínka Mailem
 ---------------
 
 Texty upomínek se mění ve abraflexi evidenci **sablona-upominky**
-A je poznamenán datum jejího odeslání a současně je zákazníkovi přiřazen štítek UPOMINKA1-3
+A je poznamenán datum jejího odeslání a současně je zákazníkovi přiřazen štítek `UPOMINKA1-3`
 Odeslaná upomínka obsahuje přehled všech položek po splatnosti a k nim patřičné přílohy ve formátech pdf a isdocx
 
 Upomínka SMS
@@ -124,29 +124,29 @@ se nastavuje v souboru  /etc/abraflexi/**reminder.json**  nebo do proměnných p
 
 V případě že nepoužíváte debianí balíček ale pouze klonujete repozitář, je potřeba před prvním použitím spustit [skript Init.php](src/Init.php) který vytvoří štítky 'UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC', 'NEUPOMINKOVAT'
 
-Třídy v AbraFlexi/Reminder/
----------------------------
+ISDS Datové schránky
+--------------------
 
-| Soubor                                                       | Popis                                 |
-| ------------------------------------------------------------ | --------------------------------------|
-| [Mailer.php](src/AbraFlexi/Reminder/Mailer.php)              | Třída pro HTML email
-| [Upominac.php](src/AbraFlexi/Reminder/Upominac.php)          | Třída upomínající neplatiče
-| [Upominka.php](src/AbraFlexi/Reminder/Upominka.php)          | Třída upomínky pro neplatiče
+* **DATOVKA_LOGIN** - Přihlašovací jméno do datovky
+* **DATOVKA_PASSWORD** - Login do datovky
+
+Upomínky a inventarizace jsou odesílány i do datovky pokud je tato nastavena v konfiguraci a dlužík má v adresáři nastavený štítek `DATA_BOX`
 
 Závislosti
 ----------
 
 Tento nástroj ke svojí funkci využívá následující knihovny:
 
-* [**EasePHP Framework core**](https://github.com/VitexSoftware/php-ease-core) - pomocné funkce např. logování
-* [**PHP AbraFlexi**](https://github.com/Spoje-NET/php-abraflexi)                - komunikace s [AbraFlexi](https://abraflexi.eu/)
+* [**EasePHP Framework core**](https://github.com/VitexSoftware/php-ease-core)      - pomocné funkce např. logování
+* [**PHP AbraFlexi**](https://github.com/Spoje-NET/php-abraflexi)                   - komunikace s [AbraFlexi](https://abraflexi.eu/)
 * [**PHP AbraFlexi Bricks**](https://github.com/VitexSoftware/php-abraflexi-bricks) - používá se třída Zákazníka
+* [**CzechDataBox**](https://github.com/dfridrich/CzechDataBox)                     - Komunikace s datovými schránkami
 
 Mohlo by vás zajímat
 --------------------
 
-* https://github.com/VitexSoftware/php-abraflexi-matcher - Párovač faktur
-* https://github.com/VitexSoftware/AbraFlexi-Digest      - Pravidelný souhrn
+* https://github.com/VitexSoftware/php-abraflexi-matcher - Párovač faktur 
+* https://github.com/VitexSoftware/AbraFlexi-Digest      - Pravidelný souhrn vašeho AbraFlexi
 
 Poděkování
 ----------

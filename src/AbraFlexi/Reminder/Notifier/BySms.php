@@ -31,6 +31,7 @@ use Ease\Sand;
 class BySms extends Sand
 {
     public array $result = [];
+    private string $message = '';
 
     /**
      * eMail notification.
@@ -46,7 +47,9 @@ class BySms extends Sand
 
         if (\Ease\Shared::cfg('SMS_ENGINE', false)) {
             if ($reminder->customer->adresar->getAnyPhoneNumber()) {
-                $message = $this->compile($score, $reminder->customer, $debts);
+                $this->compile($score, $reminder->customer, $debts);
+
+                $message = $this->message;
 
                 switch (\Ease\Shared::cfg('SMS_ENGINE')) {
                     case 'gnokii':
@@ -95,9 +98,9 @@ class BySms extends Sand
      *
      * @return string
      */
-    public function compile($score, $customer, $clientDebts)
+    public function compile($score, $customer, $clientDebts): bool
     {
-        $result = false;
+        $result = true;
         $nazev = $customer->adresar->getDataValue('nazev');
         $upominka = new Upominka();
 
@@ -122,7 +125,8 @@ class BySms extends Sand
         $dnes = new \DateTime();
         $subject = $upominka->getDataValue('hlavicka').' ke dni '.$dnes->format('d.m.Y');
         $heading = $upominka->getDataValue('uvod').' '.$nazev."\n".$upominka->getDataValue('textNad')."\n".Upominac::formatTotals(Upominka::getSums($clientDebts));
+        $this->message = $subject.':'.$heading;
 
-        return $subject.':'.$heading;
+        return $result;
     }
 }

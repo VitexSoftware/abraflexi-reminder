@@ -15,29 +15,30 @@ declare(strict_types=1);
  */
 
 use AbraFlexi\Reminder\Upominac;
+use Ease\Shared;
 
 /**
  * AbraFlexi Reminder - lists debtors and defaulters.
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2024 VitexSoftware
+ * @copyright  (G) 2017-2025 VitexSoftware
  */
-\define('EASE_APPNAME', 'ShowDebts');
+\define('EASE_APPNAME', 'DebtReporter');
 
 require_once '../vendor/autoload.php';
 
 $options = getopt('o::e::', ['output::', 'environment::']);
 
-\Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], \array_key_exists('environment', $options) ? $options['environment'] : '../.env');
+Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], \array_key_exists('environment', $options) ? $options['environment'] : '../.env');
 $localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
-$destination = \array_key_exists('output', $options) ? $options['output'] : \Ease\Shared::cfg('RESULT_FILE', 'php://stdout');
+$destination = \array_key_exists('output', $options) ? $options['output'] : Shared::cfg('RESULT_FILE', 'php://stdout');
 
-if (strtolower(\Ease\Shared::cfg('APP_DEBUG')) === 'true') {
-    $reminder->logBanner(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion());
+if (strtolower(Shared::cfg('APP_DEBUG')) === 'true') {
+    $reminder->logBanner(Shared::appName().' v'.Shared::appVersion());
 }
 
-$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\Functions::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) \Ease\Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
+$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\Date::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) \Ease\Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $clientsToSkip = [];
 
@@ -47,7 +48,7 @@ if (empty($allClients)) {
     $clientCodes = [];
 
     foreach ($allClients as $clientCodeRaw => $clientInfo) {
-        if (\array_key_exists(\Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
+        if (\array_key_exists(Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
             $clientsToSkip[$clientCodeRaw] = $clientInfo;
         }
 

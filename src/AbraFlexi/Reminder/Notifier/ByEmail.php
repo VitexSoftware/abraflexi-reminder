@@ -36,9 +36,9 @@ use Ease\Sand;
  * AbraFlexi - Remind by eMail class.
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
- * @copyright  2018-2023 Spoje.Net
+ * @copyright  2018-2025 Spoje.Net
  */
-class ByEmail extends Sand
+class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
 {
     public array $result = [];
     public RemindMailer $mailer;
