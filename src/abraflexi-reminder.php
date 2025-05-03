@@ -16,6 +16,7 @@ declare(strict_types=1);
 use AbraFlexi\Functions;
 use AbraFlexi\Reminder\Upominac;
 use Ease\Locale;
+use Ease\Shared;
 
 \define('EASE_APPNAME', 'AbraFlexi reminder');
 

@@ -37,7 +37,7 @@ if (strtolower(\Ease\Shared::cfg('APP_DEBUG')) === 'true') {
     $reminder->logBanner(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion());
 }
 
-$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\RW::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) \Ease\Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
+$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\Date::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) \Ease\Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $clientsToSkip = [];
 
