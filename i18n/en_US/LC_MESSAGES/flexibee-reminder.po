@@ -1,298 +1,348 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-02-29 13:06+0100\n"
-"PO-Revision-Date: 2024-02-29 13:06+0100\n"
-"Last-Translator: Vítězslav Dvořák <info@vitexsoftware.cz>\n"
+"POT-Creation-Date: 2025-06-01 10:47+0200\n"
+"PO-Revision-Date: 2025-06-01 10:48+0200\n"
+"Last-Translator: Vítězslav Dvořák <vitex@vitexsoftware.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SearchPath-0: ../src\n"
 "X-Poedit-SearchPathExcluded-0: ../vendor\n"
 
-#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:57
-#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:55
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:150
-#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:59
-#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:56
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:61
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:59
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:154
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:61
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:63
 msgid "Company logo"
 msgstr "Company logo"
 
-#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:71
-#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:68
-#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:73
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:76
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:73
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:76
 #, php-format
-#| msgid "Dear customer"
 msgid "Dear customer %s,"
 msgstr "Dear customer %s,"
 
-#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:77
-#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:73
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:82
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:78
 #, php-format
 msgid "we confirm receipt of invoice %s as %s "
 msgstr "we confirm receipt of invoice %s as %s "
 
-#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:83
-#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:78
-#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:86
-#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:81
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:88
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:83
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:89
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:89
 msgid "With greetings"
 msgstr "With greetings"
 
-#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:91
-#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:83
+#: ../src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php:96
+#: ../src/AbraFlexi/Reminder/InvoiceRecievingConfirmation.php:88
 #, php-format
 msgid "Confirmation of receipt your invoice %s"
 msgstr "Confirmation of receipt your invoice %s"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:74
-#: ../src/AbraFlexi/Reminder/Notifier/BySms.php:77
-#, php-format
-msgid "Set Label %s "
-msgstr "Set Label %s "
+#: ../src/AbraFlexi/Reminder/Notifier/ByDatovka.php:65
+msgid "Czech Data Box is unconfigured"
+msgstr "Czech Data Box is unconfigured"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:81
+#: ../src/AbraFlexi/Reminder/Notifier/ByDatovka.php:76
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:77
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:78
 msgid "Remind was not sent"
 msgstr "Remind was not sent"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:120
+#: ../src/AbraFlexi/Reminder/Notifier/ByDatovka.php:134
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:123
 #, php-format
 msgid "Last  remind / inventarization for %s send before %d days; skipping"
 msgstr "Last  remind / inventarization for %s send before %d days; skipping"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:174
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:67
+#: ../src/AbraFlexi/Reminder/Notifier/BySms.php:80
+#, php-format
+msgid "Set Label %s "
+msgstr "Set Label %s "
+
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:69
+#, php-format
+#| msgid "Set Label %s "
+msgid "Set Label %s failed"
+msgstr "Set Label %s failed"
+
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:74
+msgid "Sent"
+msgstr "Sent"
+
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:178
 msgid "Code"
 msgstr "Code"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:175
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:179
 msgid "var. sym."
 msgstr "var. sym."
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:176
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:180
 msgid "Amount"
 msgstr "Amount"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:177
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:181
 msgid "Currency"
 msgstr "Currency"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:178
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:182
 msgid "Due Date"
 msgstr "Due Date"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:179
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:183
 msgid "overdue days"
 msgstr "overdue days"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:199
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:205
 msgid "Total"
 msgstr "Total"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:217
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:222
 #, php-format
 msgid "Client %s without email %s !!!"
 msgstr "Client %s without email %s !!!"
 
-#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:236
+#: ../src/AbraFlexi/Reminder/Notifier/ByEmail.php:237
 #, php-format
 msgid "Not enough space in this mail for attaching %s "
 msgstr "Not enough space in this mail for attaching %s "
 
-#: ../src/AbraFlexi/Reminder/Notifier/BySms.php:88
+#: ../src/AbraFlexi/Reminder/Notifier/BySms.php:84
 #, php-format
-#| msgid "Client %s without email %s !!!"
 msgid "Client %s without phone neumber %s !!!"
 msgstr "Client %s without phone neumber %s !!!"
 
-#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:79
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:82
 #, php-format
 msgid "we confirm receipt of payment %s %s on %s "
 msgstr "we confirm receipt of payment %s %s on %s "
 
-#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:95
+#: ../src/AbraFlexi/Reminder/PaymentRecievedConfirmation.php:98
 #, php-format
 msgid "Confirmation of receipt of invoice %s payment"
 msgstr "Confirmation of receipt of invoice %s payment"
 
-#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:70
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:78
 #, php-format
 msgid "Dear partner %s,"
 msgstr "Dear partner %s,"
 
-#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:76
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:84
 #, php-format
 msgid "we confirm sending bank order to pay your invoice %s"
 msgstr "we confirm sending bank order to pay your invoice %s"
 
-#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:89
+#: ../src/AbraFlexi/Reminder/SentPaymentConfirmation.php:97
 #, php-format
 msgid "Confirmation of sending of invoice %s payment"
 msgstr "Confirmation of sending of invoice %s payment"
 
-#: ../src/AbraFlexi/Reminder/Sms.php:103
+#: ../src/AbraFlexi/Reminder/Sms.php:95
 #, php-format
 msgid "Message is %s chars long: %s"
 msgstr "Message is %s chars long: %s"
 
-#: ../src/AbraFlexi/Reminder/Sms.php:134
+#: ../src/AbraFlexi/Reminder/Sms.php:127
 msgid "No SMS sending method specified"
 msgstr "No SMS sending method specified"
 
-#: ../src/AbraFlexi/Reminder/SmsBySshGnokii.php:33
+#: ../src/AbraFlexi/Reminder/SmsBySshGnokii.php:37
 msgid "Please set GNOKII_HOST in gnokii file"
 msgstr "Please set GNOKII_HOST in gnokii file"
 
-#: ../src/AbraFlexi/Reminder/SmsToAddress.php:38
+#: ../src/AbraFlexi/Reminder/SmsToAddress.php:48
 msgid "Address or primary contact without any phone number"
 msgstr "Address or primary contact without any phone number"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:58
+#: ../src/AbraFlexi/Reminder/Upominac.php:56
 msgid "Getting clients"
 msgstr "Getting clients"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:61
+#: ../src/AbraFlexi/Reminder/Upominac.php:59
 #, php-format
 msgid "%s Clients Found"
 msgstr "%s Clients Found"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:62
+#: ../src/AbraFlexi/Reminder/Upominac.php:60
 msgid "Getting debts"
 msgstr "Getting debts"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:88
+#: ../src/AbraFlexi/Reminder/Upominac.php:90
 #, php-format
 msgid "%s Debts Found"
 msgstr "%s Debts Found"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:130
-#: ../src/AbraFlexi/Reminder/Upominac.php:135
+#: ../src/AbraFlexi/Reminder/Upominac.php:132
+#: ../src/AbraFlexi/Reminder/Upominac.php:137
 #, php-format
 msgid "No debts. Clear %s Remind labels"
 msgstr "No debts. Clear %s Remind labels"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:155
+#: ../src/AbraFlexi/Reminder/Upominac.php:158
 #, php-format
 msgid "%d clients to remind process"
 msgstr "%d clients to remind process"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:163
+#: ../src/AbraFlexi/Reminder/Upominac.php:167
 #, php-format
 msgid "(%d / %d) #%s code: %s %s "
 msgstr "(%d / %d) #%s code: %s %s "
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:201
+#: ../src/AbraFlexi/Reminder/Upominac.php:208
 msgid "Invoice locked: skipping process"
 msgstr "Invoice locked: skipping process"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:262
+#: ../src/AbraFlexi/Reminder/Upominac.php:282
 #, php-format
 msgid "%s %s remind %s date saved"
 msgstr "%s %s remind %s date saved"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:269
+#: ../src/AbraFlexi/Reminder/Upominac.php:284
 #, php-format
 msgid "%s %s remind %s date save failed"
 msgstr "%s %s remind %s date save failed"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:278
+#: ../src/AbraFlexi/Reminder/Upominac.php:291
+#: ../src/AbraFlexi/Reminder/Upominac.php:292
 msgid "Remind send disbled"
 msgstr "Remind send disbled"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:282
+#: ../src/AbraFlexi/Reminder/Upominac.php:295
+#: ../src/AbraFlexi/Reminder/Upominac.php:296
 #, php-format
 msgid "Remind %d already sent"
 msgstr "Remind %d already sent"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:287
+#: ../src/AbraFlexi/Reminder/Upominac.php:299
+#: ../src/AbraFlexi/Reminder/Upominac.php:300
 msgid "No debts to remind"
 msgstr "No debts to remind"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:297
+#: ../src/AbraFlexi/Reminder/Upominac.php:310
 #, php-format
 msgid "Invoice %s locked again"
 msgstr "Invoice %s locked again"
 
-#: ../src/AbraFlexi/Reminder/Upominac.php:302
+#: ../src/AbraFlexi/Reminder/Upominac.php:312
 #, php-format
 msgid "Invoice %s locking failed"
 msgstr "Invoice %s locking failed"
 
-#: ../src/AbraFlexi/Reminder/Upominka.php:145
-#| msgid "Invoices"
+#: ../src/AbraFlexi/Reminder/Upominka.php:139
 msgid "QR Invoices"
 msgstr "QR Invoices"
 
-#: ../src/AbraFlexi/Reminder/Upominka.php:160
+#: ../src/AbraFlexi/Reminder/Upominka.php:158
 msgid "QR Payment"
 msgstr "QR Payment"
 
-#: ../src/abraflexi-inventarize-customers.php:28
+#: ../src/abraflexi-inventarize-customers.php:51
 #, php-format
 msgid "I skip the %s for %s because of the set label on the document"
 msgstr "I skip the %s for %s because of the set label on the document"
 
-#: ../src/abraflexi-inventarize-customers.php:35
+#: ../src/abraflexi-inventarize-customers.php:59
 #, php-format
-#| msgid "Unknown invoice type: %s"
 msgid "Unknown customer %s"
 msgstr "Unknown customer %s"
 
-#: ../src/abraflexi-inventarize-customers.php:40
+#: ../src/abraflexi-inventarize-customers.php:65
 #, php-format
 msgid "I skip the %s because of the set label for the Company"
 msgstr "I skip the %s because of the set label for the Company"
 
-#: ../src/abraflexi-inventarize-customers.php:50
-#: ../src/abraflexi-reminder.php:97
+#: ../src/abraflexi-inventarize-customers.php:78
+#: ../src/abraflexi-reminder.php:133
 #, php-format
 msgid "Invoices %s without Company assigned"
 msgstr "Invoices %s without Company assigned"
 
-#: ../src/abraflexi-inventarize-customers.php:55
+#: ../src/abraflexi-inventarize-customers.php:83
 #, php-format
 msgid "(%d / %d) %s "
 msgstr "(%d / %d) %s "
 
-#: ../src/abraflexi-reminder-clean-labels.php:37
+#: ../src/abraflexi-reminder-clean-labels.php:50
 msgid "Labels Cleanup"
 msgstr "Labels Cleanup"
 
-#: ../src/abraflexi-reminder-clean-labels.php:40
+#: ../src/abraflexi-reminder-clean-labels.php:53
+msgid "Customer has debts, labels not removed"
+msgstr "Customer has debts, labels not removed"
+
+#: ../src/abraflexi-reminder-clean-labels.php:58
 msgid "None to clear"
 msgstr "None to clear"
 
-#: ../src/abraflexi-reminder.php:26
-#| msgid "(Company not assigned)"
+#: ../src/abraflexi-reminder-clean-labels.php:62
+#: ../src/abraflexi-reminder.php:161 ../src/abraflexi-show-debts.php:147
+#, php-format
+#| msgid "Saving json report to %s"
+msgid "Saving result to %s"
+msgstr "Saving result to %s"
+
+#: ../src/abraflexi-reminder.php:45
 msgid "Company not assigned"
 msgstr "Company not assigned"
 
-#: ../src/abraflexi-reminder.php:33 ../src/abraflexi-reminder.php:45
+#: ../src/abraflexi-reminder.php:59 ../src/abraflexi-show-debts.php:58
+msgid "clients will be skipped"
+msgstr "clients will be skipped"
+
+#: ../src/abraflexi-reminder.php:71
 #, php-format
 msgid "I skip the %s because of the set label %s"
 msgstr "I skip the %s because of the set label %s"
 
-#: ../src/abraflexi-reminder.php:113
-#| msgid "missing login"
+#: ../src/abraflexi-reminder.php:150
 msgid "Missing Client CODE"
 msgstr "Missing Client CODE"
 
-#: ../src/abraflexi-show-debts.php:27
-#| msgid "Customer not found"
+#: ../src/abraflexi-show-debts.php:46
 msgid "No customers found"
 msgstr "No customers found"
 
-#: ../src/abraflexi-show-debts.php:113
-#, php-format
-msgid "Saving json report to %s"
-msgstr "Saving json report to %s"
+#: ../src/init.php:23
+#| msgid "Remind was not sent"
+msgid "First Remind was send"
+msgstr "First Remind was send"
 
-#: ../src/init.php:29
+#: ../src/init.php:23
+#| msgid "Remind was not sent"
+msgid "Second Remind was send"
+msgstr "Second Remind was send"
+
+#: ../src/init.php:23
+#| msgid "Remind was not sent"
+msgid "Third Remind was send"
+msgstr "Third Remind was send"
+
+#: ../src/init.php:23
+msgid "defaulter"
+msgstr "defaulter"
+
+#: ../src/init.php:23
+msgid "Do not Remind"
+msgstr "Do not Remind"
+
+#: ../src/init.php:23
+msgid "Send reminds to Czech Data Box"
+msgstr "Send reminds to Czech Data Box"
+
+#: ../src/init.php:39
 #, php-format
 msgid "Requied label %s create"
 msgstr "Requied label %s create"

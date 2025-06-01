@@ -10,10 +10,10 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "spojenet/flexibee": "^3.3",
+        "spojenet/flexibee": "^3.5",
         "vitexsoftware/abraflexi-bricks": "^1.3",
-        "spipu/html2pdf": "^5.2", 
-        "tecnickcom/tcpdf": "^6.6",
+        "spipu/html2pdf": "^5.2",
+        "tecnickcom/tcpdf": "^6.9",
         "hsp-dev/huawei-api": "dev-master",
         "dfridrich/czech-data-box": "^1.3"
     },
@@ -33,9 +33,9 @@
     "require-dev": {
         "phpunit/phpunit": "*",
         "phpstan/phpstan": "*",
-        "friendsofphp/php-cs-fixer": "^3.61",
-        "ergebnis/composer-normalize": "^2.43",
-        "ergebnis/php-cs-fixer-config": "^6.34"
+        "friendsofphp/php-cs-fixer": "^3.75",
+        "ergebnis/composer-normalize": "^2.47",
+        "ergebnis/php-cs-fixer-config": "^6.46"
     },
     "config": {
         "allow-plugins": {
