@@ -76,19 +76,19 @@
             "required": false
         },
         "QR_PAYMENTS": {
-            "type": "checkbox",
+            "type": "bool",
             "description": "Add QR Codes into Mails",
             "defval": "True",
             "required": false
         },
         "ADD_LOGO": {
-            "type": "checkbox",
+            "type": "bool",
             "description": "Add Company logo into Mails",
             "defval": "True",
             "required": false
         },
         "MUTE": {
-            "type": "checkbox",
+            "type": "bool",
             "description": "Send notifications to customers",
             "defval": "True",
             "required": false
