@@ -25,7 +25,7 @@ use Ease\HtmlMailer;
  * AbraFlexi Reminder's Mailer.
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
- * @copyright  (G) 2017-2024 Vitex Software
+ * @copyright  (G) 2017-2025 Vitex Software
  */
 class RemindMailer extends HtmlMailer
 {
@@ -63,7 +63,7 @@ class RemindMailer extends HtmlMailer
     /**
      * {@inheritDoc}
      */
-    public function addFile($filename, $mimeType = 'text/plain'): bool
+    public function addFile(string $filename, $mimeType = 'text/plain'): bool
     {
         if (parent::addFile($filename, $mimeType)) {
             $this->attachments[] = $filename;
@@ -103,16 +103,16 @@ class RemindMailer extends HtmlMailer
      */
     public function send(): bool
     {
-        foreach ($this->attachments as $attachment) {
-            if (file_exists($attachment)) {
-                unlink($attachment);
-            }
-        }
-
         try {
             $result = parent::send();
         } catch (\Exception $exc) {
             $result = false;
+        }
+
+        foreach ($this->attachments as $attachment) {
+            if (file_exists($attachment)) {
+                unlink($attachment);
+            }
         }
 
         return $result;
