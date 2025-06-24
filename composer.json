@@ -8,10 +8,10 @@
             "email": "info@vitexsoftware.cz"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "spojenet/flexibee": "^3.5",
-        "vitexsoftware/abraflexi-bricks": "^1.3",
+        "vitexsoftware/abraflexi-bricks": "^1.4",
         "spipu/html2pdf": "^5.2",
         "tecnickcom/tcpdf": "^6.9",
         "hsp-dev/huawei-api": "dev-master",
