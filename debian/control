@@ -7,7 +7,7 @@ Priority: optional
 Homepage: https://github.com/VitexSoftware/abraflexi-reminder
 
 Package: abraflexi-reminder
-Depends: ${misc:Depends}, php-vitexsoftware-abraflexi-bricks, php-cli, php-gd, locales-all, php-vitexsoftware-ease-core (>= 1.38) 
+Depends: ${misc:Depends}, php-vitexsoftware-abraflexi-bricks, php-cli, php-gd, locales-all, php-vitexsoftware-ease-core (>= 1.38), php-vitexsoftware-ease-html
 Suggests: abraflexi-server, abraflexi-digest, abraflexi-matcher, abraflexi-client-config, seznamds
 Architecture: all
 Section: web
