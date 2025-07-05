@@ -270,7 +270,7 @@ class Upominac extends \AbraFlexi\RW
                                     break;
                             }
 
-                            $invoiceData[$colname] = self::timestampToFlexiDate(time());
+                            $invoiceData[$colname] = \AbraFlexi\Date::timestampToFlexiDate(time());
 
                             if ($colname === 'poznam') {
                                 $invoiceData[$colname] = 'Inventarizace:'.$invoiceData[$colname];
@@ -543,7 +543,7 @@ class Upominac extends \AbraFlexi\RW
         $debts = $this->getEvidenceDebts('faktura-vydana', $conditions);
 
         foreach ($debts as $did => $ddata) {
-            if ($ddata['typDokl']->value[0]['typDoklK'] === 'typDokladu.dobropis') {
+            if ($ddata['typDokl']->value['typDoklK'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
                 unset($debts[$did]);
             }
         }
