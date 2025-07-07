@@ -22,7 +22,7 @@ namespace AbraFlexi\Reminder;
  */
 class Sms extends \Ease\Sand
 {
-    use \Ease\RecordKey;
+    use \Ease\recordkey;
 
     /**
      * Message sent status.

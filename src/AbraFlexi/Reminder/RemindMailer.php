@@ -63,7 +63,7 @@ class RemindMailer extends HtmlMailer
     /**
      * {@inheritDoc}
      */
-    public function addFile(string $filename, $mimeType = 'text/plain'): bool
+    public function addFile(string $filename, string $mimeType = 'text/plain'): bool
     {
         if (parent::addFile($filename, $mimeType)) {
             $this->attachments[] = $filename;

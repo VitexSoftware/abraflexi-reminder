@@ -456,7 +456,7 @@ class Upominac extends \AbraFlexi\RW
             $evBackup = false;
         }
 
-        $what = array_merge(["datSplat lte '".\AbraFlexi\RW::dateToFlexiDate(new \DateTime())."' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false AND sumCelkem > 0"], $conditions);
+        $what = array_merge(["datSplat lte '".\AbraFlexi\Date::dateToFlexiDate(new \DateTime())."' AND (stavUhrK is null OR stavUhrK eq 'stavUhr.castUhr') AND storno eq false AND sumCelkem > 0"], $conditions);
         $result = [];
         $colsToGet = [
             'id',
