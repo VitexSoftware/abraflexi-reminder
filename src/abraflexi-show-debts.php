@@ -30,7 +30,7 @@ require_once '../vendor/autoload.php';
 $options = getopt('o::e::', ['output::', 'environment::']);
 
 Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], \array_key_exists('environment', $options) ? $options['environment'] : '../.env');
-$localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
+$localer = new \Ease\Locale(Shared::cfg('LANG', 'cs_CZ'), '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
 $destination = \array_key_exists('output', $options) ? $options['output'] : Shared::cfg('RESULT_FILE', 'php://stdout');
 

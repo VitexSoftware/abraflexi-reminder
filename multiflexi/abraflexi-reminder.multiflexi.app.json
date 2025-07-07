@@ -11,6 +11,16 @@
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
     "topics": "AbraFlexi,Reminder,Mail,Sms",
     "environment": {
+        "LANG": {
+            "type": "set",
+            "description": "Locale for this application",
+            "defval": "cs_CZ",
+            "required": false,
+            "options": [
+                "cs_CZ",
+                "en_US"
+            ]
+        },
         "ABRAFLEXI_COMPANY": {
             "type": "string",
             "description": "",

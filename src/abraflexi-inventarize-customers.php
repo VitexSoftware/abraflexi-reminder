@@ -30,8 +30,8 @@ use Ease\Shared;
 \define('EASE_APPNAME', 'AbraFlexi Inventarizace');
 
 require_once '../vendor/autoload.php';
-\Ease\Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], $argv[1] ?? '../.env');
-$localer = new \Ease\Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
+Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], $argv[1] ?? '../.env');
+$localer = new \Ease\Locale(Shared::cfg('LANG', 'cs_CZ'), '../i18n', 'abraflexi-reminder');
 $reminder = new \AbraFlexi\Reminder\Upominac();
 
 if (Shared::cfg('APP_DEBUG') === 'True') {

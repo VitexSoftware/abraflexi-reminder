@@ -18,17 +18,17 @@ require_once '../vendor/autoload.php';
 $exitcode = 0;
 $options = getopt('o::e::', ['output::environment::']);
 $report = [];
-\Ease\Shared::init(
+Shared::init(
     ['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'],
     \array_key_exists('environment', $options) ? $options['environment'] : (\array_key_exists('e', $options) ? $options['e'] : '../.env'),
 );
 $destination = \array_key_exists('output', $options) ? $options['output'] : Shared::cfg('RESULT_FILE', 'php://stdout');
 
-$localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
+$localer = new Locale(Shared::cfg('LANG', 'cs_CZ'), '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
 
-if (\Ease\Shared::cfg('APP_DEBUG') === 'True') {
-    $reminder->logBanner(\Ease\Shared::appName().' v'.\Ease\Shared::appVersion());
+if (Shared::cfg('APP_DEBUG') === 'True') {
+    $reminder->logBanner(Shared::appName().' v'.Shared::appVersion());
 }
 
 $labelsRequiedRaw = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC'];
@@ -45,7 +45,7 @@ foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' =>
     $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
 
     // Check if the customer has no debts
-    if (empty($reminder->customer->getCustomerDebts(AbraFlexi\Functions::code($clientCode)))) {
+    if (empty($reminder->customer->getCustomerDebts(\AbraFlexi\Functions::code($clientCode)))) {
         $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
         $reminder->addStatusMessage(++$pos.'/'.\count($reminder->customer->adresar->lastResult['adresar']).' '.$clientCode.' '._('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode === 201) ? 'success' : 'warning');
         $report['removed'][$clientCode] = $labelsRequiedRaw;

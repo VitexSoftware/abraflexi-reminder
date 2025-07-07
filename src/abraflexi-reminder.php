@@ -16,6 +16,7 @@ declare(strict_types=1);
 use AbraFlexi\Functions;
 use AbraFlexi\Reminder\Upominac;
 use Ease\Locale;
+use Ease\Shared;
 
 \define('EASE_APPNAME', 'AbraFlexi reminder');
 
@@ -31,7 +32,7 @@ $options = getopt('o::e::', ['output::environment::']);
 );
 $destination = \array_key_exists('o', $options) ? $options['o'] : (\array_key_exists('output', $options) ? $options['output'] : \Ease\Shared::cfg('RESULT_FILE', 'php://stdout'));
 
-$localer = new Locale('cs_CZ', '../i18n', 'abraflexi-reminder');
+$localer = new Locale(Shared::cfg('LANG', 'cs_CZ'), '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
 
 if (strtolower(\Ease\Shared::cfg('APP_DEBUG', 'false')) === 'true') {
