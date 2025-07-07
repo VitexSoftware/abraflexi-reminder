@@ -37,6 +37,8 @@ use Ease\Sand;
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2025 Spoje.Net
+ *
+ * @no-named-arguments
  */
 class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
 {

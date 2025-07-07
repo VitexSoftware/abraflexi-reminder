@@ -31,6 +31,8 @@ use Ease\Shared;
  * Description of ByDatovka.
  *
  * @author vitex
+ *
+ * @no-named-arguments
  */
 class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
 {

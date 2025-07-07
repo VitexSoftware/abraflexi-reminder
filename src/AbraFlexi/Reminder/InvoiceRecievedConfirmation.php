@@ -19,6 +19,8 @@ namespace AbraFlexi\Reminder;
  * Description of PotvrzeniPrijetiFaktury.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * @no-named-arguments
  */
 class InvoiceRecievedConfirmation extends RemindMailer
 {

@@ -26,6 +26,8 @@ use Ease\HtmlMailer;
  *
  * @author     Vítězslav Dvořák <info@vitexsofware.cz>
  * @copyright  (G) 2017-2025 Vitex Software
+ *
+ * @no-named-arguments
  */
 class RemindMailer extends HtmlMailer
 {

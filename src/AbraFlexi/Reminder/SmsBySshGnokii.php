@@ -19,6 +19,8 @@ namespace AbraFlexi\Reminder;
  * Description of SmsBySshGnokii.
  *
  * @author vitex
+ *
+ * @no-named-arguments
  */
 class SmsBySshGnokii extends SmsToAddress
 {

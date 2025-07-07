@@ -19,6 +19,8 @@ namespace AbraFlexi\Reminder;
  * Description of SmsByGnokii.
  *
  * @author vitex
+ *
+ * @no-named-arguments
  */
 class SmsByHuaweiApi extends SmsToAddress
 {

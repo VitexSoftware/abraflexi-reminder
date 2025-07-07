@@ -21,6 +21,8 @@ use AbraFlexi\Adresar;
  * Description of SmsToCustomer.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * @no-named-arguments
  */
 class SmsToAddress extends Sms
 {

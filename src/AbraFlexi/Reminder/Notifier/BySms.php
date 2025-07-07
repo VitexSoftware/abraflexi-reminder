@@ -27,6 +27,8 @@ use Ease\Sand;
  *
  * @author     Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018-2020 Spoje.Net, Vitex Software
+ *
+ * @no-named-arguments
  */
 class BySms extends Sand
 {

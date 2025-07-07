@@ -19,6 +19,8 @@ namespace AbraFlexi\Reminder;
  * Description of Upominka.
  *
  * @author vitex
+ *
+ * @no-named-arguments
  */
 class Upominac extends \AbraFlexi\RW
 {
@@ -201,7 +203,7 @@ class Upominac extends \AbraFlexi\RW
             switch ($debt['zamekK']) {
                 case 'zamek.zamceno':
                     $this->invoicer->dataReset();
-                    $this->invoicer->setMyKey(\AbraFlexi\RO::code($did));
+                    $this->invoicer->setMyKey(\AbraFlexi\Functions::code($did));
                     $unlock = $this->invoicer->performAction('unlock', 'int');
 
                     if ($unlock['success'] === 'false') {
@@ -214,7 +216,7 @@ class Upominac extends \AbraFlexi\RW
                     // no break
                 case 'zamek.otevreno':
                 default:
-                    $invoicesToSave[$debt['id']] = ['id' => \AbraFlexi\RO::code((string) $did),
+                    $invoicesToSave[$debt['id']] = ['id' => \AbraFlexi\Functions::code((string) $did),
                         'evidence' => $debt['evidence']];
                     $ddiff = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
                     $ddifs[$debt['id']] = $ddiff;
@@ -303,7 +305,7 @@ class Upominac extends \AbraFlexi\RW
         if (\count($invoicesToLock)) {
             foreach ($invoicesToLock as $invoiceCode => $invoiceData) {
                 $this->invoicer->dataReset();
-                $this->invoicer->setMyKey(\AbraFlexi\RO::code($did));
+                $this->invoicer->setMyKey(\AbraFlexi\Functions::code($did));
                 $lock = $this->invoicer->performAction('lock', 'int');
 
                 if ($lock['success'] === 'true') {

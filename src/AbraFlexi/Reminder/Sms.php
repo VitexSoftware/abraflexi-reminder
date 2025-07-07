@@ -19,6 +19,8 @@ namespace AbraFlexi\Reminder;
  * SMS sender class.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * @no-named-arguments
  */
 class Sms extends \Ease\Sand
 {

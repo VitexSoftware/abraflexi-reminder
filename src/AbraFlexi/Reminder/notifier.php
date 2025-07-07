@@ -19,6 +19,8 @@ use AbraFlexi\Bricks\Customer;
 
 /**
  * @author vitex
+ *
+ * @no-named-arguments
  */
 interface notifier
 {

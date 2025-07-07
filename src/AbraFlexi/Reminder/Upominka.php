@@ -19,6 +19,8 @@ namespace AbraFlexi\Reminder;
  * Description of Remind.
  *
  * @author vitex
+ *
+ * @no-named-arguments
  */
 class Upominka extends \AbraFlexi\RW
 {

@@ -19,6 +19,8 @@ namespace AbraFlexi\Reminder;
  * Description of PDFPage.
  *
  * @author vitex
+ *
+ * @no-named-arguments
  */
 class PDFPage extends \Ease\WebPage
 {
