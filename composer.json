@@ -8,7 +8,7 @@
             "email": "info@vitexsoftware.cz"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "spojenet/flexibee": "^3.5",
         "vitexsoftware/abraflexi-bricks": "^1.4",

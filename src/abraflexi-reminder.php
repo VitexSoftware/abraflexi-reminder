@@ -26,31 +26,31 @@ require_once '../vendor/autoload.php';
  * Get today's Statements list.
  */
 $options = getopt('o::e::', ['output::environment::']);
-\Ease\Shared::init(
+Shared::init(
     ['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'],
     \array_key_exists('environment', $options) ? $options['environment'] : (\array_key_exists('e', $options) ? $options['e'] : '../.env'),
 );
-$destination = \array_key_exists('o', $options) ? $options['o'] : (\array_key_exists('output', $options) ? $options['output'] : \Ease\Shared::cfg('RESULT_FILE', 'php://stdout'));
+$destination = \array_key_exists('o', $options) ? $options['o'] : (\array_key_exists('output', $options) ? $options['output'] : Shared::cfg('RESULT_FILE', 'php://stdout'));
 
 $localer = new Locale(Shared::cfg('LANG', 'cs_CZ'), '../i18n', 'abraflexi-reminder');
 $reminder = new Upominac();
 
-if (strtolower(\Ease\Shared::cfg('APP_DEBUG', 'false')) === 'true') {
+if (strtolower(Shared::cfg('APP_DEBUG', 'false')) === 'true') {
     $reminder->logBanner();
 }
 
 $exitcode = 0;
 $report = [];
-$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\Date::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) \Ease\Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
+$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\Date::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $allClients[''] = ['kod' => '', 'nazev' => '('._('Company not assigned').')', 'stitky' => [
-    \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT') => \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')]];
+    Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT') => Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')]];
 $clientsToSkip = [];
 
 $clientCodes = [];
 
 foreach ($allClients as $clientCodeRaw => $clientInfo) {
-    if (\array_key_exists(\Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
+    if (\array_key_exists(Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
         $clientsToSkip[$clientCodeRaw] = $clientInfo;
     }
 
@@ -68,8 +68,8 @@ $totalsByClient = [];
 foreach ($allDebts as $code => $debt) {
     $howmuchRaw = $howmuch = [];
 
-    if (strstr($debt['stitky'], \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'))) {
-        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label %s'), $code, \Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')), 'info');
+    if (strstr($debt['stitky'], Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'))) {
+        $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label %s'), $code, Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')), 'info');
         $report['skippedDocuments'][] = $code;
 
         continue;
@@ -158,7 +158,7 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
 
 $report['exitcode'] = $exitcode;
-$written = file_put_contents($destination, json_encode($report, \Ease\Shared::cfg('DEBUG') ? \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE : 0));
+$written = file_put_contents($destination, json_encode($report, Shared::cfg('DEBUG') ? \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE : 0));
 $reminder->addStatusMessage(sprintf(_('Saving result to %s'), $destination), $written ? 'success' : 'error');
 
 exit($exitcode);

@@ -149,7 +149,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
             if (strtolower(\Ease\Shared::cfg('ADD_LOGO', '')) === 'true') {
                 $headingTableRow = new TrTag();
                 $headingTableRow->addItem(new TdTag($heading));
-                $logo = new CompanyLogo([
+                $logo = new \AbraFlexi\Reminder\CompanyLogo([
                     'align' => 'right',
                     'id' => 'companylogo',
                     'height' => '50',
