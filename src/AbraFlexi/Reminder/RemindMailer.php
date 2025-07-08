@@ -16,10 +16,10 @@ declare(strict_types=1);
 namespace AbraFlexi\Reminder;
 
 use Ease\Html\BodyTag;
+use Ease\Html\HtmlMailer;
 use Ease\Html\HtmlTag;
 use Ease\Html\SimpleHeadTag;
 use Ease\Html\TitleTag;
-use Ease\HtmlMailer;
 
 /**
  * AbraFlexi Reminder's Mailer.

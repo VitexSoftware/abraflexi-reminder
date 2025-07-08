@@ -70,6 +70,8 @@ distributions.each {
                             sh 'sudo DEBIAN_FRONTEND=noninteractive DEBCONF_DEBUG=' + debconf_debug + ' apt-get -y install $WORKSPACE/dist/debian/' + deb_file
                         }
                     }
+
+                    sh 'set -a && . $WORKSPACE/example.env && set +a && for script in abraflexi-reminder-init  abraflexi-show-debts abraflexi-notify-customers abraflexi-reminder abraflexi-reminder-clean-labels; do echo "Testing $script"; $script || exit 1; done'
                 }
             }
             stage('Copy artifacts ' + distribution ) {
