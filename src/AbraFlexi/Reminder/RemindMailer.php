@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace AbraFlexi\Reminder;
 
 use Ease\Html\BodyTag;
-use Ease\Html\HtmlMailer;
 use Ease\Html\HtmlTag;
 use Ease\Html\SimpleHeadTag;
 use Ease\Html\TitleTag;
@@ -29,7 +28,7 @@ use Ease\Html\TitleTag;
  *
  * @no-named-arguments
  */
-class RemindMailer extends HtmlMailer
+class RemindMailer extends \Ease\HtmlMailer
 {
     /**
      * List off attachments to clean.
