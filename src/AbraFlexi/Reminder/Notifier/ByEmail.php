@@ -19,11 +19,11 @@ use AbraFlexi\Bricks\Customer;
 use AbraFlexi\FakturaVydana;
 use AbraFlexi\Formats;
 use AbraFlexi\Functions;
+use AbraFlexi\Reminder\CompanyLogo;
 use AbraFlexi\Reminder\RemindMailer;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
 use AbraFlexi\RO;
-use AbraFlexi\ui\CompanyLogo;
 use Ease\Html\DivTag;
 use Ease\Html\HrTag;
 use Ease\Html\PTag;
@@ -149,7 +149,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
             if (strtolower(\Ease\Shared::cfg('ADD_LOGO', '')) === 'true') {
                 $headingTableRow = new TrTag();
                 $headingTableRow->addItem(new TdTag($heading));
-                $logo = new \AbraFlexi\Reminder\CompanyLogo([
+                $logo = new CompanyLogo([
                     'align' => 'right',
                     'id' => 'companylogo',
                     'height' => '50',

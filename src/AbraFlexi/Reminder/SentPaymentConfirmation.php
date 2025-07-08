@@ -61,7 +61,7 @@ class SentPaymentConfirmation extends RemindMailer
             $customerName = \AbraFlexi\Functions::uncode($invoice->getDataValue('firma'));
         }
 
-        $this->addItem(new \AbraFlexi\ui\CompanyLogo(['align' => 'right', 'id' => 'companylogo',
+        $this->addItem(new CompanyLogo(['align' => 'right', 'id' => 'companylogo',
             'height' => '50', 'title' => _('Company logo')]));
 
         $prober = new \AbraFlexi\Company();

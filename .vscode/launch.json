@@ -9,8 +9,8 @@
             "name": "Reminder",
             "type": "php",
             "request": "launch",
-            "program": "${file}",
-            "cwd": "${fileDirname}",
+            "program": "${workspaceFolder}/src/abraflexi-reminder.php",
+            "cwd": "${workspaceFolder}/src",
             "port": 0,
             "runtimeArgs": [
                 "-dxdebug.start_with_request=yes"
