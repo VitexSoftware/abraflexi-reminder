@@ -245,7 +245,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
                 $this->invoicer->setEvidence($debt['evidence']);
             }
 
-            $this->invoicer->setMyKey(RO::code($debt['kod']));
+            $this->invoicer->setMyKey(Functions::code($debt['kod']));
             $this->mailer->addFile(
                 $this->invoicer->downloadInFormat('pdf', '/tmp/'),
                 Formats::$formats['PDF']['content-type'],

@@ -167,7 +167,7 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
                 $this->invoicer->setEvidence($debt['evidence']);
             }
 
-            $this->invoicer->setMyKey(\AbraFlexi\RO::code($debt['kod']));
+            $this->invoicer->setMyKey(\AbraFlexi\Functions::code($debt['kod']));
             $this->pdfFiles[] = $this->invoicer->downloadInFormat('pdf', sys_get_temp_dir());
         }
     }
