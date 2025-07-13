@@ -1,24 +1,34 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * AbraFlexi Bricks - Company Logo
+ * This file is part of the AbraFlexi Reminder package
  *
- * @author Vítězslav Dvořák <info@vitexsoftware.cz>
+ * https://github.com/VitexSoftware/abraflexi-reminder
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AbraFlexi\Reminder;
 
 /**
- * Description of CompanyLogo
+ * Description of CompanyLogo.
  *
  * @author vitex
+ *
+ * @no-named-arguments
  */
 class CompanyLogo extends \Ease\Html\ImgTag
 {
     /**
-     * SVG Question Mark
-     * @var string 
+     * SVG Question Mark.
      */
-    static $none = '<?xml version="1.0" encoding="UTF-8"?>
+    public static string $none = <<<'EOD'
+<?xml version="1.0" encoding="UTF-8"?>
 <svg version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <metadata>
 <rdf:RDF>
@@ -39,27 +49,33 @@ class CompanyLogo extends \Ease\Html\ImgTag
 <path d="m143.47-74.496h-82.967v-82.967" fill="none" stroke="#636363" stroke-linejoin="round" stroke-width="6.4"/>
 </g>
 </svg>
-';
+
+EOD;
 
     /**
-     * Emebed Company logo into page
-     * 
-     * @param array $options       AbraFlexi object parameters
+     * Emebed Company logo into page.
+     *
      * @param array $tagProperties Additional tag properties
+     * @param array $options       AbraFlexi object parameters
      */
-    public function __construct($tagProperties = array(),$options = [])
+    public function __construct($tagProperties = [], $options = [])
     {
         $configurator = new \AbraFlexi\Nastaveni(null, $options);
+
         try {
             $logoInfo = $configurator->getFlexiData('1/logo');
         } catch (\Exception $e) {
             $logoInfo = null;
         }
-        if (is_array($logoInfo) && isset($logoInfo[0])) {
-            parent::__construct('data:'.$logoInfo[0]['contentType'].';'.$logoInfo[0]['content@encoding'].','.$logoInfo[0]['content'],
-                $logoInfo[0]['nazSoub'], $tagProperties);
+
+        if (\is_array($logoInfo) && isset($logoInfo[0])) {
+            parent::__construct(
+                'data:'.$logoInfo[0]['contentType'].';'.$logoInfo[0]['content@encoding'].','.$logoInfo[0]['content'],
+                $logoInfo[0]['nazSoub'],
+                $tagProperties,
+            );
         } else {
-            parent::__construct( 'data:image/svg+xml;base64,'. base64_encode(self::$none), _('none'), $tagProperties);
+            parent::__construct('data:image/svg+xml;base64,'.base64_encode(self::$none), _('none'), $tagProperties);
         }
     }
 }

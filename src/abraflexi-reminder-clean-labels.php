@@ -48,7 +48,7 @@ foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' =>
     // Check if the customer has no debts
     if (empty($reminder->customer->getCustomerDebts())) {
         $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
-        $reminder->addStatusMessage(++$pos.'/' . \count($reminder->customer->adresar->lastResult['adresar']).' '.$clientCode.' '._('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode === 201) ? 'success' : 'warning');
+        $reminder->addStatusMessage(++$pos.'/'.\count($reminder->customer->adresar->lastResult['adresar']).' '.$clientCode.' '._('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode === 201) ? 'success' : 'warning');
         $report['removed'][$clientCode] = $labelsRequiedRaw;
     } else {
         $reminder->addStatusMessage($clientCode.' '._('Customer has debts, labels not removed'), 'info');

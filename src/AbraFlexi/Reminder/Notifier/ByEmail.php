@@ -23,7 +23,6 @@ use AbraFlexi\Reminder\CompanyLogo;
 use AbraFlexi\Reminder\RemindMailer;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
-use AbraFlexi\RO;
 use Ease\Html\DivTag;
 use Ease\Html\HrTag;
 use Ease\Html\PTag;
@@ -99,7 +98,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
 
         $this->firmer = &$customer->adresar;
 
-        if ($email) {
+        if (empty($email) === false) {
             $upominka = new Upominka();
 
             switch ($score) {
@@ -137,12 +136,10 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
 
             $invoices = [];
 
-            $to = $email;
-
             $dnes = new \DateTime();
-            $subject = $upominka->getDataValue('hlavicka').' ke dni '.$dnes->format('d.m.Y');
+            $subject = $upominka->getDataValue('hlavicka')._(' to day ').$dnes->format('d.m.Y');
 
-            $this->mailer = new RemindMailer($to, $subject);
+            $this->mailer = new RemindMailer($email, $subject);
 
             $heading = new DivTag($upominka->getDataValue('uvod').' '.$nazev);
 
