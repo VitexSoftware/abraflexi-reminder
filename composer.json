@@ -10,7 +10,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "spojenet/flexibee": "^3.5",
+        "spojenet/flexibee": "^3.6",
         "vitexsoftware/abraflexi-bricks": "^1.4",
         "spipu/html2pdf": "^5.3",
         "tecnickcom/tcpdf": "^6.10",
