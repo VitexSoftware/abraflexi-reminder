@@ -5,11 +5,11 @@
     "executable": "abraflexi-reminder",
     "setup": "abraflexi-reminder-init",
     "cmdparams": "",
-    "requirements": "AbraFlexi",
+    "requirements": ["AbraFlexi"],
     "uuid": "0fd52fdd-1c83-4346-b9f9-13e82bd5d6d0",
     "deploy": "apt install abraflexi-reminder",
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
-    "topics": "AbraFlexi,Reminder,Mail,Sms",
+    "topics": ["AbraFlexi", "Reminder", "Mail", "Sms"],
     "environment": {
         "LANG": {
             "type": "set",

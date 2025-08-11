@@ -5,11 +5,11 @@
     "executable": "abraflexi-reminder-clean-labels",
     "setup": "",
     "cmdparams": "",
-    "requirements": "AbraFlexi",
+    "requirements": ["AbraFlexi"],
     "uuid": "138f1310-8e76-4670-bc55-47a3400795e1",
     "deploy": "apt install abraflexi-reminder",
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
-    "topics": "AbraFlexi,Reminder,Labels",
+    "topics": ["AbraFlexi", "Reminder", "Labels"],
     "environment": {
         "LANG": {
             "type": "set",

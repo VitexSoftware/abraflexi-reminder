@@ -5,11 +5,11 @@
     "executable": "abraflexi-notify-customers",
     "setup": "",
     "cmdparams": "",
-    "requirements": "AbraFlexi",
+    "requirements": ["AbraFlexi"],
     "uuid": "2d08b097-6da2-475d-b5cc-85f51cf5e463",
     "deploy": "apt install abraflexi-reminder",
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
-    "topics": "AbraFlexi,Inventarize,Mail,Sms",
+    "topics": ["AbraFlexi", "Inventarize", "Mail", "Sms"],
     "environment": {
         "ABRAFLEXI_COMPANY": {
             "type": "string",
