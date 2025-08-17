@@ -57,7 +57,7 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
             mkdir($this->directory);
         }
 
-        $labels = \AbraFlexi\Stitek::getLabels($reminder->customer->adresar);
+        $labels = $reminder->customer->adresar->getLabels();
         $ic = $reminder->customer->adresar->getDataValue('ic');
 
         if ($ic && \array_key_exists('DATA_BOX', $labels)) {
