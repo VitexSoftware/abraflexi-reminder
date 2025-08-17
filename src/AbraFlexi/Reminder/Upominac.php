@@ -509,7 +509,7 @@ class Upominac extends \AbraFlexi\RW
 
                 if (
                     \array_key_exists(
-                        \AbraFlexi\Functions::uncode((string) $invoiceData['typDokl']),
+                        \AbraFlexi\Code::strip((string) $invoiceData['typDokl']),
                         $docTypeSkipList,
                     )
                 ) {
@@ -545,7 +545,7 @@ class Upominac extends \AbraFlexi\RW
         $debts = $this->getEvidenceDebts('faktura-vydana', $conditions);
 
         foreach ($debts as $did => $ddata) {
-            if ($ddata['typDokl']->value['typDoklK'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
+            if ((string)$ddata['typDokl'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
                 unset($debts[$did]);
             }
         }
