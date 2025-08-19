@@ -11,6 +11,12 @@
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
     "topics": ["AbraFlexi", "Reminder", "Mail", "Sms"],
     "environment": {
+        "APP_DEBUG": {
+            "type": "boolean",
+            "description": "Enable debug mode",
+            "defval": "False",
+            "required": false
+        },
         "LANG": {
             "type": "set",
             "description": "Locale for this application",

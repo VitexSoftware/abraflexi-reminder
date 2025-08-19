@@ -43,7 +43,7 @@ class RemindMailer extends \Ease\HtmlMailer
     public function __construct(string $sendTo = '', string $subject = '')
     {
         if (strtolower(\Ease\Shared::cfg('MUTE', 'false')) === 'true') {
-            $sendTo = \Ease\Shared::cfg('EASE_EMAILTO');
+            $sendTo = \Ease\Shared::cfg('EASE_EMAILTO', get_current_user().'@'.gethostname());
         }
 
         parent::__construct($sendTo, $subject, '', ['From' => \Ease\Shared::cfg('REMIND_FROM')]);

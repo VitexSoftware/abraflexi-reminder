@@ -94,6 +94,11 @@ class Upominac extends \AbraFlexi\RW
         return $allDebts;
     }
 
+    public function logBanner($prefix = null, $suffix = null): void
+    {
+        parent::logBanner($prefix.\Ease\Shared::getAppName().' v'.\Ease\Shared::getAppVer(), $suffix);
+    }
+
     /**
      * What to do when no debts found for customer.
      *
@@ -545,7 +550,7 @@ class Upominac extends \AbraFlexi\RW
         $debts = $this->getEvidenceDebts('faktura-vydana', $conditions);
 
         foreach ($debts as $did => $ddata) {
-            if ((string)$ddata['typDokl'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
+            if ((string) $ddata['typDokl'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
                 unset($debts[$did]);
             }
         }
