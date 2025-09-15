@@ -550,9 +550,10 @@ class Upominac extends \AbraFlexi\RW
         $debts = $this->getEvidenceDebts('faktura-vydana', $conditions);
 
         foreach ($debts as $did => $ddata) {
-            if (!is_array($ddata)) {
+            if (!\is_array($ddata)) {
                 continue;
             }
+
             if ((string) $ddata['typDokl'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
                 unset($debts[$did]);
             }
