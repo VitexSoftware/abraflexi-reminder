@@ -96,7 +96,7 @@ class Upominac extends \AbraFlexi\RW
 
     public function logBanner($prefix = null, $suffix = null): void
     {
-        parent::logBanner($prefix.\Ease\Shared::getAppName().' v'.\Ease\Shared::getAppVer(), $suffix);
+        parent::logBanner($prefix.\Ease\Shared::appName().' v'.\Ease\Shared::appVersion(), $suffix);
     }
 
     /**
