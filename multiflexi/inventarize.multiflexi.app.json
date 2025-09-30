@@ -48,7 +48,7 @@
             "required": true
         },
         "OVERDUE_PATIENCE": {
-            "type": "number",
+            "type": "integer",
             "description": "Days of silence after due date",
             "defval": "0",
             "required": false
