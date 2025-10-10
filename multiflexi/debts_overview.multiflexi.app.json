@@ -17,7 +17,6 @@
         "Json"
     ],
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
-    "image": "",
     "executable": "abraflexi-show-debts",
     "environment": {
         "ABRAFLEXI_COMPANY": {

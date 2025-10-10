@@ -16,7 +16,6 @@
         "Labels"
     ],
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
-    "image": "",
     "executable": "abraflexi-reminder-clean-labels",
     "environment": {
         "LANG": {

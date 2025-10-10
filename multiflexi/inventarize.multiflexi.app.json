@@ -17,7 +17,6 @@
         "Sms"
     ],
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
-    "image": "",
     "executable": "abraflexi-notify-customers",
     "environment": {
         "ABRAFLEXI_COMPANY": {
