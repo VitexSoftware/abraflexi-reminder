@@ -1,74 +1,115 @@
 {
-    "image": "",
-    "name": "Debts overview",
-    "description": "Gather unsettled invoices",
-    "executable": "abraflexi-show-debts",
-    "setup": "",
-    "cmdparams": "",
-    "requirements": ["AbraFlexi"],
+    "$schema": "https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.app.schema.json",
+    "schemaVersion": "3.0.0",
     "uuid": "82710b78-5cf9-4380-a7e2-62b6e65b2027",
-    "deploy": "apt install abraflexi-reminder",
+    "name": {
+        "en": "Debts overview",
+        "cs": "Debts overview"
+    },
+    "description": {
+        "en": "Gather unsettled invoices",
+        "cs": "Gather unsettled invoices"
+    },
+    "tags": [
+        "AbraFlexi",
+        "Reminder",
+        "Check",
+        "Json"
+    ],
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
-    "topics": ["AbraFlexi", "Reminder", "Check", "Json"],
+    "image": "",
+    "executable": "abraflexi-show-debts",
     "environment": {
         "ABRAFLEXI_COMPANY": {
             "type": "string",
             "description": "",
             "defval": "demo_de",
-            "required": true
+            "required": true,
+            "category": "API"
         },
         "ABRAFLEXI_LOGIN": {
             "type": "string",
-            "description": "AbraFlexi Login",
+            "description": {
+                "en": "AbraFlexi Login",
+                "cs": "AbraFlexi Login"
+            },
             "defval": "winstrom",
-            "required": true
+            "required": true,
+            "category": "API"
         },
         "ABRAFLEXI_PASSWORD": {
-            "type": "string",
-            "description": "AbraFlexi password",
+            "type": "password",
+            "description": {
+                "en": "AbraFlexi password",
+                "cs": "AbraFlexi password"
+            },
             "defval": "winstrom",
-            "required": true
+            "required": true,
+            "category": "API"
         },
         "ABRAFLEXI_URL": {
             "type": "string",
-            "description": "AbraFlexi Server URI",
-            "defval": "https:\/\/demo.flexibee.eu:5434",
-            "required": true
+            "description": {
+                "en": "AbraFlexi Server URI",
+                "cs": "AbraFlexi Server URI"
+            },
+            "defval": "https://demo.flexibee.eu:5434",
+            "required": true,
+            "category": "API"
         },
         "RESULT_FILE": {
             "type": "string",
-            "description": "write output json data to",
+            "description": {
+                "en": "write output json data to",
+                "cs": "write output json data to"
+            },
             "defval": "transaction_report.json",
-            "required": false
+            "required": false,
+            "category": "Other"
         },
         "SURRENDER_DAYS": {
             "type": "integer",
-            "description": "Days to surrender",
+            "description": {
+                "en": "Days to surrender",
+                "cs": "Days to surrender"
+            },
             "defval": "365",
-            "required": false
+            "required": false,
+            "category": "Other"
         },
         "NO_REMIND_LABEL": {
             "type": "string",
-            "description": "Ignore documents/customers with this Label",
+            "description": {
+                "en": "Ignore documents/customers with this Label",
+                "cs": "Ignore documents/customers with this Label"
+            },
             "defval": "NEUPOMINAT",
-            "required": false
+            "required": false,
+            "category": "Other"
         },
         "EASE_LOGGER": {
             "type": "string",
-            "description": "write log messages using",
+            "description": {
+                "en": "write log messages using",
+                "cs": "write log messages using"
+            },
             "defval": "console|syslog",
-            "required": false
+            "required": false,
+            "category": "Behavior"
         },
         "LANG": {
             "type": "set",
-            "description": "Locale for this application",
+            "description": {
+                "en": "Locale for this application",
+                "cs": "Locale for this application"
+            },
             "defval": "cs_CZ",
             "required": false,
             "options": [
                 "cs_CZ",
                 "en_US"
-            ]
+            ],
+            "category": "Other"
         }
-    },
-    "multiflexi": "1.7.2"
+    }
 }
