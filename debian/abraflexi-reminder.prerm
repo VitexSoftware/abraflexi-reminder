@@ -7,7 +7,7 @@ WEBUSER=$RET
 
 su - $WEBUSER -s /bin/bash -c 'COMPOSER_HOME="/var/lib/composer" composer -o remove spipu/html2pdf -d /usr/lib/abraflexi-reminder/'
 
-rm /usr/lib/abraflexi-reminder/composer.lock
+rm -f /usr/lib/abraflexi-reminder/composer.lock
 
 #DEBHELPER#
 
