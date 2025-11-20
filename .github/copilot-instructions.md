@@ -1,45 +1,79 @@
-<!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
+---
+description: AbraFlexi Reminder - automated reminder system for AbraFlexi accounting software
+applyTo: '**'
+---
 
-All code comments should be written in English.
+# AbraFlexi Reminder - Copilot Instructions
 
-All messages, including error messages, should be written in English.
+## Project Overview
+AbraFlexi Reminder is an **automated reminder system** for AbraFlexi accounting software:
+- **Invoice Reminders**: Automated overdue invoice notifications
+- **Payment Tracking**: Payment reminder system
+- **AbraFlexi Integration**: Direct API integration with accounting system
+- **MultiFlexi Framework**: Built using VitexSoftware MultiFlexi ecosystem
+- **Email Templates**: Customizable reminder email templates
 
-All code should be written in PHP 8.4 or later.
+## 📋 Development Standards
 
-All code should follow the PSR-12 coding standard.
+### Core Coding Guidelines
+- **PHP 8.4+**: Use modern PHP features and strict types: `declare(strict_types=1);`
+- **PSR-12**: Follow PHP-FIG coding standards for consistency
+- **Type Safety**: Include type hints for all parameters and return types
+- **Documentation**: PHPDoc blocks for all public methods and classes
+- **Testing**: PHPUnit tests for all new functionality
+- **Internationalization**: Use `_()` functions for translatable strings
 
-When writing code, always include a docblock for functions and classes, describing their purpose, parameters, and return types.
+### Code Quality Requirements
+- **Syntax Validation**: After every PHP file edit, run `php -l filename.php` for syntax checking
+- **Error Handling**: Implement comprehensive try-catch blocks with meaningful error messages
+- **Testing**: Create/update PHPUnit test files for all new/modified classes
+- **Performance**: Optimize for production use with large datasets
+- **Security**: Ensure code doesn't expose sensitive information
 
-When writing tests, use PHPUnit and follow the PSR-12 coding standard.
+### Development Best Practices
+- **Code Comments**: Write in English using complete sentences and proper grammar
+- **Variable Names**: Use meaningful names that describe their purpose
+- **Constants**: Avoid magic numbers/strings; define constants instead
+- **Exception Handling**: Always provide meaningful error messages
+- **Commit Messages**: Use imperative mood and keep them concise
+- **Security**: Ensure code is secure and doesn't expose sensitive information
+- **Compatibility**: Maintain compatibility with latest PHP and library versions
+- **Maintainability**: Follow best practices for maintainable code
 
-When writing documentation, use MarkDown format.
+### MultiFlexi Integration Guidelines
+- **Schema Compliance**: All MultiFlexi JSON files must conform to official schemas
+- **Application Config** (`multiflexi/*.app.json`): 
+  https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.app.schema.json
+- **Report Output**: 
+  https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.report.schema.json
 
-When writing commit messages, use the imperative mood and keep them concise.
+### AbraFlexi Integration Requirements
+- **API Authentication**: Secure authentication with AbraFlexi systems
+- **Data Privacy**: Handle sensitive financial data appropriately
+- **Error Recovery**: Implement retry logic for network failures
+- **Transaction Safety**: Ensure data integrity in all operations
 
-When writing code comments, use complete sentences and proper grammar.
+### Testing Requirements
+- **PHPUnit Integration**: All new classes require corresponding test files
+- **Test Coverage**: Aim for comprehensive test coverage of all functionality
+- **Mock AbraFlexi**: Use mocks for AbraFlexi API during testing
+- **Email Testing**: Test email functionality without sending real emails
 
-When writing code, always use meaningful variable names that describe their purpose.
+## Example Commands
+```bash
+# Syntax check
+php -l src/ReminderService.php
 
-When writing code, avoid using magic numbers or strings; instead, define constants for them.
+# Run tests
+vendor/bin/phpunit tests/
 
-When writing code, always handle exceptions properly and provide meaningful error messages.
+# Validate MultiFlexi config
+multiflexi-cli application validate-json --file multiflexi/reminder.app.json
+```
 
-When writing code, always include type hints for function parameters and return types.
-
-We are using the i18n library for internationalization, so always use the _() functions for strings that need to be translated.
-
-When writing code, always ensure that it is secure and does not expose any sensitive information.
-
-When writing code, always consider performance and optimize where necessary.
-
-When writing code, always ensure that it is compatible with the latest version of PHP and the libraries we are using.
-
-When writing code, always ensure that it is well-tested and includes unit tests where applicable.
-
-When writing code, always ensure that it is maintainable and follows best practices.
-
-When create new class or update existing class, always create or update its phpunit test files.
-
-All files in the multiflexi/*.app.json directory must conform to the schema available at: https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.app.schema.json
-
-All produced reports must conform to the schema available at: https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.report.schema.json
+⚠️ **Important Notes for Copilot:**
+- This handles **sensitive financial data** - prioritize security in all operations
+- **Email reliability** is critical for business operations
+- Follow **MultiFlexi ecosystem patterns** for consistency
+- **AbraFlexi API changes** may require updates - monitor compatibility
+- All reminder logic must be **thoroughly tested** before deployment

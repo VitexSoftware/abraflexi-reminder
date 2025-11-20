@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.app.schema.json",
-    "schemaVersion": "3.0.0",
+    "schemaVersion": "3.1.0",
     "uuid": "0fd52fdd-1c83-4346-b9f9-13e82bd5d6d0",
     "name": {
         "en": "Reminder",
@@ -236,6 +236,16 @@
             "defval": "console|syslog",
             "required": false,
             "category": "Behavior"
+        }
+    },
+    "exitCodes": {
+        "0": {
+            "description": {
+                "en": "Success",
+                "cs": "Úspěch"
+            },
+            "severity": "success",
+            "retry": false
         }
     }
 }

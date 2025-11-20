@@ -157,7 +157,18 @@ foreach ($allDebtsByClient as $clientCode => $clientDebts) {
 
 $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
 
+// Add required schema fields
+
 $report['exitcode'] = $exitcode;
+$report['status'] = $exitcode === 0 ? 'success' : 'error';
+$report['timestamp'] = date('c');
+$report['message'] = $exitcode === 0 ? _('Remind process finished successfully') : _('Remind process finished with errors');
+if (!isset($report['artifacts'])) {
+    $report['artifacts'] = new stdClass();
+}
+if (!isset($report['metrics'])) {
+    $report['metrics'] = new stdClass();
+}
 $written = file_put_contents($destination, json_encode($report, Shared::cfg('DEBUG') ? \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE : 0));
 $reminder->addStatusMessage(sprintf(_('Saving result to %s'), $destination), $written ? 'success' : 'error');
 

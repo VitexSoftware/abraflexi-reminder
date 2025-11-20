@@ -96,7 +96,7 @@ class Upominac extends \AbraFlexi\RW
 
     public function logBanner($prefix = null, $suffix = null): void
     {
-        parent::logBanner($prefix.\Ease\Shared::getAppName().' v'.\Ease\Shared::getAppVer(), $suffix);
+        parent::logBanner($prefix.\Ease\Shared::appName().' v'.\Ease\Shared::appVersion(), $suffix);
     }
 
     /**
@@ -553,7 +553,7 @@ class Upominac extends \AbraFlexi\RW
             if (!is_array($ddata)) {
                 continue;
             }
-            if ((string) $ddata['typDokl'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
+            if ($ddata['typDokl']['typDoklK'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
                 unset($debts[$did]);
             }
         }
