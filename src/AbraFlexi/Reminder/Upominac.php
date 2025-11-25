@@ -553,7 +553,7 @@ class Upominac extends \AbraFlexi\RW
             if (!is_array($ddata)) {
                 continue;
             }
-            if ($ddata['typDokl']['typDoklK'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
+            if ((string) $ddata['typDokl'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
                 unset($debts[$did]);
             }
         }
