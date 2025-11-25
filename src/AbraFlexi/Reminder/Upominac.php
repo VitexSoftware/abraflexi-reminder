@@ -131,10 +131,10 @@ class Upominac extends \AbraFlexi\RW
             ), explode(',', $stitky));
             unset($newStitky['UPOMINKA1'], $newStitky['UPOMINKA2'], $newStitky['UPOMINKA3'], $newStitky['NEPLATIC']);
 
-            if (
-                $this->customer->adresar->insertToAbraFlexi(['id' => $cid, 'stitky@removeAll' => 'true',
-                    'stitky' => $newStitky])
-            ) {
+            $response = $this->customer->adresar->insertToAbraFlexi(['id' => $cid, 'stitky@removeAll' => 'true',
+                'stitky' => $newStitky]);
+
+            if (!empty($response) && isset($response['success']) && ($response['success'] === 'true' || $response['success'] === true)) {
                 $this->addStatusMessage(sprintf(
                     _('No debts. Clear %s Remind labels'),
                     $cid,
@@ -198,7 +198,6 @@ class Upominac extends \AbraFlexi\RW
         $this->customer->adresar->dataReset();
         $this->customer->adresar->setData($clientInfo);
         $this->customer->adresar->updateApiURL();
-        $zewlScore = 0;
         $stitky = $clientInfo['stitky'];
         $ddifs = [];
         $invoicesToSave = [];
@@ -223,41 +222,22 @@ class Upominac extends \AbraFlexi\RW
                 default:
                     $invoicesToSave[$debt['id']] = ['id' => \AbraFlexi\Functions::code((string) $did),
                         'evidence' => $debt['evidence']];
-                    $ddiff = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
-                    $ddifs[$debt['id']] = $ddiff;
-
-                    if (($ddiff <= 7) && ($ddiff >= 1)) {
-                        $zewlScore = self::maxScore($zewlScore, 1);
-                    } else {
-                        if (($ddiff > 7) && ($ddiff <= 14)) {
-                            $zewlScore = self::maxScore($zewlScore, 2);
-                        } else {
-                            if ($ddiff > 14) {
-                                $zewlScore = self::maxScore($zewlScore, 3);
-                            }
-                        }
-                    }
+                    $ddifs[$debt['id']] = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
 
                     break;
             }
         }
 
-        if ($zewlScore === 3 && !\array_key_exists('UPOMINKA2', $stitky)) {
-            $zewlScore = 2;
-        }
+        $reminderLevel = self::calculateReminderLevel($clientDebts, $stitky);
 
-        if (!\array_key_exists('UPOMINKA1', $stitky)) {
-            $zewlScore = 1;
-        }
-
-        if ($zewlScore > 0 && (array_sum($ddifs) > 0) && \count($invoicesToSave)) {
-            if (!\array_key_exists('UPOMINKA'.$zewlScore, $stitky)) {
+        if ($reminderLevel > 0 && (array_sum($ddifs) > 0) && \count($invoicesToSave)) {
+            if (!\array_key_exists('UPOMINKA'.$reminderLevel, $stitky)) {
                 if (!\array_key_exists('NEUPOMINAT', $stitky)) {
-                    $report['remindsSent'] = $this->posliUpominku($zewlScore, $clientDebts);
+                    $report['remindsSent'] = $this->posliUpominku($reminderLevel, $clientDebts);
 
                     if ($report['remindsSent']) {
                         foreach ($invoicesToSave as $invoiceCode => $invoiceData) {
-                            switch ($zewlScore) {
+                            switch ($reminderLevel) {
                                 case 1:
                                     $colname = 'datUp1';
 
@@ -299,8 +279,8 @@ class Upominac extends \AbraFlexi\RW
                     $report['message'] = _('Remind send disbled');
                 }
             } else {
-                $this->addStatusMessage(sprintf(_('Remind %d already sent'), $zewlScore));
-                $report['message'] = sprintf(_('Remind %d already sent'), $zewlScore);
+                $this->addStatusMessage(sprintf(_('Remind %d already sent'), $reminderLevel));
+                $report['message'] = sprintf(_('Remind %d already sent'), $reminderLevel);
             }
         } else {
             $this->addStatusMessage(_('No debts to remind'), 'debug');
@@ -321,7 +301,7 @@ class Upominac extends \AbraFlexi\RW
             }
         }
 
-        $report['zewlScore'] = $zewlScore;
+        $report['reminderLevel'] = $reminderLevel;
 
         return $report;
     }
@@ -331,45 +311,18 @@ class Upominac extends \AbraFlexi\RW
      *
      * @param int $addressID AbraFlexi user ID
      *
-     * @return int ZewlScore
+     * @return int reminderLevel
      */
     public function getCustomerScore($addressID)
     {
-        $score = 0;
         $debts = $this->customer->getCustomerDebts($addressID);
         $stitkyRaw = $this->customer->adresar->getColumnsFromAbraFlexi(
             ['stitky'],
             ['id' => $addressID],
         );
-        $stitky = $stitkyRaw[0]['stitky'];
+        $stitky = \AbraFlexi\Stitek::listToArray($stitkyRaw[0]['stitky']);
 
-        if (!empty($debts)) {
-            foreach ($debts as $did => $debt) {
-                $ddiff = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
-
-                if (($ddiff <= 7) && ($ddiff >= 1)) {
-                    $score = self::maxScore($score, 1);
-                } else {
-                    if (($ddiff > 7) && ($ddiff <= 14)) {
-                        $score = self::maxScore($score, 2);
-                    } else {
-                        if ($ddiff > 14) {
-                            $score = self::maxScore($score, 3);
-                        }
-                    }
-                }
-            }
-        }
-
-        if ($score === 3 && !strstr($stitky, 'UPOMINKA2')) {
-            $score = 2;
-        }
-
-        if (!strstr($stitky, 'UPOMINKA1') && !empty($debts)) {
-            $score = 1;
-        }
-
-        return $score;
+        return self::calculateReminderLevel($debts, $stitky);
     }
 
     /**
@@ -550,9 +503,10 @@ class Upominac extends \AbraFlexi\RW
         $debts = $this->getEvidenceDebts('faktura-vydana', $conditions);
 
         foreach ($debts as $did => $ddata) {
-            if (!is_array($ddata)) {
+            if (!\is_array($ddata)) {
                 continue;
             }
+
             if ((string) $ddata['typDokl'] === 'typDokladu.dobropis') { // TODO: (not(typDokl.typDoklK eq 'typDokladu.dobropis'))
                 unset($debts[$did]);
             }
@@ -601,6 +555,43 @@ class Upominac extends \AbraFlexi\RW
         }
 
         return implode(',', $tmp);
+    }
+
+    /**
+     * Calculate reminder level based on debts and customer labels.
+     *
+     * @param array $debts  Customer's debts
+     * @param array $stitky Customer's labels
+     *
+     * @return int Reminder level (1, 2, or 3)
+     */
+    private static function calculateReminderLevel(array $debts, array $stitky): int
+    {
+        $reminderLevel = 0;
+
+        if (!empty($debts)) {
+            foreach ($debts as $debt) {
+                $overdueDays = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
+
+                if ($overdueDays > 14) {
+                    $reminderLevel = self::maxScore($reminderLevel, 3);
+                } elseif ($overdueDays > 7) {
+                    $reminderLevel = self::maxScore($reminderLevel, 2);
+                } elseif ($overdueDays >= 1) {
+                    $reminderLevel = self::maxScore($reminderLevel, 1);
+                }
+            }
+        }
+
+        if ($reminderLevel === 3 && !\array_key_exists('UPOMINKA2', $stitky)) {
+            $reminderLevel = 2;
+        }
+
+        if (!empty($debts) && !\array_key_exists('UPOMINKA1', $stitky)) {
+            $reminderLevel = 1;
+        }
+
+        return $reminderLevel;
     }
 
     /**

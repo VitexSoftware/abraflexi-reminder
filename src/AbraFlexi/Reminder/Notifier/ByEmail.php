@@ -16,14 +16,13 @@ declare(strict_types=1);
 namespace AbraFlexi\Reminder\Notifier;
 
 use AbraFlexi\Bricks\Customer;
+use AbraFlexi\Code;
 use AbraFlexi\FakturaVydana;
 use AbraFlexi\Formats;
-use AbraFlexi\Functions;
 use AbraFlexi\Reminder\CompanyLogo;
 use AbraFlexi\Reminder\RemindMailer;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
-use AbraFlexi\Code;
 use Ease\Html\DivTag;
 use Ease\Html\HrTag;
 use Ease\Html\PTag;

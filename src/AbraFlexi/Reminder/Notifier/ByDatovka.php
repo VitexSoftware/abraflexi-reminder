@@ -21,8 +21,8 @@ declare(strict_types=1);
 namespace AbraFlexi\Reminder\Notifier;
 
 use AbraFlexi\Bricks\Customer;
-use AbraFlexi\FakturaVydana;
 use AbraFlexi\Code;
+use AbraFlexi\FakturaVydana;
 use AbraFlexi\Reminder\notifier;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
@@ -189,7 +189,8 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
         curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, \CURLOPT_POSTFIELDS, $requestRaw);
         $resp = curl_exec($curl);
-        if (is_resource($curl) || (is_object($curl) && ($curl instanceof \CurlHandle))) {
+
+        if (\is_resource($curl) || (\is_object($curl) && ($curl instanceof \CurlHandle))) {
             curl_close($curl);
         }
 

@@ -38,9 +38,8 @@ class BySms extends Sand
     /**
      * eMail notification.
      *
-     * @param Upominac $reminder
-     * @param int      $score    weeks of due
-     * @param array    $debts    array of debts by current customer
+     * @param int   $score weeks of due
+     * @param array $debts array of debts by current customer
      */
     public function __construct(Upominac $reminder, int $score, array $debts)
     {
