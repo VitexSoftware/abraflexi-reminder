@@ -8,7 +8,7 @@
     },
     "description": {
         "en": "Remind unsettled invoices",
-        "cs": "Remind unsettled invoices"
+        "cs": "Upomíná nezaplacené faktury"
     },
     "tags": [
         "AbraFlexi",
@@ -23,7 +23,7 @@
             "type": "bool",
             "description": {
                 "en": "Enable debug mode",
-                "cs": "Enable debug mode"
+                "cs": "Zapnout režim ladění"
             },
             "defval": "False",
             "required": false,
@@ -33,7 +33,7 @@
             "type": "set",
             "description": {
                 "en": "Locale for this application",
-                "cs": "Locale for this application"
+                "cs": "Lokalizace pro tuto aplikaci"
             },
             "defval": "cs_CZ",
             "required": false,
@@ -45,7 +45,10 @@
         },
         "ABRAFLEXI_COMPANY": {
             "type": "string",
-            "description": "",
+            "description": {
+                "en": "AbraFlexi Company",
+                "cs": "AbraFlexi Společnost"
+            },
             "defval": "demo_de",
             "required": true,
             "category": "API"
@@ -82,7 +85,10 @@
         },
         "MAX_MAIL_SIZE": {
             "type": "string",
-            "description": "",
+            "description": {
+                "en": "Maximum size of mail",
+                "cs": "Maximální velikost e-mailu"
+            },
             "defval": "",
             "required": true,
             "category": "Other"
@@ -98,10 +104,10 @@
             "category": "Other"
         },
         "SURRENDER_DAYS": {
-            "type": "number",
+            "type": "integer",
             "description": {
                 "en": "Do not process old cases",
-                "cs": "Do not process old cases"
+                "cs": "Nezpracovávat staré případy"
             },
             "defval": "365",
             "required": false,
@@ -111,37 +117,37 @@
             "type": "string",
             "description": {
                 "en": "Ignore this document types",
-                "cs": "Ignore this document types"
+                "cs": "Ignorovat tyto typy dokumentů"
             },
             "defval": "DOBROPIS,ZDD",
             "required": false,
             "category": "Other"
         },
         "QR_PAYMENTS": {
-            "type": "checkbox",
+            "type": "bool",
             "description": {
                 "en": "Add QR Codes into Mails",
-                "cs": "Add QR Codes into Mails"
+                "cs": "Přidat QR kódy do e-mailů"
             },
             "defval": "True",
             "required": false,
             "category": "Other"
         },
         "ADD_LOGO": {
-            "type": "checkbox",
+            "type": "bool",
             "description": {
                 "en": "Add Company logo into Mails",
-                "cs": "Add Company logo into Mails"
+                "cs": "Přidat logo společnosti do e-mailů"
             },
             "defval": "True",
             "required": false,
             "category": "Other"
         },
         "MUTE": {
-            "type": "checkbox",
+            "type": "bool",
             "description": {
                 "en": "Send notifications to customers",
-                "cs": "Send notifications to customers"
+                "cs": "Zasílat upozornění zákazníkům"
             },
             "defval": "True",
             "required": false,
@@ -151,7 +157,7 @@
             "type": "email",
             "description": {
                 "en": "Fallback adres when MUTE is ON",
-                "cs": "Fallback adres when MUTE is ON"
+                "cs": "Záložní adresa pokud je MUTE zapnuto"
             },
             "defval": "",
             "required": false,
@@ -161,7 +167,7 @@
             "type": "string",
             "description": {
                 "en": "Signature at end of SMS",
-                "cs": "Signature at end of SMS"
+                "cs": "Podpis na konci SMS"
             },
             "defval": "",
             "required": false,
@@ -171,7 +177,7 @@
             "type": "string",
             "description": {
                 "en": "Ignore documents/customers with this Label",
-                "cs": "Ignore documents/customers with this Label"
+                "cs": "Ignorovat dokumenty/zákazníky s tímto štítkem"
             },
             "defval": "NEUPOMINAT",
             "required": false,
@@ -191,7 +197,7 @@
             "type": "string",
             "description": {
                 "en": "Huawei E5180 Password",
-                "cs": "Huawei E5180 Password"
+                "cs": "Huawei E5180 Heslo"
             },
             "defval": "",
             "required": false,
@@ -201,7 +207,7 @@
             "type": "email",
             "description": {
                 "en": "CC Mail Address",
-                "cs": "CC Mail Address"
+                "cs": "CC Mailová Adresa"
             },
             "defval": "",
             "required": false,
@@ -221,7 +227,7 @@
             "type": "string",
             "description": {
                 "en": "write output json data to",
-                "cs": "write output json data to"
+                "cs": "zapsat výstupní json data do"
             },
             "defval": "reminder_{ABRAFLEXI_COMPANY}.json",
             "required": false,
@@ -231,7 +237,7 @@
             "type": "string",
             "description": {
                 "en": "write log messages using",
-                "cs": "write log messages using"
+                "cs": "zapsat logovací zprávy pomocí"
             },
             "defval": "console|syslog",
             "required": false,

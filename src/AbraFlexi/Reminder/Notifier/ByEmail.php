@@ -23,6 +23,7 @@ use AbraFlexi\Reminder\CompanyLogo;
 use AbraFlexi\Reminder\RemindMailer;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
+use AbraFlexi\Code;
 use Ease\Html\DivTag;
 use Ease\Html\HrTag;
 use Ease\Html\PTag;
@@ -122,7 +123,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
                         $this->addStatusMessage(
                             sprintf(
                                 _('Last  remind / inventarization for %s send before %d days; skipping'),
-                                Functions::uncode((string) $customer),
+                                Code::strip((string) $customer),
                                 $lastInvDays,
                             ),
                             'debug',
@@ -183,7 +184,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
             ]);
 
             foreach ($clientDebts as $debt) {
-                $currency = Functions::uncode((string) $debt['mena']);
+                $currency = Code::strip((string) $debt['mena']);
 
                 if ($currency === 'CZK') {
                     $amount = $debt['zbyvaUhradit'];
@@ -215,7 +216,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
             }
 
             $this->addAttachments($clientDebts);
-            $this->mailer->addItem(new \Ease\Html\PTag(new \Ease\Html\SmallTag(new \Ease\Html\ATag('https://github.com/VitexSoftware/abraflexi-reminder', \Ease\Shared::appName()).' v'.\Ease\Shared::appVersion())));
+            $this->mailer->addItem(new PTag(new \Ease\Html\SmallTag(new \Ease\Html\ATag('https://github.com/VitexSoftware/abraflexi-reminder', \Ease\Shared::appName()).' v'.\Ease\Shared::appVersion())));
             $result = true;
         } else {
             $this->addStatusMessage(sprintf(_('Client %s without email %s !!!'), $nazev, $this->firmer->getApiURL()), 'error');
@@ -242,7 +243,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
                 $this->invoicer->setEvidence($debt['evidence']);
             }
 
-            $this->invoicer->setMyKey(Functions::code($debt['kod']));
+            $this->invoicer->setMyKey(Code::ensure($debt['kod']));
             $this->mailer->addFile(
                 $this->invoicer->downloadInFormat('pdf', '/tmp/'),
                 Formats::$formats['PDF']['content-type'],

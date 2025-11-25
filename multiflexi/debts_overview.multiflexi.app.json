@@ -8,7 +8,7 @@
     },
     "description": {
         "en": "Gather unsettled invoices",
-        "cs": "Gather unsettled invoices"
+        "cs": "Shromáždit nezaplacené faktury"
     },
     "tags": [
         "AbraFlexi",
@@ -21,7 +21,10 @@
     "environment": {
         "ABRAFLEXI_COMPANY": {
             "type": "string",
-            "description": "",
+            "description": {
+                "en": "AbraFlexi Company",
+                "cs": "AbraFlexi Společnost"
+            },
             "defval": "demo_de",
             "required": true,
             "category": "API"
@@ -40,7 +43,7 @@
             "type": "password",
             "description": {
                 "en": "AbraFlexi password",
-                "cs": "AbraFlexi password"
+                "cs": "AbraFlexi heslo"
             },
             "defval": "winstrom",
             "required": true,
@@ -60,7 +63,7 @@
             "type": "string",
             "description": {
                 "en": "write output json data to",
-                "cs": "write output json data to"
+                "cs": "zapiš výstupní json data do"
             },
             "defval": "transaction_report.json",
             "required": false,
@@ -70,7 +73,7 @@
             "type": "integer",
             "description": {
                 "en": "Days to surrender",
-                "cs": "Days to surrender"
+                "cs": "Dny do odevzdání"
             },
             "defval": "365",
             "required": false,
@@ -80,7 +83,7 @@
             "type": "string",
             "description": {
                 "en": "Ignore documents/customers with this Label",
-                "cs": "Ignore documents/customers with this Label"
+                "cs": "Ignorovat dokumenty/zákazníky s tímto štítkem"
             },
             "defval": "NEUPOMINAT",
             "required": false,
@@ -90,7 +93,7 @@
             "type": "string",
             "description": {
                 "en": "write log messages using",
-                "cs": "write log messages using"
+                "cs": "zapisovat log zprávy pomocí"
             },
             "defval": "console|syslog",
             "required": false,
@@ -100,7 +103,7 @@
             "type": "set",
             "description": {
                 "en": "Locale for this application",
-                "cs": "Locale for this application"
+                "cs": "Locale pro tuto aplikaci"
             },
             "defval": "cs_CZ",
             "required": false,

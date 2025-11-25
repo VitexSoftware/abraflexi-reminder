@@ -8,7 +8,7 @@
  * author     Vítězslav Dvořák <info@vitexsofware.cz>
  */
 
-use AbraFlexi\Functions;
+use AbraFlexi\Code;
 use AbraFlexi\Reminder\Upominac;
 use Ease\Locale;
 use Ease\Shared;
@@ -42,7 +42,7 @@ foreach ($labelsRequiedRaw as $label) {
 $pos = 0;
 
 foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' => 0]) as $clientCode => $clientInfo) {
-    $reminder->customer->adresar->setMyKey(Functions::code($clientCode));
+    $reminder->customer->adresar->setMyKey(Code::ensure($clientCode));
     $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
 
     // Check if the customer has no debts

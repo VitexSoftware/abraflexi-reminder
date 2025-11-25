@@ -13,7 +13,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use AbraFlexi\Functions;
+use AbraFlexi\Code;
 use AbraFlexi\Reminder\Upominac;
 use Ease\Locale;
 use Ease\Shared;
@@ -80,7 +80,7 @@ foreach ($allDebts as $code => $debt) {
         $clientCodeShort = '';
     } else {
         $clientCode = $debt['firma'];
-        $clientCodeShort = Functions::uncode((string) $clientCode);
+        $clientCodeShort = Code::strip((string) $clientCode);
     }
 
     if (\array_key_exists((string) $debt['firma'], $clientsToSkip)) {
@@ -88,7 +88,7 @@ foreach ($allDebts as $code => $debt) {
     }
 
     ++$counter;
-    $curcode = Functions::uncode((string) $debt['mena']);
+    $curcode = Code::strip((string) $debt['mena']);
 
     if (!\array_key_exists($curcode, $howmuchRaw) || empty($howmuchRaw[$curcode])) {
         $howmuchRaw[$curcode] = 0;
@@ -122,13 +122,13 @@ foreach ($allDebts as $code => $debt) {
         $howmuch[] = $price.' '.$cur;
     }
 
-    $allDebtsByClient[Functions::uncode((string) $clientCode)][$code] = $debt;
+    $allDebtsByClient[Code::strip((string) $clientCode)][$code] = $debt;
 }
 
 $pointer = 0;
 
 foreach ($allDebtsByClient as $clientCode => $clientDebts) {
-    $clientCodeShort = Functions::uncode((string) $clientCode);
+    $clientCodeShort = Code::strip((string) $clientCode);
 
     if (empty(trim($clientCodeShort))) {
         $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($clientDebts))), 'error');
@@ -160,7 +160,7 @@ $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
 // Add required schema fields
 
 $report['exitcode'] = $exitcode;
-$report['status'] = $exitcode === 0 ? 'success' : 'error';
+$report['status'] = $exitcode == 0 ? 'success' : 'error';
 $report['timestamp'] = date('c');
 $report['message'] = $exitcode === 0 ? _('Remind process finished successfully') : _('Remind process finished with errors');
 if (!isset($report['artifacts'])) {

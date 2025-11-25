@@ -7,5 +7,5 @@ set -e
 APPLICATION=`echo $DPKG_MAINTSCRIPT_PACKAGE | sed 's/multiflexi-//'`
 for file in `ls /usr/lib/$APPLICATION/multiflexi/*.json`
 do
-	multiflexi-json2app $file
+	multiflexi-cli application import-json --file $file
 done

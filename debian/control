@@ -16,7 +16,7 @@ Description: Remind sender for abraflexi
  Find All unpayed invoices for configured company and sent notification to payer
 
 Package: multiflexi-abraflexi-reminder
-Depends: abraflexi-reminder, multiflexi
+Depends: abraflexi-reminder, multiflexi-cli
 Architecture: all
 Section: web
 Priority: optional

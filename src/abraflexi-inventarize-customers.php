@@ -14,7 +14,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use AbraFlexi\Functions;
+use AbraFlexi\Code;
+use AbraFlexi\Reminder\Upominac;
 use Ease\Shared;
 
 /**
@@ -32,7 +33,7 @@ use Ease\Shared;
 require_once '../vendor/autoload.php';
 Shared::init(['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'], $argv[1] ?? '../.env');
 $localer = new \Ease\Locale(Shared::cfg('LANG', 'cs_CZ'), '../i18n', 'abraflexi-reminder');
-$reminder = new \AbraFlexi\Reminder\Upominac();
+$reminder = new Upominac();
 
 if (Shared::cfg('APP_DEBUG') === 'True') {
     $reminder->logBanner(Shared::cfg('OVERDUE_PATIENCE', 0));
@@ -53,7 +54,7 @@ foreach ($allDebts as $kod => $debtData) {
         continue;
     }
 
-    $firma = Functions::uncode((string) $debtData['firma']);
+    $firma = Code::strip((string) $debtData['firma']);
 
     if (\strlen($firma) && (\array_key_exists($firma, $allClients) === false)) {
         $reminder->addStatusMessage(sprintf(_('Unknown customer %s'), $firma), 'warning');
@@ -61,7 +62,7 @@ foreach ($allDebts as $kod => $debtData) {
         continue;
     }
 
-    if (\strlen($firma) && \array_key_exists(\Ease\Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $allClients[$firma]['stitky'])) {
+    if (\strlen($firma) && \array_key_exists(Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $allClients[$firma]['stitky'])) {
         $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label for the Company'), $debtData['firma']->showAs));
 
         continue;
@@ -74,11 +75,11 @@ $counter = 0;
 
 foreach ($clientsToNotify as $firma => $debts) {
     if ($firma) {
-        if (empty(trim(Functions::uncode((string) $firma)))) {
+        if (empty(trim(Code::strip((string) $firma)))) {
             $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts))), 'error');
         } else {
             $reminder->customer->adresar->dataReset();
-            $reminder->customer->adresar->loadFromAbraFlexi(Functions::code((string) $firma));
+            $reminder->customer->adresar->loadFromAbraFlexi(Code::ensure((string) $firma));
             $reminder->addStatusMessage(sprintf(
                 _('(%d / %d) %s '),
                 $counter++,

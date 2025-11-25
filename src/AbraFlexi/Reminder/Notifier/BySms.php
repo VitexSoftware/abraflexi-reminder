@@ -42,7 +42,7 @@ class BySms extends Sand
      * @param int      $score    weeks of due
      * @param array    $debts    array of debts by current customer
      */
-    public function __construct($reminder, $score, $debts)
+    public function __construct(Upominac $reminder, int $score, array $debts)
     {
         $this->setObjectName();
         $result = false;

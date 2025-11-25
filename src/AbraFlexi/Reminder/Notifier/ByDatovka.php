@@ -22,6 +22,7 @@ namespace AbraFlexi\Reminder\Notifier;
 
 use AbraFlexi\Bricks\Customer;
 use AbraFlexi\FakturaVydana;
+use AbraFlexi\Code;
 use AbraFlexi\Reminder\notifier;
 use AbraFlexi\Reminder\Upominac;
 use AbraFlexi\Reminder\Upominka;
@@ -90,7 +91,7 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
     public function login($reminder): bool
     {
         $online = false;
-        $this->loginWithUsernameAndPassword(\Ease\Shared::cfg('DATOVKA_LOGIN'), \Ease\Shared::cfg('DATOVKA_PASSWORD'), true);
+        $this->loginWithUsernameAndPassword(Shared::cfg('DATOVKA_LOGIN'), \Ease\Shared::cfg('DATOVKA_PASSWORD'), true);
 
         // TODO: loginWithCertificateAndPassword
         try {
@@ -134,7 +135,7 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
                     $this->addStatusMessage(
                         sprintf(
                             _('Last  remind / inventarization for %s send before %d days; skipping'),
-                            RO::uncode($customer),
+                            Code::strip($customer),
                             $lastInvDays,
                         ),
                         'debug',
@@ -149,7 +150,7 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
         $invoices = [];
         $dnes = new \DateTime();
         $this->subject = $upominka->getDataValue('hlavicka').' ke dni '.$dnes->format('d.m.Y');
-        $this->invoicer = new \AbraFlexi\FakturaVydana();
+        $this->invoicer = new FakturaVydana();
         $this->addAttachments($clientDebts);
 
         return \count($this->pdfFiles);
@@ -167,7 +168,7 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
                 $this->invoicer->setEvidence($debt['evidence']);
             }
 
-            $this->invoicer->setMyKey(\AbraFlexi\Functions::code($debt['kod']));
+            $this->invoicer->setMyKey(Code::ensure($debt['kod']));
             $this->pdfFiles[] = $this->invoicer->downloadInFormat('pdf', sys_get_temp_dir());
         }
     }
@@ -188,7 +189,9 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
         curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, \CURLOPT_POSTFIELDS, $requestRaw);
         $resp = curl_exec($curl);
-        curl_close($curl);
+        if (is_resource($curl) || (is_object($curl) && ($curl instanceof \CurlHandle))) {
+            curl_close($curl);
+        }
 
         $sds = new \SimpleXMLElement($resp);
 

@@ -54,7 +54,7 @@ class InvoiceRecievingConfirmation extends RemindMailer
         $customerName = $invoice->getDataValue('firma')->showAs;
 
         if (empty($customerName)) {
-            $customerName = \AbraFlexi\Functions::uncode($invoice->getDataValue('firma'));
+            $customerName = \AbraFlexi\Code::strip($invoice->getDataValue('firma'));
         }
 
         $this->addItem(new CompanyLogo(['align' => 'right', 'id' => 'companylogo',
@@ -87,7 +87,7 @@ class InvoiceRecievingConfirmation extends RemindMailer
         $body->addItem(nl2br($this->getSignature()));
         parent::__construct(
             $to,
-            sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\Functions::uncode($invoice->getRecordIdent())),
+            sprintf(_('Confirmation of receipt your invoice %s'), \AbraFlexi\Code::strip($invoice->getRecordIdent())),
         );
         $this->setMailHeaders(['Cc' => \Ease\Shared::cfg('SEND_INFO_TO')]);
         $this->addItem($body);

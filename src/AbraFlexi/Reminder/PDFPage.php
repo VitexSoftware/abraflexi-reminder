@@ -24,7 +24,7 @@ namespace AbraFlexi\Reminder;
  */
 class PDFPage extends \Ease\WebPage
 {
-    public function getPdf()
+    public function getPdf(): string
     {
         $html2pdf = new \Spipu\Html2Pdf\Html2Pdf();
         file_put_contents('/var/tmp/upominka.html', $this->getRendered());
