@@ -16,6 +16,9 @@
         "Mail",
         "Sms"
     ],
+    "requirements": [
+        "AbraFlexi"
+    ],
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
     "executable": "abraflexi-notify-customers",
     "environment": {
@@ -77,7 +80,7 @@
             "category": "Other"
         },
         "OVERDUE_PATIENCE": {
-            "type": "number",
+            "type": "integer",
             "description": {
                 "en": "Days of silence after due date",
                 "cs": "Days of silence after due date"
@@ -110,5 +113,15 @@
             ],
             "category": "Other"
         }
-    }
+    },
+    "exitCodes": {
+        "0": {
+            "description": {
+                "en": "Success",
+                "cs": "Úspěch"
+            },
+            "severity": "success",
+            "retry": false
+        }
+    }    
 }

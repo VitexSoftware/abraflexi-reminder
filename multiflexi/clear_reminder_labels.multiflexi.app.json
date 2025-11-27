@@ -15,6 +15,9 @@
         "Reminder",
         "Labels"
     ],
+    "requirements": [
+        "AbraFlexi"
+    ],
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
     "executable": "abraflexi-reminder-clean-labels",
     "environment": {
@@ -53,7 +56,7 @@
             "type": "password",
             "description": {
                 "en": "AbraFlexi password",
-                "cs": "AbraFlexi password"
+                "cs": "AbraFlexi heslo"
             },
             "defval": "winstrom",
             "required": true,

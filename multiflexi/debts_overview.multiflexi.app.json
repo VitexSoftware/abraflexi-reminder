@@ -16,6 +16,9 @@
         "Check",
         "Json"
     ],
+    "requirements": [
+        "AbraFlexi"
+    ],
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
     "executable": "abraflexi-show-debts",
     "environment": {
@@ -113,5 +116,15 @@
             ],
             "category": "Other"
         }
-    }
+    },
+    "exitCodes": {
+        "0": {
+            "description": {
+                "en": "Success",
+                "cs": "Úspěch"
+            },
+            "severity": "success",
+            "retry": false
+        }
+    }    
 }

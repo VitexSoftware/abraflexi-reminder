@@ -14,6 +14,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use AbraFlexi\Bricks\Customer;
 use AbraFlexi\Code;
 use AbraFlexi\Reminder\Upominac;
 use Ease\Shared;
@@ -78,7 +79,8 @@ foreach ($clientsToNotify as $firma => $debts) {
         if (empty(trim(Code::strip((string) $firma)))) {
             $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($debts))), 'error');
         } else {
-            $reminder->customer->adresar->dataReset();
+            $reminder->customer = new Customer();
+            $reminder->customer->loadFromAbraFlexi(Code::ensure((string) $firma));
             $reminder->customer->adresar->loadFromAbraFlexi(Code::ensure((string) $firma));
             $reminder->addStatusMessage(sprintf(
                 _('(%d / %d) %s '),

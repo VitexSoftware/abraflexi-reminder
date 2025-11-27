@@ -16,6 +16,9 @@
         "Mail",
         "Sms"
     ],
+    "requirements": [
+        "AbraFlexi"
+    ],
     "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
     "executable": "abraflexi-reminder",
     "environment": {
