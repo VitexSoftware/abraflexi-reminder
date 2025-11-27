@@ -15,8 +15,12 @@ declare(strict_types=1);
 
 namespace AbraFlexi\Reminder;
 
+use AbraFlexi\Code;
+use AbraFlexi\FakturaVydana;
+use AbraFlexi\Stitek;
+
 /**
- * Description of Upominka.
+ * Description of Upominac.
  *
  * @author vitex
  *
@@ -29,7 +33,7 @@ class Upominac extends \AbraFlexi\RW
     /**
      * Invoice.
      */
-    public \AbraFlexi\FakturaVydana $invoicer;
+    public FakturaVydana $invoicer;
 
     /**
      * Reminder.
@@ -161,10 +165,7 @@ class Upominac extends \AbraFlexi\RW
     public function processAllDebts($skipLabels = [])
     {
         $allDebths = $this->getCustomersDebts($skipLabels, true);
-        $this->addStatusMessage(sprintf(
-            _('%d clients to remind process'),
-            \count($allDebths),
-        ));
+        $this->addStatusMessage(sprintf(_('%d clients to remind process'), \count($allDebths)));
         $counter = 0;
 
         foreach ($allDebths as $cid => $debts) {
@@ -192,7 +193,7 @@ class Upominac extends \AbraFlexi\RW
      *
      * @return int max debt score 1: 0-7 days 1: 8-14 days 3: 15 days and more
      */
-    public function processUserDebts($clientInfo, $clientDebts): array
+    public function processUserDebts(array $clientInfo, array $clientDebts): array
     {
         $report = [];
         $this->customer->adresar->dataReset();
@@ -207,7 +208,7 @@ class Upominac extends \AbraFlexi\RW
             switch ($debt['zamekK']) {
                 case 'zamek.zamceno':
                     $this->invoicer->dataReset();
-                    $this->invoicer->setMyKey(\AbraFlexi\Functions::code($did));
+                    $this->invoicer->setMyKey(Code::ensure($did));
                     $unlock = $this->invoicer->performAction('unlock', 'int');
 
                     if ($unlock['success'] === 'false') {
@@ -220,9 +221,8 @@ class Upominac extends \AbraFlexi\RW
                     // no break
                 case 'zamek.otevreno':
                 default:
-                    $invoicesToSave[$debt['id']] = ['id' => \AbraFlexi\Functions::code((string) $did),
-                        'evidence' => $debt['evidence']];
-                    $ddifs[$debt['id']] = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
+                    $invoicesToSave[$debt['id']] = ['id' => Code::ensure((string) $did), 'evidence' => $debt['evidence']];
+                    $ddifs[$debt['id']] = FakturaVydana::overdueDays($debt['datSplat']);
 
                     break;
             }
@@ -290,7 +290,7 @@ class Upominac extends \AbraFlexi\RW
         if (\count($invoicesToLock)) {
             foreach ($invoicesToLock as $invoiceCode => $invoiceData) {
                 $this->invoicer->dataReset();
-                $this->invoicer->setMyKey(\AbraFlexi\Functions::code($did));
+                $this->invoicer->setMyKey(Code::ensure($did));
                 $lock = $this->invoicer->performAction('lock', 'int');
 
                 if ($lock['success'] === 'true') {
@@ -334,14 +334,13 @@ class Upominac extends \AbraFlexi\RW
      */
     public static function getDaysToLastInventarization($clientDebts)
     {
-        $days = 0;
         $daysToLastInvent = [];
 
         foreach ($clientDebts as $did => $debt) {
             if (strstr($debt['poznam'], 'Inventarizace:')) {
                 foreach (explode("\n", $debt['poznam']) as $invRow) {
                     if (strstr($invRow, 'Inventarizace:')) {
-                        $daysToLastInvent[] = \AbraFlexi\FakturaVydana::overdueDays(new \AbraFlexi\Date(str_replace(
+                        $daysToLastInvent[] = FakturaVydana::overdueDays(new \AbraFlexi\Date(str_replace(
                             'Inventarizace:',
                             '',
                             $invRow,
@@ -349,7 +348,7 @@ class Upominac extends \AbraFlexi\RW
                     }
                 }
             } else {
-                $daysToLastInvent[] = \AbraFlexi\FakturaVydana::overdueDays(empty($debt['datSmir']) ? (empty($debt['datUp2']) ? (empty($debt['datUp1']) ? $debt['datVyst'] : $debt['datUp1']) : $debt['datUp2']) : $debt['datSmir']);
+                $daysToLastInvent[] = FakturaVydana::overdueDays(empty($debt['datSmir']) ? (empty($debt['datUp2']) ? (empty($debt['datUp1']) ? $debt['datVyst'] : $debt['datUp1']) : $debt['datUp2']) : $debt['datSmir']);
             }
         }
 
@@ -457,7 +456,7 @@ class Upominac extends \AbraFlexi\RW
             $docTypeSkipList = [];
 
             if (\Ease\Shared::cfg('REMINDER_SKIPDOCTYPE')) {
-                $docTypeSkipList = \AbraFlexi\Stitek::listToArray(\Ease\Shared::cfg('REMINDER_SKIPDOCTYPE'));
+                $docTypeSkipList = Stitek::listToArray(\Ease\Shared::cfg('REMINDER_SKIPDOCTYPE'));
             }
 
             $evidenceUsed = $this->invoicer->getEvidence();
@@ -531,12 +530,11 @@ class Upominac extends \AbraFlexi\RW
     {
         // [/* 'typVztahuK'=>'typVztahu.odberDodav' */]
         $conditions['limit'] = 0;
-        $allClients = $this->customer->getAdresar()->getColumnsFromAbraFlexi(['id', 'nazev',
-            'stitky'], $conditions, 'kod');
+        $allClients = $this->customer->getAdresar()->getColumnsFromAbraFlexi(['id', 'nazev', 'stitky'], $conditions, 'kod');
 
         if (!empty($allClients)) {
             foreach ($allClients as $clientCode => $clientInfo) {
-                $allClients[$clientCode]['stitky'] = \AbraFlexi\Stitek::listToArray($clientInfo['stitky']);
+                $allClients[$clientCode]['stitky'] = Stitek::listToArray($clientInfo['stitky']);
             }
         }
 
@@ -557,6 +555,113 @@ class Upominac extends \AbraFlexi\RW
         return implode(',', $tmp);
     }
 
+    public function getClientsToSkip(array $allClients, self $reminder): array
+    {
+        $clientsToSkip = [];
+
+        foreach ($allClients as $clientCodeRaw => $clientInfo) {
+            if (\array_key_exists(Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
+                $clientsToSkip[$clientCodeRaw] = $clientInfo;
+            }
+        }
+
+        if (!empty($clientsToSkip)) {
+            $reminder->addStatusMessage(implode(', ', array_keys($clientsToSkip)).'  '.\count($clientsToSkip).' '._('clients will be skipped'), 'warning');
+        }
+
+        return ['clientsToSkip' => $clientsToSkip, 'report' => ['skippedClients' => array_keys($clientsToSkip)]];
+    }
+
+    public function prepareDebts(array $allDebts, array &$allClients, array $clientsToSkip, self $reminder): array
+    {
+        $allDebtsByClient = [];
+        $total = [];
+        $report = [];
+
+        foreach ($allDebts as $code => $debt) {
+            if (strstr($debt['stitky'], Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'))) {
+                $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label %s'), $code, Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')), 'info');
+                $report['skippedDocuments'][] = $code;
+
+                continue;
+            }
+
+            if (empty($debt['firma'])) {
+                $clientCodeShort = '';
+            } else {
+                $clientCodeShort = Code::strip((string) $debt['firma']);
+            }
+
+            if (\array_key_exists((string) $debt['firma'], $clientsToSkip)) {
+                continue;
+            }
+
+            $curcode = Code::strip((string) $debt['mena']);
+
+            if ($curcode === 'CZK') {
+                $amount = (float) $debt['zbyvaUhradit'];
+            } else {
+                $amount = (float) $debt['zbyvaUhraditMen'];
+            }
+
+            if (!isset($total[$curcode])) {
+                $total[$curcode] = 0;
+            }
+
+            if (!\array_key_exists('totals', $allClients[$clientCodeShort])) {
+                $allClients[$clientCodeShort]['totals'] = [];
+            }
+
+            if (!\array_key_exists($curcode, $allClients[$clientCodeShort]['totals'])) {
+                $allClients[$clientCodeShort]['totals'][$curcode] = $amount;
+            } else {
+                $allClients[$clientCodeShort]['totals'][$curcode] += $amount;
+            }
+
+            $total[$curcode] += $amount;
+            $allDebtsByClient[$clientCodeShort][$code] = $debt;
+        }
+
+        return [
+            'allDebtsByClient' => $allDebtsByClient,
+            'total' => $total,
+            'report' => $report,
+        ];
+    }
+
+    public function processDebts(array $allDebtsByClient, array $allClients, array $clientsToSkip, self $reminder, array $report): array
+    {
+        foreach ($allDebtsByClient as $clientCode => $clientDebts) {
+            $clientCodeShort = Code::strip((string) $clientCode);
+
+            if (empty(trim($clientCodeShort))) {
+                $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($clientDebts))), 'error');
+            } else {
+                if (\array_key_exists($clientCode, $clientsToSkip)) {
+                    continue;
+                }
+
+                $clientData = $allClients[$clientCodeShort];
+
+                if ($clientCode) {
+                    $reminder->addStatusMessage(
+                        $clientCodeShort.' '.
+                        $clientData['nazev'].
+                        ' ['.implode(',', $clientData['stitky']).'] '.
+                        self::formatTotals($clientData['totals']),
+                        'success',
+                    );
+                } else {
+                    $reminder->addStatusMessage(_('Missing Client CODE'), 'warning');
+                }
+
+                $report['reminded'][$clientCodeShort] = $reminder->processUserDebts($clientData, $clientDebts);
+            }
+        }
+
+        return $report;
+    }
+
     /**
      * Calculate reminder level based on debts and customer labels.
      *
@@ -571,7 +676,7 @@ class Upominac extends \AbraFlexi\RW
 
         if (!empty($debts)) {
             foreach ($debts as $debt) {
-                $overdueDays = \AbraFlexi\FakturaVydana::overdueDays($debt['datSplat']);
+                $overdueDays = FakturaVydana::overdueDays($debt['datSplat']);
 
                 if ($overdueDays > 14) {
                     $reminderLevel = self::maxScore($reminderLevel, 3);

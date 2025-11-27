@@ -21,113 +21,6 @@ use Ease\Shared;
 
 require_once '../vendor/autoload.php';
 
-function getClientsToSkip(array $allClients, Upominac $reminder): array
-{
-    $clientsToSkip = [];
-
-    foreach ($allClients as $clientCodeRaw => $clientInfo) {
-        if (\array_key_exists(Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
-            $clientsToSkip[$clientCodeRaw] = $clientInfo;
-        }
-    }
-
-    if (!empty($clientsToSkip)) {
-        $reminder->addStatusMessage(implode(', ', array_keys($clientsToSkip)).'  '.\count($clientsToSkip).' '._('clients will be skipped'), 'warning');
-    }
-
-    return ['clientsToSkip' => $clientsToSkip, 'report' => ['skippedClients' => array_keys($clientsToSkip)]];
-}
-
-function prepareDebts(array $allDebts, array &$allClients, array $clientsToSkip, Upominac $reminder): array
-{
-    $allDebtsByClient = [];
-    $total = [];
-    $report = [];
-
-    foreach ($allDebts as $code => $debt) {
-        if (strstr($debt['stitky'], Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'))) {
-            $reminder->addStatusMessage(sprintf(_('I skip the %s because of the set label %s'), $code, Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')), 'info');
-            $report['skippedDocuments'][] = $code;
-
-            continue;
-        }
-
-        if (empty($debt['firma'])) {
-            $clientCodeShort = '';
-        } else {
-            $clientCodeShort = AbraFlexi\Code::strip((string) $debt['firma']);
-        }
-
-        if (\array_key_exists((string) $debt['firma'], $clientsToSkip)) {
-            continue;
-        }
-
-        $curcode = AbraFlexi\Code::strip((string) $debt['mena']);
-
-        if ($curcode === 'CZK') {
-            $amount = (float) $debt['zbyvaUhradit'];
-        } else {
-            $amount = (float) $debt['zbyvaUhraditMen'];
-        }
-
-        if (!isset($total[$curcode])) {
-            $total[$curcode] = 0;
-        }
-
-        if (!\array_key_exists('totals', $allClients[$clientCodeShort])) {
-            $allClients[$clientCodeShort]['totals'] = [];
-        }
-
-        if (!\array_key_exists($curcode, $allClients[$clientCodeShort]['totals'])) {
-            $allClients[$clientCodeShort]['totals'][$curcode] = $amount;
-        } else {
-            $allClients[$clientCodeShort]['totals'][$curcode] += $amount;
-        }
-
-        $total[$curcode] += $amount;
-        $allDebtsByClient[$clientCodeShort][$code] = $debt;
-    }
-
-    return [
-        'allDebtsByClient' => $allDebtsByClient,
-        'total' => $total,
-        'report' => $report,
-    ];
-}
-
-function processDebts(array $allDebtsByClient, array $allClients, array $clientsToSkip, Upominac $reminder, array $report): array
-{
-    foreach ($allDebtsByClient as $clientCode => $clientDebts) {
-        $clientCodeShort = AbraFlexi\Code::strip((string) $clientCode);
-
-        if (empty(trim($clientCodeShort))) {
-            $reminder->addStatusMessage(sprintf(_('Invoices %s without Company assigned'), implode(',', array_keys($clientDebts))), 'error');
-        } else {
-            if (\array_key_exists($clientCode, $clientsToSkip)) {
-                continue;
-            }
-
-            $clientData = $allClients[$clientCodeShort];
-
-            if ($clientCode) {
-                $reminder->addStatusMessage(
-                    $clientCodeShort.' '.
-                    $clientData['nazev'].
-                    ' ['.implode(',', $clientData['stitky']).'] '.
-                    Upominac::formatTotals($clientData['totals']),
-                    'success',
-                );
-            } else {
-                $reminder->addStatusMessage(_('Missing Client CODE'), 'warning');
-            }
-
-            $report['reminded'][$clientCodeShort] = $reminder->processUserDebts($clientData, $clientDebts);
-        }
-    }
-
-    return $report;
-}
-
 /**
  * Get today's Statements list.
  */
@@ -150,16 +43,16 @@ $allClients = $reminder->getCustomerList(['limit' => 0]);
 $allClients[''] = ['kod' => '', 'nazev' => '('._('Company not assigned').')', 'stitky' => [
     Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT') => Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')]];
 
-$skipping = getClientsToSkip($allClients, $reminder);
+$skipping = $reminder->getClientsToSkip($allClients, $reminder);
 $clientsToSkip = $skipping['clientsToSkip'];
 $report = $skipping['report'];
 
-$prepared = prepareDebts($allDebts, $allClients, $clientsToSkip, $reminder);
+$prepared = $reminder->prepareDebts($allDebts, $allClients, $clientsToSkip, $reminder);
 $allDebtsByClient = $prepared['allDebtsByClient'];
 $total = $prepared['total'];
 $report = array_merge($report, $prepared['report']);
 
-$report = processDebts($allDebtsByClient, $allClients, $clientsToSkip, $reminder, $report);
+$report = $reminder->processDebts($allDebtsByClient, $allClients, $clientsToSkip, $reminder, $report);
 
 $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
 
