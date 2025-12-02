@@ -38,7 +38,7 @@ if (strtolower(Shared::cfg('APP_DEBUG', 'false')) === 'true') {
     $reminder->logBanner();
 }
 
-$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\Date::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
+$allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\Date::fromTimestamp(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
 $allClients[''] = ['kod' => '', 'nazev' => '('._('Company not assigned').')', 'stitky' => [
     Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT') => Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT')]];
