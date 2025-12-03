@@ -1,257 +1,257 @@
 {
-    "$schema": "https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.app.schema.json",
-    "schemaVersion": "3.1.0",
-    "uuid": "0fd52fdd-1c83-4346-b9f9-13e82bd5d6d0",
-    "name": {
-        "en": "Reminder",
-        "cs": "Reminder"
+  "$schema": "https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.app.schema.json",
+  "schemaVersion": "3.2.1",
+  "uuid": "0fd52fdd-1c83-4346-b9f9-13e82bd5d6d0",
+  "name": {
+    "en": "Reminder",
+    "cs": "Reminder"
+  },
+  "description": {
+    "en": "Remind unsettled invoices",
+    "cs": "Upomíná nezaplacené faktury"
+  },
+  "tags": [
+    "AbraFlexi",
+    "Reminder",
+    "Mail",
+    "Sms"
+  ],
+  "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
+  "executable": "abraflexi-reminder",
+  "environment": {
+    "APP_DEBUG": {
+      "type": "bool",
+      "description": {
+        "en": "Enable debug mode",
+        "cs": "Zapnout režim ladění"
+      },
+      "defval": false,
+      "required": false,
+      "category": "Behavior"
     },
-    "description": {
-        "en": "Remind unsettled invoices",
-        "cs": "Upomíná nezaplacené faktury"
+    "LANG": {
+      "type": "set",
+      "description": {
+        "en": "Locale for this application",
+        "cs": "Lokalizace pro tuto aplikaci"
+      },
+      "defval": "cs_CZ",
+      "required": false,
+      "options": [
+        "cs_CZ",
+        "en_US"
+      ],
+      "category": "Other"
     },
-    "tags": [
-        "AbraFlexi",
-        "Reminder",
-        "Mail",
-        "Sms"
-    ],
-    "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
-    "executable": "abraflexi-reminder",
-    "environment": {
-        "APP_DEBUG": {
-            "type": "bool",
-            "description": {
-                "en": "Enable debug mode",
-                "cs": "Zapnout režim ladění"
-            },
-            "defval": "False",
-            "required": false,
-            "category": "Behavior"
-        },
-        "LANG": {
-            "type": "set",
-            "description": {
-                "en": "Locale for this application",
-                "cs": "Lokalizace pro tuto aplikaci"
-            },
-            "defval": "cs_CZ",
-            "required": false,
-            "options": [
-                "cs_CZ",
-                "en_US"
-            ],
-            "category": "Other"
-        },
-        "ABRAFLEXI_COMPANY": {
-            "type": "string",
-            "description": {
-                "en": "AbraFlexi Company",
-                "cs": "AbraFlexi Společnost"
-            },
-            "defval": "demo_de",
-            "required": true,
-            "category": "API"
-        },
-        "ABRAFLEXI_LOGIN": {
-            "type": "string",
-            "description": {
-                "en": "AbraFlexi Login",
-                "cs": "AbraFlexi Login"
-            },
-            "defval": "winstrom",
-            "required": true,
-            "category": "API"
-        },
-        "ABRAFLEXI_PASSWORD": {
-            "type": "password",
-            "description": {
-                "en": "AbraFlexi password",
-                "cs": "AbraFlexi password"
-            },
-            "defval": "winstrom",
-            "required": true,
-            "category": "API"
-        },
-        "ABRAFLEXI_URL": {
-            "type": "string",
-            "description": {
-                "en": "AbraFlexi Server URI",
-                "cs": "AbraFlexi Server URI"
-            },
-            "defval": "https://demo.flexibee.eu:5434",
-            "required": true,
-            "category": "API"
-        },
-        "MAX_MAIL_SIZE": {
-            "type": "string",
-            "description": {
-                "en": "Maximum size of mail",
-                "cs": "Maximální velikost e-mailu"
-            },
-            "defval": "",
-            "required": true,
-            "category": "Other"
-        },
-        "REMIND_FROM": {
-            "type": "email",
-            "description": {
-                "en": "Remind sender mail Address",
-                "cs": "Remind odeslater e-mail Address"
-            },
-            "defval": "",
-            "required": true,
-            "category": "Other"
-        },
-        "SURRENDER_DAYS": {
-            "type": "integer",
-            "description": {
-                "en": "Do not process old cases",
-                "cs": "Nezpracovávat staré případy"
-            },
-            "defval": "365",
-            "required": false,
-            "category": "Other"
-        },
-        "REMINDER_SKIPDOCTYPE": {
-            "type": "string",
-            "description": {
-                "en": "Ignore this document types",
-                "cs": "Ignorovat tyto typy dokumentů"
-            },
-            "defval": "DOBROPIS,ZDD",
-            "required": false,
-            "category": "Other"
-        },
-        "QR_PAYMENTS": {
-            "type": "bool",
-            "description": {
-                "en": "Add QR Codes into Mails",
-                "cs": "Přidat QR kódy do e-mailů"
-            },
-            "defval": "True",
-            "required": false,
-            "category": "Other"
-        },
-        "ADD_LOGO": {
-            "type": "bool",
-            "description": {
-                "en": "Add Company logo into Mails",
-                "cs": "Přidat logo společnosti do e-mailů"
-            },
-            "defval": "True",
-            "required": false,
-            "category": "Other"
-        },
-        "MUTE": {
-            "type": "bool",
-            "description": {
-                "en": "Send notifications to customers",
-                "cs": "Zasílat upozornění zákazníkům"
-            },
-            "defval": "True",
-            "required": false,
-            "category": "Behavior"
-        },
-        "EASE_MAILTO": {
-            "type": "email",
-            "description": {
-                "en": "Fallback adres when MUTE is ON",
-                "cs": "Záložní adresa pokud je MUTE zapnuto"
-            },
-            "defval": "",
-            "required": false,
-            "category": "Other"
-        },
-        "SMS_SIGNATURE": {
-            "type": "string",
-            "description": {
-                "en": "Signature at end of SMS",
-                "cs": "Podpis na konci SMS"
-            },
-            "defval": "",
-            "required": false,
-            "category": "Other"
-        },
-        "NO_REMIND_LABEL": {
-            "type": "string",
-            "description": {
-                "en": "Ignore documents/customers with this Label",
-                "cs": "Ignorovat dokumenty/zákazníky s tímto štítkem"
-            },
-            "defval": "NEUPOMINAT",
-            "required": false,
-            "category": "Other"
-        },
-        "MODEM_IP": {
-            "type": "string",
-            "description": {
-                "en": "Huawei E5180",
-                "cs": "Huawei E5180"
-            },
-            "defval": "192.168.8.10",
-            "required": false,
-            "category": "Other"
-        },
-        "MODEM_PASWORD": {
-            "type": "string",
-            "description": {
-                "en": "Huawei E5180 Password",
-                "cs": "Huawei E5180 Heslo"
-            },
-            "defval": "",
-            "required": false,
-            "category": "Other"
-        },
-        "MAIL_CC": {
-            "type": "email",
-            "description": {
-                "en": "CC Mail Address",
-                "cs": "CC Mailová Adresa"
-            },
-            "defval": "",
-            "required": false,
-            "category": "Other"
-        },
-        "SMS_ENGINE": {
-            "type": "string",
-            "description": {
-                "en": "SMS Engine",
-                "cs": "SMS Engine"
-            },
-            "defval": "",
-            "required": false,
-            "category": "Other"
-        },
-        "RESULT_FILE": {
-            "type": "string",
-            "description": {
-                "en": "write output json data to",
-                "cs": "zapsat výstupní json data do"
-            },
-            "defval": "reminder_{ABRAFLEXI_COMPANY}.json",
-            "required": false,
-            "category": "Other"
-        },
-        "EASE_LOGGER": {
-            "type": "string",
-            "description": {
-                "en": "write log messages using",
-                "cs": "zapsat logovací zprávy pomocí"
-            },
-            "defval": "console|syslog",
-            "required": false,
-            "category": "Behavior"
-        }
+    "ABRAFLEXI_COMPANY": {
+      "type": "string",
+      "description": {
+        "en": "AbraFlexi Company",
+        "cs": "AbraFlexi Společnost"
+      },
+      "defval": "demo_de",
+      "required": true,
+      "category": "API"
     },
-    "exitCodes": {
-        "0": {
-            "description": {
-                "en": "Success",
-                "cs": "Úspěch"
-            },
-            "severity": "success",
-            "retry": false
-        }
+    "ABRAFLEXI_LOGIN": {
+      "type": "string",
+      "description": {
+        "en": "AbraFlexi Login",
+        "cs": "AbraFlexi Login"
+      },
+      "defval": "winstrom",
+      "required": true,
+      "category": "API"
+    },
+    "ABRAFLEXI_PASSWORD": {
+      "type": "password",
+      "description": {
+        "en": "AbraFlexi password",
+        "cs": "AbraFlexi password"
+      },
+      "defval": "winstrom",
+      "required": true,
+      "category": "API"
+    },
+    "ABRAFLEXI_URL": {
+      "type": "string",
+      "description": {
+        "en": "AbraFlexi Server URI",
+        "cs": "AbraFlexi Server URI"
+      },
+      "defval": "https://demo.flexibee.eu:5434",
+      "required": true,
+      "category": "API"
+    },
+    "MAX_MAIL_SIZE": {
+      "type": "string",
+      "description": {
+        "en": "Maximum size of mail",
+        "cs": "Maximální velikost e-mailu"
+      },
+      "defval": "",
+      "required": true,
+      "category": "Other"
+    },
+    "REMIND_FROM": {
+      "type": "email",
+      "description": {
+        "en": "Remind sender mail Address",
+        "cs": "Remind odeslater e-mail Address"
+      },
+      "defval": "",
+      "required": true,
+      "category": "Other"
+    },
+    "SURRENDER_DAYS": {
+      "type": "integer",
+      "description": {
+        "en": "Do not process old cases",
+        "cs": "Nezpracovávat staré případy"
+      },
+      "defval": "365",
+      "required": false,
+      "category": "Other"
+    },
+    "REMINDER_SKIPDOCTYPE": {
+      "type": "string",
+      "description": {
+        "en": "Ignore this document types",
+        "cs": "Ignorovat tyto typy dokumentů"
+      },
+      "defval": "DOBROPIS,ZDD",
+      "required": false,
+      "category": "Other"
+    },
+    "QR_PAYMENTS": {
+      "type": "bool",
+      "description": {
+        "en": "Add QR Codes into Mails",
+        "cs": "Přidat QR kódy do e-mailů"
+      },
+      "defval": true,
+      "required": false,
+      "category": "Other"
+    },
+    "ADD_LOGO": {
+      "type": "bool",
+      "description": {
+        "en": "Add Company logo into Mails",
+        "cs": "Přidat logo společnosti do e-mailů"
+      },
+      "defval": true,
+      "required": false,
+      "category": "Other"
+    },
+    "MUTE": {
+      "type": "bool",
+      "description": {
+        "en": "Send notifications to customers",
+        "cs": "Zasílat upozornění zákazníkům"
+      },
+      "defval": true,
+      "required": false,
+      "category": "Behavior"
+    },
+    "EASE_MAILTO": {
+      "type": "email",
+      "description": {
+        "en": "Fallback adres when MUTE is ON",
+        "cs": "Záložní adresa pokud je MUTE zapnuto"
+      },
+      "defval": "",
+      "required": false,
+      "category": "Other"
+    },
+    "SMS_SIGNATURE": {
+      "type": "string",
+      "description": {
+        "en": "Signature at end of SMS",
+        "cs": "Podpis na konci SMS"
+      },
+      "defval": "",
+      "required": false,
+      "category": "Other"
+    },
+    "NO_REMIND_LABEL": {
+      "type": "string",
+      "description": {
+        "en": "Ignore documents/customers with this Label",
+        "cs": "Ignorovat dokumenty/zákazníky s tímto štítkem"
+      },
+      "defval": "NEUPOMINAT",
+      "required": false,
+      "category": "Other"
+    },
+    "MODEM_IP": {
+      "type": "string",
+      "description": {
+        "en": "Huawei E5180",
+        "cs": "Huawei E5180"
+      },
+      "defval": "192.168.8.10",
+      "required": false,
+      "category": "Other"
+    },
+    "MODEM_PASWORD": {
+      "type": "string",
+      "description": {
+        "en": "Huawei E5180 Password",
+        "cs": "Huawei E5180 Heslo"
+      },
+      "defval": "",
+      "required": false,
+      "category": "Other"
+    },
+    "MAIL_CC": {
+      "type": "email",
+      "description": {
+        "en": "CC Mail Address",
+        "cs": "CC Mailová Adresa"
+      },
+      "defval": "",
+      "required": false,
+      "category": "Other"
+    },
+    "SMS_ENGINE": {
+      "type": "string",
+      "description": {
+        "en": "SMS Engine",
+        "cs": "SMS Engine"
+      },
+      "defval": "",
+      "required": false,
+      "category": "Other"
+    },
+    "RESULT_FILE": {
+      "type": "string",
+      "description": {
+        "en": "write output json data to",
+        "cs": "zapsat výstupní json data do"
+      },
+      "defval": "reminder_{ABRAFLEXI_COMPANY}.json",
+      "required": false,
+      "category": "Other"
+    },
+    "EASE_LOGGER": {
+      "type": "string",
+      "description": {
+        "en": "write log messages using",
+        "cs": "zapsat logovací zprávy pomocí"
+      },
+      "defval": "console|syslog",
+      "required": false,
+      "category": "Behavior"
     }
+  },
+  "exitCodes": {
+    "0": {
+      "description": {
+        "en": "Success",
+        "cs": "Úspěch"
+      },
+      "severity": "success",
+      "retry": false
+    }
+  }
 }
