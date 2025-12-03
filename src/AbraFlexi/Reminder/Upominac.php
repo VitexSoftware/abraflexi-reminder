@@ -662,6 +662,29 @@ class Upominac extends \AbraFlexi\RW
         return $report;
     }
 
+    public function hasErrors(): bool
+    {
+        return false; // TODO: implement error tracking
+    }
+
+    public function hasWarnings(): bool
+    {
+        return false; // TODO: implement warning tracking
+    }
+
+    public function getExitCode(): int
+    {
+        $exitcode = 0;
+
+        if ($this->hasErrors()) {
+            $exitcode = 2;
+        } elseif ($this->hasWarnings()) {
+            $exitcode = 1;
+        }
+
+        return $exitcode;
+    }
+
     /**
      * Calculate reminder level based on debts and customer labels.
      *
