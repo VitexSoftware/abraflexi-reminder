@@ -18,6 +18,7 @@ namespace AbraFlexi\Reminder;
 use AbraFlexi\Code;
 use AbraFlexi\FakturaVydana;
 use AbraFlexi\Stitek;
+use Ease\Shared;
 
 /**
  * Description of Upominac.
