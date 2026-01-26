@@ -58,8 +58,8 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
             mkdir($this->directory);
         }
 
-        $labels = $reminder->customer->adresar->getLabels();
-        $ic = $reminder->customer->adresar->getDataValue('ic');
+        $labels = $reminder->customer->getAdresar()->getLabels();
+        $ic = $reminder->customer->getAdresar()->getDataValue('ic');
 
         if ($ic && \array_key_exists('DATA_BOX', $labels)) {
             $this->dataBoxId = $this->ico2databoxid($ic);

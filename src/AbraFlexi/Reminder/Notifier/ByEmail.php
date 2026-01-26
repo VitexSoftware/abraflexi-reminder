@@ -58,11 +58,11 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
             $result = $this->send();
 
             if ($score && $result) {
-                $reminder->customer->adresar->setData([
-                    'id' => $reminder->customer->adresar->getRecordIdent(),
+                $reminder->customer->getAdresar()->setData([
+                    'id' => $reminder->customer->getAdresar()->getRecordIdent(),
                     'stitky' => 'UPOMINKA'.$score,
                 ], true);
-                $labelUpdated = $reminder->customer->adresar->sync();
+                $labelUpdated = $reminder->customer->getAdresar()->sync();
 
                 if ($labelUpdated) {
                     $message = sprintf(_('Set Label %s '), 'UPOMINKA'.$score);
@@ -92,11 +92,11 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
     public function compile(int $score, $customer, array $clientDebts): bool
     {
         $result = false;
-        $email = $customer->adresar->getNotificationEmailAddress();
-        $nazev = $customer->adresar->getDataValue('nazev');
+        $email = $customer->getAdresar()->getNotificationEmailAddress();
+        $nazev = $customer->getAdresar()->getDataValue('nazev');
         $this->invoicer = new FakturaVydana();
 
-        $this->firmer = &$customer->adresar;
+        $this->firmer = $customer->getAdresar();
 
         if (empty($email) === false) {
             $upominka = new Upominka();

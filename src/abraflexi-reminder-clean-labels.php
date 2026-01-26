@@ -42,13 +42,13 @@ foreach ($labelsRequiedRaw as $label) {
 $pos = 0;
 
 foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' => 0]) as $clientCode => $clientInfo) {
-    $reminder->customer->adresar->setMyKey(Code::ensure($clientCode));
-    $reminder->customer->adresar->setDataValue('stitky', implode(',', $clientInfo['stitky']));
+    $reminder->customer->getAdresar()->setMyKey(Code::ensure($clientCode));
+    $reminder->customer->getAdresar()->setDataValue('stitky', implode(',', $clientInfo['stitky']));
 
     // Check if the customer has no debts
     if (empty($reminder->customer->getCustomerDebts())) {
-        $reminder->customer->adresar->unsetLabel($labelsRequiedRaw);
-        $reminder->addStatusMessage(++$pos.'/'.\count($reminder->customer->adresar->lastResult['adresar']).' '.$clientCode.' '._('Labels Cleanup'), ($reminder->customer->adresar->lastResponseCode === 201) ? 'success' : 'warning');
+        $reminder->customer->getAdresar()->unsetLabel($labelsRequiedRaw);
+        $reminder->addStatusMessage(++$pos.'/'.\count($reminder->customer->getAdresar()->lastResult['adresar']).' '.$clientCode.' '._('Labels Cleanup'), ($reminder->customer->getAdresar()->lastResponseCode === 201) ? 'success' : 'warning');
         $report['removed'][$clientCode] = $labelsRequiedRaw;
     } else {
         $reminder->addStatusMessage($clientCode.' '._('Customer has debts, labels not removed'), 'info');

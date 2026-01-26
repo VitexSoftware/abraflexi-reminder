@@ -136,7 +136,7 @@ class Upominac extends \AbraFlexi\RW
             ), explode(',', $stitky));
             unset($newStitky['UPOMINKA1'], $newStitky['UPOMINKA2'], $newStitky['UPOMINKA3'], $newStitky['NEPLATIC']);
 
-            $response = $this->customer->adresar->insertToAbraFlexi(['id' => $cid, 'stitky@removeAll' => 'true',
+            $response = $this->customer->getAdresar()->insertToAbraFlexi(['id' => $cid, 'stitky@removeAll' => 'true',
                 'stitky' => $newStitky]);
 
             if (!empty($response) && isset($response['success']) && ($response['success'] === 'true' || $response['success'] === true)) {
@@ -171,14 +171,14 @@ class Upominac extends \AbraFlexi\RW
 
         foreach ($allDebths as $cid => $debts) {
             ++$counter;
-            $this->customer->adresar->loadFromAbraFlexi($cid);
+            $this->customer->getAdresar()->loadFromAbraFlexi($cid);
             $this->addStatusMessage(sprintf(
                 _('(%d / %d) #%s code: %s %s '),
                 $counter,
                 \count($allDebths),
-                $this->customer->adresar->getDataValue('id'),
-                $this->customer->adresar->getDataValue('kod'),
-                $this->customer->adresar->getDataValue('nazev'),
+                $this->customer->getAdresar()->getDataValue('id'),
+                $this->customer->getAdresar()->getDataValue('kod'),
+                $this->customer->getAdresar()->getDataValue('nazev'),
             ), 'debug');
             $this->processUserDebts($cid, $debts);
         }
@@ -197,9 +197,9 @@ class Upominac extends \AbraFlexi\RW
     public function processUserDebts(array $clientInfo, array $clientDebts): array
     {
         $report = [];
-        $this->customer->adresar->dataReset();
-        $this->customer->adresar->setData($clientInfo);
-        $this->customer->adresar->updateApiURL();
+        $this->customer->getAdresar()->dataReset();
+        $this->customer->getAdresar()->setData($clientInfo);
+        $this->customer->getAdresar()->updateApiURL();
         $stitky = $clientInfo['stitky'];
         $ddifs = [];
         $invoicesToSave = [];
@@ -317,7 +317,7 @@ class Upominac extends \AbraFlexi\RW
     public function getCustomerScore($addressID)
     {
         $debts = $this->customer->getCustomerDebts($addressID);
-        $stitkyRaw = $this->customer->adresar->getColumnsFromAbraFlexi(
+        $stitkyRaw = $this->customer->getAdresar()->getColumnsFromAbraFlexi(
             ['stitky'],
             ['id' => $addressID],
         );

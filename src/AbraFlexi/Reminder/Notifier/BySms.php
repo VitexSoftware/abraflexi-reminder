@@ -47,22 +47,22 @@ class BySms extends Sand
         $result = false;
 
         if (\Ease\Shared::cfg('SMS_ENGINE', false)) {
-            if ($reminder->customer->adresar->getAnyPhoneNumber()) {
+            if ($reminder->customer->getAdresar()->getAnyPhoneNumber()) {
                 $this->compile($score, $reminder->customer, $debts);
 
                 $message = $this->message;
 
                 switch (\Ease\Shared::cfg('SMS_ENGINE')) {
                     case 'gnokii':
-                        $smsEngine = new SmsByGnokii($reminder->customer->adresar, $message);
+                        $smsEngine = new SmsByGnokii($reminder->customer->getAdresar(), $message);
 
                         break;
                     case 'huaweiapi':
-                        $smsEngine = new SmsByHuaweiApi($reminder->customer->adresar, $message);
+                        $smsEngine = new SmsByHuaweiApi($reminder->customer->getAdresar(), $message);
 
                         break;
                     case 'sshgnokii':
-                        $smsEngine = new SmsBySshGnokii($reminder->customer->adresar, $message);
+                        $smsEngine = new SmsBySshGnokii($reminder->customer->getAdresar(), $message);
 
                         break;
 
@@ -77,12 +77,12 @@ class BySms extends Sand
 
                     //            file_put_contents('/var/tmp/upominka.txt',$message);
                     if (($score > 0) && ($score < 4) && $result) {
-                        $this->setData(['id' => $reminder->customer->adresar->getRecordIdent(), 'stitky' => 'UPOMINKA'.$score], true);
-                        $reminder->addStatusMessage(sprintf(_('Set Label %s '), 'UPOMINKA'.$score), $reminder->customer->adresar->sync() ? 'success' : 'error');
+                        $this->setData(['id' => $reminder->customer->getAdresar()->getRecordIdent(), 'stitky' => 'UPOMINKA'.$score], true);
+                        $reminder->addStatusMessage(sprintf(_('Set Label %s '), 'UPOMINKA'.$score), $reminder->customer->getAdresar()->sync() ? 'success' : 'error');
                     }
                 }
             } else {
-                $message = sprintf(_('Client %s without phone neumber %s !!!'), $reminder->customer->adresar->getDataValue('nazev'), $reminder->customer->adresar->getApiURL());
+                $message = sprintf(_('Client %s without phone neumber %s !!!'), $reminder->customer->getAdresar()->getDataValue('nazev'), $reminder->customer->getAdresar()->getApiURL());
                 $this->addStatusMessage($message, 'warning');
             }
 
@@ -102,7 +102,7 @@ class BySms extends Sand
     public function compile($score, $customer, $clientDebts): bool
     {
         $result = true;
-        $nazev = $customer->adresar->getDataValue('nazev');
+        $nazev = $customer->getAdresar()->getDataValue('nazev');
         $upominka = new Upominka();
 
         switch ($score) {
