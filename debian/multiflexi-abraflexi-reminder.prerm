@@ -7,7 +7,7 @@ case "$1" in
         APPLICATION=`echo $DPKG_MAINTSCRIPT_PACKAGE | sed 's/multiflexi-//'`
         for file in `ls /usr/lib/$APPLICATION/multiflexi/*.json`
         do
-          multiflexi-json-app-remover $file
+          multiflexi-cli application remove-json --file $file
         done
     ;;
 

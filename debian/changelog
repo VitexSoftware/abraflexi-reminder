@@ -1,7 +1,8 @@
-abraflexi-reminder (1.7.3) UNRELEASED; urgency=medium
+abraflexi-reminder (1.7.3) unstable; urgency=medium
 
   * DataBOX sending update
   * DataBOX sending update
+  * Modernize Debian packaging: debhelper-compat 13, remove composer-debian
 
  -- vitex <info@vitexsoftware.cz>  Sat, 03 May 2025 18:04:00 +0200
 

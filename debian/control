@@ -1,10 +1,12 @@
 Source: abraflexi-reminder
-Build-Depends: debhelper (>= 7.0.50~), jq, moreutils
-Standards-Version: 3.8.4
+Section: web
+Priority: optional
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
 Uploaders: Vitex <vitex@hippy.cz>
-Priority: optional
+Build-Depends: debhelper-compat (= 13), jq, moreutils
+Standards-Version: 4.7.0
 Homepage: https://github.com/VitexSoftware/abraflexi-reminder
+Rules-Requires-Root: no
 
 Package: abraflexi-reminder
 Depends: ${misc:Depends}, php-vitexsoftware-abraflexi-bricks, php-cli, php-gd, locales-all, php-vitexsoftware-ease-core (>= 1.38), php-vitexsoftware-ease-html
