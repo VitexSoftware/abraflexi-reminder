@@ -8,8 +8,6 @@ if [ "$1" = "configure" ]; then
 
 fi
 
-db_get composer/WEB_USER
-composer-debian abraflexi-reminder
 echo set environment or specify config file to run abraflexi-reminder-init
 
 #DEBHELPER#
