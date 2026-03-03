@@ -8,9 +8,6 @@
       "email": "info@vitexsoftware.cz"
     }
   ],
-  "config": {
-    "vendor-dir": "/var/lib/composer/abraflexi-reminder"
-  },
   "require": {
     "deb/abraflexi": "*",
     "deb/ease-core": "*",
