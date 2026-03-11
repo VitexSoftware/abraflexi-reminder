@@ -3,7 +3,7 @@ Section: web
 Priority: optional
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
 Uploaders: Vitex <vitex@hippy.cz>
-Build-Depends: debhelper-compat (= 13), jq, moreutils
+Build-Depends: debhelper-compat (= 13), jq, moreutils, pkg-php-tools
 Standards-Version: 4.7.0
 Homepage: https://github.com/VitexSoftware/abraflexi-reminder
 Rules-Requires-Root: no
