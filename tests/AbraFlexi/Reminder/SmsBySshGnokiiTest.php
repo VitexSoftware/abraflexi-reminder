@@ -51,8 +51,6 @@ class SmsBySshGnokiiTest extends \PHPUnit\Framework\TestCase
     public function testSendMessage(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 }

@@ -51,9 +51,7 @@ class SmsTest extends \PHPUnit\Framework\TestCase
     public function testGetMessage(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -64,9 +62,7 @@ class SmsTest extends \PHPUnit\Framework\TestCase
     public function testGetNumber(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -77,9 +73,7 @@ class SmsTest extends \PHPUnit\Framework\TestCase
     public function testSetNumber(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -90,9 +84,7 @@ class SmsTest extends \PHPUnit\Framework\TestCase
     public function testSetMessage(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -103,9 +95,7 @@ class SmsTest extends \PHPUnit\Framework\TestCase
     public function testUnifyTelNo(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -116,8 +106,6 @@ class SmsTest extends \PHPUnit\Framework\TestCase
     public function testSendMessage(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 }

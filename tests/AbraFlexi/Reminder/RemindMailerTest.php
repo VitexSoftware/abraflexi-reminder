@@ -51,9 +51,7 @@ class RemindMailerTest extends \PHPUnit\Framework\TestCase
     public function testAddItem(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -64,9 +62,7 @@ class RemindMailerTest extends \PHPUnit\Framework\TestCase
     public function testGetCss(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -77,8 +73,6 @@ class RemindMailerTest extends \PHPUnit\Framework\TestCase
     public function testGetCurrentMailSize(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 }

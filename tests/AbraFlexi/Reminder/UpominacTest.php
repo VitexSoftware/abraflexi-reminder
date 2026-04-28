@@ -51,9 +51,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testGetCustomersDebts(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -64,9 +62,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testEverythingPaidOff(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -77,9 +73,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testEnableCustomer(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -90,9 +84,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testProcessAllDebts(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -103,9 +95,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testProcessUserDebts(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -116,9 +106,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testGetCustomerScore(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -129,9 +117,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testPosliUpominku(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -142,9 +128,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testProcessNotifyModules(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -155,9 +139,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testProcessModules(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -168,9 +150,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testGetEvidenceDebts(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -181,9 +161,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testGetAllDebts(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -194,9 +172,7 @@ class UpominacTest extends \Tests\AbraFlexi\RWTest
     public function testGetCustomerList(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**

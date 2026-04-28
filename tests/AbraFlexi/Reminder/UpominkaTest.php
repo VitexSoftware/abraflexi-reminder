@@ -51,9 +51,7 @@ class UpominkaTest extends \Tests\AbraFlexi\RWTest
     public function testLoadTemplate(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -80,9 +78,7 @@ class UpominkaTest extends \Tests\AbraFlexi\RWTest
     public function testQrPayments(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
@@ -93,8 +89,6 @@ class UpominkaTest extends \Tests\AbraFlexi\RWTest
     public function testFormatCurrency(): void
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.',
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 }
