@@ -55,6 +55,18 @@ class UpominkaTest extends \Tests\AbraFlexi\RWTest
     }
 
     /**
+     * @covers \AbraFlexi\Reminder\Upominka::debtAmount
+     */
+    public function testDebtAmount(): void
+    {
+        $czk = ['mena' => 'code:CZK', 'zbyvaUhradit' => '1500.50', 'zbyvaUhraditMen' => '0'];
+        $eur = ['mena' => 'code:EUR', 'zbyvaUhradit' => '9999', 'zbyvaUhraditMen' => '60.25'];
+
+        $this->assertSame(1500.50, Upominka::debtAmount($czk));
+        $this->assertSame(60.25, Upominka::debtAmount($eur));
+    }
+
+    /**
      * @covers \AbraFlexi\Reminder\Upominka::getSums
      */
     public function testGetSums(): void

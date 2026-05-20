@@ -5,20 +5,38 @@ All notable changes to AbraFlexi Reminder will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.7.3] - 2025-09-30
+## [1.7.3] - 2025-05-20
 
 ### Fixed
-- **MultiFlexi JSON Schema Compliance**: Fixed validation errors in MultiFlexi application JSON files
-  - Changed `APP_DEBUG.type` from `"boolean"` to `"bool"` in `abraflexi-reminder.multiflexi.app.json`
-  - Changed `SURRENDER_DAYS.type` from `"number"` to `"integer"` in `abraflexi-reminder.multiflexi.app.json`
-  - Changed `OVERDUE_PATIENCE.type` from `"number"` to `"integer"` in `inventarize.multiflexi.app.json`
-- All MultiFlexi JSON files now validate against schema version 2.1.1
+- `ByDatovka`: logic error in config check `empty(A && B)` — now correctly detects missing credentials
+- `ByDatovka`: null-dereference on `$this->reminder` replaced with `$reminder` parameter
+- `ByDatovka`: `$result` used before assignment when `login()` returned false
+- `ByDatovka`: unchecked `curl_exec()` result passed to `SimpleXMLElement` caused fatal crash on network failure
+- `ByDatovka`: added `CURLOPT_TIMEOUT` (10 s) and `CURLOPT_CONNECTTIMEOUT` (5 s) to prevent indefinite hangs
+- `ByDatovka`: empty error handler in `send()` replaced with status message logging
+- `ByDatovka`: TOCTOU `file_exists/mkdir` replaced with `!is_dir/mkdir(..., 0775, true)`
+- `RemindMailer::addFile()`: returned cumulative non-emptiness instead of per-call result
+- `init.php`: `APP_DEBUG` comparison was case-sensitive (`'True'`); now uses `strtolower()`
 
-### Improved
-- Updated documentation with comprehensive configuration examples
-- Added troubleshooting section for common issues
-- Enhanced MultiFlexi integration documentation
-- Added command usage examples and descriptions
+### Changed
+- Extracted `Upominka::debtAmount(array $debt): float` — replaces five duplicate CZK/foreign currency resolution blocks
+- Replaced `Upominac::maxScore()` private wrapper with PHP built-in `max()`
+- `abraflexi-show-debts.php`: replaced manual skip-clients loop with `getClientsToSkip()`
+- `ByEmail::addAttachments()`: hoisted `MAX_MAIL_SIZE` config lookup out of the per-debt loop
+- Removed dead `mbstring.func_overload` branch in `RemindMailer::getCurrentMailSize()` (removed in PHP 8)
+
+### Removed
+- Dead variables `$invoices = []` in `ByEmail::compile()` and `ByDatovka::compile()`
+- Dead `$howmuchRaw`/`$howmuch` accumulator block in `abraflexi-show-debts.php`
+- Commented-out debug lines in `BySms` and `Upominac`
+- Commented-out `$simpleApi` property block in `ByDatovka`
+
+### Packaging
+- `debian/rules`: added `PKG_VERSION`/`PKG_SOURCE`/`PKG_TYPE` Make vars; replaced all inline `dpkg-parsechangelog | sed` invocations
+- `debian/autoload.php`: added `InstalledVersions::reload()` block with build-time placeholders baked in by `debian/rules`
+- `debian/control`: added `appstream` to `Build-Depends`
+- AppStream metainfo: fixed type `service` → `console-application`; added `<url>`, `<developer>`, `<releases>`, `<content_rating>`, `<provides>`; passes `appstreamcli validate --pedantic`
+- Added man pages for `abraflexi-reminder-init` and `abraflexi-reminder-clean-labels`
 
 ## [1.7.2] - 2025-05-03
 
