@@ -68,7 +68,7 @@ php -l src/ReminderService.php
 vendor/bin/phpunit tests/
 
 # Validate MultiFlexi config
-multiflexi-cli application validate-json --file multiflexi/reminder.app.json
+multiflexi-cli application:validate-json --file multiflexi/reminder.app.json
 ```
 
 ⚠️ **Important Notes for Copilot:**

@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component type="service">
+<component type="console-application">
   <id>io.github.vitexsoftware.abraflexi_reminder</id>
-  
+
   <name>AbraFlexi Reminder</name>
-  <summary>Send Remiders using AbraFlexi data</summary>
-  
+  <summary>Send reminders to debtors using AbraFlexi data</summary>
+
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
-  
+
   <description>
     <p>
-      Compile &amp; send info about unsettled invoices
+      Finds all unpaid invoices for a configured AbraFlexi company and sends
+      payment reminders to debtors by e-mail, SMS, or Czech Data Box.
     </p>
   </description>
-  
+
   <icon type="stock">abraflexi-reminder</icon>
+
+  <url type="homepage">https://github.com/VitexSoftware/abraflexi-reminder</url>
+
+  <developer id="cz.vitexsoftware">
+    <name>Vítězslav Dvořák</name>
+  </developer>
+
   <categories>
     <category>Office</category>
     <category>Email</category>
   </categories>
-</component>
 
+  <provides>
+    <binary>abraflexi-reminder</binary>
+    <binary>abraflexi-show-debts</binary>
+    <binary>abraflexi-notify-customers</binary>
+    <binary>abraflexi-reminder-init</binary>
+    <binary>abraflexi-reminder-clean-labels</binary>
+  </provides>
+
+  <releases>
+    <release version="1.7.3" date="2025-05-03"/>
+  </releases>
+
+  <content_rating type="oars-1.1"/>
+</component>

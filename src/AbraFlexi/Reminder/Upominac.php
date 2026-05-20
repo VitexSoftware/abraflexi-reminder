@@ -79,9 +79,9 @@ class Upominac extends \AbraFlexi\RW
             $this->customer->invoicer->setEvidence('pohledavka');
             $debts2 = $this->customer->getCustomerDebts((int) $clientIDs['id']);
             $this->customer->invoicer->setEvidence('faktura-vydana');
-            $debts3 = array_merge(empty($debts) ? [] : $debts, empty($debts2) ? [] : $debts2);
+            $debts3 = array_merge($debts ?? [], $debts2 ?? []);
 
-            if (!empty($debts3) && \count($debts3)) {
+            if (!empty($debts3)) {
                 foreach ($debts3 as $did => $debtInfo) {
                     $allDebts[$cid][$did] = $debtInfo;
                     ++$debtCount;
@@ -91,7 +91,6 @@ class Upominac extends \AbraFlexi\RW
                     $this->everythingPaidOff($cid, $stitky);
                 }
             }
-            // $this->addStatusMessage($pos.'/'.count($clients).' '.$cid, 'debug');
         }
 
         $this->addStatusMessage(sprintf(_('%s Debts Found'), $debtCount));
@@ -598,12 +597,7 @@ class Upominac extends \AbraFlexi\RW
             }
 
             $curcode = Code::strip((string) $debt['mena']);
-
-            if ($curcode === 'CZK') {
-                $amount = (float) $debt['zbyvaUhradit'];
-            } else {
-                $amount = (float) $debt['zbyvaUhraditMen'];
-            }
+            $amount = Upominka::debtAmount($debt);
 
             if (!isset($total[$curcode])) {
                 $total[$curcode] = 0;
@@ -703,11 +697,11 @@ class Upominac extends \AbraFlexi\RW
                 $overdueDays = FakturaVydana::overdueDays($debt['datSplat']);
 
                 if ($overdueDays > 14) {
-                    $reminderLevel = self::maxScore($reminderLevel, 3);
+                    $reminderLevel = max($reminderLevel, 3);
                 } elseif ($overdueDays > 7) {
-                    $reminderLevel = self::maxScore($reminderLevel, 2);
+                    $reminderLevel = max($reminderLevel, 2);
                 } elseif ($overdueDays >= 1) {
-                    $reminderLevel = self::maxScore($reminderLevel, 1);
+                    $reminderLevel = max($reminderLevel, 1);
                 }
             }
         }
@@ -723,20 +717,4 @@ class Upominac extends \AbraFlexi\RW
         return $reminderLevel;
     }
 
-    /**
-     * Overdue group.
-     *
-     * @param int $score current score value
-     * @param int $level current level
-     *
-     * @return int max of all levels processed
-     */
-    private static function maxScore($score, $level)
-    {
-        if ($level > $score) {
-            $score = $level;
-        }
-
-        return $score;
-    }
 }

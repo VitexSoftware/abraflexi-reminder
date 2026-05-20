@@ -23,7 +23,7 @@ try {
     $labelsRequied = ['UPOMINKA1' => _('First Remind was send'), 'UPOMINKA2' => _('Second Remind was send'), 'UPOMINKA3' => _('Third Remind was send'), 'NEPLATIC' => _('defaulter'), 'NEUPOMINAT' => _('Do not Remind'), 'DATA_BOX' => _('Send reminds to Czech Data Box')];
     $labeler = new \AbraFlexi\Stitek();
 
-    if (\Ease\Shared::cfg('APP_DEBUG') === 'True') {
+    if (strtolower(\Ease\Shared::cfg('APP_DEBUG', 'false')) === 'true') {
         $labeler->logBanner(\Ease\Shared::appName());
     }
 

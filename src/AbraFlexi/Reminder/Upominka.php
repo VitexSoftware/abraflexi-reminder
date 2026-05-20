@@ -102,6 +102,16 @@ EOD;
     }
 
     /**
+     * Remaining amount to pay from a debt record, respecting currency.
+     */
+    public static function debtAmount(array $debt): float
+    {
+        return (float) (\AbraFlexi\Functions::uncode((string) $debt['mena']) === 'CZK'
+            ? $debt['zbyvaUhradit']
+            : $debt['zbyvaUhraditMen']);
+    }
+
+    /**
      * Obtain all debts sums indexed by currency.
      */
     public static function getSums(array $debts): array
@@ -110,12 +120,7 @@ EOD;
 
         foreach ($debts as $debt) {
             $currency = \AbraFlexi\Functions::uncode((string) $debt['mena']);
-
-            if ($currency === 'CZK') {
-                $amount = $debt['zbyvaUhradit'];
-            } else {
-                $amount = $debt['zbyvaUhraditMen'];
-            }
+            $amount = self::debtAmount($debt);
 
             if (!\array_key_exists($currency, $sumsCelkem)) {
                 $sumsCelkem[$currency] = $amount;
@@ -142,12 +147,7 @@ EOD;
 
         foreach ($debts as $invoiceId => $invoiceInfo) {
             $currency = \AbraFlexi\Functions::uncode((string) $invoiceInfo['mena']);
-
-            if ($currency === 'CZK') {
-                $amount = $invoiceInfo['zbyvaUhradit'];
-            } else {
-                $amount = $invoiceInfo['zbyvaUhraditMen'];
-            }
+            $amount = self::debtAmount($invoiceInfo);
 
             $invoicer->setMyKey((int) $invoiceInfo['id']);
             $invoicer->setEvidence($invoiceInfo['evidence']);

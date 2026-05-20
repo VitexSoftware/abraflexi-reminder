@@ -44,18 +44,12 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
     private array $pdfFiles = [];
     private string $dataBoxId;
 
-    //    /**
-    //     *
-    //     * @var \Defr\CzechDataBox\DataBoxSimpleApi
-    //     */
-    //    protected $simpleApi;
-
     public function __construct(&$reminder, $score, $debts)
     {
         parent::__construct(null);
 
-        if (file_exists($this->directory) === false) {
-            mkdir($this->directory);
+        if (!is_dir($this->directory)) {
+            mkdir($this->directory, 0775, true);
         }
 
         $labels = $reminder->customer->getAdresar()->getLabels();
@@ -64,22 +58,22 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
         if ($ic && \array_key_exists('DATA_BOX', $labels)) {
             $this->dataBoxId = $this->ico2databoxid($ic);
 
-            if (empty(Shared::cfg('DATOVKA_LOGIN') && Shared::cfg('DATOVKA_PASSWORD'))) {
+            if (empty(Shared::cfg('DATOVKA_LOGIN')) || empty(Shared::cfg('DATOVKA_PASSWORD'))) {
                 $reminder->addStatusMessage(_('Czech Data Box is unconfigured'));
             } else {
-                if ($this->login($reminder)) {
-                    $result = false;
+                $result = false;
 
+                if ($this->login($reminder)) {
                     if ($this->dataBoxId) {
                         $this->pdf = $reminder->savePdfRemind($this->directory.'/upominka.pdf');
 
                         if ($this->compile($score, $reminder->customer, $debts)) {
                             $result = $this->send();
                         } else {
-                            $this->reminder->addStatusMessage(_('Remind was not sent'), 'warning');
+                            $reminder->addStatusMessage(_('Remind was not sent'), 'warning');
                         }
                     } else {
-                        $this->reminder->addStatusMessage();
+                        $reminder->addStatusMessage(sprintf(_('No Data Box found for IČ %s'), $ic), 'warning');
                     }
                 }
 
@@ -147,7 +141,6 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
                 $upominka->loadTemplate('inventarizace');
         }
 
-        $invoices = [];
         $dnes = new \DateTime();
         $this->subject = $upominka->getDataValue('hlavicka').' ke dni '.$dnes->format('d.m.Y');
         $this->invoicer = new FakturaVydana();
@@ -182,16 +175,18 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
         curl_setopt($curl, \CURLOPT_URL, $url);
         curl_setopt($curl, \CURLOPT_POST, true);
         curl_setopt($curl, \CURLOPT_RETURNTRANSFER, true);
-        $headers = [
-            'Accept: application/xml',
-            'Content-Type: application/xml',
-        ];
-        curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, \CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, \CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($curl, \CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
         curl_setopt($curl, \CURLOPT_POSTFIELDS, $requestRaw);
         $resp = curl_exec($curl);
 
-        if (\is_resource($curl) || (\is_object($curl) && ($curl instanceof \CurlHandle))) {
+        if ($curl instanceof \CurlHandle) {
             curl_close($curl);
+        }
+
+        if ($resp === false) {
+            return $boxId;
         }
 
         $sds = new \SimpleXMLElement($resp);
@@ -208,8 +203,10 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
         $message = $this->simpleApi->createBasicDataMessage($this->dataBoxId, $this->subject, $this->pdfFiles);
         $sentMessage = $this->simpleApi->sendDataMessage($message);
 
-        if ($sentMessage->getDmStatus()->getDmStatusCode() !== '0000') {
-            // Handle errors
+        $statusCode = $sentMessage->getDmStatus()->getDmStatusCode();
+
+        if ($statusCode !== '0000') {
+            $this->addStatusMessage(sprintf(_('Data Box send failed with code %s'), $statusCode), 'error');
         }
     }
 }

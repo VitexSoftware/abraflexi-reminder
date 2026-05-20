@@ -66,11 +66,13 @@ class RemindMailer extends \Ease\HtmlMailer
      */
     public function addFile(string $filename, string $mimeType = 'text/plain'): bool
     {
-        if (parent::addFile($filename, $mimeType)) {
+        $added = parent::addFile($filename, $mimeType);
+
+        if ($added) {
             $this->attachments[] = $filename;
         }
 
-        return !empty($this->attachments);
+        return $added;
     }
 
     public function getCss(): void
@@ -84,12 +86,6 @@ class RemindMailer extends \Ease\HtmlMailer
     {
         $this->finalize();
         $this->finalized = false;
-
-        if (
-            \function_exists('mb_internal_encoding') && (((int) \ini_get('mbstring.func_overload')) & 2)
-        ) {
-            return mb_strlen($this->mailBody, '8bit');
-        }
 
         return \strlen($this->mailBody);
     }

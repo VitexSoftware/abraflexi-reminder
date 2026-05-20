@@ -134,8 +134,6 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
                     $upominka->loadTemplate('inventarizace');
             }
 
-            $invoices = [];
-
             $dnes = new \DateTime();
             $subject = $upominka->getDataValue('hlavicka')._(' to day ').$dnes->format('d.m.Y');
 
@@ -182,12 +180,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
 
             foreach ($clientDebts as $debt) {
                 $currency = Code::strip((string) $debt['mena']);
-
-                if ($currency === 'CZK') {
-                    $amount = $debt['zbyvaUhradit'];
-                } else {
-                    $amount = $debt['zbyvaUhraditMen'];
-                }
+                $amount = Upominka::debtAmount($debt);
 
                 $debtsTable->addRowColumns([
                     $debt['kod'],
@@ -229,8 +222,10 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
      */
     public function addAttachments($clientDebts): void
     {
+        $maxMailSize = (int) \Ease\Shared::cfg('MAX_MAIL_SIZE', 0);
+
         foreach ($clientDebts as $debtCode => $debt) {
-            if (\Ease\Shared::cfg('MAX_MAIL_SIZE') && ($this->mailer->getCurrentMailSize() > \Ease\Shared::cfg('MAX_MAIL_SIZE', 30000000))) {
+            if ($maxMailSize && ($this->mailer->getCurrentMailSize() > $maxMailSize)) {
                 $this->mailer->addStatusMessage(sprintf(_('Not enough space in this mail for attaching %s '), $debtCode), 'warning');
 
                 continue;

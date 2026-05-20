@@ -40,23 +40,12 @@ if (strtolower(Shared::cfg('APP_DEBUG')) === 'true') {
 
 $allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\Date::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) \Ease\Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
-$clientsToSkip = [];
-
 if (empty($allClients)) {
     $reminder->addStatusMessage(_('No customers found'), 'warning');
-} else {
-    $clientCodes = [];
-
-    foreach ($allClients as $clientCodeRaw => $clientInfo) {
-        if (\array_key_exists(Shared::cfg('NO_REMIND_LABEL', 'NEUPOMINAT'), $clientInfo['stitky'])) {
-            $clientsToSkip[$clientCodeRaw] = $clientInfo;
-        }
-
-        $clientCodes[] = $clientCodeRaw;
-    }
-
-    $reminder->addStatusMessage(implode(', ', array_keys($clientsToSkip)).'  '.\count($clientsToSkip).' '._('clients will be skipped'), 'warning');
 }
+
+$skipping = $reminder->getClientsToSkip($allClients, $reminder);
+$clientsToSkip = $skipping['clientsToSkip'];
 
 $jsonOutput = ['skippedClients' => $clientsToSkip];
 
@@ -65,37 +54,19 @@ $counter = 0;
 $total = [];
 
 foreach ($allDebts as $code => $debt) {
-    $howmuchRaw = $howmuch = [];
-
     if (\array_key_exists((string) $debt['firma'], $clientsToSkip)) {
         continue;
     }
 
     ++$counter;
     $curcode = (string) AbraFlexi\Functions::uncode((string) $debt['mena']);
-
-    if (!\array_key_exists($curcode, $howmuchRaw) || empty($howmuchRaw[$curcode])) {
-        $howmuchRaw[$curcode] = 0;
-    }
-
-    if ($curcode === 'CZK') {
-        $amount = (float) $debt['zbyvaUhradit'];
-    } else {
-        $amount = (float) $debt['zbyvaUhraditMen'];
-    }
-
-    $howmuchRaw[$curcode] += $amount;
+    $amount = \AbraFlexi\Reminder\Upominka::debtAmount($debt);
 
     if (!isset($total[$curcode])) {
         $total[$curcode] = 0;
     }
 
     $total[$curcode] += $amount;
-
-    foreach ($howmuchRaw as $cur => $price) {
-        $howmuch[] = $price.' '.$cur;
-    }
-
     $allDebtsByClient[(string) $debt['firma']][$code] = $debt;
     $jsonOutput['clients'][(string) $debt['firma']][$code] = $amount.' '.$curcode;
 }
@@ -118,12 +89,7 @@ foreach ($allDebtsByClient as $clientCodeRaw => $clientDebts) {
 
     foreach ($clientDebts as $debtCode => $debtInfo) {
         $curcode = AbraFlexi\Functions::uncode((string) $debtInfo['mena']);
-
-        if ($curcode === 'CZK') {
-            $amount = (float) $debtInfo['zbyvaUhradit'];
-        } else {
-            $amount = (float) $debtInfo['zbyvaUhraditMen'];
-        }
+        $amount = \AbraFlexi\Reminder\Upominka::debtAmount($debtInfo);
 
         $reminder->addStatusMessage(sprintf(
             '%d/%d (%s) %s [%s] %s %s: %s',

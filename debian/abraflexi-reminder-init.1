@@ -1,0 +1,20 @@
+.TH ABRAFLEXI-REMINDER-INIT 1 "" "abraflexi-reminder" "User Commands"
+.SH NAME
+abraflexi\-reminder\-init \- create required labels in AbraFlexi for the reminder system
+.SH SYNOPSIS
+.B abraflexi-reminder-init
+[\fIENV_FILE\fR]
+.SH DESCRIPTION
+Creates the labels UPOMINKA1, UPOMINKA2, UPOMINKA3, NEPLATIC, NEUPOMINAT, and
+DATA_BOX in AbraFlexi if they do not already exist. These labels are used by
+\fBabraflexi-reminder\fR(1) to track the state of sent reminders.
+.PP
+An optional path to an environment file can be passed as the first argument;
+defaults to \fI../.env\fR when run from the package install directory.
+.SH FILES
+.I /etc/abraflexi-reminder/reminder.env
+.SH SEE ALSO
+.BR abraflexi-reminder (1),
+.BR abraflexi-reminder-clean-labels (1)
+.SH AUTHOR
+Vítězslav Dvořák <info@vitexsoftware.cz>

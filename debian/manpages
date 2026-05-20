@@ -1,3 +1,5 @@
 debian/abraflexi-debts.1
 debian/abraflexi-notify-customers.1
 debian/abraflexi-reminder.1
+debian/abraflexi-reminder-init.1
+debian/abraflexi-reminder-clean-labels.1

@@ -1,0 +1,28 @@
+.TH ABRAFLEXI-REMINDER-CLEAN-LABELS 1 "" "abraflexi-reminder" "User Commands"
+.SH NAME
+abraflexi\-reminder\-clean\-labels \- remove reminder labels from fully-paid customers in AbraFlexi
+.SH SYNOPSIS
+.B abraflexi-reminder-clean-labels
+[\fB\-e\fR|\fB\-\-environment\fR \fIENV_FILE\fR]
+[\fB\-o\fR|\fB\-\-output\fR \fIFILE\fR]
+.SH DESCRIPTION
+Scans all customers in AbraFlexi and removes the UPOMINKA1, UPOMINKA2,
+UPOMINKA3, and NEPLATIC labels from customers that have no outstanding
+overdue invoices.
+.PP
+Results are written as JSON to standard output or to the file specified with
+\fB\-o\fR/\fB\-\-output\fR.
+.SH OPTIONS
+.TP
+.BR \-e ", " \-\-environment " " \fIFILE\fR
+Path to environment file (default: \fI../.env\fR).
+.TP
+.BR \-o ", " \-\-output " " \fIFILE\fR
+Write JSON result to \fIFILE\fR instead of standard output.
+.SH FILES
+.I /etc/abraflexi-reminder/reminder.env
+.SH SEE ALSO
+.BR abraflexi-reminder (1),
+.BR abraflexi-reminder-init (1)
+.SH AUTHOR
+Vítězslav Dvořák <info@vitexsoftware.cz>
