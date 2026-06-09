@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.app.schema.json",
-  "schemaVersion": "3.0.0",
+  "schemaVersion": "3.4.0",
   "uuid": "82710b78-5cf9-4380-a7e2-62b6e65b2027",
   "name": {
     "en": "Debts overview",
@@ -21,6 +21,13 @@
   ],
   "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
   "executable": "abraflexi-show-debts",
+  "events": {
+    "emits": {
+      "debts.reported": {
+        "description": "Outstanding debts were reported"
+      }
+    }
+  },
   "environment": {
     "ABRAFLEXI_COMPANY": {
       "type": "string",

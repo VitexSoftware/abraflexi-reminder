@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/VitexSoftware/php-vitexsoftware-multiflexi-core/refs/heads/main/multiflexi.app.schema.json",
-  "schemaVersion": "3.1.0",
+  "schemaVersion": "3.4.0",
   "uuid": "138f1310-8e76-4670-bc55-47a3400795e1",
   "name": {
     "en": "Clear Reminder Labels",
@@ -20,6 +20,13 @@
   ],
   "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
   "executable": "abraflexi-reminder-clean-labels",
+  "events": {
+    "emits": {
+      "reminder.labels.cleared": {
+        "description": "Reminder labels were cleared"
+      }
+    }
+  },
   "environment": {
     "LANG": {
       "type": "set",
