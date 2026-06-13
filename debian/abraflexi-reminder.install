@@ -1,4 +1,4 @@
-debian/conf/composer.json       usr/lib/abraflexi-reminder/
+composer.json                   usr/lib/abraflexi-reminder/
 src/*.php           	        usr/share/abraflexi-reminder/
 
 src/AbraFlexi/Reminder/InvoiceRecievedConfirmation.php  usr/lib/abraflexi-reminder/Reminder/
