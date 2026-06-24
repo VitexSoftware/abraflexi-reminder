@@ -252,7 +252,7 @@
       "defval": "console|syslog",
       "required": false,
       "category": "Behavior"
-    }
+    },
   },
   "exitCodes": {
     "0": {

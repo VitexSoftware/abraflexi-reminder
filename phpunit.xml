@@ -2,21 +2,17 @@
 <phpunit colors="true" bootstrap="./tests/bootstrap.php">
     <testsuites>
         <testsuite name="all">
-            <directory>./tests/FlexiPeeHP</directory>
+            <directory>./tests/AbraFlexi/Reminder</directory>
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/FlexiPeeHP</directory>
-        </whitelist>
-    </filter>
+    <source>
+        <include>
+            <directory suffix=".php">src/AbraFlexi/Reminder</directory>
+        </include>
+    </source>
 
     <logging>
-        <!-- log type="tap" target="build/report.tap"/>
-        <log type="junit" target="build/report.junit.xml"/>
-        <log type="coverage-text" target="php://stdout"/>
-        <log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true"/ -->
-        <log type="coverage-clover" target="clover.log"/>
+        <junit outputFile="build/report.junit.xml"/>
     </logging>
 </phpunit>
