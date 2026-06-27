@@ -315,7 +315,8 @@ class Upominac extends \AbraFlexi\RW
      */
     public function getCustomerScore($addressID)
     {
-        $debts = $this->customer->getCustomerDebts($addressID);
+        $this->customer->loadFromAbraFlexi($addressID);
+        $debts = $this->customer->getCustomerDebts();
         $stitkyRaw = $this->customer->getAdresar()->getColumnsFromAbraFlexi(
             ['stitky'],
             ['id' => $addressID],

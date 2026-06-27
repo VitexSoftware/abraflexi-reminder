@@ -25,9 +25,9 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Test\\AbraFlexi\\": "vendor/spojenet/abraflexi/testing/src/AbraFlexi/",
-      "Test\\AbraFlexi\\Reminder\\": "tests/AbraFlexi/Reminder/",
-      "Test\\AbraFlexi\\Reminder\\Notifier\\": "tests/AbraFlexi/Reminder/Notifier/"
+      "Test\\AbraFlexi\\": "vendor/spojenet/flexibee/tests/src/AbraFlexi/",
+      "Tests\\AbraFlexi\\Reminder\\": "tests/AbraFlexi/Reminder/",
+      "Tests\\AbraFlexi\\Reminder\\Notifier\\": "tests/AbraFlexi/Reminder/Notifier/"
     }
   },
   "require-dev": {

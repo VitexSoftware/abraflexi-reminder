@@ -22,7 +22,7 @@ use AbraFlexi\Reminder\Upominka;
  *
  * @no-named-arguments
  */
-class UpominkaTest extends \Tests\AbraFlexi\RWTest
+class UpominkaTest extends \PHPUnit\Framework\TestCase
 {
     protected Upominka $object;
 

@@ -93,6 +93,8 @@ abstract class IntegrationTestCase extends TestCase
         self::$invoicer->dataReset();
         self::$invoicer->insertToAbraFlexi([
             'firma' => \AbraFlexi\Code::ensure(self::$customerCode),
+            'rada' => 'code:FAKTURA-STANDARD',
+            'typDokl' => 'code:FAKTURA',
             'datVyst' => $issueDate,
             'datSplat' => $dueDate,
             'bezPolozek' => true,
