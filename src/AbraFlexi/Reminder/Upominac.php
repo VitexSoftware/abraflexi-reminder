@@ -133,7 +133,8 @@ class Upominac extends \AbraFlexi\RW
                 ',',
                 str_replace(' ', '', $stitky),
             ), explode(',', $stitky));
-            unset($newStitky['UPOMINKA1'], $newStitky['UPOMINKA2'], $newStitky['UPOMINKA3'], $newStitky['NEPLATIC']);
+            $disconnectLabel = (string) \Ease\Shared::cfg('SERVICE_DISCONNECT_LABEL', 'ODPOJENO');
+            unset($newStitky['UPOMINKA1'], $newStitky['UPOMINKA2'], $newStitky['UPOMINKA3'], $newStitky['NEPLATIC'], $newStitky[$disconnectLabel]);
 
             $response = $this->customer->getAdresar()->insertToAbraFlexi(['id' => $cid, 'stitky@removeAll' => 'true',
                 'stitky' => $newStitky]);

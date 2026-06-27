@@ -37,6 +37,9 @@
     "ergebnis/composer-normalize": "^2.51",
     "ergebnis/php-cs-fixer-config": "^6.61"
   },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
   "config": {
     "allow-plugins": {
       "ergebnis/composer-normalize": true
