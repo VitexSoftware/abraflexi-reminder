@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 require_once '/usr/share/php/Composer/InstalledVersions.php';
 require_once '/usr/share/php/AbraFlexi/autoload.php';
 require_once '/usr/share/php/AbraFlexiBricks/autoload.php';
