@@ -473,6 +473,7 @@ class Upominac extends \AbraFlexi\RW
                 $invoiceData['evidence'] = $evidenceUsed;
 
                 if (
+                    isset($invoiceData['typDokl']) &&
                     \array_key_exists(
                         \AbraFlexi\Code::strip((string) $invoiceData['typDokl']),
                         $docTypeSkipList,
