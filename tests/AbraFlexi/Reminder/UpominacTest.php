@@ -144,24 +144,31 @@ class UpominacTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers \AbraFlexi\Reminder\Upominac::getEvidenceDebts
-     *
-     * @todo   Implement testGetEvidenceDebts().
      */
     public function testGetEvidenceDebts(): void
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        // typDokl must only be fetched for faktura-vydana; pohledavka records
+        // can have null typDoklK which causes a TypeError in AbraFlexi\Relation
+        $debts = $this->object->getEvidenceDebts('faktura-vydana');
+        $this->assertIsArray($debts, 'getEvidenceDebts must return an array');
+
+        // pohledavka must not throw even when some records lack typDoklK
+        $debts2 = $this->object->getEvidenceDebts('pohledavka');
+        $this->assertIsArray($debts2, 'getEvidenceDebts(pohledavka) must return an array without TypeError');
     }
 
     /**
      * @covers \AbraFlexi\Reminder\Upominac::getAllDebts
-     *
-     * @todo   Implement testGetAllDebts().
      */
     public function testGetAllDebts(): void
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $debts = $this->object->getAllDebts();
+        $this->assertIsArray($debts, 'getAllDebts must return an array');
+
+        foreach ($debts as $debt) {
+            $this->assertArrayHasKey('firma', $debt, 'Each debt must have a firma key');
+            $this->assertArrayHasKey('zbyvaUhradit', $debt, 'Each debt must have a zbyvaUhradit key');
+        }
     }
 
     /**

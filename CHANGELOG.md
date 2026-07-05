@@ -5,6 +5,21 @@ All notable changes to AbraFlexi Reminder will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.4] - 2026-07-05
+
+### Fixed
+- `Upominac::getEvidenceDebts()`: `typDokl(typDoklK,kod)` is now only fetched when evidence is `faktura-vydana`; `pohledavka` records in AbraFlexi can have a null `typDoklK` which previously caused `AbraFlexi\Relation::__construct()` to throw a fatal `TypeError` in the Notify Customers step
+- `Upominac::getEvidenceDebts()`: guard `$invoiceData['typDokl']` access with `isset()` before the `REMINDER_SKIPDOCTYPE` check to suppress PHP warnings for evidences that do not carry `typDokl`
+- `debian/rules`: replaced five broken `sed` patterns that used unescaped `.` (matches any char) with literal-string patterns using `|` delimiter — previously corrupted every installed PHP file on package install
+- `debian/autoload.php`: removed `declare(strict_types=1)` — `debian/rules` inserts `defined('APP_NAME')` after line 1 via `sed "1a"`, pushing the declaration to line 5 where PHP rejects it
+
+### Added
+- `Notifier/ByServiceToggle`: new notifier that sets/clears a `SERVICE_DISCONNECT_LABEL` (default `ODPOJENO`) on customers based on the `NEPLATIC` label — bridges the reminder pipeline to ISP disconnection tooling
+
+### Tests
+- Implemented `UpominacTest::testGetEvidenceDebts()`: verifies both `faktura-vydana` and `pohledavka` evidence return arrays without TypeError
+- Implemented `UpominacTest::testGetAllDebts()`: verifies merged debt array contains `firma` and `zbyvaUhradit` keys
+
 ## [1.7.3] - 2025-05-20
 
 ### Fixed
