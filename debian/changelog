@@ -1,3 +1,10 @@
+abraflexi-reminder (1.7.5) unstable; urgency=medium
+
+  * feat(clean-labels): remove SERVICE_DISCONNECT_LABEL when
+    SERVICE_TOGGLE_ENABLED to reconnect customers after payment
+
+ -- vitex <info@vitexsoftware.cz>  Sun, 05 Jul 2026 10:00:34 +0200
+
 abraflexi-reminder (1.7.4) unstable; urgency=medium
 
   * fix(Upominac): skip typDokl fetch for non-faktura-vydana evidence to

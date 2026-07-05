@@ -33,6 +33,10 @@ if (Shared::cfg('APP_DEBUG') === 'True') {
 }
 
 $labelsRequiedRaw = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC'];
+
+if (Shared::cfg('SERVICE_TOGGLE_ENABLED', false)) {
+    $labelsRequiedRaw[] = (string) Shared::cfg('SERVICE_DISCONNECT_LABEL', 'ODPOJENO');
+}
 $labelsRequied = [];
 
 foreach ($labelsRequiedRaw as $label) {
