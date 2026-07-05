@@ -1,56 +1,58 @@
 # AGENTS.md — abraflexi-reminder
 
-## Co projekt dělá
+## What this project does
 
-Upomíná zákazníky za nezaplacené faktury. Spravuje štítky na zákaznících
-v AbraFlexi adresáři a volitelně odpojuje zákazníky od služby přes label.
+Sends payment reminders to customers with overdue invoices. Manages labels on
+customer address-book records in AbraFlexi and optionally disconnects customers
+from service via a label.
 
-Balíček: `vitexsoftware/abraflexi-reminder`  
-Klíčová třída: `AbraFlexi\Reminder\Upominac`  
-Notifiery: `src/AbraFlexi/Reminder/Notifier/*.php` — načítány automaticky
+Package: `vitexsoftware/abraflexi-reminder`  
+Core class: `AbraFlexi\Reminder\Upominac`  
+Notifiers: `src/AbraFlexi/Reminder/Notifier/*.php` — auto-discovered, no registration needed
 
 ## Pipeline (MultiFlexi RunTemplates)
 
-| RT | Název | Skript | Kdy |
-|----|-------|--------|-----|
-| RT52 | Payment Simulator | `abraflexi-payment-simulator` | každou hodinu |
-| RT54 | Matcher | `abraflexi-matcher` | každou hodinu |
-| RT53 | Reminder | `abraflexi-reminder` | denně 6:00 |
-| RT55 | Clear Labels | `abraflexi-reminder-clean-labels` | denně 7:00 |
-| RT56 | Debts Overview | `abraflexi-debts-overview` | denně 8:00 |
-| RT57 | Notify Customers | `abraflexi-notify-customers` | denně 9:00 |
+| RT | Name | Script | Schedule |
+|----|------|--------|----------|
+| RT52 | Payment Simulator | `abraflexi-payment-simulator` | hourly |
+| RT54 | Matcher | `abraflexi-matcher` | hourly |
+| RT53 | Reminder | `abraflexi-reminder` | daily 06:00 |
+| RT55 | Clear Labels | `abraflexi-reminder-clean-labels` | daily 07:00 |
+| RT56 | Debts Overview | `abraflexi-debts-overview` | daily 08:00 |
+| RT57 | Notify Customers | `abraflexi-notify-customers` | daily 09:00 |
 
-## Štítky zákazníků — stavový stroj
+## Customer label state machine
 
-Toto je **kontraktní rozhraní** sdílené s dalšími projekty. Neměň sémantiku
-štítků bez koordinace s `abraflexi-webhook-acceptor` a `isp-tools`.
+This is a **contract interface** shared with `abraflexi-webhook-acceptor` and
+`isp-tools`. Do not change label semantics without updating AGENTS.md in both
+projects.
 
-| Štítek | Kdy se nastaví | Kdy se maže | Kdo čte |
-|--------|---------------|-------------|---------|
-| `UPOMINKA1` | Reminder, 1. upomínka | Clear Labels (po zaplacení) | — |
-| `UPOMINKA2` | Reminder, 2. upomínka | Clear Labels (po zaplacení) | — |
-| `UPOMINKA3` | Reminder, 3. upomínka | Clear Labels (po zaplacení) | — |
-| `NEPLATIC`  | Reminder, score ≥ 3 | Clear Labels (po zaplacení) | ByServiceToggle |
-| `ODPOJENO`  | ByServiceToggle (RT57) | Clear Labels (po zaplacení) | isp-tools |
+| Label | Set by | Cleared by | Read by |
+|-------|--------|------------|---------|
+| `UPOMINKA1` | Reminder — 1st notice | Clear Labels (after payment) | — |
+| `UPOMINKA2` | Reminder — 2nd notice | Clear Labels (after payment) | — |
+| `UPOMINKA3` | Reminder — 3rd notice | Clear Labels (after payment) | — |
+| `NEPLATIC`  | Reminder — score ≥ 3 | Clear Labels (after payment) | ByServiceToggle |
+| `ODPOJENO`  | ByServiceToggle (RT57) | Clear Labels (after payment) | isp-tools |
 
-### Env proměnné pro ByServiceToggle
-- `SERVICE_TOGGLE_ENABLED=true` — opt-in aktivace (default: false)
-- `SERVICE_DISCONNECT_LABEL=ODPOJENO` — název štítku (default: ODPOJENO)
+### ByServiceToggle env vars
+- `SERVICE_TOGGLE_ENABLED=true` — opt-in activation (default: false)
+- `SERVICE_DISCONNECT_LABEL=ODPOJENO` — label name (default: ODPOJENO)
 
-Pokud `SERVICE_TOGGLE_ENABLED=true`, RT55 (Clear Labels) maže i `ODPOJENO`.
+When `SERVICE_TOGGLE_ENABLED=true`, RT55 (Clear Labels) also removes `ODPOJENO`.
 
-## Klíčové technické detaily
+## Critical technical details
 
-### getEvidenceDebts() — pohledavka
-Evidence `pohledavka` může mít záznamy s null `typDoklK`. `AbraFlexi\Relation`
-hodí `TypeError` při `Relation::fromTypDokl(null)`. Proto:
-- `typDokl(typDoklK,kod)` se přidává do `colsToGet` **jen pro `faktura-vydana`**
-- `includes=/evidence/typDokl` se nastavuje **jen pro `faktura-vydana`**
-- Před přístupem k `$invoiceData['typDokl']` vždy použij `isset()`
+### getEvidenceDebts() — pohledavka evidence
+Records in the `pohledavka` evidence can have null `typDoklK`. `AbraFlexi\Relation`
+throws `TypeError` in `Relation::fromTypDokl(null)`. Therefore:
+- `typDokl(typDoklK,kod)` is added to `colsToGet` **only for `faktura-vydana`**
+- `includes=/evidence/typDokl` is set **only for `faktura-vydana`**
+- Always use `isset($invoiceData['typDokl'])` before accessing the key
 
-### Score zákazníka
-`score` = počet týdnů po splatnosti (integer). Práh pro `NEPLATIC` a
-`ByServiceToggle` je `score >= 3`.
+### Customer score
+`score` = integer weeks overdue. Threshold for `NEPLATIC` and `ByServiceToggle`
+activation is `score >= 3`.
 
 ### Notifier interface
 ```php
@@ -58,49 +60,49 @@ interface notifier {
     public function compile(int $score, Customer $customer, array $clientDebts): bool;
 }
 ```
-Každá třída v namespace `AbraFlexi\Reminder\Notifier\` je automaticky
-instancována v `processNotifyModules()`. Není třeba registrace.
+Every class in namespace `AbraFlexi\Reminder\Notifier\` is automatically
+instantiated in `processNotifyModules()`.
 
 ### MUTE mode
-`MUTE=true` — reminder nepošle žádné emaily ani SMS, ale štítky nastaví.
-Vždy nastav v CI a testovacím prostředí.
+`MUTE=true` — reminder sets labels but sends no emails or SMS.
+Always set in CI and test environments.
 
-## Env proměnné
+## Environment variables
 
-| Proměnná | Popis |
-|----------|-------|
-| `ABRAFLEXI_URL` | URL AbraFlexi serveru |
-| `ABRAFLEXI_LOGIN` | Login |
-| `ABRAFLEXI_PASSWORD` | Heslo |
-| `ABRAFLEXI_COMPANY` | Kód firmy |
-| `REMIND_FROM` | Odesílací e-mail upomínek |
-| `MUTE` | `true` = bez odesílání, jen štítky |
-| `OVERDUE_PATIENCE` | Dny tolerance po splatnosti (default: 0) |
-| `REMINDER_SKIPDOCTYPE` | Čárkou oddělené typy dokladů k přeskočení |
-| `SERVICE_TOGGLE_ENABLED` | `true` = aktivovat ByServiceToggle |
-| `SERVICE_DISCONNECT_LABEL` | Štítek pro odpojení (default: `ODPOJENO`) |
+| Variable | Description |
+|----------|-------------|
+| `ABRAFLEXI_URL` | AbraFlexi server URL |
+| `ABRAFLEXI_LOGIN` | AbraFlexi login |
+| `ABRAFLEXI_PASSWORD` | AbraFlexi password |
+| `ABRAFLEXI_COMPANY` | Company code in AbraFlexi |
+| `REMIND_FROM` | Sender email address for reminders |
+| `MUTE` | `true` = label-only mode, no sending |
+| `OVERDUE_PATIENCE` | Tolerance days after due date (default: 0) |
+| `REMINDER_SKIPDOCTYPE` | Comma-separated document types to skip |
+| `SERVICE_TOGGLE_ENABLED` | `true` = activate ByServiceToggle |
+| `SERVICE_DISCONNECT_LABEL` | Disconnect label name (default: `ODPOJENO`) |
 
-## Testovací prostředí
+## Test environment
 
-- AbraFlexi: `https://flexibee-dev.spoje.net:5434`, firma `spoje_net_s_r_o_`
+- AbraFlexi: `https://flexibee-dev.spoje.net:5434`, company `spoje_net_s_r_o_`
 - Credentials: `admin:wiwobr=metCob5`
 - MultiFlexi: `https://vyvojar.spoje.net/multiflexi/`
-- **Nikdy nepoužívej produkční credentials z `.env`** proti test serveru
+- **Never use production credentials from `.env`** against the test server
 
 ## Debian packaging
 
 ```bash
 fakeroot debian/rules clean
 dpkg-buildpackage -us -uc -b
-# výsledek v ../abraflexi-reminder_X.Y.Z_all.deb
+# result: ../abraflexi-reminder_X.Y.Z_all.deb
 scp ../abraflexi-reminder_*.deb vyvojar.spoje.net:/tmp/
 ssh vyvojar.spoje.net 'sudo dpkg -i /tmp/abraflexi-reminder_*.deb'
 ```
 
-Verze je v `debian/changelog`. Po změně verze vždy aktualizuj i `CHANGELOG.md`.
+Version lives in `debian/changelog`. Always update `CHANGELOG.md` alongside it.
 
-## Kompatibilita s abraflexi-webhook-acceptor
+## Compatibility with abraflexi-webhook-acceptor
 
-Webhook acceptor (`VitexSoftware/abraflexi-webhook-acceptor`) zachytává změny
-z AbraFlexi Changes API. Pokud přidáváš nový štítek nebo měníš sémantiku
-existujícího, aktualizuj `AGENTS.md` v obou projektech současně.
+The webhook acceptor (`VitexSoftware/abraflexi-webhook-acceptor`) captures
+changes from the AbraFlexi Changes API. If you add a new label or change the
+semantics of an existing one, update AGENTS.md in both projects simultaneously.
