@@ -431,7 +431,6 @@ class Upominac extends \AbraFlexi\RW
             'sumCelkem',
             'sumCelkemMen',
             'duzpPuv',
-            'typDokl(typDoklK,kod)',
             'datSplat',
             'zbyvaUhradit',
             'zbyvaUhraditMen',
@@ -442,12 +441,19 @@ class Upominac extends \AbraFlexi\RW
             'stitky',
         ];
 
+        // typDokl is only reliable on faktura-vydana; pohledavka records may have null
+        // typDoklK which causes AbraFlexi\Relation::__construct() to throw a TypeError
+        $currentEvidence = $this->invoicer->getEvidence();
+        if ($currentEvidence === 'faktura-vydana') {
+            $colsToGet[] = 'typDokl(typDoklK,kod)';
+            $this->invoicer->defaultUrlParams['includes'] = '/'.$currentEvidence.'/typDokl';
+        }
+
         if ($this->invoicer->getColumnInfo('stavMailK', $evidence)) {
             $colsToGet[] = 'stavMailK';
         }
 
         $this->invoicer->defaultUrlParams['order'] = 'datVyst@A';
-        $this->invoicer->defaultUrlParams['includes'] = '/'.$this->invoicer->getEvidence().'/typDokl';
         $invoices = $this->invoicer->getColumnsFromAbraFlexi(
             $colsToGet,
             $what,
