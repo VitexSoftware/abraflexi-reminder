@@ -32,7 +32,7 @@ class SmsByGnokiiTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new SmsByGnokii();
+        $this->object = new SmsByGnokii('', 'PHPUnit test');
     }
 
     /**

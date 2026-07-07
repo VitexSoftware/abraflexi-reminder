@@ -32,7 +32,7 @@ class RemindMailerTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new Mailer();
+        $this->object = new RemindMailer();
     }
 
     /**
@@ -44,7 +44,7 @@ class RemindMailerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \AbraFlexi\Reminder\Mailer::addItem
+     * @covers \AbraFlexi\Reminder\RemindMailer::addItem
      *
      * @todo   Implement testAddItem().
      */
@@ -55,7 +55,7 @@ class RemindMailerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \AbraFlexi\Reminder\Mailer::getCss
+     * @covers \AbraFlexi\Reminder\RemindMailer::getCss
      *
      * @todo   Implement testGetCss().
      */
@@ -66,7 +66,7 @@ class RemindMailerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \AbraFlexi\Reminder\Mailer::getCurrentMailSize
+     * @covers \AbraFlexi\Reminder\RemindMailer::getCurrentMailSize
      *
      * @todo   Implement testGetCurrentMailSize().
      */

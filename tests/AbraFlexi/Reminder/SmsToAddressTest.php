@@ -42,4 +42,15 @@ class SmsToAddressTest extends \PHPUnit\Framework\TestCase
     protected function tearDown(): void
     {
     }
+
+    /**
+     * @covers \AbraFlexi\Reminder\SmsToAddress::getNumber
+     *
+     * @todo   Implement testGetNumber().
+     */
+    public function testGetNumber(): void
+    {
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete('This test has not been implemented yet.');
+    }
 }

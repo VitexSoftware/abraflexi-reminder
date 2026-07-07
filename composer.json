@@ -15,7 +15,8 @@
     "spipu/html2pdf": "^5.3",
     "tecnickcom/tcpdf": "^6.11",
     "hsp-dev/huawei-api": "dev-master",
-    "dfridrich/czech-data-box": "^1.4"
+    "dfridrich/czech-data-box": "^1.4",
+    "vitexsoftware/ease-html": "^1.40"
   },
   "autoload": {
     "psr-4": {
