@@ -1,0 +1,20 @@
+name: MultiFlexi JSON Validation
+
+on:
+  push:
+    paths:
+      - 'multiflexi/*.json'
+  pull_request:
+    paths:
+      - 'multiflexi/*.json'
+
+jobs:
+  validate-multiflexi-json:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v7
+
+    - name: Validate MultiFlexi app definitions
+      uses: VitexSoftware/validate-multiflexi-app@v1
