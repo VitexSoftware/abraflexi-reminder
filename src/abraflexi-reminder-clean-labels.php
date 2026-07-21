@@ -37,25 +37,44 @@ $labelsRequiedRaw = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC'];
 if (Shared::cfg('SERVICE_TOGGLE_ENABLED', false)) {
     $labelsRequiedRaw[] = (string) Shared::cfg('SERVICE_DISCONNECT_LABEL', 'ODPOJENO');
 }
-$labelsRequied = [];
-
-foreach ($labelsRequiedRaw as $label) {
-    $labelsRequied[] = "stitky='code:".$label."'";
-}
 
 $pos = 0;
+$customerCode = Shared::cfg('ABRAFLEXI_CUSTOMER', null);
 
-foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' => 0]) as $clientCode => $clientInfo) {
-    $reminder->customer->getAdresar()->setMyKey(Code::ensure($clientCode));
-    $reminder->customer->getAdresar()->setDataValue('stitky', implode(',', $clientInfo['stitky']));
+if ($customerCode) {
+    // Event-driven mode: a specific customer just settled an invoice — check them only.
+    $reminder->addStatusMessage(sprintf(_('Event mode: processing customer %s'), $customerCode), 'info');
+    $reminder->customer->getAdresar()->setMyKey(Code::ensure((string) $customerCode));
 
-    // Check if the customer has no debts
     if (empty($reminder->customer->getCustomerDebts())) {
         $reminder->customer->getAdresar()->unsetLabel($labelsRequiedRaw);
-        $reminder->addStatusMessage(++$pos.'/'.\count($reminder->customer->getAdresar()->lastResult['adresar']).' '.$clientCode.' '._('Labels Cleanup'), ($reminder->customer->getAdresar()->lastResponseCode === 201) ? 'success' : 'warning');
-        $report['removed'][$clientCode] = $labelsRequiedRaw;
+        $reminder->addStatusMessage(
+            ++$pos.' '.$customerCode.' '._('Labels Cleanup'),
+            ($reminder->customer->getAdresar()->lastResponseCode === 201) ? 'success' : 'warning',
+        );
+        $report['removed'][$customerCode] = $labelsRequiedRaw;
     } else {
-        $reminder->addStatusMessage($clientCode.' '._('Customer has debts, labels not removed'), 'info');
+        $reminder->addStatusMessage($customerCode.' '._('Customer has debts, labels not removed'), 'info');
+    }
+} else {
+    // Batch mode: scan all customers still carrying debtor labels.
+    $labelsRequied = [];
+
+    foreach ($labelsRequiedRaw as $label) {
+        $labelsRequied[] = "stitky='code:".$label."'";
+    }
+
+    foreach ($reminder->getCustomerList([implode(' or ', $labelsRequied), 'limit' => 0]) as $clientCode => $clientInfo) {
+        $reminder->customer->getAdresar()->setMyKey(Code::ensure($clientCode));
+        $reminder->customer->getAdresar()->setDataValue('stitky', implode(',', $clientInfo['stitky']));
+
+        if (empty($reminder->customer->getCustomerDebts())) {
+            $reminder->customer->getAdresar()->unsetLabel($labelsRequiedRaw);
+            $reminder->addStatusMessage(++$pos.'/'.\count($reminder->customer->getAdresar()->lastResult['adresar']).' '.$clientCode.' '._('Labels Cleanup'), ($reminder->customer->getAdresar()->lastResponseCode === 201) ? 'success' : 'warning');
+            $report['removed'][$clientCode] = $labelsRequiedRaw;
+        } else {
+            $reminder->addStatusMessage($clientCode.' '._('Customer has debts, labels not removed'), 'info');
+        }
     }
 }
 
