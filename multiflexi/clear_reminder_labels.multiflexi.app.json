@@ -21,6 +21,11 @@
   "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
   "executable": "abraflexi-reminder-clean-labels",
   "events": {
+    "listens": {
+      "invoice.settled": {
+        "description": "Triggered when an invoice is fully paid; ABRAFLEXI_CUSTOMER should be mapped to the customer code from the event"
+      }
+    },
     "emits": {
       "reminder.labels.cleared": {
         "description": "Reminder labels were cleared"
@@ -78,6 +83,16 @@
       "defval": "https://demo.flexibee.eu:5434",
       "required": true,
       "category": "API"
+    },
+    "ABRAFLEXI_CUSTOMER": {
+      "type": "string",
+      "description": {
+        "en": "Customer code (adresar/kod) for event-driven single-customer mode. When set, only this customer is checked and cleaned. Leave empty for batch mode (all labelled customers).",
+        "cs": "Kód zákazníka (adresar/kod) pro událostní jednozákaznický režim. Je-li nastaveno, zkontroluje se a vyčistí pouze tento zákazník. Prázdné = hromadný režim."
+      },
+      "defval": "",
+      "required": false,
+      "category": "Behavior"
     },
     "EASE_LOGGER": {
       "type": "string",
