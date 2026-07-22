@@ -17,7 +17,7 @@ use Ease\Shared;
 
 require_once '../vendor/autoload.php';
 $exitcode = 0;
-$options = getopt('o::e::', ['output::environment::']);
+$options = getopt('o::e::', ['output::', 'environment::']);
 $report = [];
 Shared::init(
     ['ABRAFLEXI_URL', 'ABRAFLEXI_LOGIN', 'ABRAFLEXI_PASSWORD', 'ABRAFLEXI_COMPANY'],
@@ -44,17 +44,31 @@ $customerCode = Shared::cfg('ABRAFLEXI_CUSTOMER', null);
 if ($customerCode) {
     // Event-driven mode: a specific customer just settled an invoice — check them only.
     $reminder->addStatusMessage(sprintf(_('Event mode: processing customer %s'), $customerCode), 'info');
-    $reminder->customer->getAdresar()->setMyKey(Code::ensure((string) $customerCode));
+    $adresar = $reminder->customer->getAdresar();
+    $rows = $adresar->getColumnsFromAbraFlexi(['id', 'stitky'], ['kod' => $customerCode]);
 
-    if (empty($reminder->customer->getCustomerDebts())) {
-        $reminder->customer->getAdresar()->unsetLabel($labelsRequiedRaw);
-        $reminder->addStatusMessage(
-            ++$pos.' '.$customerCode.' '._('Labels Cleanup'),
-            ($reminder->customer->getAdresar()->lastResponseCode === 201) ? 'success' : 'warning',
-        );
-        $report['removed'][$customerCode] = $labelsRequiedRaw;
+    if (empty($rows)) {
+        $reminder->addStatusMessage(sprintf(_('Customer %s not found in AbraFlexi'), $customerCode), 'warning');
+        $exitcode = 1;
     } else {
-        $reminder->addStatusMessage($customerCode.' '._('Customer has debts, labels not removed'), 'info');
+        $row = $rows[0];
+        // Normalize stitky: Relation objects → comma-separated string so unsetLabel() diff works
+        if (is_array($row['stitky'] ?? null)) {
+            $row['stitky'] = implode(',', array_map('strval', $row['stitky']));
+        }
+
+        $adresar->takeData($row);
+
+        if (empty($reminder->customer->getCustomerDebts())) {
+            $adresar->unsetLabel($labelsRequiedRaw);
+            $reminder->addStatusMessage(
+                ++$pos.' '.$customerCode.' '._('Labels Cleanup'),
+                ($adresar->lastResponseCode === 201) ? 'success' : 'warning',
+            );
+            $report['removed'][$customerCode] = $labelsRequiedRaw;
+        } else {
+            $reminder->addStatusMessage($customerCode.' '._('Customer has debts, labels not removed'), 'info');
+        }
     }
 } else {
     // Batch mode: scan all customers still carrying debtor labels.
