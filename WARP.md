@@ -1,4 +1,4 @@
-# WARP.md - Working AI Reference for abraflexi-reminder
+# AGENTS.md - Working AI Reference for abraflexi-reminder
 
 ## Project Overview
 **Type**: PHP Project/Debian Package
