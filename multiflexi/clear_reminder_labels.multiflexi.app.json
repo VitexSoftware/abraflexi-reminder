@@ -21,7 +21,7 @@
   "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
   "executable": "abraflexi-reminder-clean-labels",
   "events": {
-    "listens": {
+    "consumes": {
       "invoice.settled": {
         "description": "Triggered when an invoice is fully paid; ABRAFLEXI_CUSTOMER should be mapped to the customer code from the event"
       }
