@@ -247,8 +247,9 @@ class Upominac extends \AbraFlexi\RW
             if (!\array_key_exists('UPOMINKA'.$reminderLevel, $stitky)) {
                 if (!\array_key_exists('NEUPOMINAT', $stitky)) {
                     $report['remindsSent'] = $this->posliUpominku($reminderLevel, $clientDebts);
+                    $report['notifiedVia'] = self::successfulNotifiers($report['remindsSent']);
 
-                    if (self::anyNotifierSucceeded($report['remindsSent'])) {
+                    if (!empty($report['notifiedVia'])) {
                         foreach ($invoicesToSave as $invoiceCode => $invoiceData) {
                             switch ($reminderLevel) {
                                 case 1:
@@ -679,7 +680,17 @@ class Upominac extends \AbraFlexi\RW
                     $reminder->addStatusMessage(_('Missing Client CODE'), 'warning');
                 }
 
-                $report['reminded'][$clientCodeShort] = $reminder->processUserDebts($clientData, $clientDebts);
+                $clientReport = $reminder->processUserDebts($clientData, $clientDebts);
+
+                if (!empty($clientReport['notifiedVia'])) {
+                    $reminder->addStatusMessage(sprintf(
+                        _('%s notified via %s'),
+                        $clientCodeShort,
+                        implode(', ', $clientReport['notifiedVia']),
+                    ), 'success');
+                }
+
+                $report['reminded'][$clientCodeShort] = $clientReport;
             }
         }
 
@@ -697,7 +708,7 @@ class Upominac extends \AbraFlexi\RW
     }
 
     /**
-     * Determine whether at least one notifier module actually reported a delivered reminder.
+     * List the notifier modules that actually reported a delivered reminder.
      *
      * Notifier results are heterogeneous: sending modules (ByEmail, BySms, ...) report either
      * a plain bool or an array containing a 'sent' key, while non-sending modules (e.g.
@@ -705,20 +716,22 @@ class Upominac extends \AbraFlexi\RW
      * mistaken for a successful send.
      *
      * @param array $remindsSent Per-notifier results, as produced by posliUpominku()
+     *
+     * @return string[] Names of notifier modules (e.g. 'ByEmail') that actually sent something
      */
-    private static function anyNotifierSucceeded(array $remindsSent): bool
+    private static function successfulNotifiers(array $remindsSent): array
     {
-        foreach ($remindsSent as $notifierResult) {
-            if (\is_bool($notifierResult) && $notifierResult) {
-                return true;
-            }
+        $notifiedVia = [];
 
-            if (\is_array($notifierResult) && \array_key_exists('sent', $notifierResult) && $notifierResult['sent']) {
-                return true;
+        foreach ($remindsSent as $notifierName => $notifierResult) {
+            if (\is_bool($notifierResult) && $notifierResult) {
+                $notifiedVia[] = $notifierName;
+            } elseif (\is_array($notifierResult) && \array_key_exists('sent', $notifierResult) && $notifierResult['sent']) {
+                $notifiedVia[] = $notifierName;
             }
         }
 
-        return false;
+        return $notifiedVia;
     }
 
     public function getExitCode(): int

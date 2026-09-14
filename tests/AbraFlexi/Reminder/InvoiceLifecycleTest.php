@@ -165,6 +165,11 @@ class InvoiceLifecycleTest extends IntegrationTestCase
         $this->assertSame(1, $report['reminderLevel'], 'Fresh customer, 1 day overdue → reminder level 1');
         $this->assertArrayHasKey('changed', $report, 'processUserDebts must report which date column it changed');
         $this->assertSame('datUp1', $report['changed']);
+        $this->assertContains(
+            'ByEmail',
+            $report['notifiedVia'] ?? [],
+            'Report must list which notifier(s) actually notified this customer',
+        );
 
         self::$invoicer->dataReset();
         $refetched = self::$invoicer->getColumnsFromAbraFlexi(['datUp1'], ['id' => $invoiceId, 'limit' => 1]);
@@ -232,6 +237,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
             $report = self::$upominac->processUserDebts($clientInfo, $clientDebts);
 
             $this->assertArrayNotHasKey('changed', $report, 'No date column should be reported as changed when nothing was actually sent');
+            $this->assertEmpty($report['notifiedVia'] ?? [], 'No notifier succeeded, so notifiedVia must be empty');
 
             self::$invoicer->dataReset();
             $refetched = self::$invoicer->getColumnsFromAbraFlexi(['datUp1'], ['id' => $invoiceId, 'limit' => 1]);

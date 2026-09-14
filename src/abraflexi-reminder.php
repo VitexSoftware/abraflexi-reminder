@@ -58,9 +58,26 @@ $reminder->addStatusMessage(Upominac::formatTotals($total), 'success');
 
 $exitcode = $reminder->getExitCode();
 
-// Add required schema fields
+// Tally, per notification channel, how many customers were actually reached this run.
+// $report['reminded'][$clientCode]['notifiedVia'] lists the notifier(s) that succeeded
+// for that customer (see Upominac::processUserDebts()/successfulNotifiers()).
+$customersNotified = 0;
+$notifiedViaCounts = [];
+
+foreach (($report['reminded'] ?? []) as $clientReport) {
+    if (!empty($clientReport['notifiedVia'])) {
+        ++$customersNotified;
+
+        foreach ($clientReport['notifiedVia'] as $channel) {
+            $notifiedViaCounts[$channel] = ($notifiedViaCounts[$channel] ?? 0) + 1;
+        }
+    }
+}
+
+// Add required schema fields (see php-vitexsoftware-multiflexi-core/schema/report.json)
+$report['producer'] = Shared::appName();
 $report['exitcode'] = $exitcode;
-$report['status'] = $exitcode === 0 ? 'success' : 'error';
+$report['status'] = $reminder->hasErrors() ? 'error' : ($reminder->hasWarnings() ? 'warning' : 'success');
 $report['timestamp'] = date('c');
 $report['message'] = $exitcode === 0 ? _('Remind process finished successfully') : _('Remind process finished with errors');
 
@@ -68,9 +85,13 @@ if (!isset($report['artifacts'])) {
     $report['artifacts'] = new stdClass();
 }
 
-if (!isset($report['metrics'])) {
-    $report['metrics'] = new stdClass();
-}
+$report['metrics'] = array_merge(
+    ['customersNotified' => $customersNotified],
+    array_combine(
+        array_map(static fn ($channel) => 'notifiedVia'.$channel, array_keys($notifiedViaCounts)),
+        array_values($notifiedViaCounts),
+    ),
+);
 
 $written = file_put_contents($destination, json_encode($report, Shared::cfg('DEBUG') ? \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE : 0));
 
