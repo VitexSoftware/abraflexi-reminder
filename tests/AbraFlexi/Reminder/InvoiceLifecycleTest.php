@@ -142,6 +142,116 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     }
 
     /**
+     * A reminder actually sent (at least one notifier succeeded, MUTE=true routes the mail to
+     * EASE_EMAILTO instead of skipping delivery) must be recorded back on the invoice as
+     * datUp1.
+     */
+    public function testReminderSent_WritesDatUp1(): void
+    {
+        $invoiceId = self::createOverdueInvoice(daysOverdue: 1);
+
+        $clientDebts = self::$upominac->getEvidenceDebts('faktura-vydana', ['firma = '.self::$customerId]);
+        $this->assertNotEmpty($clientDebts, 'Precondition: the freshly created overdue invoice must be found as a debt');
+
+        $clientInfo = [
+            'id' => self::$customerId,
+            'kod' => self::$customerCode,
+            'nazev' => 'CI Test Customer (auto-generated)',
+            'stitky' => [],
+        ];
+
+        $report = self::$upominac->processUserDebts($clientInfo, $clientDebts);
+
+        $this->assertSame(1, $report['reminderLevel'], 'Fresh customer, 1 day overdue → reminder level 1');
+        $this->assertArrayHasKey('changed', $report, 'processUserDebts must report which date column it changed');
+        $this->assertSame('datUp1', $report['changed']);
+
+        self::$invoicer->dataReset();
+        $refetched = self::$invoicer->getColumnsFromAbraFlexi(['datUp1'], ['id' => $invoiceId, 'limit' => 1]);
+        $this->assertNotEmpty(
+            $refetched[0]['datUp1'] ?? '',
+            'datUp1 must be persisted on the invoice in AbraFlexi after a reminder was sent',
+        );
+    }
+
+    /**
+     * Regression test: when no notifier module actually delivers anything (here: customer has
+     * no e-mail address, so ByEmail::compile() fails and every other module either skips or
+     * only performs an unrelated action such as ByServiceToggle's disconnect), datUp1 must
+     * NOT be written.
+     *
+     * Before the fix, processUserDebts() gated the date-write on
+     * `if ($report['remindsSent'])`, which only checked that the *array* of per-notifier
+     * results was non-empty — true as soon as any Notifier class is registered, regardless of
+     * whether it actually reported success. That meant an invoice could be falsely marked as
+     * "reminder sent" on a given date even though the customer never received anything. Live
+     * verification against the dev instance confirmed this: with the old code the same
+     * scenario below did write datUp1.
+     */
+    public function testNoNotifierSucceeded_DoesNotWriteDate(): void
+    {
+        $noEmailCode = 'TEST-CI-NOEMAIL';
+        $adresar = new \AbraFlexi\Adresar();
+        $existing = $adresar->getColumnsFromAbraFlexi(['id'], ['kod' => $noEmailCode, 'limit' => 1]);
+
+        if (!empty($existing)) {
+            $noEmailId = (int) $existing[0]['id'];
+        } else {
+            $adresar->dataReset();
+            $adresar->insertToAbraFlexi([
+                'kod' => $noEmailCode,
+                'nazev' => 'CI Test Customer WITHOUT email',
+            ]);
+            $noEmailId = (int) $adresar->getLastInsertedId();
+        }
+
+        self::$invoicer->dataReset();
+        self::$invoicer->insertToAbraFlexi([
+            'firma' => \AbraFlexi\Code::ensure($noEmailCode),
+            'rada' => 'code:FAKTURA-STANDARD',
+            'typDokl' => 'code:FAKTURA',
+            'datVyst' => (new \DateTime('-8 days'))->format('Y-m-d'),
+            'datSplat' => (new \DateTime('-1 days'))->format('Y-m-d'),
+            'bezPolozek' => true,
+            'sumZklZakl' => 500.0,
+            'popis' => 'CI integration test invoice (no-email customer)',
+        ]);
+        $invoiceId = (int) self::$invoicer->getLastInsertedId();
+
+        try {
+            $clientDebts = self::$upominac->getEvidenceDebts('faktura-vydana', ["firma = {$noEmailId}"]);
+            $this->assertNotEmpty($clientDebts, 'Precondition: the freshly created overdue invoice must be found as a debt');
+
+            $clientInfo = [
+                'id' => $noEmailId,
+                'kod' => $noEmailCode,
+                'nazev' => 'CI Test Customer WITHOUT email',
+                'stitky' => [],
+            ];
+
+            $report = self::$upominac->processUserDebts($clientInfo, $clientDebts);
+
+            $this->assertArrayNotHasKey('changed', $report, 'No date column should be reported as changed when nothing was actually sent');
+
+            self::$invoicer->dataReset();
+            $refetched = self::$invoicer->getColumnsFromAbraFlexi(['datUp1'], ['id' => $invoiceId, 'limit' => 1]);
+            $this->assertSame(
+                '',
+                (string) ($refetched[0]['datUp1'] ?? ''),
+                'datUp1 must stay empty: no notifier actually delivered a reminder',
+            );
+        } finally {
+            self::$invoicer->dataReset();
+            self::$invoicer->setMyKey($invoiceId);
+
+            try {
+                self::$invoicer->deleteFromAbraFlexi();
+            } catch (\Throwable) {
+            }
+        }
+    }
+
+    /**
      * Cleanup all invoices created by individual test methods.
      * Called in setUp() to ensure a clean slate between tests.
      */

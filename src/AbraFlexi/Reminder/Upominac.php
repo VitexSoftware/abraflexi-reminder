@@ -37,6 +37,16 @@ class Upominac extends \AbraFlexi\RW
     public FakturaVydana $invoicer;
 
     /**
+     * Number of errors encountered during the run (e.g. failed remind date save).
+     */
+    private int $errorCount = 0;
+
+    /**
+     * Number of warnings encountered during the run (e.g. skipped locked invoice).
+     */
+    private int $warningCount = 0;
+
+    /**
      * Reminder.
      *
      * @param array $init
@@ -149,6 +159,7 @@ class Upominac extends \AbraFlexi\RW
                     _('No debts. Clear %s Remind labels'),
                     $cid,
                 ), 'error');
+                ++$this->errorCount;
                 $result = false;
             }
         }
@@ -214,6 +225,7 @@ class Upominac extends \AbraFlexi\RW
 
                     if ($unlock['success'] === 'false') {
                         $this->addStatusMessage(_('Invoice locked: skipping process'), 'warning');
+                        ++$this->warningCount;
 
                         break;
                     }
@@ -236,7 +248,7 @@ class Upominac extends \AbraFlexi\RW
                 if (!\array_key_exists('NEUPOMINAT', $stitky)) {
                     $report['remindsSent'] = $this->posliUpominku($reminderLevel, $clientDebts);
 
-                    if ($report['remindsSent']) {
+                    if (self::anyNotifierSucceeded($report['remindsSent'])) {
                         foreach ($invoicesToSave as $invoiceCode => $invoiceData) {
                             switch ($reminderLevel) {
                                 case 1:
@@ -264,12 +276,19 @@ class Upominac extends \AbraFlexi\RW
                                 $invoiceData[$colname] = 'Inventarizace:'.$invoiceData[$colname];
                             }
 
-                            $this->invoicer->setEvidence($invoiceData['evidence']);
+                            // 'evidence' only selects the target evidence for setEvidence();
+                            // it is not a real AbraFlexi column and must not be sent as data,
+                            // or AbraFlexi rejects the whole save and the date is never written.
+                            $invoiceEvidence = $invoiceData['evidence'];
+                            unset($invoiceData['evidence']);
+
+                            $this->invoicer->setEvidence($invoiceEvidence);
 
                             if ($this->invoicer->insertToAbraFlexi($invoiceData)) {
-                                $this->addStatusMessage(sprintf(_('%s %s remind %s date saved'), $invoiceData['evidence'], $invoiceCode, $colname), 'info');
+                                $this->addStatusMessage(sprintf(_('%s %s remind %s date saved'), $invoiceEvidence, $invoiceCode, $colname), 'info');
                             } else {
-                                $this->addStatusMessage(sprintf(_('%s %s remind %s date save failed'), $invoiceData['evidence'], $invoiceCode, $colname), 'error');
+                                $this->addStatusMessage(sprintf(_('%s %s remind %s date save failed'), $invoiceEvidence, $invoiceCode, $colname), 'error');
+                                ++$this->errorCount;
                             }
 
                             $report['changed'] = $colname;
@@ -291,13 +310,14 @@ class Upominac extends \AbraFlexi\RW
         if (\count($invoicesToLock)) {
             foreach ($invoicesToLock as $invoiceCode => $invoiceData) {
                 $this->invoicer->dataReset();
-                $this->invoicer->setMyKey(Code::ensure($did));
+                $this->invoicer->setMyKey(Code::ensure((string) $invoiceData['id']));
                 $lock = $this->invoicer->performAction('lock', 'int');
 
                 if ($lock['success'] === 'true') {
                     $this->addStatusMessage(sprintf(_('Invoice %s locked again'), $invoiceCode), 'info');
                 } else {
                     $this->addStatusMessage(sprintf(_('Invoice %s locking failed'), $invoiceCode), 'error');
+                    ++$this->errorCount;
                 }
             }
         }
@@ -668,12 +688,37 @@ class Upominac extends \AbraFlexi\RW
 
     public function hasErrors(): bool
     {
-        return false; // TODO: implement error tracking
+        return $this->errorCount > 0;
     }
 
     public function hasWarnings(): bool
     {
-        return false; // TODO: implement warning tracking
+        return $this->warningCount > 0;
+    }
+
+    /**
+     * Determine whether at least one notifier module actually reported a delivered reminder.
+     *
+     * Notifier results are heterogeneous: sending modules (ByEmail, BySms, ...) report either
+     * a plain bool or an array containing a 'sent' key, while non-sending modules (e.g.
+     * ByServiceToggle) report an unrelated action array without a 'sent' key and must not be
+     * mistaken for a successful send.
+     *
+     * @param array $remindsSent Per-notifier results, as produced by posliUpominku()
+     */
+    private static function anyNotifierSucceeded(array $remindsSent): bool
+    {
+        foreach ($remindsSent as $notifierResult) {
+            if (\is_bool($notifierResult) && $notifierResult) {
+                return true;
+            }
+
+            if (\is_array($notifierResult) && \array_key_exists('sent', $notifierResult) && $notifierResult['sent']) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function getExitCode(): int
