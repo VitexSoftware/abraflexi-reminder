@@ -49,7 +49,7 @@ class ByDatovka extends \Defr\CzechDataBox\DataBox implements notifier
         parent::__construct(null);
 
         if (!is_dir($this->directory)) {
-            mkdir($this->directory, 0775, true);
+            mkdir($this->directory, 0o775, true);
         }
 
         $labels = $reminder->customer->getAdresar()->getLabels();

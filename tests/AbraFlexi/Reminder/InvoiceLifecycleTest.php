@@ -47,7 +47,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     /**
      * Customer with no overdue invoices → score 0, no reminder triggered.
      */
-    public function testNoInvoices_ScoreIsZero(): void
+    public function testNoInvoicesScoreIsZero(): void
     {
         $score = self::$upominac->getCustomerScore(self::$customerId);
         $this->assertSame(0, $score, 'Customer with no invoices should have score 0');
@@ -56,7 +56,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     /**
      * Invoice overdue 1 day, fresh customer (no labels) → score 1.
      */
-    public function testFreshCustomer_OneDayOverdue_ScoreOne(): void
+    public function testFreshCustomerOneDayOverdueScoreOne(): void
     {
         self::createOverdueInvoice(daysOverdue: 1);
         $score = self::$upominac->getCustomerScore(self::$customerId);
@@ -66,7 +66,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     /**
      * Invoice overdue 15 days, no labels → still score 1 (must escalate through level 1 first).
      */
-    public function testFreshCustomer_FifteenDaysOverdue_ScoreOneNotThree(): void
+    public function testFreshCustomerFifteenDaysOverdueScoreOneNotThree(): void
     {
         self::createOverdueInvoice(daysOverdue: 15);
         $score = self::$upominac->getCustomerScore(self::$customerId);
@@ -76,7 +76,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     /**
      * Invoice overdue 10 days, customer already has UPOMINKA1 → score 2.
      */
-    public function testWithUpominka1_TenDaysOverdue_ScoreTwo(): void
+    public function testWithUpominka1TenDaysOverdueScoreTwo(): void
     {
         self::createOverdueInvoice(daysOverdue: 10);
         self::setCustomerLabels(['UPOMINKA1']);
@@ -87,7 +87,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     /**
      * Invoice overdue 15 days, customer has UPOMINKA1 but no UPOMINKA2 → score 2, not 3.
      */
-    public function testWithUpominka1Only_FifteenDaysOverdue_ScoreTwo(): void
+    public function testWithUpominka1OnlyFifteenDaysOverdueScoreTwo(): void
     {
         self::createOverdueInvoice(daysOverdue: 15);
         self::setCustomerLabels(['UPOMINKA1']);
@@ -98,7 +98,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     /**
      * Invoice overdue 15 days, customer has both UPOMINKA1 and UPOMINKA2 → score 3.
      */
-    public function testWithUpominka1And2_FifteenDaysOverdue_ScoreThree(): void
+    public function testWithUpominka1And2FifteenDaysOverdueScoreThree(): void
     {
         self::createOverdueInvoice(daysOverdue: 15);
         self::setCustomerLabels(['UPOMINKA1', 'UPOMINKA2']);
@@ -109,7 +109,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     /**
      * Customer with UPOMINKA1+2+3 and overdue invoice → score stays at 3 (already reminded).
      */
-    public function testAllLabelsSet_ScoreThree(): void
+    public function testAllLabelsSetScoreThree(): void
     {
         self::createOverdueInvoice(daysOverdue: 15);
         self::setCustomerLabels(['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3']);
@@ -120,7 +120,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     /**
      * All debts paid → enableCustomer() removes reminder labels, score drops to 0.
      */
-    public function testPaidOff_LabelsCleared(): void
+    public function testPaidOffLabelsCleared(): void
     {
         self::setCustomerLabels(['UPOMINKA1', 'UPOMINKA2']);
         self::$upominac->enableCustomer('UPOMINKA1,UPOMINKA2', self::$customerId);
@@ -133,7 +133,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     /**
      * Customer with NEUPOMINAT label → score calculated but reminder suppressed in processUserDebts.
      */
-    public function testNeupominatLabel_ScoreStillCalculated(): void
+    public function testNeupominatLabelScoreStillCalculated(): void
     {
         self::createOverdueInvoice(daysOverdue: 5);
         self::setCustomerLabels(['NEUPOMINAT']);
@@ -146,7 +146,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
      * EASE_EMAILTO instead of skipping delivery) must be recorded back on the invoice as
      * datUp1.
      */
-    public function testReminderSent_WritesDatUp1(): void
+    public function testReminderSentWritesDatUp1(): void
     {
         $invoiceId = self::createOverdueInvoice(daysOverdue: 1);
 
@@ -193,7 +193,7 @@ class InvoiceLifecycleTest extends IntegrationTestCase
      * verification against the dev instance confirmed this: with the old code the same
      * scenario below did write datUp1.
      */
-    public function testNoNotifierSucceeded_DoesNotWriteDate(): void
+    public function testNoNotifierSucceededDoesNotWriteDate(): void
     {
         $noEmailCode = 'TEST-CI-NOEMAIL';
         $adresar = new \AbraFlexi\Adresar();

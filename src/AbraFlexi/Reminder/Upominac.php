@@ -465,6 +465,7 @@ class Upominac extends \AbraFlexi\RW
         // typDokl is only reliable on faktura-vydana; pohledavka records may have null
         // typDoklK which causes AbraFlexi\Relation::__construct() to throw a TypeError
         $currentEvidence = $this->invoicer->getEvidence();
+
         if ($currentEvidence === 'faktura-vydana') {
             $colsToGet[] = 'typDokl(typDoklK,kod)';
             $this->invoicer->defaultUrlParams['includes'] = '/'.$currentEvidence.'/typDokl';
@@ -494,8 +495,8 @@ class Upominac extends \AbraFlexi\RW
                 $invoiceData['evidence'] = $evidenceUsed;
 
                 if (
-                    isset($invoiceData['typDokl']) &&
-                    \array_key_exists(
+                    isset($invoiceData['typDokl'])
+                    && \array_key_exists(
                         \AbraFlexi\Code::strip((string) $invoiceData['typDokl']),
                         $docTypeSkipList,
                     )
@@ -707,6 +708,19 @@ class Upominac extends \AbraFlexi\RW
         return $this->warningCount > 0;
     }
 
+    public function getExitCode(): int
+    {
+        $exitcode = 0;
+
+        if ($this->hasErrors()) {
+            $exitcode = 2;
+        } elseif ($this->hasWarnings()) {
+            $exitcode = 1;
+        }
+
+        return $exitcode;
+    }
+
     /**
      * List the notifier modules that actually reported a delivered reminder.
      *
@@ -732,19 +746,6 @@ class Upominac extends \AbraFlexi\RW
         }
 
         return $notifiedVia;
-    }
-
-    public function getExitCode(): int
-    {
-        $exitcode = 0;
-
-        if ($this->hasErrors()) {
-            $exitcode = 2;
-        } elseif ($this->hasWarnings()) {
-            $exitcode = 1;
-        }
-
-        return $exitcode;
     }
 
     /**
@@ -783,5 +784,4 @@ class Upominac extends \AbraFlexi\RW
 
         return $reminderLevel;
     }
-
 }

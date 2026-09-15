@@ -52,8 +52,9 @@ if ($customerCode) {
         $exitcode = 1;
     } else {
         $row = $rows[0];
+
         // Normalize stitky: Relation objects → comma-separated string so unsetLabel() diff works
-        if (is_array($row['stitky'] ?? null)) {
+        if (\is_array($row['stitky'] ?? null)) {
             $row['stitky'] = implode(',', array_map('strval', $row['stitky']));
         }
 

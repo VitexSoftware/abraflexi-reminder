@@ -153,7 +153,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
                 $headingTableRow->addItem(new TdTag(
                     $logo,
                     ['width' => '200px'],
-                ),);
+                ), );
                 $headingTable = new TableTag(
                     $headingTableRow,
                     ['width' => '100%'],

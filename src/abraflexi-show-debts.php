@@ -34,12 +34,13 @@ $localer = new \Ease\Locale(Shared::cfg('LANG', 'cs_CZ'), '../i18n', 'abraflexi-
 $reminder = new Upominac();
 $destination = \array_key_exists('output', $options) ? $options['output'] : Shared::cfg('RESULT_FILE', 'php://stdout');
 
-if (strtolower(Shared::cfg('APP_DEBUG')) === 'true') {
+if (strtolower(Shared::cfg('APP_DEBUG', 'false')) === 'true') {
     $reminder->logBanner(Shared::appName().' v'.Shared::appVersion());
 }
 
 $allDebts = $reminder->getAllDebts(['limit' => 0, "datSplat gte '".\AbraFlexi\Date::timestampToFlexiDate(mktime(0, 0, 0, (int) date('m'), (int) date('d') - (int) \Ease\Shared::cfg('SURRENDER_DAYS', 365), (int) date('Y')))."' "]);
 $allClients = $reminder->getCustomerList(['limit' => 0]);
+
 if (empty($allClients)) {
     $reminder->addStatusMessage(_('No customers found'), 'warning');
 }

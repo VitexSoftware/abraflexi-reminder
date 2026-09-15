@@ -82,8 +82,7 @@ abstract class IntegrationTestCase extends TestCase
     /**
      * Create an overdue invoice for the test customer.
      *
-     * @param int   $daysOverdue Days past the due date (positive = overdue)
-     * @param float $amount
+     * @param int $daysOverdue Days past the due date (positive = overdue)
      */
     protected static function createOverdueInvoice(int $daysOverdue = 10, float $amount = 1000.0): int
     {
