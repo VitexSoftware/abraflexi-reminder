@@ -17,7 +17,8 @@
     "Sms"
   ],
   "requirements": [
-    "AbraFlexi"
+    "AbraFlexi",
+    "Mail"
   ],
   "homepage": "https://github.com/VitexSoftware/abraflexi-reminder",
   "executable": "abraflexi-reminder",
@@ -111,6 +112,26 @@
       },
       "defval": "",
       "required": true,
+      "category": "Other"
+    },
+    "MAIL_DSN": {
+      "type": "password",
+      "description": {
+        "en": "Symfony Mailer DSN for sending reminders (e.g. smtp://user:pass@host:port). Defaults to local sendmail if empty. Only use insecure options like verify_peer=0 for trusted internal/private relays; prefer peer_fingerprint to pin a self-signed cert instead of disabling TLS verification.",
+        "cs": "DSN pro Symfony Mailer k odeslání upomínek (např. smtp://user:pass@host:port). Pokud je prázdné, použije se lokální sendmail. Nezabezpečené volby jako verify_peer=0 používejte pouze pro důvěryhodné interní/privátní relaye; pro self-signed certifikát preferujte peer_fingerprint místo vypnutí ověřování TLS."
+      },
+      "defval": "",
+      "required": false,
+      "category": "Other"
+    },
+    "MAIL_FROM": {
+      "type": "email",
+      "description": {
+        "en": "Fallback sender address used when REMIND_FROM is not set",
+        "cs": "Náhradní odesílatel použitý, pokud není nastaveno REMIND_FROM"
+      },
+      "defval": "",
+      "required": false,
       "category": "Other"
     },
     "SURRENDER_DAYS": {

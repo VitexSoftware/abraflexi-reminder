@@ -16,12 +16,16 @@ All configuration is supplied through environment variables (or a `.env` file pa
 | Variable | Type | Required | Default | Description |
 |----------|------|----------|---------|-------------|
 | `REMIND_FROM` | email | Yes | | Sender address for reminder e-mails |
+| `MAIL_FROM` | email | No | | Fallback sender address used when `REMIND_FROM` is not set (shared with other MultiFlexi apps via the "Mail" credential) |
+| `MAIL_DSN` | password | No | `sendmail://default` | Symfony Mailer DSN used to send all mail, e.g. `smtp://user:pass@host:port`. Prefer `?peer_fingerprint=<hex>` to pin a self-signed relay certificate over `?verify_peer=0`, which disables TLS verification entirely and should only be used for trusted internal relays |
 | `MAIL_CC` | email | No | | CC address added to every reminder e-mail |
 | `MUTE` | bool | No | `false` | When `true`, redirect all e-mails to `EASE_EMAILTO` instead of the real customer address |
 | `EASE_EMAILTO` | email | No | | Fallback address used when `MUTE` is `true` |
 | `MAX_MAIL_SIZE` | integer | No | `0` | Maximum total e-mail size in bytes; attachments skipped when exceeded (0 = unlimited) |
 | `ADD_LOGO` | bool | No | `false` | Embed company logo in reminder e-mails |
 | `QR_PAYMENTS` | bool | No | `false` | Attach QR payment codes to reminder e-mails |
+
+> `EASE_SMTP` (legacy PEAR `Mail`/`Net_SMTP` JSON connection parameters) is no longer read. Mail is sent via [Symfony Mailer](https://symfony.com/doc/current/mailer.html); configure `MAIL_DSN` instead.
 
 ## SMS
 

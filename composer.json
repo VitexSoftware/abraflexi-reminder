@@ -16,7 +16,9 @@
     "tecnickcom/tcpdf": "^6.11",
     "hsp-dev/huawei-api": "dev-master",
     "dfridrich/czech-data-box": "^1.4",
-    "vitexsoftware/ease-html": "^1.40"
+    "vitexsoftware/ease-html": "^1.40",
+    "symfony/mailer": "^6.4|^7.0",
+    "symfony/mime": "^6.4|^7.0"
   },
   "autoload": {
     "psr-4": {
