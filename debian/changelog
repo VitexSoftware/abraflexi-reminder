@@ -1,3 +1,15 @@
+abraflexi-reminder (1.7.6) unstable; urgency=medium
+
+  * fix(packaging): install src/AbraFlexi/Reminder/Notifier/ByServiceToggle.php
+    into the abraflexi-reminder package — it was added to the source tree but
+    never listed in debian/abraflexi-reminder.install, so the deployed
+    package never shipped it. Since Notifier classes are discovered at
+    runtime by scanning the directory, the missing file caused
+    SERVICE_TOGGLE_ENABLED to silently do nothing (no error, no log,
+    ODPOJENO never set) instead of failing loudly
+
+ -- vitex <info@vitexsoftware.cz>  Wed, 16 Sep 2026 10:00:00 +0200
+
 abraflexi-reminder (1.7.5) unstable; urgency=medium
 
   * feat(clean-labels): remove SERVICE_DISCONNECT_LABEL when

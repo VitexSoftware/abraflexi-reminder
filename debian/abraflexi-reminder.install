@@ -12,6 +12,7 @@ src/AbraFlexi/Reminder/Upominac.php                     usr/lib/abraflexi-remind
 src/AbraFlexi/Reminder/Upominka.php                     usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/notifier.php			usr/lib/abraflexi-reminder/Reminder/
 src/AbraFlexi/Reminder/Notifier/ByEmail.php             usr/lib/abraflexi-reminder/Reminder/Notifier
+src/AbraFlexi/Reminder/Notifier/ByServiceToggle.php     usr/lib/abraflexi-reminder/Reminder/Notifier
 
 bin/abraflexi-show-debts        usr/bin/
 bin/abraflexi-notify-customers 	usr/bin/
