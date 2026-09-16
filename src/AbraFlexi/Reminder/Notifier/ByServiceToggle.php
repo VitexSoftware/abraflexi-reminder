@@ -79,10 +79,8 @@ class ByServiceToggle extends Sand implements \AbraFlexi\Reminder\notifier
         }
 
         $labels[$disconnectLabel] = $disconnectLabel;
-        $response = $adresar->insertToAbraFlexi(['id' => $customerId, 'stitky' => $labels]);
-        $success = !empty($response)
-            && isset($response['success'])
-            && ($response['success'] === 'true' || $response['success'] === true);
+        $adresar->insertToAbraFlexi(['id' => $customerId, 'stitky' => $labels]);
+        $success = $adresar->lastResponseCode === 201;
 
         $this->result = ['action' => 'disconnect', 'label' => $disconnectLabel, 'success' => $success];
 

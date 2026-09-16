@@ -1,3 +1,14 @@
+abraflexi-reminder (1.7.7) unstable; urgency=medium
+
+  * fix(ByServiceToggle): stop reporting the disconnect label write as
+    failed when it actually succeeded. insertToAbraFlexi() returns the raw
+    'results' array (no top-level 'success' key) for this call shape, so
+    checking $response['success'] was always false; use
+    $adresar->lastResponseCode === 201 instead, matching the pattern
+    already used correctly in abraflexi-reminder-clean-labels.php
+
+ -- vitex <info@vitexsoftware.cz>  Wed, 16 Sep 2026 11:00:00 +0200
+
 abraflexi-reminder (1.7.6) unstable; urgency=medium
 
   * fix(packaging): install src/AbraFlexi/Reminder/Notifier/ByServiceToggle.php
