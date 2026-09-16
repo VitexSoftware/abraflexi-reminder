@@ -34,7 +34,7 @@ if (Shared::cfg('APP_DEBUG') === 'True') {
 
 $labelsRequiedRaw = ['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3', 'NEPLATIC'];
 
-if (Shared::cfg('SERVICE_TOGGLE_ENABLED', false)) {
+if (Shared::cfg('SERVICE_TOGGLE_ENABLED', false) && Shared::cfg('SERVICE_CLEAR_DISCONNECT_LABEL', false)) {
     $labelsRequiedRaw[] = (string) Shared::cfg('SERVICE_DISCONNECT_LABEL', 'ODPOJENO');
 }
 

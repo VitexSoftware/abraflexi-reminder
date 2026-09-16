@@ -94,6 +94,36 @@
       "required": false,
       "category": "Behavior"
     },
+    "SERVICE_TOGGLE_ENABLED": {
+      "type": "bool",
+      "description": {
+        "en": "Enable isp-tools service-toggle integration (must match abraflexi-reminder's setting)",
+        "cs": "Zapnout integraci s isp-tools (musí odpovídat nastavení v abraflexi-reminder)"
+      },
+      "defval": "False",
+      "required": false,
+      "category": "Behavior"
+    },
+    "SERVICE_DISCONNECT_LABEL": {
+      "type": "string",
+      "description": {
+        "en": "Label used to mark customers for disconnection",
+        "cs": "Štítek používaný k označení zákazníků k odpojení"
+      },
+      "defval": "ODPOJENO",
+      "required": false,
+      "category": "Behavior"
+    },
+    "SERVICE_CLEAR_DISCONNECT_LABEL": {
+      "type": "bool",
+      "description": {
+        "en": "Also clear the disconnect label here once debts are settled. Leave disabled (default) when isp-tools UnblockNet is deployed - UnblockNet removes the label itself only after the customer's network access is actually restored, and clearing it here first would make UnblockNet unable to find the customer, leaving them permanently disconnected.",
+        "cs": "Smazat zde i štítek pro odpojení, jakmile jsou dluhy uhrazeny. Ponechte vypnuté (výchozí), pokud je nasazen isp-tools UnblockNet - ten štítek maže sám až po skutečném obnovení připojení; smazání zde dřív by způsobilo, že UnblockNet zákazníka nenajde a zůstane trvale odpojený."
+      },
+      "defval": "False",
+      "required": false,
+      "category": "Behavior"
+    },
     "EASE_LOGGER": {
       "type": "string",
       "description": {

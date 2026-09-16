@@ -214,6 +214,26 @@
       "required": false,
       "category": "Other"
     },
+    "SERVICE_TOGGLE_ENABLED": {
+      "type": "bool",
+      "description": {
+        "en": "Enable setting the disconnect label on customers reaching the highest reminder level (isp-tools integration)",
+        "cs": "Zapnout nastavení štítku pro odpojení u zákazníků na nejvyšší úrovni upomínek (integrace s isp-tools)"
+      },
+      "defval": "False",
+      "required": false,
+      "category": "Behavior"
+    },
+    "SERVICE_DISCONNECT_LABEL": {
+      "type": "string",
+      "description": {
+        "en": "Label set on the customer's address record to mark them for disconnection",
+        "cs": "Štítek nastavený na adresu zákazníka pro označení k odpojení"
+      },
+      "defval": "ODPOJENO",
+      "required": false,
+      "category": "Behavior"
+    },
     "MODEM_IP": {
       "type": "string",
       "description": {
