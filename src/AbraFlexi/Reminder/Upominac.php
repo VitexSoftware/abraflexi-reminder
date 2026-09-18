@@ -603,6 +603,15 @@ class Upominac extends \AbraFlexi\RW
         return ['clientsToSkip' => $clientsToSkip, 'report' => ['skippedClients' => array_keys($clientsToSkip)]];
     }
 
+    /**
+     * 
+     * @param array $allDebts
+     * @param array $allClients
+     * @param array $clientsToSkip
+     * @param self $reminder
+     * 
+     * @return array
+     */
     public function prepareDebts(array $allDebts, array &$allClients, array $clientsToSkip, self $reminder): array
     {
         $allDebtsByClient = [];
@@ -655,6 +664,16 @@ class Upominac extends \AbraFlexi\RW
         ];
     }
 
+    /**
+     * 
+     * @param array $allDebtsByClient
+     * @param array $allClients
+     * @param array $clientsToSkip
+     * @param self $reminder
+     * @param array $report
+     * 
+     * @return array
+     */
     public function processDebts(array $allDebtsByClient, array $allClients, array $clientsToSkip, self $reminder, array $report): array
     {
         foreach ($allDebtsByClient as $clientCode => $clientDebts) {

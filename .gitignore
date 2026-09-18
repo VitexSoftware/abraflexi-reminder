@@ -36,3 +36,6 @@
 /debian/multiflexi-abraflexi-reminder/
 nbproject/configs
 /.build/
+.env
+.phpunit.result.cache
+.vscode/settings.json

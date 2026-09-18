@@ -57,7 +57,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
         if ($this->compile($score, $reminder->customer, $debts)) {
             $result = $this->send();
 
-            if ($score && $result) {
+            if ($result) {
                 $reminder->customer->getAdresar()->setData([
                     'id' => $reminder->customer->getAdresar()->getRecordIdent(),
                     'stitky' => 'UPOMINKA'.$score,
@@ -72,12 +72,12 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
 
                 $reminder->addStatusMessage($message, $labelUpdated ? 'success' : 'error');
             } else {
-                $message = _('Sent');
+                $message = _('Remind by mail was not sent');
+                $this->addStatusMessage($message, 'warning');
             }
         } else {
-            $this->addStatusMessage(_('Remind was not sent'), 'warning');
-            $message = _('Remind was not sent');
-            $result = false;
+            $message = _('Remind mail was not created');
+            $this->addStatusMessage($message, 'warning');
         }
 
         $this->result = ['sent' => $result, 'message' => $message];
