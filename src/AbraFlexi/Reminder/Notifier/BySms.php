@@ -45,6 +45,7 @@ class BySms extends Sand
     {
         $this->setObjectName();
         $result = false;
+        $noContact = false;
 
         if (\Ease\Shared::cfg('SMS_ENGINE', false)) {
             if ($reminder->customer->getAdresar()->getAnyPhoneNumber()) {
@@ -81,11 +82,12 @@ class BySms extends Sand
                     }
                 }
             } else {
+                $noContact = true;
                 $message = sprintf(_('Client %s without phone neumber %s !!!'), $reminder->customer->getAdresar()->getDataValue('nazev'), $reminder->customer->getAdresar()->getApiURL());
                 $this->addStatusMessage($message, 'warning');
             }
 
-            $this->result = ['sent' => $result, 'message' => $message];
+            $this->result = ['sent' => $result, 'message' => $message, 'noContact' => $noContact];
         }
     }
 

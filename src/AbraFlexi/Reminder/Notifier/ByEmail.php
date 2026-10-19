@@ -42,6 +42,11 @@ use Ease\Sand;
 class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
 {
     public array $result = [];
+
+    /**
+     * True when the customer has no e-mail address to notify.
+     */
+    public bool $noContact = false;
     public RemindMailer $mailer;
     public FakturaVydana $invoicer;
     private \AbraFlexi\Adresar $firmer;
@@ -80,7 +85,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
             $this->addStatusMessage($message, 'warning');
         }
 
-        $this->result = ['sent' => $result, 'message' => $message];
+        $this->result = ['sent' => $result, 'message' => $message, 'noContact' => $this->noContact];
     }
 
     /**
@@ -209,6 +214,7 @@ class ByEmail extends Sand implements \AbraFlexi\Reminder\notifier
             $this->mailer->addItem(new PTag(new \Ease\Html\SmallTag(new \Ease\Html\ATag('https://github.com/VitexSoftware/abraflexi-reminder', \Ease\Shared::appName()).' v'.\Ease\Shared::appVersion())));
             $result = true;
         } else {
+            $this->noContact = true;
             $this->addStatusMessage(sprintf(_('Client %s without email %s !!!'), $nazev, $this->firmer->getApiURL()), 'error');
         }
 

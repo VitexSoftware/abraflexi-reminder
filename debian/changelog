@@ -1,3 +1,28 @@
+abraflexi-reminder (1.7.8) unstable; urgency=medium
+
+  * fix(Upominac): stop discovering notifier classes (ByEmail, ByDatovka,
+    BySms, ByServiceToggle) via Ease\Functions::loadClassesInNamespace()
+    directory scanning at runtime. That scan depends on a real
+    Composer-generated composer/autoload_psr4.php sitting next to whichever
+    autoload.php got require()'d; the packaged install now ships its own
+    hand-written spl_autoload_register() autoloader instead, so the scan
+    silently found zero notifiers on every install — no reminder was ever
+    sent, no datUp1/datUp2/datSmir/inventarization date was ever written,
+    with no error or log output. processNotifyModules() now lists the
+    known notifier classes explicitly and instantiates only the ones whose
+    class is actually loaded (class_exists()), which works correctly with
+    both the Composer and the hand-written autoloader, and still tolerates
+    notifiers that ship in optional packages (e.g. BySms.php is only in
+    abraflexi-reminder-sms) not being installed.
+  * fix(Upominac): the per-customer line in the job log was always reported
+    as success regardless of delivery. It is now green only when at least one
+    notification channel delivered, orange (warning) when the customer has no
+    contact (no e-mail / phone), and red (error) when a contact exists but
+    delivery failed. The outcome is also stored as 'outcome' in the report.
+  * feat(multiflexi): store the result report (RESULT_FILE) as a job artifact.
+
+ -- vitex <info@vitexsoftware.cz>  Mon, 21 Sep 2026 08:15:00 +0200
+
 abraflexi-reminder (1.7.7) unstable; urgency=medium
 
   * fix(ByServiceToggle): stop reporting the disconnect label write as

@@ -410,12 +410,30 @@ class Upominac extends \AbraFlexi\RW
     public function processNotifyModules($score, $debts)
     {
         $result = [];
-        $notifiersNamespace = 'AbraFlexi\\Reminder\\Notifier';
-        \Ease\Functions::loadClassesInNamespace($notifiersNamespace);
 
-        foreach (\Ease\Functions::classesInNamespace($notifiersNamespace) as $notifierClass) {
-            $class = $notifiersNamespace.'\\'.$notifierClass;
-            $result[$notifierClass] = new $class($this, $score, $debts);
+        // Notifier classes are shipped across several optional Debian packages
+        // (e.g. BySms.php only in abraflexi-reminder-sms, ByDatovka.php only in
+        // a Datovka add-on), so not every install has every class file present.
+        // Runtime directory scanning (Ease\Functions::loadClassesInNamespace())
+        // used to discover whichever ones *are* installed, but it depends on a
+        // real Composer-generated composer/autoload_psr4.php sitting next to
+        // the autoloader that was require()'d — the packaged install now ships
+        // its own hand-written spl_autoload_register() autoloader instead, so
+        // that discovery silently finds nothing and no reminder ever gets sent
+        // or recorded. List the known notifiers explicitly and skip any whose
+        // class isn't loaded (unavailable in this install) instead of relying
+        // on directory discovery.
+        foreach ([
+            'ByEmail',
+            'ByDatovka',
+            'BySms',
+            'ByServiceToggle',
+        ] as $notifierClass) {
+            $class = 'AbraFlexi\\Reminder\\Notifier\\'.$notifierClass;
+
+            if (class_exists($class)) {
+                $result[$notifierClass] = new $class($this, $score, $debts);
+            }
         }
 
         return $result;
@@ -688,26 +706,42 @@ class Upominac extends \AbraFlexi\RW
 
                 $clientData = $allClients[$clientCodeShort];
 
-                if ($clientCode) {
-                    $reminder->addStatusMessage(
-                        $clientCodeShort.' '.
-                        $clientData['nazev'].
-                        ' ['.implode(',', $clientData['stitky']).'] '.
-                        self::formatTotals($clientData['totals']),
-                        'success',
-                    );
-                } else {
+                if (!$clientCode) {
                     $reminder->addStatusMessage(_('Missing Client CODE'), 'warning');
                 }
 
                 $clientReport = $reminder->processUserDebts($clientData, $clientDebts);
+                $clientReport['outcome'] = self::notificationOutcome($clientReport);
 
-                if (!empty($clientReport['notifiedVia'])) {
+                // green: at least one channel delivered; orange: no contact found;
+                // red: contact exists but delivery failed; plain info: nothing to send this run
+                $outcomeStatus = [
+                    'notified' => 'success',
+                    'noContact' => 'warning',
+                    'failed' => 'error',
+                    'skipped' => 'info',
+                ][$clientReport['outcome']];
+
+                $reminder->addStatusMessage(
+                    $clientCodeShort.' '.
+                    $clientData['nazev'].
+                    ' ['.implode(',', $clientData['stitky']).'] '.
+                    self::formatTotals($clientData['totals']),
+                    $outcomeStatus,
+                );
+
+                if ($clientReport['outcome'] === 'notified') {
                     $reminder->addStatusMessage(sprintf(
                         _('%s notified via %s'),
                         $clientCodeShort,
                         implode(', ', $clientReport['notifiedVia']),
                     ), 'success');
+                } elseif ($clientReport['outcome'] === 'noContact') {
+                    ++$reminder->warningCount;
+                    $reminder->addStatusMessage(sprintf(_('%s has no contact to send the reminder to'), $clientCodeShort), 'warning');
+                } elseif ($clientReport['outcome'] === 'failed') {
+                    ++$reminder->errorCount;
+                    $reminder->addStatusMessage(sprintf(_('%s reminder delivery failed'), $clientCodeShort), 'error');
                 }
 
                 $report['reminded'][$clientCodeShort] = $clientReport;
@@ -738,6 +772,36 @@ class Upominac extends \AbraFlexi\RW
         }
 
         return $exitcode;
+    }
+
+    /**
+     * Classify what happened to a customer's reminder.
+     *
+     * Only channels reporting a 'sent' key (ByEmail, BySms) count as delivery attempts;
+     * ByDatovka's bool false for customers without a data box and ByServiceToggle's action
+     * array are not delivery failures.
+     *
+     * @param array $clientReport Result of processUserDebts()
+     *
+     * @return string notified|noContact|failed|skipped
+     */
+    private static function notificationOutcome(array $clientReport): string
+    {
+        if (!empty($clientReport['notifiedVia'])) {
+            return 'notified';
+        }
+
+        if (!isset($clientReport['remindsSent'])) {
+            return 'skipped';
+        }
+
+        $attempts = array_filter($clientReport['remindsSent'], static fn ($r) => \is_array($r) && \array_key_exists('sent', $r));
+
+        if ($attempts !== [] && array_filter($attempts, static fn ($r) => empty($r['noContact'])) === []) {
+            return 'noContact';
+        }
+
+        return 'failed';
     }
 
     /**

@@ -304,5 +304,16 @@
       "severity": "success",
       "retry": false
     }
-  }
+  },
+  "artifacts": [
+    {
+      "name": "Reminder Report",
+      "path": "${RESULT_FILE}",
+      "type": "json",
+      "description": {
+        "en": "The reminder report listing customers and the notification channels that reached them.",
+        "cs": "Report upomínání se seznamem zákazníků a kanálů, kterými byli upozorněni."
+      }
+    }
+  ]
 }

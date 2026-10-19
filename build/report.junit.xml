@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/phpunit.xml" tests="48" assertions="61" errors="0" failures="0" skipped="26" time="4.834327">
+    <testsuite name="all" tests="48" assertions="61" errors="0" failures="0" skipped="26" time="4.834327">
+      <testsuite name="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" tests="11" assertions="20" errors="0" failures="0" skipped="0" time="4.644114">
+        <testcase name="testNoInvoicesScoreIsZero" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="50" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="1" time="0.115805"/>
+        <testcase name="testFreshCustomerOneDayOverdueScoreOne" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="59" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="1" time="0.222394"/>
+        <testcase name="testFreshCustomerFifteenDaysOverdueScoreOneNotThree" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="69" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="1" time="0.416502"/>
+        <testcase name="testWithUpominka1TenDaysOverdueScoreTwo" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="79" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="1" time="0.460902"/>
+        <testcase name="testWithUpominka1OnlyFifteenDaysOverdueScoreTwo" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="90" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="1" time="0.395217"/>
+        <testcase name="testWithUpominka1And2FifteenDaysOverdueScoreThree" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="101" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="1" time="0.354202"/>
+        <testcase name="testAllLabelsSetScoreThree" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="112" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="1" time="0.460084"/>
+        <testcase name="testPaidOffLabelsCleared" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="123" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="2" time="0.376632"/>
+        <testcase name="testNeupominatLabelScoreStillCalculated" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="136" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="1" time="0.275023"/>
+        <testcase name="testReminderSentWritesDatUp1" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="149" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="6" time="1.076900"/>
+        <testcase name="testNoNotifierSucceededDoesNotWriteDate" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/InvoiceLifecycleTest.php" line="196" class="Tests\AbraFlexi\Reminder\InvoiceLifecycleTest" classname="Tests.AbraFlexi.Reminder.InvoiceLifecycleTest" assertions="4" time="0.490453"/>
+      </testsuite>
+      <testsuite name="Tests\AbraFlexi\Reminder\NotificationOutcomeTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/NotificationOutcomeTest.php" tests="6" assertions="6" errors="0" failures="0" skipped="0" time="0.003328">
+        <testsuite name="Tests\AbraFlexi\Reminder\NotificationOutcomeTest::testOutcome" tests="6" assertions="6" errors="0" failures="0" skipped="0" time="0.003328">
+          <testcase name="testOutcome with data set &quot;delivered&quot;" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/NotificationOutcomeTest.php" line="51" class="Tests\AbraFlexi\Reminder\NotificationOutcomeTest" classname="Tests.AbraFlexi.Reminder.NotificationOutcomeTest" assertions="1" time="0.000561"/>
+          <testcase name="testOutcome with data set &quot;nothing attempted&quot;" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/NotificationOutcomeTest.php" line="51" class="Tests\AbraFlexi\Reminder\NotificationOutcomeTest" classname="Tests.AbraFlexi.Reminder.NotificationOutcomeTest" assertions="1" time="0.000499"/>
+          <testcase name="testOutcome with data set &quot;no e-mail, other modules idle&quot;" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/NotificationOutcomeTest.php" line="51" class="Tests\AbraFlexi\Reminder\NotificationOutcomeTest" classname="Tests.AbraFlexi.Reminder.NotificationOutcomeTest" assertions="1" time="0.000688"/>
+          <testcase name="testOutcome with data set &quot;contact exists, send failed&quot;" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/NotificationOutcomeTest.php" line="51" class="Tests\AbraFlexi\Reminder\NotificationOutcomeTest" classname="Tests.AbraFlexi.Reminder.NotificationOutcomeTest" assertions="1" time="0.000548"/>
+          <testcase name="testOutcome with data set &quot;one channel without contact, other failed&quot;" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/NotificationOutcomeTest.php" line="51" class="Tests\AbraFlexi\Reminder\NotificationOutcomeTest" classname="Tests.AbraFlexi.Reminder.NotificationOutcomeTest" assertions="1" time="0.000526"/>
+          <testcase name="testOutcome with data set &quot;no channel available&quot;" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/NotificationOutcomeTest.php" line="51" class="Tests\AbraFlexi\Reminder\NotificationOutcomeTest" classname="Tests.AbraFlexi.Reminder.NotificationOutcomeTest" assertions="1" time="0.000507"/>
+        </testsuite>
+      </testsuite>
+      <testsuite name="Tests\AbraFlexi\Reminder\PDFPageTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/PDFPageTest.php" tests="1" assertions="0" errors="0" failures="0" skipped="1" time="0.011021">
+        <testcase name="testGetPdf" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/PDFPageTest.php" line="51" class="Tests\AbraFlexi\Reminder\PDFPageTest" classname="Tests.AbraFlexi.Reminder.PDFPageTest" assertions="0" time="0.011021">
+          <skipped/>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\AbraFlexi\Reminder\RemindMailerTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/RemindMailerTest.php" tests="3" assertions="0" errors="0" failures="0" skipped="3" time="0.004967">
+        <testcase name="testAddItem" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/RemindMailerTest.php" line="51" class="Tests\AbraFlexi\Reminder\RemindMailerTest" classname="Tests.AbraFlexi.Reminder.RemindMailerTest" assertions="0" time="0.001450">
+          <skipped/>
+        </testcase>
+        <testcase name="testGetCss" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/RemindMailerTest.php" line="62" class="Tests\AbraFlexi\Reminder\RemindMailerTest" classname="Tests.AbraFlexi.Reminder.RemindMailerTest" assertions="0" time="0.001532">
+          <skipped/>
+        </testcase>
+        <testcase name="testGetCurrentMailSize" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/RemindMailerTest.php" line="73" class="Tests\AbraFlexi\Reminder\RemindMailerTest" classname="Tests.AbraFlexi.Reminder.RemindMailerTest" assertions="0" time="0.001985">
+          <skipped/>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\AbraFlexi\Reminder\SmsByGnokiiTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsByGnokiiTest.php" tests="1" assertions="0" errors="0" failures="0" skipped="1" time="0.001684">
+        <testcase name="testSendMessage" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsByGnokiiTest.php" line="51" class="Tests\AbraFlexi\Reminder\SmsByGnokiiTest" classname="Tests.AbraFlexi.Reminder.SmsByGnokiiTest" assertions="0" time="0.001684">
+          <skipped/>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\AbraFlexi\Reminder\SmsBySshGnokiiTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsBySshGnokiiTest.php" tests="1" assertions="0" errors="0" failures="0" skipped="1" time="0.001302">
+        <testcase name="testSendMessage" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsBySshGnokiiTest.php" line="51" class="Tests\AbraFlexi\Reminder\SmsBySshGnokiiTest" classname="Tests.AbraFlexi.Reminder.SmsBySshGnokiiTest" assertions="0" time="0.001302">
+          <skipped/>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\AbraFlexi\Reminder\SmsTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsTest.php" tests="6" assertions="0" errors="0" failures="0" skipped="6" time="0.007201">
+        <testcase name="testGetMessage" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsTest.php" line="51" class="Tests\AbraFlexi\Reminder\SmsTest" classname="Tests.AbraFlexi.Reminder.SmsTest" assertions="0" time="0.001211">
+          <skipped/>
+        </testcase>
+        <testcase name="testGetNumber" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsTest.php" line="62" class="Tests\AbraFlexi\Reminder\SmsTest" classname="Tests.AbraFlexi.Reminder.SmsTest" assertions="0" time="0.001163">
+          <skipped/>
+        </testcase>
+        <testcase name="testSetNumber" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsTest.php" line="73" class="Tests\AbraFlexi\Reminder\SmsTest" classname="Tests.AbraFlexi.Reminder.SmsTest" assertions="0" time="0.001237">
+          <skipped/>
+        </testcase>
+        <testcase name="testSetMessage" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsTest.php" line="84" class="Tests\AbraFlexi\Reminder\SmsTest" classname="Tests.AbraFlexi.Reminder.SmsTest" assertions="0" time="0.001248">
+          <skipped/>
+        </testcase>
+        <testcase name="testUnifyTelNo" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsTest.php" line="95" class="Tests\AbraFlexi\Reminder\SmsTest" classname="Tests.AbraFlexi.Reminder.SmsTest" assertions="0" time="0.001175">
+          <skipped/>
+        </testcase>
+        <testcase name="testSendMessage" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsTest.php" line="106" class="Tests\AbraFlexi\Reminder\SmsTest" classname="Tests.AbraFlexi.Reminder.SmsTest" assertions="0" time="0.001166">
+          <skipped/>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\AbraFlexi\Reminder\SmsToAddressTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsToAddressTest.php" tests="1" assertions="0" errors="0" failures="0" skipped="1" time="0.001139">
+        <testcase name="testGetNumber" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/SmsToAddressTest.php" line="51" class="Tests\AbraFlexi\Reminder\SmsToAddressTest" classname="Tests.AbraFlexi.Reminder.SmsToAddressTest" assertions="0" time="0.001139">
+          <skipped/>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\AbraFlexi\Reminder\UpominacTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" tests="13" assertions="32" errors="0" failures="0" skipped="10" time="0.152684">
+        <testcase name="testGetCustomersDebts" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="51" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001463">
+          <skipped/>
+        </testcase>
+        <testcase name="testEverythingPaidOff" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="62" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001491">
+          <skipped/>
+        </testcase>
+        <testcase name="testEnableCustomer" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="73" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001536">
+          <skipped/>
+        </testcase>
+        <testcase name="testProcessAllDebts" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="84" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001357">
+          <skipped/>
+        </testcase>
+        <testcase name="testProcessUserDebts" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="95" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001406">
+          <skipped/>
+        </testcase>
+        <testcase name="testGetCustomerScore" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="106" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001725">
+          <skipped/>
+        </testcase>
+        <testcase name="testPosliUpominku" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="117" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001376">
+          <skipped/>
+        </testcase>
+        <testcase name="testProcessNotifyModules" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="128" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001398">
+          <skipped/>
+        </testcase>
+        <testcase name="testProcessModules" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="139" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001501">
+          <skipped/>
+        </testcase>
+        <testcase name="testGetEvidenceDebts" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="148" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="2" time="0.086691"/>
+        <testcase name="testGetAllDebts" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="163" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="29" time="0.050199"/>
+        <testcase name="testGetCustomerList" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="179" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="0" time="0.001668">
+          <skipped/>
+        </testcase>
+        <testcase name="testFormatTotals" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominacTest.php" line="188" class="Tests\AbraFlexi\Reminder\UpominacTest" classname="Tests.AbraFlexi.Reminder.UpominacTest" assertions="1" time="0.000874"/>
+      </testsuite>
+      <testsuite name="Tests\AbraFlexi\Reminder\UpominkaTest" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominkaTest.php" tests="5" assertions="3" errors="0" failures="0" skipped="3" time="0.006885">
+        <testcase name="testLoadTemplate" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominkaTest.php" line="51" class="Tests\AbraFlexi\Reminder\UpominkaTest" classname="Tests.AbraFlexi.Reminder.UpominkaTest" assertions="0" time="0.001424">
+          <skipped/>
+        </testcase>
+        <testcase name="testDebtAmount" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominkaTest.php" line="60" class="Tests\AbraFlexi\Reminder\UpominkaTest" classname="Tests.AbraFlexi.Reminder.UpominkaTest" assertions="2" time="0.000941"/>
+        <testcase name="testGetSums" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominkaTest.php" line="72" class="Tests\AbraFlexi\Reminder\UpominkaTest" classname="Tests.AbraFlexi.Reminder.UpominkaTest" assertions="1" time="0.001073"/>
+        <testcase name="testQrPayments" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominkaTest.php" line="90" class="Tests\AbraFlexi\Reminder\UpominkaTest" classname="Tests.AbraFlexi.Reminder.UpominkaTest" assertions="0" time="0.001387">
+          <skipped/>
+        </testcase>
+        <testcase name="testFormatCurrency" file="/home/vitex/Projects/VitexSoftware/abraflexi-reminder/tests/AbraFlexi/Reminder/UpominkaTest.php" line="101" class="Tests\AbraFlexi\Reminder\UpominkaTest" classname="Tests.AbraFlexi.Reminder.UpominkaTest" assertions="0" time="0.002060">
+          <skipped/>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
