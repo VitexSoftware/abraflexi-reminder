@@ -9,11 +9,17 @@ require_once '/usr/share/php/Symfony/Component/Mailer/autoload.php';
 require_once '/usr/share/php/Symfony/Component/Mime/autoload.php';
 
 spl_autoload_register(function (string $class): void {
-    $prefix = 'AbraFlexi\\Reminder\\';
-    if (str_starts_with($class, $prefix)) {
-        $file = '/usr/lib/abraflexi-reminder/Reminder/' . str_replace('\\', '/', substr($class, strlen($prefix))) . '.php';
-        if (file_exists($file)) {
-            require $file;
+    // php-hspdev-huaweiapi (needed by abraflexi-reminder-huaweiapi) ships no autoloader of its own
+    $prefixes = [
+        'AbraFlexi\\Reminder\\' => '/usr/lib/abraflexi-reminder/Reminder/',
+        'HSPDev\\HuaweiApi\\' => '/usr/share/php/HuaweiApi/HSPDev/HuaweiApi/',
+    ];
+    foreach ($prefixes as $prefix => $baseDir) {
+        if (str_starts_with($class, $prefix)) {
+            $file = $baseDir . str_replace('\\', '/', substr($class, strlen($prefix))) . '.php';
+            if (file_exists($file)) {
+                require $file;
+            }
         }
     }
 });

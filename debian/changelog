@@ -1,3 +1,14 @@
+abraflexi-reminder (1.7.10) unstable; urgency=medium
+
+  * fix(debian): map HSPDev\HuaweiApi\ to /usr/share/php/HuaweiApi/HSPDev/HuaweiApi/
+    in debian/autoload.php; php-hspdev-huaweiapi ships no autoloader, so the
+    SMS notifier crashed with 'Class HSPDev\HuaweiApi\Router not found'.
+  * fix(Upominac): an exception in one notifier (e.g. a missing library of an
+    optional package) is now logged as an error and counted instead of
+    aborting the whole run and leaving the remaining customers unreminded.
+
+ -- vitex <info@vitexsoftware.cz>  Mon, 19 Oct 2026 15:00:00 +0200
+
 abraflexi-reminder (1.7.9) unstable; urgency=medium
 
   * fix(debian): load the Ease and EaseHtml Debian autoloaders from

@@ -432,7 +432,14 @@ class Upominac extends \AbraFlexi\RW
             $class = 'AbraFlexi\\Reminder\\Notifier\\'.$notifierClass;
 
             if (class_exists($class)) {
-                $result[$notifierClass] = new $class($this, $score, $debts);
+                // One broken channel (e.g. a missing library of an optional package) must not
+                // abort the whole run and leave the remaining customers unreminded.
+                try {
+                    $result[$notifierClass] = new $class($this, $score, $debts);
+                } catch (\Throwable $exc) {
+                    $this->addStatusMessage(sprintf(_('Notifier %s failed: %s'), $notifierClass, $exc->getMessage()), 'error');
+                    ++$this->errorCount;
+                }
             }
         }
 
