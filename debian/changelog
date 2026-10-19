@@ -1,3 +1,13 @@
+abraflexi-reminder (1.7.9) unstable; urgency=medium
+
+  * fix(debian): load the Ease and EaseHtml Debian autoloaders from
+    debian/autoload.php. With notifiers working again (1.7.8) the e-mail
+    notifier crashed with 'Class Ease\Html\HtmlTag not found' in
+    RemindMailer, because the packaged autoloader never loaded EaseHtml
+    and AbraFlexi/AbraFlexiBricks do not pull it in.
+
+ -- vitex <info@vitexsoftware.cz>  Mon, 19 Oct 2026 14:45:00 +0200
+
 abraflexi-reminder (1.7.8) unstable; urgency=medium
 
   * fix(Upominac): stop discovering notifier classes (ByEmail, ByDatovka,

@@ -1,6 +1,8 @@
 <?php
 
 require_once '/usr/share/php/Composer/InstalledVersions.php';
+require_once '/usr/share/php/Ease/autoload.php';
+require_once '/usr/share/php/EaseHtml/autoload.php';
 require_once '/usr/share/php/AbraFlexi/autoload.php';
 require_once '/usr/share/php/AbraFlexiBricks/autoload.php';
 require_once '/usr/share/php/Symfony/Component/Mailer/autoload.php';
