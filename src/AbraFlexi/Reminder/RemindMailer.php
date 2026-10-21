@@ -270,6 +270,26 @@ class RemindMailer extends \Ease\Sand
     }
 
     /**
+     * Split comma separated address list into unique Address objects.
+     *
+     * @return Address[]
+     */
+    private function parseAddresses(string $list): array
+    {
+        $addresses = [];
+
+        foreach (explode(',', $list) as $address) {
+            $address = trim($address);
+
+            if ($address !== '') {
+                $addresses[strtolower($address)] = Address::create($address);
+            }
+        }
+
+        return array_values($addresses);
+    }
+
+    /**
      * Builds the body of the mail.
      */
     public function finalize(): void
@@ -280,12 +300,10 @@ class RemindMailer extends \Ease\Sand
             $this->email->from(Address::create($this->fromEmailAddress));
         }
 
+        // finalize() may run repeatedly (e.g. getCurrentMailSize()), so replace
+        // recipients instead of appending to avoid duplicated addresses.
         if (!empty($this->emailAddress)) {
-            foreach (explode(',', $this->emailAddress) as $address) {
-                if (trim($address) !== '') {
-                    $this->email->addTo(Address::create(trim($address)));
-                }
-            }
+            $this->email->to(...$this->parseAddresses($this->emailAddress));
         }
 
         if (!empty($this->emailSubject)) {
@@ -293,19 +311,11 @@ class RemindMailer extends \Ease\Sand
         }
 
         if (isset($this->mailHeaders['Cc'])) {
-            foreach (explode(',', $this->mailHeaders['Cc']) as $address) {
-                if (trim($address) !== '') {
-                    $this->email->addCc(Address::create(trim($address)));
-                }
-            }
+            $this->email->cc(...$this->parseAddresses($this->mailHeaders['Cc']));
         }
 
         if (isset($this->mailHeaders['Bcc'])) {
-            foreach (explode(',', $this->mailHeaders['Bcc']) as $address) {
-                if (trim($address) !== '') {
-                    $this->email->addBcc(Address::create(trim($address)));
-                }
-            }
+            $this->email->bcc(...$this->parseAddresses($this->mailHeaders['Bcc']));
         }
 
         if (isset($this->mailHeaders['Reply-To'])) {
