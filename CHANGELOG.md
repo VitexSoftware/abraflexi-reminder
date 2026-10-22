@@ -5,6 +5,11 @@ All notable changes to AbraFlexi Reminder will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.12] - 2026-10-22
+
+### Fixed
+- Customers got the same reminder every day: the "already sent" decision relied only on the `UPOMINKA*` labels of the address-book record, which are cleared between runs by other tools. The level to send is now derived from the reminder dates stored on the invoices (`datUp1`, `datUp2`, `datSmir`, which are now loaded with the debts), the labels remain a fallback. Consecutive reminders to one customer are at least 7 days apart and nothing is sent after the 3rd (`datSmir`) one
+
 ## [1.7.11] - 2026-10-21
 
 ### Fixed

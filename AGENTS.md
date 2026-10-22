@@ -54,6 +54,13 @@ throws `TypeError` in `Relation::fromTypDokl(null)`. Therefore:
 `score` = integer weeks overdue. Threshold for `NEPLATIC` and `ByServiceToggle`
 activation is `score >= 3`.
 
+### Reminder gating
+`Upominac::calculateReminderLevel()` decides what is due. What was already sent is read
+from `datUp1`/`datUp2`/`datSmir` on the unpaid invoices (labels `UPOMINKA1-3` are only a
+fallback — other tools clear them between runs). Next level = `min(overdue level, sent level + 1)`,
+at least 7 days after the last reminder; nothing is sent after level 3. Empty
+`AbraFlexi\Date` objects (`isNull`) must be ignored — they hold "now".
+
 ### Notifier interface
 ```php
 interface notifier {

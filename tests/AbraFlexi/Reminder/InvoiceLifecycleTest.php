@@ -107,14 +107,14 @@ class InvoiceLifecycleTest extends IntegrationTestCase
     }
 
     /**
-     * Customer with UPOMINKA1+2+3 and overdue invoice → score stays at 3 (already reminded).
+     * Customer with UPOMINKA1+2+3 and overdue invoice → nothing more is due (already reminded).
      */
-    public function testAllLabelsSetScoreThree(): void
+    public function testAllLabelsSetNothingMoreDue(): void
     {
         self::createOverdueInvoice(daysOverdue: 15);
         self::setCustomerLabels(['UPOMINKA1', 'UPOMINKA2', 'UPOMINKA3']);
         $score = self::$upominac->getCustomerScore(self::$customerId);
-        $this->assertSame(3, $score);
+        $this->assertSame(0, $score);
     }
 
     /**

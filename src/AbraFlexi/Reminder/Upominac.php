@@ -244,64 +244,59 @@ class Upominac extends \AbraFlexi\RW
         $reminderLevel = self::calculateReminderLevel($clientDebts, $stitky);
 
         if ($reminderLevel > 0 && (array_sum($ddifs) > 0) && \count($invoicesToSave)) {
-            if (!\array_key_exists('UPOMINKA'.$reminderLevel, $stitky)) {
-                if (!\array_key_exists('NEUPOMINAT', $stitky)) {
-                    $report['remindsSent'] = $this->posliUpominku($reminderLevel, $clientDebts);
-                    $report['notifiedVia'] = self::successfulNotifiers($report['remindsSent']);
+            if (!\array_key_exists('NEUPOMINAT', $stitky)) {
+                $report['remindsSent'] = $this->posliUpominku($reminderLevel, $clientDebts);
+                $report['notifiedVia'] = self::successfulNotifiers($report['remindsSent']);
 
-                    if (!empty($report['notifiedVia'])) {
-                        foreach ($invoicesToSave as $invoiceCode => $invoiceData) {
-                            switch ($reminderLevel) {
-                                case 1:
-                                    $colname = 'datUp1';
+                if (!empty($report['notifiedVia'])) {
+                    foreach ($invoicesToSave as $invoiceCode => $invoiceData) {
+                        switch ($reminderLevel) {
+                            case 1:
+                                $colname = 'datUp1';
 
-                                    break;
-                                case 2:
-                                    $colname = 'datUp2';
+                                break;
+                            case 2:
+                                $colname = 'datUp2';
 
-                                    break;
-                                case 3:
-                                    $colname = 'datSmir';
+                                break;
+                            case 3:
+                                $colname = 'datSmir';
 
-                                    break;
+                                break;
 
-                                default:
-                                    $colname = 'poznam';
+                            default:
+                                $colname = 'poznam';
 
-                                    break;
-                            }
-
-                            $invoiceData[$colname] = \AbraFlexi\Date::timestampToFlexiDate(time());
-
-                            if ($colname === 'poznam') {
-                                $invoiceData[$colname] = 'Inventarizace:'.$invoiceData[$colname];
-                            }
-
-                            // 'evidence' only selects the target evidence for setEvidence();
-                            // it is not a real AbraFlexi column and must not be sent as data,
-                            // or AbraFlexi rejects the whole save and the date is never written.
-                            $invoiceEvidence = $invoiceData['evidence'];
-                            unset($invoiceData['evidence']);
-
-                            $this->invoicer->setEvidence($invoiceEvidence);
-
-                            if ($this->invoicer->insertToAbraFlexi($invoiceData)) {
-                                $this->addStatusMessage(sprintf(_('%s %s remind %s date saved'), $invoiceEvidence, $invoiceCode, $colname), 'info');
-                            } else {
-                                $this->addStatusMessage(sprintf(_('%s %s remind %s date save failed'), $invoiceEvidence, $invoiceCode, $colname), 'error');
-                                ++$this->errorCount;
-                            }
-
-                            $report['changed'] = $colname;
+                                break;
                         }
+
+                        $invoiceData[$colname] = \AbraFlexi\Date::timestampToFlexiDate(time());
+
+                        if ($colname === 'poznam') {
+                            $invoiceData[$colname] = 'Inventarizace:'.$invoiceData[$colname];
+                        }
+
+                        // 'evidence' only selects the target evidence for setEvidence();
+                        // it is not a real AbraFlexi column and must not be sent as data,
+                        // or AbraFlexi rejects the whole save and the date is never written.
+                        $invoiceEvidence = $invoiceData['evidence'];
+                        unset($invoiceData['evidence']);
+
+                        $this->invoicer->setEvidence($invoiceEvidence);
+
+                        if ($this->invoicer->insertToAbraFlexi($invoiceData)) {
+                            $this->addStatusMessage(sprintf(_('%s %s remind %s date saved'), $invoiceEvidence, $invoiceCode, $colname), 'info');
+                        } else {
+                            $this->addStatusMessage(sprintf(_('%s %s remind %s date save failed'), $invoiceEvidence, $invoiceCode, $colname), 'error');
+                            ++$this->errorCount;
+                        }
+
+                        $report['changed'] = $colname;
                     }
-                } else {
-                    $this->addStatusMessage(_('Remind send disbled'));
-                    $report['message'] = _('Remind send disbled');
                 }
             } else {
-                $this->addStatusMessage(sprintf(_('Remind %d already sent'), $reminderLevel));
-                $report['message'] = sprintf(_('Remind %d already sent'), $reminderLevel);
+                $this->addStatusMessage(_('Remind send disbled'));
+                $report['message'] = _('Remind send disbled');
             }
         } else {
             $this->addStatusMessage(_('No debts to remind'), 'debug');
@@ -498,6 +493,13 @@ class Upominac extends \AbraFlexi\RW
 
         if ($this->invoicer->getColumnInfo('stavMailK', $evidence)) {
             $colsToGet[] = 'stavMailK';
+        }
+
+        // Dates of already sent reminders decide whether (and which) reminder is due now
+        foreach (['datUp1', 'datUp2', 'datSmir'] as $reminderDateColumn) {
+            if ($this->invoicer->getColumnInfo($reminderDateColumn, $evidence)) {
+                $colsToGet[] = $reminderDateColumn;
+            }
         }
 
         $this->invoicer->defaultUrlParams['order'] = 'datVyst@A';
@@ -839,39 +841,98 @@ class Upominac extends \AbraFlexi\RW
     }
 
     /**
-     * Calculate reminder level based on debts and customer labels.
-     *
-     * @param array $debts  Customer's debts
-     * @param array $stitky Customer's labels
-     *
-     * @return int Reminder level (1, 2, or 3)
+     * Minimal number of days between two reminders sent to the same customer.
      */
-    private static function calculateReminderLevel(array $debts, array $stitky): int
+    public const REMINDER_INTERVAL_DAYS = 7;
+
+    /**
+     * Calculate the reminder level due today (0 = nothing to send).
+     *
+     * What was already sent is taken from the reminder dates stored on the invoices
+     * (datUp1, datUp2, datSmir), with the customer's UPOMINKA labels as a fallback.
+     * The labels alone are not reliable - they can be cleared by other tools between runs,
+     * which used to cause the same reminder to be sent every day.
+     *
+     * The next level is sent only when the invoices are overdue enough for it and at least
+     * REMINDER_INTERVAL_DAYS passed since the previous reminder.
+     *
+     * @param array              $debts  Customer's debts
+     * @param array              $stitky Customer's labels
+     * @param \DateTimeInterface $today  Reference day (for testing)
+     *
+     * @return int Reminder level (0, 1, 2 or 3)
+     */
+    public static function calculateReminderLevel(array $debts, array $stitky, ?\DateTimeInterface $today = null): int
     {
-        $reminderLevel = 0;
+        $today = \DateTimeImmutable::createFromInterface($today ?? new \DateTimeImmutable())->setTime(0, 0);
+        $overdueLevel = 0;
+        $sentLevel = 0;
+        $lastSent = null;
 
-        if (!empty($debts)) {
-            foreach ($debts as $debt) {
-                $overdueDays = FakturaVydana::overdueDays($debt['datSplat']);
+        foreach ($debts as $debt) {
+            $overdueDays = FakturaVydana::overdueDays($debt['datSplat']);
 
-                if ($overdueDays > 14) {
-                    $reminderLevel = max($reminderLevel, 3);
-                } elseif ($overdueDays > 7) {
-                    $reminderLevel = max($reminderLevel, 2);
-                } elseif ($overdueDays >= 1) {
-                    $reminderLevel = max($reminderLevel, 1);
+            if ($overdueDays > 14) {
+                $overdueLevel = max($overdueLevel, 3);
+            } elseif ($overdueDays > 7) {
+                $overdueLevel = max($overdueLevel, 2);
+            } elseif ($overdueDays >= 1) {
+                $overdueLevel = max($overdueLevel, 1);
+            }
+
+            foreach ([1 => 'datUp1', 2 => 'datUp2', 3 => 'datSmir'] as $level => $column) {
+                $sentOn = self::parseDate($debt[$column] ?? null);
+
+                if ($sentOn !== null) {
+                    $sentLevel = max($sentLevel, $level);
+
+                    if ($lastSent === null || $sentOn > $lastSent) {
+                        $lastSent = $sentOn;
+                    }
                 }
             }
         }
 
-        if ($reminderLevel === 3 && !\array_key_exists('UPOMINKA2', $stitky)) {
-            $reminderLevel = 2;
+        foreach ([1, 2, 3] as $level) {
+            if (\array_key_exists('UPOMINKA'.$level, $stitky)) {
+                $sentLevel = max($sentLevel, $level);
+            }
         }
 
-        if (!empty($debts) && !\array_key_exists('UPOMINKA1', $stitky)) {
-            $reminderLevel = 1;
+        $level = min($overdueLevel, $sentLevel + 1);
+
+        if ($level <= $sentLevel) {
+            return 0;
         }
 
-        return $reminderLevel;
+        if ($lastSent !== null && $lastSent->diff($today)->days < self::REMINDER_INTERVAL_DAYS) {
+            return 0;
+        }
+
+        return $level;
+    }
+
+    /**
+     * Parse AbraFlexi date value (e.g. "2026-10-22+02:00") to a day; null when empty.
+     *
+     * @param mixed $value
+     */
+    private static function parseDate($value): ?\DateTimeImmutable
+    {
+        if ($value instanceof \AbraFlexi\Date && $value->isNull) {
+            return null; // an empty AbraFlexi date object holds "now", not a real date
+        }
+
+        if ($value instanceof \DateTimeInterface) {
+            return \DateTimeImmutable::createFromInterface($value)->setTime(0, 0);
+        }
+
+        $value = trim((string) $value);
+
+        if ($value === '' || !preg_match('/^\d{4}-\d{2}-\d{2}/', $value)) {
+            return null;
+        }
+
+        return new \DateTimeImmutable(substr($value, 0, 10));
     }
 }
