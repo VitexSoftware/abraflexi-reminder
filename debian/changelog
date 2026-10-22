@@ -1,3 +1,13 @@
+abraflexi-reminder (1.7.12) unstable; urgency=medium
+
+  * fix(reminder): the same reminder was sent to customers every day because
+    the "already sent" check relied only on UPOMINKA* labels that get cleared
+    between runs. The level is now derived from datUp1/datUp2/datSmir on the
+    invoices (labels remain a fallback) and reminders are sent at least 7 days
+    apart; nothing is sent after the 3rd one.
+
+ -- vitex <info@vitexsoftware.cz>  Thu, 22 Oct 2026 12:00:00 +0200
+
 abraflexi-reminder (1.7.11) unstable; urgency=medium
 
   * fix(email): recipients in To/Cc were repeated several times because
